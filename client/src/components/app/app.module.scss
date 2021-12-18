@@ -1,0 +1,13 @@
+.main {
+    height: 100px;
+    background-color: green;
+}
+
+.second {
+    background-color: red;
+
+    &_small {
+        background-color: black;
+        color: white;
+    }
+}

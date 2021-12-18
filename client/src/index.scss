@@ -1,7 +1,29 @@
-@import "~bootstrap/scss/bootstrap";
+// bs vars
+$font-family-base: 'Poppins', sans-serif;
 
-div {
-    .ppp {
-        margin: 0;
-    }
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1254px,
+    //xxl: 1400px
+);
+
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1194px,
+    //xxl: 1320px
+);
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+body {
+    //@include media-breakpoint-up(sm) { ... }
+    //@include media-breakpoint-up(md) { ... }
+    //@include media-breakpoint-up(lg) { ... }
+    //@include media-breakpoint-up(xl) { ... }
+    //@include media-breakpoint-up(xxl) { ... }
 }
