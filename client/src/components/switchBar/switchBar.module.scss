@@ -1,6 +1,8 @@
+@import "utils";
+
 .toggle {
     background-color: transparent !important;
-    color: #000 !important;
+    color: $purple !important;
     border-color: transparent !important;
     box-shadow: none !important;
 }
