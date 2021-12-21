@@ -1,0 +1,26 @@
+@import "utils";
+
+.c-lang-bar__toggle {
+    font-size: 12px;
+    font-family: $c-font-family-second;
+    background-color: transparent !important;
+    border-radius: 0;
+    color: $gray-600 !important;
+    border-color: $gray-200 !important;
+    padding: 10px 20px;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+    font-weight: 700;
+}
+
+.c-lang-bar__menu {
+    padding: 0;
+}
+
+.c-lang-bar__item {
+    &.active,
+    &:active {
+        background-color: $c-color1;
+    }
+}

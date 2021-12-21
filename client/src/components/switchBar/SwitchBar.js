@@ -1,24 +1,16 @@
-import React, {useState} from 'react';
-import {Container, Row, Col, Dropdown} from "react-bootstrap";
-import style from './switchBar.module.scss';
+import React from 'react';
+import {Container, Row, Col} from "react-bootstrap";
+import './switchBar.scss';
+import LangBar from "../langBar";
 
 const SwitchBar = () => {
-  const currencyArray = ['USD', 'EUR', 'RUB']
 
-  const [currency, setCurrency] = useState(currencyArray[0]);
 
   return (
     <Container>
       <Row>
         <Col>
-          <Dropdown onSelect={(eventKey) => setCurrency(eventKey)}>
-            <Dropdown.Toggle className={style.toggle}>{currency}</Dropdown.Toggle>
-            <Dropdown.Menu>
-              {
-                currencyArray.map((cur) => <Dropdown.Item key={cur} eventKey={cur} active={cur === currency}>{cur}</Dropdown.Item>)
-              }
-            </Dropdown.Menu>
-          </Dropdown>
+          <LangBar/>
         </Col>
       </Row>
     </Container>
