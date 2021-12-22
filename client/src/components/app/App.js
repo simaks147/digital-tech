@@ -1,9 +1,13 @@
 import React from 'react';
 import SwitchBar from "../switchBar";
+import MainBar from "../mainBar";
 
 
 const App = () => (
-  <SwitchBar />
+  <>
+    <SwitchBar />
+    <MainBar />
+  </>
 );
 
 export default App;
