@@ -1,0 +1,47 @@
+@import "utils";
+
+.c-slider {
+    color: white;
+
+    //.carousel-inner {
+        //height: 100%;
+
+    //}
+    &__item {
+        padding: 10%;
+        //padding: 104px;
+        text-transform: uppercase;
+        //height: 100%;
+        //height: 35vw;
+        max-height: 500px;
+
+
+    }
+    &__item-sub-title {
+        font-size: 32px;
+        font-weight: 700;
+        line-height: .6;
+    }
+    &__item-title {
+        font-size: 90px;
+        font-weight: 700;
+        line-height: 1.3;
+    }
+    &__item-text {
+        font-size: 12px;
+        text-transform: none;
+        max-width: 40%;
+    }
+    &__item-button {
+        font-size: 18px;
+        text-transform: uppercase;
+        background-color: $c-color1;
+        margin-top: 20px;
+    }
+    &__item-price {
+
+    }
+    &__item-action-price {
+
+    }
+}
