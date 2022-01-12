@@ -1,11 +1,11 @@
 import React from 'react';
 import {Container, Row, Col} from "react-bootstrap";
-import './switchBar.scss';
+import styles from './switchBar.module.css';
 import LangBar from "../langBar";
 
 const SwitchBar = () => {
   return (
-    <div className="c-switch-bar">
+    <div className={styles.section}>
       <Container>
         <Row className={'justify-content-between align-items-center'}>
           <Col xs={1}>

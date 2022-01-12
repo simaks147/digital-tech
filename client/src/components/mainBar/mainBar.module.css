@@ -1,0 +1,28 @@
+.section{
+    border-bottom: 2px solid var(--bs-gray-200);
+}
+
+.brand {
+     font-size: 28px;
+ }
+
+.search:focus {
+     border-color: var(--bs-gray-600);
+     box-shadow: none;
+ }
+
+.search::placeholder {
+     font-size: 12px;
+     text-align: right;
+ }
+
+.basket {
+     width: 190px;
+     height: 92px;
+ }
+
+@media (min-width: 768px) {
+    .search {
+        margin: 14px 0;
+    }
+}

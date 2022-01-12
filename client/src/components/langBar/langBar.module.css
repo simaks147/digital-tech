@@ -1,0 +1,17 @@
+.toggle {
+    font-size: 12px;
+    font-family: var(--c-font-family-second);
+    background-color: transparent !important;
+    border-radius: 0;
+    color: var(--bs-gray-600) !important;
+    border-color: var(--bs-gray-200) !important;
+    padding: 10px 20px;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+    font-weight: 700;
+}
+
+.menu {
+    padding: 0;
+}

@@ -1,20 +1,20 @@
 import React from 'react';
 import {Button, Carousel, Container} from "react-bootstrap";
-import fixtures from "./fixtures";
-import './Slider.scss'
+import {sliders} from "../../fixtures";
+import styles from './slider.module.css'
 
 const Slider = () => {
   return (
     <div>
       <Container>
-        <Carousel className='c-slider' wrap={false}>
+        <Carousel className={styles.section} wrap={false}>
           {
-            fixtures.map(item => (
-              <Carousel.Item key={item.id} className='c-slider__item' style={{backgroundColor: item.bg}}>
-                <div className="c-slider__item-sub-title">{item.subTitle}</div>
-                <div className="c-slider__item-title">{item.title}</div>
-                <div className="c-slider__item-text">{item.text}</div>
-                <Button className="c-slider__item-button">Shop Now!</Button>
+            sliders.map(item => (
+              <Carousel.Item key={item.id} className={styles.item} style={{backgroundColor: item.bg}}>
+                <div className={styles.itemSubTitle}>{item.subTitle}</div>
+                <div className={styles.itemTitle}>{item.title}</div>
+                <div className={styles.itemText}>{item.text}</div>
+                <Button className={styles.itemButton}>Shop Now!</Button>
                 {/*<img src={item.img} alt=""/>*/}
               </Carousel.Item>
             ))

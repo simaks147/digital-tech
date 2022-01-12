@@ -1,0 +1,40 @@
+.section {
+    color: white;
+}
+
+.item {
+    padding: 10%;
+    /*padding: 104px;*/
+    text-transform: uppercase;
+    /*height: 100%;*/
+    /*height: 35vw;*/
+    max-height: 500px;
+}
+
+.itemSubTitle {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: .6;
+}
+.itemTitle {
+    font-size: 90px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+.itemText {
+    font-size: 12px;
+    text-transform: none;
+    max-width: 40%;
+}
+.itemButton {
+    font-size: 18px;
+    text-transform: uppercase;
+    background-color: var(--c-color1);
+    margin-top: 20px;
+}
+.itemPrice {
+
+}
+.itemActionPrice {
+
+}

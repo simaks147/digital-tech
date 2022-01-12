@@ -1,0 +1,9 @@
+:root {
+    --bs-font-sans-serif: 'Poppins', sans-serif;
+    --c-font-family-second: 'Montserrat', sans-serif;
+    --c-color1: #ff7519;
+}
+
+body {
+    font-size: 14px;
+}

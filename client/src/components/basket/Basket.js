@@ -1,23 +1,24 @@
 import React from 'react';
-import './basket.scss';
+import cn from 'classnames';
+import styles from './basket.module.css';
 import {Container, Row, Col} from "react-bootstrap";
 import {ReactComponent as Icon} from '../../icons/Cart-icon.svg';
 
 
 const Basket = ({className}) => {
   return (
-    <div className={`c-basket ${className}`}>
+    <div className={cn(styles.section, className)}>
       <Container>
         <Row className={'justify-content-center align-content-center'}>
           <Col xs={'auto'}>
-            <div className={'c-basket__inner'}>
+            <div className={styles.sectionInner}>
               <Icon/>
-              <div className={'c-basket__count'}>2</div>
+              <div className={styles.count}>2</div>
             </div>
           </Col>
           <Col xs={'auto'}>
-            <div className={'c-basket__title'}>Your Cart</div>
-            <div className={'c-basket__total'}>$234,90</div>
+            <div className={styles.title}>Your Cart</div>
+            <div className={styles.total}>$234,90</div>
           </Col>
         </Row>
       </Container>
