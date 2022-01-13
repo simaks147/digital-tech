@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Dropdown} from "react-bootstrap";
 import styles from './langBar.module.css';
-import './langBar.css';
 
 const LangBar = () => {
   const currencyArray = ['USD', 'EUR', 'RUB']

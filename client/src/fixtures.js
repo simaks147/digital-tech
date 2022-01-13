@@ -35,51 +35,61 @@ const category_list = [
   {
     id: '111',
     img: './img/Chair-icon.svg',
+    title: 'Category1',
     subcategory: ['Subcategory 1','Subcategory 2','Subcategory 3']
   },
   {
     id: '222',
     img: './img/Dels-icon.svg',
+    title: 'Category2',
     subcategory: ['Subcategory 1','Subcategory 2','Subcategory 3']
   },
   {
     id: '333',
     img: './img/Gadget-icon.svg',
+    title: 'Category3',
     subcategory: ['Subcategory 1','Subcategory 2','Subcategory 3']
   },
   {
     id: '444',
     img: './img/Heel-icon.svg',
+    title: 'Category4',
     subcategory: ['Subcategory 1','Subcategory 2','Subcategory 3']
   },
   {
     id: '555',
     img: './img/Helmet-icon.svg',
+    title: 'Category5',
     subcategory: ['Subcategory 1','Subcategory 2','Subcategory 3']
   },
   {
     id: '666',
     img: './img/Laptop-icon.svg',
+    title: 'Category6',
     subcategory: ['Subcategory 1','Subcategory 2','Subcategory 3']
   },
   {
     id: '777',
     img: './img/Pot-icon.svg',
+    title: 'Category7',
     subcategory: ['Subcategory 1','Subcategory 2','Subcategory 3']
   },
   {
     id: '888',
     img: './img/Recorder-icon.svg',
+    title: 'Category8',
     subcategory: ['Subcategory 1','Subcategory 2','Subcategory 3']
   },
   {
     id: '999',
     img: './img/Tv-icon.svg',
+    title: 'Category9',
     subcategory: ['Subcategory 1','Subcategory 2','Subcategory 3']
   },
   {
     id: '122',
     img: './img/Shoes-icon.svg',
+    title: 'Category10',
     subcategory: ['Subcategory 1','Subcategory 2','Subcategory 3']
   },
 ]

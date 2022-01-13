@@ -15,3 +15,8 @@
 .menu {
     padding: 0;
 }
+
+:global(.dropdown-item.active),
+:global(.dropdown-item:active) {
+    background-color: var(--c-color1);
+}
