@@ -3,15 +3,18 @@ import SwitchBar from "../switchBar";
 import MainBar from "../mainBar";
 import Slider from "../slider";
 import CategoryList from "../categoryList";
+import {BrowserRouter} from "react-router-dom";
+import AppRouter from "../AppRouter";
 
 
 const App = () => (
-  <>
-    <SwitchBar />
-    <MainBar />
-    <CategoryList/>
-    <Slider />
-  </>
+  <BrowserRouter>
+    {/*<SwitchBar />*/}
+    {/*<MainBar />*/}
+    {/*<CategoryList/>*/}
+    {/*<Slider />*/}
+    <AppRouter/>
+  </BrowserRouter>
 );
 
 export default App;
