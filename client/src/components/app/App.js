@@ -1,7 +1,6 @@
 import React from 'react';
 import SwitchBar from "../switchBar";
 import MainBar from "../mainBar";
-import Slider from "../slider";
 import CategoryList from "../categoryList";
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "../AppRouter";
@@ -9,9 +8,9 @@ import AppRouter from "../AppRouter";
 
 const App = () => (
   <BrowserRouter>
-    {/*<SwitchBar />*/}
-    {/*<MainBar />*/}
-    {/*<CategoryList/>*/}
+    <SwitchBar />
+    <MainBar />
+    <CategoryList/>
     {/*<Slider />*/}
     <AppRouter/>
   </BrowserRouter>

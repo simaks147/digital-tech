@@ -27,7 +27,7 @@ export const publicRoutes = [
     Component: Auth
   },
   {
-    path: CATEGORY_ROUTE,
+    path: CATEGORY_ROUTE + '/:title',
     Component: Category
   },
   {
