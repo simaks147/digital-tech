@@ -17,8 +17,8 @@ const CategoryItem = ({item}) => {
       </Dropdown.Toggle>
       <Dropdown.Menu>
         {
-          item.subcategory.map((subc, i) =>
-            <Dropdown.Item as={Link} className={styles.subcategory} key={i} to={CATEGORY_ROUTE + '/' + subc}>{subc}</Dropdown.Item>)
+          item.subcategory.map(subc =>
+            <Dropdown.Item as={Link} className={styles.subcategory} key={subc.id} to={CATEGORY_ROUTE + '/' + subc.slug}>{subc.title}</Dropdown.Item>)
         }
       </Dropdown.Menu>
     </Dropdown>
