@@ -264,4 +264,26 @@ const category_list = [
   }
 ]
 
-export {sliders, category_list};
+const products = [
+  {
+    id: '111_1_1',
+    subcategoryId: '111_1',
+    img: '/iphone.png',
+    title: 'Iphone 1',
+    slug: 'iphone-1_1',
+    subTitle: 'white',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    price: 420,
+  },{
+    id: '111_1_2',
+    subcategoryId: '111_1',
+    img: '/iphone.png',
+    title: 'Iphone 2',
+    slug: 'iphone-1_2',
+    subTitle: 'black',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    price: 230,
+  }
+]
+
+export {sliders, category_list, products};
