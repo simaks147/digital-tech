@@ -15,7 +15,7 @@
     color: var(--c-color1);
 }
 
-:global(.show) .itemTitle {
+:global(.show).item .itemTitle {
     color: var(--c-color1);
 }
 
@@ -33,22 +33,22 @@
      background-color: var(--c-color1);
  }
 
-:global(.dropdown-toggle) {
+.item :global(.dropdown-toggle) {
     text-align: center;
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
 
-:global(.dropdown-menu) {
+.item :global(.dropdown-menu) {
     padding: 0;
 }
 
-:global(.dropdown-toggle:after) {
+.item :global(.dropdown-toggle:after) {
     display: none;
 }
 
-:global(.show) svg path {
-    fill: var(--c-color1) !important;
+:global(.show).item svg path {
+    fill: var(--c-color1);
 }
 
 /*svg:hover path {*/
@@ -56,5 +56,5 @@
 /*}*/
 
 .item:hover svg path {
-    fill: var(--c-color1) !important;
+    fill: var(--c-color1);
 }

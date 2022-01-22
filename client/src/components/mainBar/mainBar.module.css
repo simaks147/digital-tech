@@ -4,7 +4,13 @@
 
 .brand {
      font-size: 28px;
+    color: black;
+    text-decoration: none;
  }
+
+.brand:hover {
+    color: black;
+}
 
 .search:focus {
      border-color: var(--bs-gray-600);

@@ -9,10 +9,28 @@
     --bs-font-sans-serif: 'Poppins', sans-serif;
     --c-font-family-second: 'Montserrat', sans-serif;
     --c-color1: #ff7519;
+    --c-color2: #eb6003;
 }
 
 body {
     font-size: 14px;
+    color: var(--bs-gray-700);
+}
+
+
+.c-button,
+.c-button:hover,
+.c-button:active,
+.c-button:focus {
+    text-transform: uppercase;
+    background-color: var(--c-color1);
+    border: none;
+}
+
+.c-button:hover,
+.c-button:active,
+.c-button:focus {
+    background-color: var(--c-color2);
 }
 
 

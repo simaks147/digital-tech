@@ -11,7 +11,7 @@ const ProductList = () => {
         <Row xs={1}>
           {
             products.map(product => (
-                <Col>
+                <Col key={product.id} className='my-3'>
                   <ProductItem product={product}/>
                 </Col>
               )
