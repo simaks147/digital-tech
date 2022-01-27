@@ -1,19 +1,24 @@
 import React from 'react';
+import {connect} from "react-redux";
 import {Nav} from "react-bootstrap";
-import {category_list} from "../../fixtures";
 import styles from './categoryList.module.css'
 import CategoryItem from "./categoryItem";
+import {categoriesListSelector} from "../../redux/selectors";
 
-const CategoryList = () => {
+const CategoryList = ({categories}) => {
   return (
     <div>
         <Nav className={styles.nav}>
           {
-            category_list.map((item, i) => <CategoryItem key={i} item={item}/>)
+            categories.map((item, i) => <CategoryItem key={i} item={item}/>)
           }
         </Nav>
     </div>
   );
 };
 
-export default CategoryList;
+const mapStateToProps = (state, props) => ({
+  categories: categoriesListSelector(state)
+});
+
+export default connect(mapStateToProps)(CategoryList);

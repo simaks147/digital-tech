@@ -31,7 +31,7 @@ const sliders = [
   },
 ]
 
-const category_list = [
+const categories = [
   {
     id: '111',
     img: './img/Chair-icon.svg',
@@ -286,4 +286,4 @@ const products = [
   }
 ]
 
-export {sliders, category_list, products};
+export {sliders, categories, products};

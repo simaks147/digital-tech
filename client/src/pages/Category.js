@@ -3,9 +3,7 @@ import ProductList from "../components/productList";
 
 const Category = () => {
   return (
-    <div>
-      <ProductList/>
-    </div>
+    <ProductList/>
   );
 };
 
