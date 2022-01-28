@@ -33,6 +33,12 @@ export const productsIdsByCategorySelector = createSelector(
     .map(prod => prod.id)
 );
 
+export const productIdBySlugSelector = createSelector(
+  productsListSelector,
+  (state, props) => props.match.params.slug,
+  (products, slug) => products.find(prod => prod.slug === slug).id
+);
+
 
 
 

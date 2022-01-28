@@ -5,17 +5,15 @@ import styles from './categoryList.module.css'
 import CategoryItem from "./categoryItem";
 import {categoriesListSelector} from "../../redux/selectors";
 
-const CategoryList = ({categories}) => {
-  return (
-    <div>
-        <Nav className={styles.nav}>
-          {
-            categories.map((item, i) => <CategoryItem key={i} item={item}/>)
-          }
-        </Nav>
-    </div>
-  );
-};
+const CategoryList = ({categories}) => (
+  <div>
+    <Nav className={styles.nav}>
+      {
+        categories.map((item, i) => <CategoryItem key={i} item={item}/>)
+      }
+    </Nav>
+  </div>
+);
 
 const mapStateToProps = (state, props) => ({
   categories: categoriesListSelector(state)

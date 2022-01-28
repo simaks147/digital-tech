@@ -1,14 +1,14 @@
 import {BASKET_ROUTE, HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, CATEGORY_ROUTE, PRODUCT_ROUTE} from "./utils/consts";
-import Basket from "./pages/Basket";
-import Home from "./pages/Home";
-import Auth from "./pages/Auth";
-import Category from "./pages/Category";
-import Product from "./pages/Product";
+import BasketPage from "./pages/BasketPage";
+import HomePage from "./pages/HomePage";
+import AuthPage from "./pages/AuthPage";
+import CategoryPage from "./pages/CategoryPage";
+import ProductPage from "./pages/ProductPage";
 
 export const authRoutes = [
   {
     path: BASKET_ROUTE,
-    Component: Basket
+    Component: BasketPage
   }
 ]
 
@@ -16,23 +16,23 @@ export const publicRoutes = [
   {
 
     path: HOME_ROUTE,
-    Component: Home
+    Component: HomePage
   },
   {
     path: LOGIN_ROUTE,
-    Component: Auth
+    Component: AuthPage
   },
   {
     path: REGISTRATION_ROUTE,
-    Component: Auth
+    Component: AuthPage
   },
   {
     path: CATEGORY_ROUTE + '/:slug',
-    Component: Category
+    Component: CategoryPage
   },
   {
     path: PRODUCT_ROUTE + '/:slug',
-    Component: Product
+    Component: ProductPage
   },
 ]
 

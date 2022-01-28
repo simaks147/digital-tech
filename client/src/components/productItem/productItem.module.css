@@ -1,11 +1,18 @@
 .main {
     border: 1px solid var(--bs-gray-300);
+    text-decoration: none;
+    color: currentColor;
+    display: block;
+}
+
+.main:hover {
+    color: currentColor;
 }
 
 .main :global(.figure) {
     margin-bottom: 0;
     border-right: 1px solid var(--bs-gray-300);
-
+    height: 100%;
 }
 
 .main :global(.figure) img {

@@ -5,10 +5,11 @@ import Figure from 'react-bootstrap/Figure'
 import Button from 'react-bootstrap/Button'
 import styles from './productItem.module.css';
 import {productSelector} from "../../redux/selectors";
+import {Link} from "react-router-dom";
 
 
 const ProductItem = ({product}) => (
-  <div className={styles.main}>
+  <Link className={styles.main} to={`/product/${product.slug}`}>
     <Row>
       <Col xs='auto'>
         <Figure>
@@ -31,7 +32,7 @@ const ProductItem = ({product}) => (
         </div>
       </Col>
     </Row>
-  </div>
+  </Link>
 );
 
 const mapStateToProps = (state, props) => ({

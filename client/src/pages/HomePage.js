@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from "../components/slider";
 
 
-const Home = () => {
+const HomePage = () => {
   return (
     <div>
       <Slider/>
@@ -10,4 +10,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

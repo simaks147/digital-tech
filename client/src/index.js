@@ -4,12 +4,14 @@ import {Provider} from "react-redux";
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from "./components/app";
-import store from "./redux/store";
-
+import store, {history} from "./redux/store";
+import {ConnectedRouter} from "connected-react-router";
 
 ReactDOM.render(
   <Provider store={store}>
-    <App/>
+    <ConnectedRouter history={history}>
+      <App/>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );

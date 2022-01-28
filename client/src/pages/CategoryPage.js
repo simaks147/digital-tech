@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {Col, Container, Row} from "react-bootstrap";
 import ProductItem from "../components/productItem";
 
-const Category = ({productsIds}) => (
+const CategoryPage = ({productsIds}) => (
   <div>
     <Container>
       <Row xs={1}>
@@ -25,4 +25,4 @@ const mapStateToProps = (state, props) => ({
   productsIds: productsIdsByCategorySelector(state, props)
 })
 
-export default connect(mapStateToProps)(Category);
+export default connect(mapStateToProps)(CategoryPage);
