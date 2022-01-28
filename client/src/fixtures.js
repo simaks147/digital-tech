@@ -283,6 +283,15 @@ const products = [
     subTitle: 'black',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     price: 230,
+  },{
+    id: '111_1_3',
+    subcategoryId: '333_2',
+    img: '/iphone.png',
+    title: 'Iphone 2',
+    slug: 'iphone-1_2',
+    subTitle: 'black',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    price: 230,
   }
 ]
 

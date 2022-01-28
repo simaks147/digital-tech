@@ -1,19 +1,39 @@
 import {createSelector} from "reselect";
 
 export const categoriesSelector = (state) => state.categories;
-// const productsSelector = (state) => state.products;
+export const productsSelector = (state) => state.products;
 
-// export const productSelector = (state, props) => productsSelector
+export const productSelector = (state, {id}) => productsSelector(state)[id];
+
 
 export const categoriesListSelector = createSelector(
   categoriesSelector,
   Object.values
 );
 
-const categoryIdBySlugSelector = createSelector(
-  categoriesSelector,
-
+export const productsListSelector = createSelector(
+  productsSelector,
+  Object.values
 );
+
+
+const subcategoryBySlugSelector = createSelector(
+  categoriesListSelector,
+  (state, props) => props.match.params.slug,
+  (categories, slug) => categories
+    .flatMap(cat => cat.subcategory)
+    .find(subcat => subcat.slug === slug)
+);
+
+export const productsIdsByCategorySelector = createSelector(
+  productsListSelector,
+  subcategoryBySlugSelector,
+  (products, subcategory) => products
+    .filter(prod => prod.subcategoryId === subcategory.id)
+    .map(prod => prod.id)
+);
+
+
 
 
 

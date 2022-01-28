@@ -1,8 +1,10 @@
 import React from 'react';
+import {connect} from "react-redux";
 import {Row, Col} from "react-bootstrap";
 import Figure from 'react-bootstrap/Figure'
 import Button from 'react-bootstrap/Button'
 import styles from './productItem.module.css';
+import {productSelector} from "../../redux/selectors";
 
 
 const ProductItem = ({product}) => (
@@ -32,4 +34,8 @@ const ProductItem = ({product}) => (
   </div>
 );
 
-export default ProductItem;
+const mapStateToProps = (state, props) => ({
+  product: productSelector(state, props)
+})
+
+export default connect(mapStateToProps)(ProductItem);

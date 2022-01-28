@@ -27,11 +27,11 @@ export const publicRoutes = [
     Component: Auth
   },
   {
-    path: CATEGORY_ROUTE + '/:title',
+    path: CATEGORY_ROUTE + '/:slug',
     Component: Category
   },
   {
-    path: PRODUCT_ROUTE + '/:id',
+    path: PRODUCT_ROUTE + '/:slug',
     Component: Product
   },
 ]
