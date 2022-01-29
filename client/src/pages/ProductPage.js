@@ -5,9 +5,9 @@ import {connect} from "react-redux";
 
 const ProductPage = ({id}) => {
   return (
-    <div>
+    <>
       <Product id={id}/>
-    </div>
+    </>
   );
 };
 

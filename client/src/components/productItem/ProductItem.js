@@ -13,7 +13,7 @@ const ProductItem = ({product}) => (
     <Row>
       <Col xs='auto'>
         <Figure>
-          <Figure.Image width={260} src={process.env.PUBLIC_URL + product.img}/>
+          <Figure.Image width={260} src={process.env.PUBLIC_URL + product.img[0]}/>
         </Figure>
       </Col>
       <Col>

@@ -10,7 +10,7 @@ import {CATEGORY_ROUTE} from "../../../utils/consts"
 const CategoryItem = ({item}) => (
   <Dropdown className={styles.item}>
     <Dropdown.Toggle as={Nav.Link}>
-      <SVG src={require(`${item.img}`)}/>
+      <SVG src={process.env.PUBLIC_URL + item.img}/>
       <div className={styles.itemTitle}>{item.title}</div>
     </Dropdown.Toggle>
     <Dropdown.Menu>

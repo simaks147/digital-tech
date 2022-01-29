@@ -6,7 +6,7 @@ import styles from './slider.module.css'
 const Slider = () => (
   <div>
     <Container>
-      <Carousel className={styles.section} wrap={false}>
+      <Carousel className={styles.carousel}>
         {
           sliders.map(item => (
             <Carousel.Item key={item.id} className={styles.item} style={{backgroundColor: item.bg}}>
@@ -14,7 +14,7 @@ const Slider = () => (
               <div className={styles.itemTitle}>{item.title}</div>
               <div className={styles.itemText}>{item.text}</div>
               <Button className={styles.itemButton}>Shop Now!</Button>
-              {/*<img src={item.img} alt=""/>*/}
+              {/*<categories src={item.categories} alt=""/>*/}
             </Carousel.Item>
           ))
         }

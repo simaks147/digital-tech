@@ -1,7 +1,7 @@
 const sliders = [
   {
     id: '111',
-    img: './components/slider/img/1.png',
+    img: '/img/slider/1.png',
     bg: 'black',
     title: 'Title 1',
     subTitle: 'Sub Title 1',
@@ -11,7 +11,7 @@ const sliders = [
   },
   {
     id: '222',
-    img: './components/slider/img/2.png',
+    img: '/img/slider/2.png',
     bg: 'red',
     title: 'Title 2',
     subTitle: 'Sub Title 2',
@@ -21,7 +21,7 @@ const sliders = [
   },
   {
     id: '333',
-    img: './components/slider/img/3.png',
+    img: '/img/slider/3.png',
     bg: 'purple',
     title: 'Title 3',
     subTitle: 'Sub Title 3',
@@ -34,7 +34,7 @@ const sliders = [
 const categories = [
   {
     id: '111',
-    img: './img/Chair-icon.svg',
+    img: '/img/categories/Chair-icon.svg',
     title: 'Category 1',
     slug: 'category-1',
     subcategory: [
@@ -57,7 +57,7 @@ const categories = [
   },
   {
     id: '222',
-    img: './img/Dels-icon.svg',
+    img: '/img/categories/Dels-icon.svg',
     title: 'Category 2',
     slug: 'category-2',
     subcategory: [
@@ -80,7 +80,7 @@ const categories = [
   },
   {
     id: '333',
-    img: './img/Gadget-icon.svg',
+    img: '/img/categories/Gadget-icon.svg',
     title: 'Category 3',
     slug: 'category-3',
     subcategory: [
@@ -103,7 +103,7 @@ const categories = [
   },
   {
     id: '444',
-    img: './img/Heel-icon.svg',
+    img: '/img/categories/Heel-icon.svg',
     title: 'Category 4',
     slug: 'category-4',
     subcategory: [
@@ -126,7 +126,7 @@ const categories = [
   },
   {
     id: '555',
-    img: './img/Helmet-icon.svg',
+    img: '/img/categories/Helmet-icon.svg',
     title: 'Category 5',
     slug: 'category-5',
     subcategory: [
@@ -149,7 +149,7 @@ const categories = [
   },
   {
     id: '666',
-    img: './img/Laptop-icon.svg',
+    img: '/img/categories/Laptop-icon.svg',
     title: 'Category 6',
     slug: 'category-6',
     subcategory: [
@@ -172,7 +172,7 @@ const categories = [
   },
   {
     id: '777',
-    img: './img/Pot-icon.svg',
+    img: '/img/categories/Pot-icon.svg',
     title: 'Category 7',
     slug: 'category-7',
     subcategory: [
@@ -195,7 +195,7 @@ const categories = [
   },
   {
     id: '888',
-    img: './img/Recorder-icon.svg',
+    img: '/img/categories/Recorder-icon.svg',
     title: 'Category 8',
     slug: 'category-8',
     subcategory: [
@@ -218,7 +218,7 @@ const categories = [
   },
   {
     id: '999',
-    img: './img/Tv-icon.svg',
+    img: '/img/categories/Tv-icon.svg',
     title: 'Category 9',
     slug: 'category-9',
     subcategory: [
@@ -241,7 +241,7 @@ const categories = [
   },
   {
     id: 'aaa',
-    img: './img/Shoes-icon.svg',
+    img: '/img/categories/Shoes-icon.svg',
     title: 'Category a',
     slug: 'category-a',
     subcategory: [
@@ -268,27 +268,35 @@ const products = [
   {
     id: '111_1_1',
     subcategoryId: '111_1',
-    img: '/iphone.png',
-    title: 'Iphone 1',
-    slug: 'iphone-1_1',
+    img: [
+      '/img/products/iphone.png',
+      '/img/products/iphone4.jpg',
+      '/img/products/iphone3.png',
+      '/img/products/iphone2.png',
+    ],
+    title: 'Iphone',
+    slug: 'iphone',
     subTitle: 'white',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     price: 420,
   },{
     id: '111_1_2',
     subcategoryId: '111_1',
-    img: '/iphone.png',
-    title: 'Iphone 2',
-    slug: 'iphone-1_2',
+    img: ['/img/products/nikon.png'],
+    title: 'Nikon',
+    slug: 'nikon',
     subTitle: 'black',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     price: 230,
   },{
     id: '111_1_3',
     subcategoryId: '333_2',
-    img: '/iphone.png',
-    title: 'Iphone 2',
-    slug: 'iphone-1_2',
+    img: [
+      '/img/products/alienware.png',
+      '/img/products/alienware2.jpg'
+    ],
+    title: 'Alienware',
+    slug: 'alienware',
     subTitle: 'black',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     price: 230,
