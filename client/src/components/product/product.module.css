@@ -7,8 +7,8 @@
 }
 
 .picture {
-    height: 550px;
-    width: 520px;
+    /*height: 550px;*/
+    /*width: 520px;*/
 }
 
 .picture img {
@@ -17,6 +17,7 @@
     display: block;
     margin: auto;
     object-fit: contain;
+    object-position: top;
 }
 
 .carouselIndicatorsItem {
@@ -49,4 +50,23 @@
 
 .price {
     font-size: 35px;
+    color: black;
+    border-top: 1px solid var(--bs-gray-300);
+    border-bottom: 1px solid var(--bs-gray-300);
+    padding: 24px 0;
+    margin: 40px 0;
+    text-align: center;
+}
+
+.content :global(.btn) {
+    width: 100%;
+    line-height: 2.3;
+    font-size: 1.5rem;
+    border-bottom: 10px solid var(--c-color2);
+}
+
+@media (max-width: 767.98px) {
+    .content {
+        margin-bottom: 40px;
+    }
 }

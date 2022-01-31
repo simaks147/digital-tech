@@ -11,7 +11,7 @@ import {Link} from "react-router-dom";
 const ProductItem = ({product}) => (
   <Link className={styles.main} to={`/product/${product.slug}`}>
     <Row>
-      <Col xs='auto'>
+      <Col md='auto'>
         <Figure>
           <Figure.Image width={260} src={process.env.PUBLIC_URL + product.img[0]}/>
         </Figure>
@@ -25,7 +25,7 @@ const ProductItem = ({product}) => (
               <div className={styles.description}>{product.description}</div>
               <div className={styles.price}>${product.price}</div>
             </Col>
-            <Col xs='auto'>
+            <Col md='auto' className='mt-3 mt-md-0'>
               <Button className='c-button'>Add to cart</Button>
             </Col>
           </Row>

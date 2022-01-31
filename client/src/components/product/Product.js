@@ -1,9 +1,10 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import styles from './product.module.css';
 import {connect} from "react-redux";
 import {productSelector} from "../../redux/selectors";
 import {Carousel, Col, Container, Row} from "react-bootstrap";
 import cn from "classnames";
+import Button from "react-bootstrap/Button";
 
 
 const Product = ({product}) => {
@@ -14,7 +15,14 @@ const Product = ({product}) => {
     <div className={styles.section}>
       <Container>
         <Row>
-          <Col className='d-flex' xs={7}>
+          <Col md={{span: 5, order: 'last'}}>
+            <div className={styles.content}>
+              <div className={styles.title}>{product.title}</div>
+              <div className={styles.price}>${product.price}</div>
+              <Button className='c-button'>Buy now!</Button>
+            </div>
+          </Col>
+          <Col className='d-flex' md={7}>
             <div className={styles.carouselIndicators}>
               {
                 product.img.map((picture, i) => (
@@ -39,9 +47,6 @@ const Product = ({product}) => {
                 ))
               }
             </Carousel>
-          </Col>
-          <Col>
-
           </Col>
         </Row>
       </Container>
