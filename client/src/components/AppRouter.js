@@ -5,7 +5,7 @@ import {HOME_ROUTE} from "../utils/consts";
 
 
 const AppRouter = () => {
-  const isAuth = false;
+  const isAuth = true;
 
   return (
     <Switch>

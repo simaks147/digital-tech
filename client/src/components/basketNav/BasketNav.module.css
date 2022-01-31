@@ -1,0 +1,78 @@
+.section {
+    margin: 40px 0;
+}
+
+.sectionInner {
+    border: 1px solid var(--bs-gray-200);
+    border-radius: 7px 7px 0 0;
+    overflow: hidden;
+}
+
+.header {
+    background-color: var(--c-color3);
+    height: 80px;
+    border-bottom: 1px solid var(--bs-gray-200);
+}
+
+.title {
+    color: var(--bs-gray-500);
+    font-size: 18px;
+    font-weight: 500;
+    /*display: inline;*/
+    vertical-align: middle;
+}
+
+.header svg {
+    margin-right: 14px;
+    vertical-align: middle;
+}
+
+.header svg path {
+    fill: var(--bs-gray-500);
+}
+
+.list {
+    padding: 30px;
+
+}
+
+.list svg {
+    /*margin-right: 14px;*/
+}
+
+.list svg path {
+    fill: var(--bs-gray-400);
+}
+
+.listItem {
+    display: flex;
+    align-items: center;
+    color: var(--bs-gray-400);
+}
+
+.listItemNum {
+    width: 52px;
+    height: 52px;
+    border: 1px solid var(--bs-gray-300);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    margin-right: 20px;
+}
+
+.listItem:global(.active) .listItemNum {
+    color: white;
+    background-color: var(--c-color1);
+    border: none;
+}
+
+.listItemTitle {
+    font-size: 17px;
+}
+
+.listItem:global(.active) .listItemTitle {
+    color: var(--c-color1);
+    font-weight: 500;
+}

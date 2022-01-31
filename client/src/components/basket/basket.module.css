@@ -1,12 +1,18 @@
-.section {
+.main {
     font-family: var(--c-font-family-second);
     background-color: var(--c-color1);
     display: flex;
     align-items: center;
     color: white;
+    text-decoration: none;
 }
 
-.sectionInner {
+.main:hover {
+    color: white;
+
+}
+
+.mainInner {
      position: relative;
  }
 .count {

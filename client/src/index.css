@@ -50,6 +50,7 @@
     --c-font-family-second: 'Montserrat', sans-serif;
     --c-color1: #ff7519;
     --c-color2: #eb6003;
+    --c-color3: #fbfbfb;
 }
 
 body {
@@ -71,6 +72,24 @@ body {
 .c-button:active,
 .c-button:focus {
     background-color: var(--c-color2);
+}
+
+.c-button2,
+.c-button2:hover,
+.c-button2:active,
+.c-button2:focus {
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 2px solid var(--c-color1);
+    color: var(--c-color1);
+}
+
+.c-button2:hover,
+.c-button2:active,
+.c-button2:focus {
+    background-color: var(--c-color1);
+    color: white;
+
 }
 
 

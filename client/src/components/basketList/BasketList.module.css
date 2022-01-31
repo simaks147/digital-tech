@@ -1,0 +1,142 @@
+.section {
+    margin: 50px 0;
+}
+
+.section :global(.table) {
+    vertical-align: middle;
+    font-size: 17px;
+    margin-bottom: 0;
+}
+
+th {
+    font-weight: normal;
+    padding: 18px 0 !important;
+    text-align: center;
+
+}
+
+th:first-of-type {
+    padding-left: 40px !important;
+    text-align: left;
+}
+
+td {
+    border-top-width: 1px !important;
+    border-bottom-width: 1px !important;
+    border-top-color: var(--bs-gray-400);
+    border-bottom-color: var(--bs-gray-400);
+    padding: 24px 0 !important;
+    text-align: center;
+    font-weight: 500;
+}
+
+.itemImg {
+    width: 190px;
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+}
+
+.itemImg div {
+    width: 110px;
+    height: 110px;
+    padding: 10px;
+    border: 1px solid var(--bs-gray-400);
+}
+
+.itemImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.itemTitle {
+    width: 280px;
+    text-align: left;
+    font-size: 18px;
+}
+
+.itemCount {
+    width: 210px;
+    padding: 0 40px !important;
+}
+
+.itemCount div {
+    padding: 6px 12px;
+    border: 1px solid var(--bs-gray-400);
+    border-radius: 24px;
+}
+
+.itemCount div span {
+    vertical-align: middle;
+    padding: 0 6px;
+    font-weight: 400;
+}
+
+.itemCount div span:first-of-type,
+.itemCount div span:last-of-type {
+    font-size: 34px;
+    color: var(--bs-gray-500);
+    font-weight: 200;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.itemPrice,
+.itemTotal {
+    width: 240px;
+}
+
+.itemDel {
+    width: 90px;
+}
+
+.itemDel div {
+    width: 30px;
+    margin: auto;
+    transform: rotateZ(45deg);
+    font-size: 40px;
+    color: var(--bs-gray-500);
+    font-weight: 200;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.total {
+    background-color: var(--c-color3);
+    padding: 40px;
+    font-weight: 500;
+}
+
+.totalCaption {
+    text-transform: uppercase;
+    font-size: 17px;
+}
+
+.totalPrice {
+    color: var(--c-color1);
+    font-size: 23px;
+}
+
+.buttons {
+    text-align: right;
+    margin: 60px 0;
+}
+
+.section :global(.c-button) {
+    line-height: 2.3;
+    text-transform: none;
+    font-size: 1.1rem;
+    border-bottom: 8px solid var(--c-color2);
+    padding: 10px 60px;
+}
+
+.section :global(.c-button2) {
+    line-height: 2.5;
+    text-transform: none;
+    font-size: 1.1rem;
+    /*border-bottom: 8px solid var(--c-color2);*/
+    padding: 10px 60px;
+    margin-right: 24px;
+}
+
+

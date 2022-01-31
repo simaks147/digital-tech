@@ -2,15 +2,16 @@ import React from 'react';
 import cn from 'classnames';
 import styles from './basket.module.css';
 import {Container, Row, Col} from "react-bootstrap";
-import {ReactComponent as Icon} from '../../icons/Cart-icon.svg';
+import {ReactComponent as Icon} from '../../icons/cart-icon.svg';
+import {Link} from "react-router-dom";
 
 
 const Basket = ({className}) => (
-  <div className={cn(styles.section, className)}>
+  <Link to='/basket' className={cn(styles.main, className)}>
     <Container>
       <Row className={'justify-content-center align-content-center'}>
         <Col xs={'auto'}>
-          <div className={styles.sectionInner}>
+          <div className={styles.mainInner}>
             <Icon/>
             <div className={styles.count}>2</div>
           </div>
@@ -21,7 +22,7 @@ const Basket = ({className}) => (
         </Col>
       </Row>
     </Container>
-  </div>
+  </Link>
 );
 
 export default Basket;
