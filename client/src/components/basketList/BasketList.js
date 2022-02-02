@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './BasketList.module.css';
 import {Container, Row, Col, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import {Link} from "react-router-dom";
 
 
 const BasketList = () => (
@@ -59,7 +60,7 @@ const BasketList = () => (
         </Row>
       </div>
       <div className={styles.buttons}>
-        <Button className='c-button2'>Continue Shopping</Button>
+        <Button className='c-button2' as={Link} to='/'>Continue Shopping</Button>
         <Button className='c-button'>Process Checkout</Button>
       </div>
     </Container>

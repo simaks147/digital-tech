@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import Nav from 'react-bootstrap/Nav'
 import styles from "./categoryItem.module.css";
@@ -16,7 +16,7 @@ const CategoryItem = ({item}) => (
     <Dropdown.Menu>
       {
         item.subcategory.map(subc =>
-          <Dropdown.Item as={Link} className={styles.subcategory} key={subc.id}
+          <Dropdown.Item as={NavLink} className={styles.subcategory} activeClassName="active" key={subc.id}
                          to={CATEGORY_ROUTE + '/' + subc.slug}>{subc.title}</Dropdown.Item>)
       }
     </Dropdown.Menu>
