@@ -1,13 +1,13 @@
 .main {
     border: 1px solid var(--bs-gray-300);
-    text-decoration: none;
-    color: currentColor;
-    display: block;
+    /*text-decoration: none;*/
+    /*color: currentColor;*/
+    /*display: block;*/
 }
 
-.main:hover {
-    color: currentColor;
-}
+/*.main:hover {*/
+/*    color: currentColor;*/
+/*}*/
 
 .main :global(.figure) {
     margin-bottom: 0;
@@ -19,11 +19,25 @@
     margin-bottom: 0;
 }
 
+.picture {
+    display: block;
+}
+
 .content {
     padding-top: 30px;
     padding-bottom: 30px;
     padding-left: 10px;
     padding-right: 20px;
+}
+
+.info {
+    display: block;
+    text-decoration: none;
+    color: currentColor;
+}
+
+.info:hover {
+    color: currentColor;
 }
 
 .title {

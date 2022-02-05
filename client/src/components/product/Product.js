@@ -5,9 +5,10 @@ import {productSelector} from "../../redux/selectors";
 import {Carousel, Col, Container, Row} from "react-bootstrap";
 import cn from "classnames";
 import Button from "react-bootstrap/Button";
+import {increaseCart} from "../../redux/actions";
 
 
-const Product = ({product}) => {
+const Product = ({product, increaseCart}) => {
   const [carouselIndex, setCarouselIndex] = useState(0);
   const handleSelectCarouselItem = (activeIndex) => setCarouselIndex(activeIndex);
 
@@ -19,7 +20,7 @@ const Product = ({product}) => {
             <div className={styles.content}>
               <div className={styles.title}>{product.title}</div>
               <div className={styles.price}>${product.price}</div>
-              <Button className='c-button'>Buy now!</Button>
+              <Button className='c-button' onClick={increaseCart}>Buy now!</Button>
             </div>
           </Col>
           <Col className='d-flex' md={7}>
@@ -58,4 +59,8 @@ const mapStateToProps = (state, props) => ({
   product: productSelector(state, props)
 })
 
-export default connect(mapStateToProps)(Product);
+const mapDispatchToProps = (dispatch, props) => ({
+  increaseCart: () => dispatch(increaseCart(props.id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
