@@ -24,7 +24,6 @@
 /*@media (min-width: 1400px) { ... }*/
 
 
-
 /*// Устройства X-Small (портретные телефоны, менее 576 пикселей)*/
 /*@media (max-width: 575.98px) { ... }*/
 
@@ -44,7 +43,6 @@
 /*// Нет медиа-запроса, так как контрольная точка xxl не имеет верхней границы ширины*/
 
 
-
 :root {
     --bs-font-sans-serif: 'Poppins', sans-serif;
     --c-font-family-second: 'Montserrat', sans-serif;
@@ -59,10 +57,7 @@ body {
 }
 
 
-.c-button,
-.c-button:hover,
-.c-button:active,
-.c-button:focus {
+.c-button {
     text-transform: uppercase;
     background-color: var(--c-color1);
     border: none;
@@ -70,14 +65,13 @@ body {
 
 .c-button:hover,
 .c-button:active,
+.c-button.active,
 .c-button:focus {
     background-color: var(--c-color2);
+    box-shadow: none;
 }
 
-.c-button2,
-.c-button2:hover,
-.c-button2:active,
-.c-button2:focus {
+.c-button2 {
     text-transform: uppercase;
     background-color: transparent;
     border: 2px solid var(--c-color1);
@@ -86,12 +80,13 @@ body {
 
 .c-button2:hover,
 .c-button2:active,
+.c-button2.active,
 .c-button2:focus {
     background-color: var(--c-color1);
     color: white;
-
+    border-color: var(--c-color1);
+    box-shadow: none;
 }
-
 
 
 @media (min-width: 1200px) {
