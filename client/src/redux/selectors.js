@@ -1,8 +1,11 @@
 import {createSelector} from "reselect";
 
-export const categoriesSelector = (state) => state.categories;
+export const categoriesSelector = (state) => state.categories.entities;
 export const productsSelector = (state) => state.products;
 export const orderSelector = (state) => state.order;
+
+export const loadingCategoriesSelector = (state) => state.categories.loading;
+export const loadedCategoriesSelector = (state) => state.categories.loaded;
 
 export const productSelector = (state, {id}) => productsSelector(state)[id];
 
