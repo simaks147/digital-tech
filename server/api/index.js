@@ -6,17 +6,21 @@ router.get('/categories', (req, res, next) => {
   reply(res, categories);
 });
 
-// router.get('/products', (req, res, next) => {
-//   const { id } = req.query;
-//   let result = products;
-//   if (id) {
-//     const restaurant = getById(restaurants)(id);
-//     if (restaurant) {
-//       result = restaurant.menu.map(getById(result));
-//     }
-//   }
-//   reply(res, result);
-// });
+router.get('/products', (req, res, next) => {
+  const { categoryId } = req.query;
+
+  const result = products.filter(product => product.subcategoryId === categoryId);
+
+  reply(res, result);
+});
+
+router.get('/product', (req, res, next) => {
+  const { id } = req.query;
+
+  const result = products.find(product => product.id === id);
+
+  reply(res, result);
+});
 
 // router.get('/reviews', (req, res, next) => {
 //   const { id } = req.query;

@@ -1,11 +1,14 @@
 import {createSelector} from "reselect";
 
 export const categoriesSelector = (state) => state.categories.entities;
-export const productsSelector = (state) => state.products;
+export const productsSelector = (state) => state.products.entities;
 export const orderSelector = (state) => state.order;
 
 export const loadingCategoriesSelector = (state) => state.categories.loading;
 export const loadedCategoriesSelector = (state) => state.categories.loaded;
+
+export const loadingCategoryProductsSelector = (state, {categoryId}) => state.products.loading[categoryId];
+export const loadedCategoryProductsSelector = (state, {categoryId}) => state.products.loaded[categoryId];
 
 export const productSelector = (state, {id}) => productsSelector(state)[id];
 
@@ -30,7 +33,7 @@ export const orderCountSelector = createSelector(
   order => order.reduce((acc, item) => acc + item[1], 0 )
 );
 
-const subcategoryBySlugSelector = createSelector(
+export const subcategoryBySlugSelector = createSelector(
   categoriesListSelector,
   (state, props) => props.match.params.slug,
   (categories, slug) => categories

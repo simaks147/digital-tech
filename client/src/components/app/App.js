@@ -15,7 +15,7 @@ const App = ({loadCategories, loading, loaded}) => {
   }, [loadCategories, loading, loaded]);
 
   if (loading) return (
-    <Spinner animation="border" role="status" className='categories-loader'>
+    <Spinner animation="border" role="status" className='c-loader'>
       <span className="visually-hidden">Loading...</span>
     </Spinner>
   )

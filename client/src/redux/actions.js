@@ -3,7 +3,9 @@ import {
   DECREASE_CART,
   REMOVE_FROM_CART,
   MAKE_ORDER,
-  LOAD_CATEGORIES
+  LOAD_CATEGORIES,
+  LOAD_PRODUCTS,
+  LOAD_PRODUCT
 } from "./consts";
 
 export const increaseCart = (id) => ({
@@ -28,4 +30,16 @@ export const makeOrder = () => ({
 export const loadCategories = () => ({
   type: LOAD_CATEGORIES,
   CallApi: '/api/categories'
+});
+
+export const loadProducts = (categoryId) => ({
+  type: LOAD_PRODUCTS,
+  CallApi: `/api/products?categoryId=${categoryId}`,
+  categoryId
+});
+
+export const loadProduct = (id) => ({
+  type: LOAD_PRODUCT,
+  CallApi: `/api/product?id=${id}`,
+  id
 });
