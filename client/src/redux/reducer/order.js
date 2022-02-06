@@ -1,7 +1,8 @@
 import {
   INCREASE_CART,
   DECREASE_CART,
-  REMOVE_FROM_CART
+  REMOVE_FROM_CART,
+  MAKE_ORDER
 } from "../consts";
 
 import produce from "immer";
@@ -26,6 +27,9 @@ export default (state = {}, action) =>
       case REMOVE_FROM_CART:
         delete draft[id];
         break;
+
+      case MAKE_ORDER:
+        return {};
 
       default:
         return;

@@ -1,7 +1,8 @@
 import {
   INCREASE_CART,
   DECREASE_CART,
-  REMOVE_FROM_CART
+  REMOVE_FROM_CART,
+  MAKE_ORDER
 } from "./consts";
 
 export const increaseCart = (id) => ({
@@ -17,4 +18,8 @@ export const decreaseCart = (id) => ({
 export const removeFromCart = (id) => ({
   type: REMOVE_FROM_CART,
   id
+});
+
+export const makeOrder = () => ({
+  type: MAKE_ORDER,
 });

@@ -6,16 +6,17 @@ import {
   decreaseCart,
   removeFromCart
 } from "../../../redux/actions";
+import {Link} from "react-router-dom";
 
 const BasketItem = ({item, increaseCart, decreaseCart, removeFromCart}) => (
   <tr key={item.id}>
     <td className={styles.picture}>
-      <div>
+      <Link to={`/product/${item.slug}`}>
         <img src={process.env.PUBLIC_URL + item.img[0]} alt=""/>
-      </div>
+      </Link>
     </td>
     <td className={styles.title}>
-      {item.title}
+      <Link to={`/product/${item.slug}`}>{item.title}</Link>
     </td>
     <td className={styles.count}>
       <div>
@@ -24,12 +25,8 @@ const BasketItem = ({item, increaseCart, decreaseCart, removeFromCart}) => (
         <span onClick={increaseCart}>+</span>
       </div>
     </td>
-    <td className={styles.price}>
-      ${item.price}
-    </td>
-    <td className={styles.total}>
-      ${item.subtotal}
-    </td>
+    <td className={styles.price}>${item.price}</td>
+    <td className={styles.total}>${item.subtotal}</td>
     <td className={styles.del}>
       <div onClick={removeFromCart}>+</div>
     </td>

@@ -14,7 +14,8 @@ td {
     padding-right: 40px !important;
 }
 
-.picture div {
+.picture a {
+    display: block;
     width: 110px;
     height: 110px;
     padding: 10px;
@@ -31,6 +32,15 @@ td {
     width: 280px;
     text-align: left;
     font-size: 18px;
+}
+
+.title a {
+    text-decoration: none;
+    color: currentColor;
+}
+
+.title a:hover {
+    color: var(--c-color1);
 }
 
 .count {

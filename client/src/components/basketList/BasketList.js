@@ -6,9 +6,11 @@ import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {orderProductsSelector, orderTotalSelector} from "../../redux/selectors";
+import {makeOrder} from "../../redux/actions";
 
 
-const BasketList = ({order, total}) => {
+const BasketList = ({order, total, makeOrder}) => {
+
   return (
     <div className={styles.section}>
       <Container>
@@ -45,7 +47,7 @@ const BasketList = ({order, total}) => {
 
         <div className={styles.buttons}>
           <Button className='c-button2' as={Link} to='/'>Continue Shopping</Button>
-          <Button className='c-button'>Process Checkout</Button>
+          <Button className='c-button' onClick={makeOrder}>Process Checkout</Button>
         </div>
       </Container>
     </div>
@@ -57,4 +59,4 @@ const mapStateToProps = (state, props) => ({
   total: orderTotalSelector(state, props)
 });
 
-export default connect(mapStateToProps)(BasketList);
+export default connect(mapStateToProps, {makeOrder})(BasketList);
