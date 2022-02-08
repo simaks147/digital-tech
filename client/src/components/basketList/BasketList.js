@@ -10,6 +10,7 @@ import {makeOrder} from "../../redux/actions";
 
 
 const BasketList = ({order, total, makeOrder}) => {
+  console.log(order);
 
   return (
     <div className={styles.section}>

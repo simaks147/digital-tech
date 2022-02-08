@@ -34,9 +34,9 @@ const BasketItem = ({item, increaseCart, decreaseCart, removeFromCart}) => (
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
-  increaseCart: () => dispatch(increaseCart(props.item.id)),
-  decreaseCart: () => dispatch(decreaseCart(props.item.id)),
-  removeFromCart: () => dispatch(removeFromCart(props.item.id))
+  increaseCart: () => dispatch(increaseCart(props.item.slug)),
+  decreaseCart: () => dispatch(decreaseCart(props.item.slug)),
+  removeFromCart: () => dispatch(removeFromCart(props.item.slug))
 });
 
 export default connect(null, mapDispatchToProps)(BasketItem);
