@@ -7,9 +7,9 @@ router.get('/categories', (req, res, next) => {
 });
 
 router.get('/products', (req, res, next) => {
-  const { categoryId } = req.query;
+  const { subcategoryId } = req.query;
 
-  const result = products.filter(product => product.subcategoryId === categoryId);
+  const result = products.filter(product => product.subcategoryId === subcategoryId);
 
   reply(res, result);
 });
@@ -17,7 +17,7 @@ router.get('/products', (req, res, next) => {
 router.get('/product', (req, res, next) => {
   const { id } = req.query;
 
-  const result = products.find(product => product.id === id);
+  const result = products.find(product => product.slug === id);
 
   reply(res, result);
 });

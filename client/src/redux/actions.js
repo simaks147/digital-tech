@@ -32,10 +32,10 @@ export const loadCategories = () => ({
   CallApi: '/api/categories'
 });
 
-export const loadProducts = (categoryId) => ({
+export const loadProducts = (id) => ({
   type: LOAD_PRODUCTS,
-  CallApi: `/api/products?categoryId=${categoryId}`,
-  categoryId
+  CallApi: `/api/products?subcategoryId=${id}`,
+  id
 });
 
 export const loadProduct = (id) => ({

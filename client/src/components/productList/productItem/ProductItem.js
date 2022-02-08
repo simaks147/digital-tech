@@ -4,9 +4,9 @@ import {Row, Col} from "react-bootstrap";
 import Figure from 'react-bootstrap/Figure';
 import Button from 'react-bootstrap/Button';
 import styles from './productItem.module.css';
-import {productSelector} from "../../redux/selectors";
+import {productSelector} from "../../../redux/selectors";
 import {Link} from "react-router-dom";
-import {increaseCart} from "../../redux/actions";
+import {increaseCart} from "../../../redux/actions";
 
 
 const ProductItem = ({product, increaseCart}) => (

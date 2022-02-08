@@ -1,18 +1,12 @@
 import React from 'react';
-import {productIdBySlugSelector} from "../redux/selectors";
 import Product from "../components/product";
-import {connect} from "react-redux";
 
-const ProductPage = ({id}) => {
+const ProductPage = ({match}) => {
   return (
     <>
-      <Product id={id}/>
+      <Product id={match.params.slug}/>
     </>
   );
 };
 
-const mapStateToProps = (state, props) => ({
-  id: productIdBySlugSelector(state, props)
-})
-
-export default connect(mapStateToProps)(ProductPage);
+export default ProductPage;

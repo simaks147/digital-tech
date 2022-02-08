@@ -29,6 +29,15 @@ const BasketNav = () => (
           <Col>
             <div className={styles.listItem}>
               <div className={styles.listItemNum}>2</div>
+              <div className={styles.listItemTitle}>Checkout</div>
+            </div>
+          </Col>
+          <Col>
+            <ArrowIcon/>
+          </Col>
+          <Col>
+            <div className={styles.listItem}>
+              <div className={styles.listItemNum}>3</div>
               <div className={styles.listItemTitle}>Completed</div>
             </div>
           </Col>

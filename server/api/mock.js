@@ -39,17 +39,14 @@ const categories = [
     slug: 'category-1',
     subcategory: [
       {
-        id: '111_1',
         title: 'Subcategory 111_1',
         slug: 'subcategory-111-1'
       },
       {
-        id: '111_2',
         title: 'Subcategory 111_2',
         slug: 'subcategory-111-2'
       },
       {
-        id: '111_3',
         title: 'Subcategory 111_3',
         slug: 'subcategory-111-3'
       },
@@ -62,17 +59,14 @@ const categories = [
     slug: 'category-2',
     subcategory: [
       {
-        id: '222_1',
         title: 'Subcategory 222_1',
         slug: 'subcategory-222-1'
       },
       {
-        id: '222_2',
         title: 'Subcategory 222_2',
         slug: 'subcategory-222-2'
       },
       {
-        id: '222_3',
         title: 'Subcategory 222_3',
         slug: 'subcategory-222-3'
       },
@@ -85,17 +79,14 @@ const categories = [
     slug: 'category-3',
     subcategory: [
       {
-        id: '333_1',
         title: 'Subcategory 333_1',
         slug: 'subcategory-333-1'
       },
       {
-        id: '333_2',
         title: 'Subcategory 333_2',
         slug: 'subcategory-333-2'
       },
       {
-        id: '333_3',
         title: 'Subcategory 333_3',
         slug: 'subcategory-333-3'
       },
@@ -108,17 +99,14 @@ const categories = [
     slug: 'category-4',
     subcategory: [
       {
-        id: '444_1',
         title: 'Subcategory 444_1',
         slug: 'subcategory-444-1'
       },
       {
-        id: '444_2',
         title: 'Subcategory 444_2',
         slug: 'subcategory-444-2'
       },
       {
-        id: '444_3',
         title: 'Subcategory 444_3',
         slug: 'subcategory-444-3'
       },
@@ -131,17 +119,14 @@ const categories = [
     slug: 'category-5',
     subcategory: [
       {
-        id: '555_1',
         title: 'Subcategory 555_1',
         slug: 'subcategory-555-1'
       },
       {
-        id: '555_2',
         title: 'Subcategory 555_2',
         slug: 'subcategory-555-2'
       },
       {
-        id: '555_3',
         title: 'Subcategory 555_3',
         slug: 'subcategory-555-3'
       },
@@ -154,17 +139,14 @@ const categories = [
     slug: 'category-6',
     subcategory: [
       {
-        id: '666_1',
         title: 'Subcategory 666_1',
         slug: 'subcategory-666-1'
       },
       {
-        id: '666_2',
         title: 'Subcategory 666_2',
         slug: 'subcategory-666-2'
       },
       {
-        id: '666_3',
         title: 'Subcategory 666_3',
         slug: 'subcategory-666-3'
       },
@@ -177,17 +159,14 @@ const categories = [
     slug: 'category-7',
     subcategory: [
       {
-        id: '777_1',
         title: 'Subcategory 777_1',
         slug: 'subcategory-777-1'
       },
       {
-        id: '777_2',
         title: 'Subcategory 777_2',
         slug: 'subcategory-777-2'
       },
       {
-        id: '777_3',
         title: 'Subcategory 777_3',
         slug: 'subcategory-777-3'
       },
@@ -200,17 +179,14 @@ const categories = [
     slug: 'category-8',
     subcategory: [
       {
-        id: '888_1',
         title: 'Subcategory 888_1',
         slug: 'subcategory-888-1'
       },
       {
-        id: '888_2',
         title: 'Subcategory 888_2',
         slug: 'subcategory-888-2'
       },
       {
-        id: '888_3',
         title: 'Subcategory 888_3',
         slug: 'subcategory-888-3'
       },
@@ -223,17 +199,14 @@ const categories = [
     slug: 'category-9',
     subcategory: [
       {
-        id: '999_1',
         title: 'Subcategory 999_1',
         slug: 'subcategory-999-1'
       },
       {
-        id: '999_2',
         title: 'Subcategory 999_2',
         slug: 'subcategory-999-2'
       },
       {
-        id: '999_3',
         title: 'Subcategory 999_3',
         slug: 'subcategory-999-3'
       },
@@ -246,17 +219,14 @@ const categories = [
     slug: 'category-a',
     subcategory: [
       {
-        id: 'aaa_1',
         title: 'Subcategory aaa_1',
         slug: 'subcategory-aaa-1'
       },
       {
-        id: 'aaa_2',
         title: 'Subcategory aaa_2',
         slug: 'subcategory-aaa-2'
       },
       {
-        id: 'aaa_3',
         title: 'Subcategory aaa_3',
         slug: 'subcategory-aaa-3'
       },
@@ -267,7 +237,7 @@ const categories = [
 const products = [
   {
     id: '111_1_1',
-    subcategoryId: '111_1',
+    subcategoryId: 'subcategory-111-1',
     img: [
       '/img/products/iphone.png',
       '/img/products/iphone4.jpg',
@@ -281,7 +251,7 @@ const products = [
     price: 420,
   },{
     id: '111_1_2',
-    subcategoryId: '111_1',
+    subcategoryId: 'subcategory-111-1',
     img: ['/img/products/nikon.png'],
     title: 'Nikon',
     slug: 'nikon',
@@ -290,7 +260,7 @@ const products = [
     price: 230,
   },{
     id: '111_1_3',
-    subcategoryId: '333_2',
+    subcategoryId: 'subcategory-333-2',
     img: [
       '/img/products/alienware.png',
       '/img/products/alienware2.jpg'

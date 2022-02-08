@@ -16,7 +16,7 @@ const CategoryItem = ({item}) => (
     <Dropdown.Menu>
       {
         item.subcategory.map(subc =>
-          <Dropdown.Item as={NavLink} className={styles.subcategory} activeClassName="active" key={subc.id}
+          <Dropdown.Item as={NavLink} className={styles.subcategory} activeClassName="active" key={subc.slug}
                          to={CATEGORY_ROUTE + '/' + subc.slug}>{subc.title}</Dropdown.Item>)
       }
     </Dropdown.Menu>

@@ -11,29 +11,37 @@ import {
 
 const initialState = {
   entities: {},
-  loading: {},
-  loaded: {},
+  loading: false,
+  loaded: false,
   error: null
 }
 
 export default (state = initialState, action) =>
   produce(state, draft => {
-    const {type, id, categoryId, data, error} = action;
+    const {type, id, data, error} = action;
 
     switch (type) {
       case LOAD_PRODUCTS + REQUEST:
-        draft.loading[categoryId] = true;
+      case LOAD_PRODUCT + REQUEST:
+        draft.loading = true;
         break;
 
       case LOAD_PRODUCTS + SUCCESS:
-        draft.loading[categoryId] = false;
-        draft.loaded[categoryId] = true;
-        draft.entities[categoryId] = arrToMap(data)
+        draft.loading = false;
+        draft.loaded = true;
+        draft.entities = {...draft.entities, ...arrToMap(data)};
+        break;
+
+      case LOAD_PRODUCT + SUCCESS:
+        draft.loading = false;
+        draft.loaded = true;
+        draft.entities[id] = data;
         break;
 
       case LOAD_PRODUCTS + FAILURE:
-        draft.loading.categories[categoryId] = false;
-        draft.loaded.categories[categoryId] = false;
+      case LOAD_PRODUCT + FAILURE:
+        draft.loading = false;
+        draft.loaded = false;
         draft.error = error;
         break;
 

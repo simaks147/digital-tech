@@ -3,12 +3,14 @@ import { connectRouter } from 'connected-react-router'
 import categories from "./categories";
 import products from "./products";
 import order from "./order";
+import subcategories from "./subcategories";
 
 const createRootReducer = (history) => combineReducers({
   router: connectRouter(history),
   categories,
   products,
-  order
+  order,
+  subcategories
 });
 
 export default createRootReducer;

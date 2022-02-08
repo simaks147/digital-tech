@@ -3,12 +3,13 @@ import {createSelector} from "reselect";
 export const categoriesSelector = (state) => state.categories.entities;
 export const productsSelector = (state) => state.products.entities;
 export const orderSelector = (state) => state.order;
+export const subcategoriesSelector = (state) => state.subcategories;
 
 export const loadingCategoriesSelector = (state) => state.categories.loading;
 export const loadedCategoriesSelector = (state) => state.categories.loaded;
 
-export const loadingCategoryProductsSelector = (state, {categoryId}) => state.products.loading[categoryId];
-export const loadedCategoryProductsSelector = (state, {categoryId}) => state.products.loaded[categoryId];
+export const loadingProductsSelector = (state) => state.products.loading;
+export const loadedProductsSelector = (state) => state.products.loaded;
 
 export const productSelector = (state, {id}) => productsSelector(state)[id];
 
@@ -28,31 +29,17 @@ export const orderListSelector = createSelector(
   Object.entries
 );
 
+export const productsIdsByCategorySelector = createSelector(
+  productsListSelector,
+  (state, props) => props.subcategoryId,
+  (products, subcategoryId) => products
+    .filter(prod => prod.subcategoryId === subcategoryId)
+    .map(prod => prod.slug)
+);
+
 export const orderCountSelector = createSelector(
   orderListSelector,
   order => order.reduce((acc, item) => acc + item[1], 0 )
-);
-
-export const subcategoryBySlugSelector = createSelector(
-  categoriesListSelector,
-  (state, props) => props.match.params.slug,
-  (categories, slug) => categories
-    .flatMap(cat => cat.subcategory)
-    .find(subcat => subcat.slug === slug)
-);
-
-export const productsIdsByCategorySelector = createSelector(
-  productsListSelector,
-  subcategoryBySlugSelector,
-  (products, subcategory) => products
-    .filter(prod => prod.subcategoryId === subcategory.id)
-    .map(prod => prod.id)
-);
-
-export const productIdBySlugSelector = createSelector(
-  productsListSelector,
-  (state, props) => props.match.params.slug,
-  (products, slug) => products.find(prod => prod.slug === slug).id
 );
 
 export const orderProductsSelector = createSelector(
