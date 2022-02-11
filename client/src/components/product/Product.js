@@ -14,11 +14,10 @@ import Spinner from "react-bootstrap/Spinner";
 import {loadProduct} from "../../redux/actions";
 
 
-const Product = ({id, product, increaseCart, loadProduct, loading, loaded}) => {
+const Product = ({product, increaseCart, loadProduct, loading, loaded}) => {
   useEffect(() => {
-    if (!loading && !loaded)
       loadProduct();
-  }, [loadProduct, loading, loaded]);
+  }, [loadProduct]);
 
   const [carouselIndex, setCarouselIndex] = useState(0);
   const handleSelectCarouselItem = (activeIndex) => setCarouselIndex(activeIndex);

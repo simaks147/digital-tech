@@ -1,7 +1,4 @@
 import React, {useEffect} from 'react';
-import SwitchBar from "../switchBar";
-import MainBar from "../mainBar";
-import CategoryList from "../categoryList";
 import AppRouter from "../AppRouter";
 import {loadedCategoriesSelector, loadingCategoriesSelector} from "../../redux/selectors";
 import {connect} from "react-redux";
@@ -24,9 +21,6 @@ const App = ({loadCategories, loading, loaded}) => {
 
   return (
     <>
-      <SwitchBar />
-      <MainBar />
-      <CategoryList/>
       <AppRouter/>
     </>
   );

@@ -5,8 +5,16 @@ import {
   MAKE_ORDER,
   LOAD_CATEGORIES,
   LOAD_PRODUCTS,
-  LOAD_PRODUCT
+  LOAD_PRODUCT,
+  SET_ACTIVE_CATEGORIES
 } from "./consts";
+import {
+  activeCategoryBySubcategorySelector,
+  activeSubCategoryByProductSelector,
+  loadingProductsSelector,
+  loadedProductsSelector,
+  subcategoriesSelector,
+} from "./selectors";
 
 export const increaseCart = (id) => ({
   type: INCREASE_CART,
@@ -27,19 +35,55 @@ export const makeOrder = () => ({
   type: MAKE_ORDER,
 });
 
+export const _setActiveCategory = (subcategoryId, categoryId) => ({
+  type: SET_ACTIVE_CATEGORIES,
+  subcategoryId,
+  categoryId
+});
+
 export const loadCategories = () => ({
   type: LOAD_CATEGORIES,
   CallApi: '/api/categories'
 });
 
-export const loadProducts = (id) => ({
+export const _loadProducts = (id) => ({
   type: LOAD_PRODUCTS,
   CallApi: `/api/products?subcategoryId=${id}`,
   id
 });
 
-export const loadProduct = (id) => ({
+export const _loadProduct = (id) => ({
   type: LOAD_PRODUCT,
   CallApi: `/api/product?id=${id}`,
   id
 });
+
+export const loadProducts = (id) => async (dispatch, getState) => {
+  let state = getState();
+  const subcategories = subcategoriesSelector(state);
+  const categoryId = activeCategoryBySubcategorySelector(state, {id});
+
+
+  if (!subcategories[id]) {
+    await dispatch(_loadProducts(id));
+  }
+
+  await dispatch(_setActiveCategory(id, categoryId));
+}
+
+export const loadProduct = (id) => async (dispatch, getState) => {
+  let state = getState();
+  const loading = loadingProductsSelector(state);
+  const loaded = loadedProductsSelector(state);
+
+  if (!loading && !loaded) {
+    await dispatch(_loadProduct(id));
+  }
+
+  state = getState();
+
+  const subcategoryId = activeSubCategoryByProductSelector(state, {id});
+  const categoryId = activeCategoryBySubcategorySelector(state, subcategoryId);
+
+  await dispatch(_setActiveCategory(subcategoryId, categoryId));
+}

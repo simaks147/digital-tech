@@ -4,26 +4,46 @@ import {
   LOAD_CATEGORIES,
   REQUEST,
   SUCCESS,
-  FAILURE
+  FAILURE, SET_ACTIVE_CATEGORIES
 } from "../consts";
 
 const initialState = {
   entities: {},
   loading: false,
   loaded: false,
-  error: null
+  error: null,
+  active: null
 }
 
 export default (state = initialState, action) => {
-  const {type, data, error} = action;
+  const {type, categoryId, data, error} = action;
 
   switch (type) {
     case LOAD_CATEGORIES + REQUEST:
-      return {...state, loading: true, error: null}
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      }
     case LOAD_CATEGORIES + SUCCESS:
-      return {...state, entities: arrToMap(data), loading: false, loaded: true}
+      return {
+        ...state,
+        entities: arrToMap(data),
+        loading: false,
+        loaded: true
+      }
     case LOAD_CATEGORIES + FAILURE:
-      return {...state, loading: false, loaded: false, error}
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error
+      }
+    case SET_ACTIVE_CATEGORIES:
+      return {
+        ...state,
+        active: categoryId
+      }
     default:
       return state;
   }

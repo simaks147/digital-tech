@@ -11,8 +11,13 @@
     margin-top: 5px;
 }
 
-.item:hover .itemTitle {
+.item:hover .itemTitle,
+:global(.show).item .itemTitle {
     color: var(--c-color1);
+}
+
+.item:global(.active) .itemTitle {
+    color: var(--c-color2);
 }
 
 :global(.show).item .itemTitle {
@@ -22,9 +27,11 @@
 :global(.show).item::after  {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -3px;
     height: 3px;
-    width: 100%;
+    left: 2px;
+    right: 2px;
+    width: calc(100% - 4px);
     background-color: var(--c-color1);
 }
 
@@ -47,14 +54,11 @@
     display: none;
 }
 
-:global(.show).item svg path {
+:global(.show).item svg path,
+.item:hover svg path {
     fill: var(--c-color1);
 }
 
-/*svg:hover path {*/
-/*    fill: var(--c-color1) !important;*/
-/*}*/
-
-.item:hover svg path {
-    fill: var(--c-color1);
+.item:global(.active) svg path {
+    fill: var(--c-color2);
 }

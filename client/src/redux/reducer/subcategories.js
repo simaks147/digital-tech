@@ -1,22 +1,29 @@
 import {
   SUCCESS,
-  LOAD_PRODUCTS,
+  LOAD_PRODUCTS, SET_ACTIVE_CATEGORIES,
 } from "../consts";
+import produce from "immer";
+// import produce from "immer";
 
-// const initialState = {
-//   entities: [],
-//   loading: false,
-//   loaded: false,
-//   error: null
-// }
+const initialState = {
+  entities: {},
+  active: null
+  // loading: false,
+  // loaded: false,
+  // error: null
+}
 
-export default (state = {}, action) => {
-  const {type, id} = action;
+export default (state = initialState, action) => {
+  const {type, id, subcategoryId} = action;
 
   switch (type) {
     case LOAD_PRODUCTS + SUCCESS:
-      return {...state, [id]: id};
-
+      return produce(state, draft => {
+        draft.entities[id] = id;
+      });
+      // return {...state, entities: {...state.entities, [subcategoryId]: subcategoryId}};
+    case SET_ACTIVE_CATEGORIES:
+      return {...state, active: subcategoryId};
     default:
       return state;
   }

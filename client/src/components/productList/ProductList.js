@@ -6,14 +6,13 @@ import {
   loadingProductsSelector,
   loadedProductsSelector,
   productsIdsByCategorySelector,
-  subcategoriesSelector
 } from "../../redux/selectors";
 import {connect} from "react-redux";
 import {loadProducts} from "../../redux/actions";
 
-const ProductList = ({subcategoryId, productsIds, subcategories, loadProducts, loading, loaded}) => {
+const ProductList = ({subcategoryId, productsIds, loadProducts, loading, loaded}) => {
   useEffect(() => {
-    if (!subcategories[subcategoryId])
+    // if (!subcategories[subcategoryId])
     loadProducts(subcategoryId);
   }, [loadProducts, subcategoryId]);
 
@@ -45,7 +44,6 @@ const ProductList = ({subcategoryId, productsIds, subcategories, loadProducts, l
 
 const mapStateToProps = (state, props) => ({
   productsIds: productsIdsByCategorySelector(state, props),
-  subcategories: subcategoriesSelector(state, props),
   loading: loadingProductsSelector(state, props),
   loaded: loadedProductsSelector(state, props),
 });
