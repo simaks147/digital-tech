@@ -1,4 +1,13 @@
-import {BASKET_ROUTE, HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, CATEGORY_ROUTE, PRODUCT_ROUTE} from "./utils/consts";
+import {
+  BASKET_ROUTE,
+  BASKET_ROUTE_SHOPPING,
+  BASKET_ROUTE_CHECKOUT,
+  BASKET_ROUTE_COMPLETED,
+  HOME_ROUTE, LOGIN_ROUTE,
+  REGISTRATION_ROUTE,
+  CATEGORY_ROUTE,
+  PRODUCT_ROUTE
+} from "./utils/consts";
 import BasketPage from "./pages/BasketPage";
 import HomePage from "./pages/HomePage";
 import AuthPage from "./pages/AuthPage";
@@ -7,7 +16,12 @@ import ProductPage from "./pages/ProductPage";
 
 export const authRoutes = [
   {
-    path: [BASKET_ROUTE, BASKET_ROUTE + '/checkout'],
+    path: [
+      BASKET_ROUTE,
+      BASKET_ROUTE_SHOPPING,
+      BASKET_ROUTE_CHECKOUT,
+      BASKET_ROUTE_COMPLETED
+    ],
     Component: BasketPage
   }
 ]
@@ -27,11 +41,17 @@ export const publicRoutes = [
     Component: AuthPage
   },
   {
-    path: [CATEGORY_ROUTE, CATEGORY_ROUTE + '/:slug'],
+    path: [
+      CATEGORY_ROUTE,
+      CATEGORY_ROUTE + '/:slug'
+    ],
     Component: CategoryPage
   },
   {
-    path: [PRODUCT_ROUTE, PRODUCT_ROUTE + '/:slug'],
+    path: [
+      PRODUCT_ROUTE,
+      PRODUCT_ROUTE + '/:slug'
+    ],
     Component: ProductPage
   },
 ]

@@ -1,3 +1,5 @@
+import {push} from "connected-react-router";
+
 import {
   INCREASE_CART,
   DECREASE_CART,
@@ -6,8 +8,15 @@ import {
   LOAD_CATEGORIES,
   LOAD_PRODUCTS,
   LOAD_PRODUCT,
-  SET_ACTIVE_CATEGORIES, PROCESS_CHECKOUT
+  SET_ACTIVE_CATEGORIES,
+  PROCESS_CHECKOUT
 } from "./consts";
+
+import {
+  BASKET_ROUTE_CHECKOUT,
+  BASKET_ROUTE_COMPLETED
+} from "../utils/consts";
+
 import {
   activeCategoryBySubcategorySelector,
   activeSubCategoryByProductSelector,
@@ -31,15 +40,15 @@ export const removeFromCart = (id) => ({
   id
 });
 
-export const processCheckout = () => ({
-  type: PROCESS_CHECKOUT,
-  activeBasketView: 'Checkout'
-});
+export const processCheckout = () => async (dispatch, getState) => {
+  await dispatch({type: PROCESS_CHECKOUT});
+  dispatch(push(BASKET_ROUTE_CHECKOUT))
+};
 
-export const makeOrder = () => ({
-  type: MAKE_ORDER,
-  activeBasketView: 'Completed'
-});
+export const makeOrder = () => async (dispatch, getState) => {
+  await dispatch({type: MAKE_ORDER});
+  dispatch(push(BASKET_ROUTE_COMPLETED))
+};
 
 export const _setActiveCategory = (subcategoryId, categoryId) => ({
   type: SET_ACTIVE_CATEGORIES,

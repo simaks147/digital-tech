@@ -1,27 +1,22 @@
 import React from 'react';
-import {activeBasketViewSelector} from "../../redux/selectors";
-// import {BASKET_VIEWS} from "../utils/consts";
-import {connect} from "react-redux";
 import BasketList from "../basketList";
 import BasketCheckout from "../basketCheckout";
 import BasketCompleted from "../basketCompleted";
+import {Redirect, Route, Switch} from "react-router-dom";
+import {
+  BASKET_ROUTE_CHECKOUT,
+  BASKET_ROUTE_COMPLETED,
+  BASKET_ROUTE_SHOPPING
+} from "../../utils/consts";
 
 
-export const BasketViews = ({activeBasketView}) => {
-  switch (activeBasketView) {
-    case 'Shopping Cart':
-      return <BasketList/>
-    case 'Checkout':
-      return <BasketCheckout/>
-    case 'Completed':
-      return <BasketCompleted/>
-    default:
-      return null;
-  }
-}
+export const BasketViews = () => (
+  <Switch>
+    <Route path={BASKET_ROUTE_SHOPPING} component={BasketList}/>
+    <Route path={BASKET_ROUTE_CHECKOUT} component={BasketCheckout}/>
+    <Route path={BASKET_ROUTE_COMPLETED} component={BasketCompleted}/>
+    <Redirect to={BASKET_ROUTE_SHOPPING}/>
+  </Switch>
+);
 
-const mapStateToProps = (state, props) => ({
-  activeBasketView: activeBasketViewSelector(state, props)
-});
-
-export default connect(mapStateToProps)(BasketViews);
+export default BasketViews;

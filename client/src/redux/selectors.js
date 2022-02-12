@@ -2,8 +2,9 @@ import {createSelector} from "reselect";
 
 export const categoriesSelector = (state) => state.categories.entities;
 export const productsSelector = (state) => state.products.entities;
-export const orderSelector = (state) => state.order.entities;
+export const orderSelector = (state) => state.order;
 export const subcategoriesSelector = (state) => state.subcategories.entities;
+export const routerSelector = (state) => state.router;
 
 export const loadingCategoriesSelector = (state) => state.categories.loading;
 export const loadedCategoriesSelector = (state) => state.categories.loaded;
@@ -15,8 +16,6 @@ export const productSelector = (state, {id}) => productsSelector(state)[id];
 
 export const activeCategorySelector = (state) => state.categories.active;
 export const activeSubcategorySelector = (state) => state.subcategories.active;
-
-export const activeBasketViewSelector = (state) => state.order.activeBasketView;
 
 export const categoriesListSelector = createSelector(
   categoriesSelector,
@@ -31,11 +30,6 @@ export const productsListSelector = createSelector(
 export const orderListSelector = createSelector(
   orderSelector,
   Object.entries
-);
-
-export const subcategoriesListSelector = createSelector(
-  subcategoriesSelector,
-  Object.values
 );
 
 export const productsIdsByCategorySelector = createSelector(
@@ -81,6 +75,14 @@ export const activeSubCategoryByProductSelector = createSelector(
   (state, {id}) => id,
   (products, id) => {
     return products[id].subcategoryId
+  }
+);
+
+export const activeBasketViewSelector = createSelector(
+  routerSelector,
+  router => {
+    const path = router.location.pathname.split('/', 3);
+    return path[path.length - 1];
   }
 );
 

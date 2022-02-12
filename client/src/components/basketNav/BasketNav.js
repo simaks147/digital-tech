@@ -15,17 +15,17 @@ const BasketNav = ({total, activeBasketView}) => (
         <Row xs='auto' className={cn(styles.header, 'justify-content-center', 'align-items-center')}>
           <Col>
             <CartIcon/>
-            <span className={styles.title}>{total ? activeBasketView : 'Cart is Empty'}</span>
+            <span className={styles.title}>{total ? BASKET_VIEWS[activeBasketView] : 'Cart is Empty'}</span>
           </Col>
         </Row>
         {
           !!total &&
           <Row xs='auto' className={cn(styles.list, 'justify-content-center', 'align-items-center')}>
             {
-              BASKET_VIEWS.map((view, i) => (
+              Object.values(BASKET_VIEWS).map((view, i) => (
                 <React.Fragment key={i}>
                   <Col>
-                    <div className={cn(styles.listItem, {active: view === activeBasketView})}>
+                    <div className={cn(styles.listItem, {active: view === BASKET_VIEWS[activeBasketView]})}>
                       <div className={styles.listItemNum}>{i + 1}</div>
                       <div className={styles.listItemTitle}>{view}</div>
                     </div>
