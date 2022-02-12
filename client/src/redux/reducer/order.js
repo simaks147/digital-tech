@@ -2,34 +2,45 @@ import {
   INCREASE_CART,
   DECREASE_CART,
   REMOVE_FROM_CART,
-  MAKE_ORDER
+  MAKE_ORDER,
+  PROCESS_CHECKOUT
 } from "../consts";
 
 import produce from "immer";
 
-export default (state = {}, action) =>
+const InitialState = {
+  entities: {},
+  activeBasketView: 'Shopping Cart'
+}
+
+export default (state = InitialState, action) =>
   produce(state, draft => {
-    const {type, id} = action;
+    const {type, id, activeBasketView} = action;
 
     switch (type) {
       case INCREASE_CART:
-        draft[id] = (draft[id] || 0) + 1;
+        draft.entities[id] = (draft.entities[id] || 0) + 1;
         break;
 
       case DECREASE_CART:
-        if (draft[id] > 1) {
-          draft[id] = draft[id] - 1;
+        if (draft.entities[id] > 1) {
+          draft.entities[id] = draft.entities[id] - 1;
         } else {
-          delete draft[id];
+          delete draft.entities[id];
         }
         break;
 
       case REMOVE_FROM_CART:
-        delete draft[id];
+        delete draft.entities[id];
+        break;
+
+      case PROCESS_CHECKOUT:
+        draft.activeBasketView = activeBasketView;
         break;
 
       case MAKE_ORDER:
-        return {};
+        draft.activeBasketView = activeBasketView;
+        break;
 
       default:
         return;

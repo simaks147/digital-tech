@@ -2,7 +2,7 @@ import {createSelector} from "reselect";
 
 export const categoriesSelector = (state) => state.categories.entities;
 export const productsSelector = (state) => state.products.entities;
-export const orderSelector = (state) => state.order;
+export const orderSelector = (state) => state.order.entities;
 export const subcategoriesSelector = (state) => state.subcategories.entities;
 
 export const loadingCategoriesSelector = (state) => state.categories.loading;
@@ -13,10 +13,10 @@ export const loadedProductsSelector = (state) => state.products.loaded;
 
 export const productSelector = (state, {id}) => productsSelector(state)[id];
 
-// export const activeProductIdSelector = (state, {id}) => state.products.active;
 export const activeCategorySelector = (state) => state.categories.active;
 export const activeSubcategorySelector = (state) => state.subcategories.active;
 
+export const activeBasketViewSelector = (state) => state.order.activeBasketView;
 
 export const categoriesListSelector = createSelector(
   categoriesSelector,
@@ -80,7 +80,6 @@ export const activeSubCategoryByProductSelector = createSelector(
   productsSelector,
   (state, {id}) => id,
   (products, id) => {
-    // console.log(products, id);
     return products[id].subcategoryId
   }
 );

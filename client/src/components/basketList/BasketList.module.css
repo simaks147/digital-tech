@@ -47,15 +47,14 @@ th:first-of-type {
     font-size: 1.1rem;
     border-bottom: 8px solid var(--c-color2);
     padding: 10px 60px;
+    margin-left: 24px;
 }
 
 .section :global(.c-button2) {
     line-height: 2.5;
     text-transform: none;
     font-size: 1.1rem;
-    /*border-bottom: 8px solid var(--c-color2);*/
     padding: 10px 60px;
-    margin-right: 24px;
 }
 
 

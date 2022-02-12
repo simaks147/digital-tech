@@ -14,13 +14,15 @@
 
 .mainInner {
      position: relative;
+     text-align: center;
+     min-height: 45px;
  }
 .count {
      font-size: 13px;
      font-weight: 700;
      border-radius: 50%;
      position: absolute;
-     right: -12px;
+     left: 28px;
      bottom: -6px;
      background-color: white;
      border: 3px solid;

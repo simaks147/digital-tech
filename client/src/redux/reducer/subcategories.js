@@ -3,14 +3,10 @@ import {
   LOAD_PRODUCTS, SET_ACTIVE_CATEGORIES,
 } from "../consts";
 import produce from "immer";
-// import produce from "immer";
 
 const initialState = {
   entities: {},
   active: null
-  // loading: false,
-  // loaded: false,
-  // error: null
 }
 
 export default (state = initialState, action) => {
@@ -21,7 +17,6 @@ export default (state = initialState, action) => {
       return produce(state, draft => {
         draft.entities[id] = id;
       });
-      // return {...state, entities: {...state.entities, [subcategoryId]: subcategoryId}};
     case SET_ACTIVE_CATEGORIES:
       return {...state, active: subcategoryId};
     default:

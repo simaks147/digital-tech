@@ -7,7 +7,7 @@ import ProductPage from "./pages/ProductPage";
 
 export const authRoutes = [
   {
-    path: BASKET_ROUTE,
+    path: [BASKET_ROUTE, BASKET_ROUTE + '/checkout'],
     Component: BasketPage
   }
 ]

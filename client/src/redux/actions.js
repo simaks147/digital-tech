@@ -6,7 +6,7 @@ import {
   LOAD_CATEGORIES,
   LOAD_PRODUCTS,
   LOAD_PRODUCT,
-  SET_ACTIVE_CATEGORIES
+  SET_ACTIVE_CATEGORIES, PROCESS_CHECKOUT
 } from "./consts";
 import {
   activeCategoryBySubcategorySelector,
@@ -31,8 +31,14 @@ export const removeFromCart = (id) => ({
   id
 });
 
+export const processCheckout = () => ({
+  type: PROCESS_CHECKOUT,
+  activeBasketView: 'Checkout'
+});
+
 export const makeOrder = () => ({
   type: MAKE_ORDER,
+  activeBasketView: 'Completed'
 });
 
 export const _setActiveCategory = (subcategoryId, categoryId) => ({

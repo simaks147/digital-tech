@@ -5,3 +5,9 @@ export const BASKET_ROUTE = '/basket'
 export const CATEGORY_ROUTE = '/category'
 export const PRODUCT_ROUTE = '/product'
 
+export const BASKET_VIEWS = [
+  'Shopping Cart',
+  'Checkout',
+  'Completed'
+];
+

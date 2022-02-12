@@ -6,21 +6,22 @@ import {Container, Row, Col} from "react-bootstrap";
 import {ReactComponent as Icon} from '../../icons/cart-icon.svg';
 import {Link} from "react-router-dom";
 import {orderCountSelector, orderTotalSelector} from "../../redux/selectors";
+import Button from "react-bootstrap/Button";
 
 
 const Basket = ({className, count, total}) => (
   <Link to='/basket' className={cn(styles.main, className)}>
     <Container>
-      <Row className={'justify-content-center align-content-center'}>
-        <Col xs={'auto'}>
+      <Row>
+        <Col xs={6}>
           <div className={styles.mainInner}>
             <Icon/>
             <div className={styles.count}>{count}</div>
           </div>
         </Col>
-        <Col xs={'auto'}>
-          <div className={styles.title}>Your Cart</div>
-          <div className={styles.total}>${total}</div>
+        <Col xs={6}>
+          <div className={styles.title}>Your Cart { !total && 'is Empty'}</div>
+          { !!total && <div className={styles.total}>${total}</div> }
         </Col>
       </Row>
     </Container>
