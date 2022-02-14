@@ -2,7 +2,7 @@ import {
   INCREASE_CART,
   DECREASE_CART,
   REMOVE_FROM_CART,
-  // MAKE_ORDER,
+  MAKE_ORDER,
   // PROCESS_CHECKOUT
 } from "../consts";
 
@@ -33,9 +33,8 @@ export default (state = {}, action) =>
       //
       //   break;
       //
-      // case MAKE_ORDER:
-      //
-      //   break;
+      case MAKE_ORDER:
+        return {};
 
       default:
         return;
