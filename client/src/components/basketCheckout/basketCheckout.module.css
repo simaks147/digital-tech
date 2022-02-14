@@ -1,0 +1,19 @@
+.section {
+    margin: 60px 0;
+}
+
+:global(.form-control):focus,
+:global(.form-select):focus {
+    box-shadow: none;
+}
+
+.buttons {
+    text-align: right;
+    margin-top: 36px;
+}
+
+.buttons :global(.c-button) {
+    text-transform: none;
+    margin-left: auto;
+    padding: 10px 60px;
+}

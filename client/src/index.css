@@ -61,6 +61,10 @@ body {
     text-transform: uppercase;
     background-color: var(--c-color1);
     border: none;
+
+    line-height: 2.3;
+    font-size: 1.1rem;
+    border-bottom: 8px solid var(--c-color2);
 }
 
 .c-button:hover,
@@ -68,6 +72,7 @@ body {
 .c-button.active,
 .c-button:focus {
     background-color: var(--c-color2);
+    border-color: var(--c-color2);
     box-shadow: none;
 }
 
@@ -76,6 +81,9 @@ body {
     background-color: transparent;
     border: 2px solid var(--c-color1);
     color: var(--c-color1);
+
+    line-height: 2.5;
+    font-size: 1.1rem;
 }
 
 .c-button2:hover,

@@ -6,8 +6,6 @@ import {Container, Row, Col} from "react-bootstrap";
 import {ReactComponent as Icon} from '../../icons/cart-icon.svg';
 import {Link} from "react-router-dom";
 import {orderCountSelector, orderTotalSelector} from "../../redux/selectors";
-import Button from "react-bootstrap/Button";
-
 
 const Basket = ({className, count, total}) => (
   <Link to='/basket' className={cn(styles.main, className)}>

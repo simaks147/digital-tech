@@ -17,6 +17,11 @@
      text-align: center;
      min-height: 45px;
  }
+
+.mainInner svg {
+    fill: white;
+}
+
 .count {
      font-size: 13px;
      font-weight: 700;

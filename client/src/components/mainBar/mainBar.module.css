@@ -13,7 +13,6 @@
 }
 
 .search:focus {
-     border-color: var(--bs-gray-600);
      box-shadow: none;
  }
 

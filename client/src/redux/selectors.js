@@ -61,21 +61,16 @@ export const orderTotalSelector = createSelector(
 export const activeCategoryBySubcategorySelector = createSelector(
   categoriesListSelector,
   (state, {id}) => id,
-  (categories, activeSubcategory) => {
-    return categories
+  (categories, activeSubcategory) => categories
       .find(category => category.subcategory
         .map(subcat => subcat.slug)
         .includes(activeSubcategory)).slug
-
-  }
 );
 
 export const activeSubCategoryByProductSelector = createSelector(
   productsSelector,
   (state, {id}) => id,
-  (products, id) => {
-    return products[id].subcategoryId
-  }
+  (products, id) => products[id].subcategoryId
 );
 
 export const activeBasketViewSelector = createSelector(

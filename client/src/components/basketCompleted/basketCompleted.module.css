@@ -1,0 +1,25 @@
+.section {
+    text-align: center;
+    margin: 60px 0;
+}
+
+.section svg {
+    fill: var(--c-color1);
+    margin-bottom: 40px;
+}
+
+.title {
+    margin-bottom: 20px;
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.text {
+    margin-bottom: 40px;
+    font-size: 15px;
+}
+
+.section :global(.c-button) {
+    text-transform: none;
+    padding: 10px 60px;
+}
