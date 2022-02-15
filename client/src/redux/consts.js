@@ -14,4 +14,7 @@ export const LOAD_PRODUCT = 'LOAD_PRODUCT';
 
 export const SET_ACTIVE_CATEGORIES = 'SET_ACTIVE_CATEGORIES';
 
+export const ROUTER_LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
+
+
 

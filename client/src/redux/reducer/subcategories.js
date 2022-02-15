@@ -1,6 +1,8 @@
 import {
   SUCCESS,
-  LOAD_PRODUCTS, SET_ACTIVE_CATEGORIES,
+  LOAD_PRODUCTS,
+  SET_ACTIVE_CATEGORIES,
+  ROUTER_LOCATION_CHANGE
 } from "../consts";
 import produce from "immer";
 
@@ -19,6 +21,9 @@ export default (state = initialState, action) => {
       });
     case SET_ACTIVE_CATEGORIES:
       return {...state, active: subcategoryId};
+
+    case ROUTER_LOCATION_CHANGE:
+      return {...state, active: null};
     default:
       return state;
   }

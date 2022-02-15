@@ -4,7 +4,9 @@ import {
   LOAD_CATEGORIES,
   REQUEST,
   SUCCESS,
-  FAILURE, SET_ACTIVE_CATEGORIES
+  FAILURE,
+  SET_ACTIVE_CATEGORIES,
+  ROUTER_LOCATION_CHANGE
 } from "../consts";
 
 const initialState = {
@@ -43,6 +45,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         active: categoryId
+      }
+    case ROUTER_LOCATION_CHANGE:
+      return {
+        ...state,
+        active: null
       }
     default:
       return state;
