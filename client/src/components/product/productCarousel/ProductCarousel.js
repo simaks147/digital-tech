@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import styles from "./productCarousel.module.css";
 import cn from "classnames";
 import {Carousel} from "react-bootstrap";
-import {productSelector} from "../../../redux/selectors";
-import {connect} from "react-redux";
 
 const ProductCarousel = ({product}) => {
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -39,9 +37,5 @@ const ProductCarousel = ({product}) => {
   );
 };
 
-const mapStateToProps = (state, props) => ({
-  product: productSelector(state, props)
-});
-
-export default connect(mapStateToProps)(ProductCarousel);
+export default ProductCarousel;
 

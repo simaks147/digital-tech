@@ -6,14 +6,16 @@ import {
   loadedProductsSelector,
   productSelector
 } from "../../redux/selectors";
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Container, Row, Tab} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import Nav from "react-bootstrap/Nav";
 import Spinner from "react-bootstrap/Spinner";
 import {loadProduct, increaseCart} from "../../redux/actions";
 import ProductCarousel from "./productCarousel";
+import ProductTabs from "./productTabs";
 
 
-const Product = ({id, product, increaseCart, loadProduct, loading, loaded}) => {
+const Product = ({product, increaseCart, loadProduct, loading, loaded}) => {
   useEffect(() => {
       loadProduct();
   }, [loadProduct]);
@@ -38,9 +40,10 @@ const Product = ({id, product, increaseCart, loadProduct, loading, loaded}) => {
             </div>
           </Col>
           <Col className='d-flex' md={7}>
-            <ProductCarousel id={id}/>
+            <ProductCarousel product={product}/>
           </Col>
         </Row>
+        <ProductTabs product={product}/>
       </Container>
     </div>
   )
