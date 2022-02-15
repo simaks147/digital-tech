@@ -60,7 +60,7 @@ export const orderTotalSelector = createSelector(
 
 export const activeCategoryBySubcategorySelector = createSelector(
   categoriesListSelector,
-  (state, {id}) => id,
+  (state, {subcategoryId}) => subcategoryId,
   (categories, activeSubcategory) => categories
       .find(category => category.subcategory
         .map(subcat => subcat.slug)

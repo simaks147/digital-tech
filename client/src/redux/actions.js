@@ -73,17 +73,17 @@ export const _loadProduct = (id) => ({
   id
 });
 
-export const loadProducts = (id) => async (dispatch, getState) => {
+export const loadProducts = (subcategoryId) => async (dispatch, getState) => {
   let state = getState();
   const subcategories = subcategoriesSelector(state);
-  const categoryId = activeCategoryBySubcategorySelector(state, {id});
+  const categoryId = activeCategoryBySubcategorySelector(state, {subcategoryId});
 
 
-  if (!subcategories[id]) {
-    await dispatch(_loadProducts(id));
+  if (!subcategories[subcategoryId]) {
+    await dispatch(_loadProducts(subcategoryId));
   }
 
-  await dispatch(_setActiveCategory(id, categoryId));
+  await dispatch(_setActiveCategory(subcategoryId, categoryId));
 }
 
 export const loadProduct = (id) => async (dispatch, getState) => {
@@ -98,7 +98,7 @@ export const loadProduct = (id) => async (dispatch, getState) => {
   state = getState();
 
   const subcategoryId = activeSubCategoryByProductSelector(state, {id});
-  const categoryId = activeCategoryBySubcategorySelector(state, subcategoryId);
+  const categoryId = activeCategoryBySubcategorySelector(state, {subcategoryId});
 
   await dispatch(_setActiveCategory(subcategoryId, categoryId));
 }
