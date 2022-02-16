@@ -248,6 +248,11 @@ const products = [
     slug: 'iphone',
     subTitle: 'white',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    specification: [
+      {name: 'Operating System', value: 'Android 11'},
+      {name: 'Memory', value: '12 GB'},
+      {name: 'Processor', value: 'Qualcomm Snapdragon 888'},
+    ],
     price: 420,
   },{
     id: '111_1_2',

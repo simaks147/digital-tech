@@ -1,31 +1,48 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import styles from "./productTabs.module.css";
 import {Col, Row, Tab} from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
+import {ReactComponent as DescIcon} from '../../../icons/paper-icon.svg';
+import {ReactComponent as SpecIcon} from '../../../icons/like-icon.svg';
+import {ReactComponent as ReviewIcon} from '../../../icons/star-icon.svg';
+import ProductSpec from "../productSpec";
+import ProductReviews from "../productReviews";
 
-const ProductTabs = () => {
+
+const ProductTabs = ({product}) => {
+  const TABS = useMemo(() => ([
+    {title: 'Description', Icon: DescIcon, Pane: () => product.description},
+    {title: 'Specification', Icon: SpecIcon, Pane: () => ProductSpec(product.specification)},
+    {title: 'Reviews', Icon: ReviewIcon, Pane: ProductReviews}
+  ]), [product]);
+
   return (
     <div className={styles.main}>
-      <Tab.Container defaultActiveKey="second">
-        <Row>
-          <Col sm={3}>
-            <Nav variant="pills" className="flex-column">
-              <Nav.Item>
-                <Nav.Link eventKey="first">Tab 1</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="second">Tab 2</Nav.Link>
-              </Nav.Item>
+      <Tab.Container defaultActiveKey={TABS[0].title} unmountOnExit>
+        <Row className='m-0'>
+          <Col className='p-0' md={4} lg={3}>
+            <Nav className="flex-column">
+              {
+                TABS.map(({title, Icon}) => (
+                  <Nav.Item key={title}>
+                    <Nav.Link eventKey={title}>
+                      <Icon/>
+                      <span className={styles.navText}>{title}</span>
+                    </Nav.Link>
+                  </Nav.Item>
+                ))
+              }
             </Nav>
           </Col>
-          <Col sm={9}>
+          <Col className='p-0' md={8} lg={9}>
             <Tab.Content>
-              <Tab.Pane eventKey="first">
-                First
-              </Tab.Pane>
-              <Tab.Pane eventKey="second">
-                Second
-              </Tab.Pane>
+              {
+                TABS.map(({title, Pane}) => (
+                  <Tab.Pane key={title} eventKey={title}>
+                    <Pane/>
+                  </Tab.Pane>
+                ))
+              }
             </Tab.Content>
           </Col>
         </Row>

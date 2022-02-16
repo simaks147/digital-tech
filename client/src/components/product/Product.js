@@ -6,9 +6,8 @@ import {
   loadedProductsSelector,
   productSelector
 } from "../../redux/selectors";
-import {Col, Container, Row, Tab} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import Nav from "react-bootstrap/Nav";
 import Spinner from "react-bootstrap/Spinner";
 import {loadProduct, increaseCart} from "../../redux/actions";
 import ProductCarousel from "./productCarousel";
@@ -31,7 +30,7 @@ const Product = ({product, increaseCart, loadProduct, loading, loaded}) => {
   return (
     <div className={styles.section}>
       <Container>
-        <Row>
+        <Row className='align-items-center'>
           <Col md={{span: 5, order: 'last'}}>
             <div className={styles.content}>
               <div className={styles.title}>{product?.title}</div>
@@ -39,7 +38,7 @@ const Product = ({product, increaseCart, loadProduct, loading, loaded}) => {
               <Button className='c-button' onClick={increaseCart}>Buy now!</Button>
             </div>
           </Col>
-          <Col className='d-flex' md={7}>
+          <Col className='d-flex align-items-center flex-column-reverse flex-md-row' md={7}>
             <ProductCarousel product={product}/>
           </Col>
         </Row>

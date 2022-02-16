@@ -1,0 +1,19 @@
+.main {
+    column-count: 1;
+}
+
+.item {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.itemName {
+    font-weight: 700;
+}
+
+@media (min-width: 992px) {
+    .main {
+        column-count: 2;
+    }
+}
