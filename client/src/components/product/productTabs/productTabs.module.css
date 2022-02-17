@@ -2,16 +2,16 @@
     margin: 44px 0;
 }
 
-:global(.nav-item) {
+.main :global(.nav-item) {
     margin-bottom: 12px;
 
 }
 
-:global(.nav-item):last-child {
+.main :global(.nav-item):last-child {
     margin-bottom: 0;
 }
 
-:global(.nav-link) {
+.main :global(.nav-link) {
     height: 80px;
     display: flex;
     align-items: center;
@@ -20,7 +20,7 @@
     cursor: pointer;
 }
 
-:global(.nav-link.active) {
+.main :global(.nav-link.active) {
     background-color: var(--c-color3);
 }
 
@@ -31,27 +31,27 @@
     font-size: 17px;
 }
 
-:global(.nav-link.active) .navText {
+.main :global(.nav-link.active) .navText {
     color: black;
 }
 
-:global(.nav-link) svg {
+.main :global(.nav-link) svg {
     fill: var(--bs-gray-500);
     margin-right: 20px;
     margin-left: 12px;
 }
 
-:global(.nav-link.active) svg {
+.main :global(.nav-link.active) svg {
     fill: var(--c-color1);
 }
 
-:global(.tab-content) {
+.main :global(.tab-content) {
     background-color: var(--c-color3);
     padding: 20px 30px;
 }
 
 @media (min-width: 768px) {
-    :global(.tab-content) {
+    .main  :global(.tab-content) {
         height: 100%;
         padding: 28px 60px;
         padding-bottom: 8px;
