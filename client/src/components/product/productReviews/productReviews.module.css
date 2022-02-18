@@ -1,3 +1,201 @@
-.overall {
-
+.main {
+    padding-bottom: 24px;
 }
+
+.overall {
+    font-family: var(--c-font-family-second);
+    margin-bottom: 80px;
+    width: 304px;
+    max-width: 95%;
+}
+
+.overallTitle {
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.overallRating {
+    margin-bottom: 8px;
+}
+
+.overallStars {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.overallStars svg {
+    width: 26px;
+    height: 26px;
+    fill: var(--c-color4);
+    margin-right: 8px;
+}
+
+.overallCount {
+    display: inline-block;
+    font-size: 34px;
+    font-weight: 700;
+    vertical-align: middle;
+    margin-left: 12px;
+    margin-top: 2px;
+}
+
+.overallSubtitle {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.overallText {
+    font-size: 13px;
+}
+
+.form {
+    width: 304px;
+    max-width: 95%;
+    margin-bottom: 80px;
+}
+
+.form :global(.form-control) {
+    height: 50px;
+    margin-bottom: 16px;
+}
+
+.form :global(.form-floating) {
+    font-size: 12px;
+}
+
+.form textarea:global(.form-control) {
+    height: 130px;
+    resize: none;
+}
+
+.formTitle {
+    font-family: var(--c-font-family-second);
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.formRating {
+    margin-bottom: 20px;
+}
+
+.formRatingCaption {
+    font-weight: 500;
+    margin-right: 12px;
+}
+
+.formStars svg {
+    width: 15px;
+    height: 15px;
+    fill: var(--c-color4);
+    margin-right: 4px;
+}
+
+.formRecommend {
+    padding: 0;
+    display: inline-block;
+}
+
+.formRecommendInput {
+    opacity: 0;
+    height: 0;
+    width: 0;
+    position: absolute;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    left: -10000px;
+}
+
+.formRecommendLabel {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.formRecommendLabel:before {
+    content: '';
+    min-width: 24px;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    border: 2px solid var(--c-color1);
+    margin-right: 12px;
+}
+
+.formRecommend:global(.active) .formRecommendLabel:before {
+    background-color: var(--c-color1);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath fill='%23fff' d='M734.182,1651.54l-2.387-2.2-0.795.73,3.182,2.93,6.818-6.27-0.795-.73Z' transform='translate(-731 -1646)'/%3E%3C/svg%3E%0A");
+}
+
+.submitButton {
+    border-bottom: 0;
+    font-size: 14px;
+    font-weight: 500;
+    padding-right: 40px;
+    padding-left: 40px;
+    margin-left: auto;
+    display: block;
+    margin-top: 40px;
+}
+
+.item {
+    position: relative;
+    padding-bottom: 34px;
+    margin-bottom: 34px;
+    border-bottom: 1px solid var(--bs-gray-200);
+}
+
+.item:last-child {
+    margin-bottom: 14px;
+    border-bottom: 0;
+}
+
+.itemStars {
+    margin-bottom: 10px;
+}
+
+.itemStars svg {
+    width: 15px;
+    height: 15px;
+    fill: var(--c-color4);
+    margin-right: 4px;
+}
+
+.itemDate {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 12px;
+}
+
+.itemName {
+    font-weight: 500;
+    margin-bottom: 14px;
+}
+
+.itemTitle {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 14px;
+}
+
+.itemText {
+    font-size: 12px;
+}
+
+.moreButton {
+    border-bottom: 0;
+    font-size: 15px;
+    font-weight: 500;
+    width: 100%;
+}
+
+
