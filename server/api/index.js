@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { sliders, categories, products } = require('./mock');
+const { sliders, categories, products, reviews } = require('./mock');
 const { reply, getById } = require('./utils');
 
 router.get('/categories', (req, res, next) => {
@@ -22,18 +22,21 @@ router.get('/product', (req, res, next) => {
   reply(res, result);
 });
 
-// router.get('/reviews', (req, res, next) => {
-//   const { id } = req.query;
-//   let result = reviews;
-//   if (id) {
-//     const restaurant = getById(restaurants)(id);
-//     if (restaurant) {
-//       result = restaurant.reviews.map(getById(result));
-//     }
-//   }
-//   reply(res, result);
-// });
-//
+router.get('/reviews', (req, res, next) => {
+  const { productId } = req.query;
+  let result = reviews;
+
+  if (productId) {
+    const product = products.find(product => product.slug === productId);
+
+    if (product) {
+      result = reviews.filter(review => review.productId === product.slug);
+    }
+  }
+
+  reply(res, result);
+});
+
 // router.get('/users', (req, res, next) => {
 //   reply(res, users);
 // });

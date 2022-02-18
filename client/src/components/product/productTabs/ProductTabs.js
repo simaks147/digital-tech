@@ -12,8 +12,8 @@ import ProductReviews from "../productReviews";
 const ProductTabs = ({product}) => {
   const TABS = useMemo(() => ([
     {title: 'Description', Icon: DescIcon, Pane: () => product.description},
-    {title: 'Specification', Icon: SpecIcon, Pane: () => ProductSpec(product.specification)},
-    {title: 'Reviews', Icon: ReviewIcon, Pane: ProductReviews}
+    {title: 'Specification', Icon: SpecIcon, Pane: () => <ProductSpec specification={product.specification}/>},
+    {title: 'Reviews', Icon: ReviewIcon, Pane: () => <ProductReviews slug={product.slug}/>}
   ]), [product]);
 
   return (

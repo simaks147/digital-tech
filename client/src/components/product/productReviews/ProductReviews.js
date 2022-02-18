@@ -1,14 +1,30 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "./productReviews.module.css";
 import {Row, Col, FloatingLabel, Form} from "react-bootstrap";
 import {ReactComponent as StarFullIcon} from "../../../icons/star-full-icon.svg";
 import {ReactComponent as StarEmptyIcon} from "../../../icons/star-empty-icon.svg";
 import Button from "react-bootstrap/Button";
 import cn from "classnames";
+import {loadedReviewsSelector, loadingReviewsSelector, reviewsListSelector} from "../../../redux/selectors";
+import {loadReviews} from "../../../redux/actions";
+import {connect} from "react-redux";
+import Spinner from "react-bootstrap/Spinner";
 
-const ProductReviews = () => {
+const ProductReviews = ({loadReviews, loading, loaded, reviews}) => {
+  useEffect(() => {
+    loadReviews();
+  }, [loadReviews]);
+
   const [recommendValue, setRecommendValue] = useState(false);
   const handleChangeRecommend = () => setRecommendValue(!recommendValue);
+
+  if (loading) return (
+    <Spinner animation="border" role="status" className='c-loader'>
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
+  )
+
+  if (!loaded) return 'Error!!!';
 
   return (
     <div className={styles.main}>
@@ -65,38 +81,23 @@ const ProductReviews = () => {
         </Col>
         <Col lg={6}>
           <div className={styles.list}>
-            <div className={styles.item}>
-              <div className={styles.itemStars}>
-                <StarFullIcon/>
-                <StarFullIcon/>
-                <StarFullIcon/>
-                <StarFullIcon/>
-                <StarFullIcon/>
-              </div>
-              <div className={styles.itemDate}>November, 24 2016</div>
-              <div className={styles.itemName}>Eugene Barnett</div>
-              <div className={styles.itemTitle}>Perfect Size and Easy to Use</div>
-              <div className={styles.itemText}>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim
-                veniam.
-              </div>
-            </div>
-            <div className={styles.item}>
-              <div className={styles.itemStars}>
-                <StarFullIcon/>
-                <StarFullIcon/>
-                <StarFullIcon/>
-                <StarFullIcon/>
-                <StarFullIcon/>
-              </div>
-              <div className={styles.itemDate}>November, 24 2016</div>
-              <div className={styles.itemName}>Eugene Barnett</div>
-              <div className={styles.itemTitle}>Perfect Size and Easy to Use</div>
-              <div className={styles.itemText}>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-                nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim
-                veniam.
-              </div>
-            </div>
+            {
+              reviews.map(review => (
+                <div className={styles.item} key={review.id}>
+                  <div className={styles.itemStars}>
+                    <StarFullIcon/>
+                    <StarFullIcon/>
+                    <StarFullIcon/>
+                    <StarFullIcon/>
+                    <StarFullIcon/>
+                  </div>
+                  <div className={styles.itemDate}>{review.date}</div>
+                  <div className={styles.itemName}>{review.name}</div>
+                  <div className={styles.itemTitle}>{review.title}</div>
+                  <div className={styles.itemText}>{review.text}</div>
+                </div>
+              ))
+            }
           </div>
           <Button className={cn('c-button', styles.moreButton)}>Load More Reviews</Button>
         </Col>
@@ -105,4 +106,14 @@ const ProductReviews = () => {
   );
 }
 
-export default ProductReviews;
+const mapStateToProps = (state, props) => ({
+  reviews: reviewsListSelector(state, props),
+  loading: loadingReviewsSelector(state, props),
+  loaded: loadedReviewsSelector(state, props),
+})
+
+const mapDispatchToProps = (dispatch, props) => ({
+  loadReviews: () => dispatch(loadReviews(props.slug))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductReviews);

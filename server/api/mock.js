@@ -278,8 +278,42 @@ const products = [
   }
 ];
 
+const reviews = [
+  {
+    id: '1_1',
+    userId: '1',
+    productId: 'iphone',
+    title: 'Perfect Size and Easy to Use',
+    text: 'I love the camera and the display and it works well as a camera monitor for my A7S3. My only complaint is that I need to use a capture card for that to work, which is a pain and wasnt so clear in the marketing.',
+    date: 'November, 24 2016',
+    rating: 5
+  },
+  {
+    id: '2_1',
+    userId: '2',
+    productId: 'iphone',
+    title: 'Neither a good camera phone, nor a good phone camera',
+    text: 'I wanted to love this phone. Really did. Was very excited when I heard about it. 1 sensor, SD card slot, and a 3.5 jack in 2021? That\'s really rare. The latter two features are the only reason I decided to still keep the phone. It\'s not really a great phone. One of the main issues is battery life and charging. Battery lasts only half a day when heavily used. There is no wireless charging.',
+    date: 'April, 10 2019',
+    rating: 2
+  },
+];
+
+const users = [
+  {
+    id: '1',
+    name: 'Eugene Barnett',
+  },
+  {
+    id: '2',
+    name: 'Alexander Jean',
+  },
+];
+
 module.exports = {
   sliders,
   categories,
-  products
+  products,
+  reviews,
+  users
 };

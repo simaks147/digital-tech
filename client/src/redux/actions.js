@@ -9,7 +9,8 @@ import {
   LOAD_PRODUCTS,
   LOAD_PRODUCT,
   SET_ACTIVE_CATEGORIES,
-  PROCESS_CHECKOUT
+  PROCESS_CHECKOUT,
+  LOAD_REVIEWS
 } from "./consts";
 
 import {
@@ -23,6 +24,8 @@ import {
   loadingProductsSelector,
   loadedProductsSelector,
   subcategoriesSelector,
+  loadingReviewsSelector,
+  loadedReviewsSelector
 } from "./selectors";
 
 export const increaseCart = (id) => ({
@@ -61,15 +64,9 @@ export const loadCategories = () => ({
   CallApi: '/api/categories'
 });
 
-export const _loadProducts = (id) => ({
+const _loadProducts = (id) => ({
   type: LOAD_PRODUCTS,
   CallApi: `/api/products?subcategoryId=${id}`,
-  id
-});
-
-export const _loadProduct = (id) => ({
-  type: LOAD_PRODUCT,
-  CallApi: `/api/product?id=${id}`,
   id
 });
 
@@ -86,6 +83,12 @@ export const loadProducts = (subcategoryId) => async (dispatch, getState) => {
   await dispatch(_setActiveCategory(subcategoryId, categoryId));
 }
 
+const _loadProduct = (id) => ({
+  type: LOAD_PRODUCT,
+  CallApi: `/api/product?id=${id}`,
+  id
+});
+
 export const loadProduct = (id) => async (dispatch, getState) => {
   let state = getState();
   const loading = loadingProductsSelector(state);
@@ -101,4 +104,21 @@ export const loadProduct = (id) => async (dispatch, getState) => {
   const categoryId = activeCategoryBySubcategorySelector(state, {subcategoryId});
 
   await dispatch(_setActiveCategory(subcategoryId, categoryId));
+}
+
+const _loadReviews = (productId) => ({
+  type: LOAD_REVIEWS,
+  CallApi: `/api/reviews?productId=${productId}`,
+  productId
+});
+
+export const loadReviews = (productId) => async (dispatch, getState) => {
+  let state = getState();
+  const loading = loadingReviewsSelector(state);
+  const loaded = loadedReviewsSelector(state);
+
+
+  if (!loading && !loaded) {
+    await dispatch(_loadReviews(productId));
+  }
 }

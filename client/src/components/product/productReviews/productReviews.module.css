@@ -198,4 +198,10 @@
     width: 100%;
 }
 
+@media (min-width: 992px) {
+    .form {
+        margin-bottom: 0;
+    }
+}
+
 

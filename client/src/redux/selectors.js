@@ -2,6 +2,7 @@ import {createSelector} from "reselect";
 
 export const categoriesSelector = (state) => state.categories.entities;
 export const productsSelector = (state) => state.products.entities;
+export const reviewsSelector = (state) => state.reviews.entities;
 export const orderSelector = (state) => state.order;
 export const subcategoriesSelector = (state) => state.subcategories.entities;
 export const routerSelector = (state) => state.router;
@@ -11,6 +12,9 @@ export const loadedCategoriesSelector = (state) => state.categories.loaded;
 
 export const loadingProductsSelector = (state) => state.products.loading;
 export const loadedProductsSelector = (state) => state.products.loaded;
+
+export const loadingReviewsSelector = (state) => state.reviews.loading;
+export const loadedReviewsSelector = (state) => state.reviews.loaded;
 
 export const productSelector = (state, {id}) => productsSelector(state)[id];
 
@@ -24,6 +28,11 @@ export const categoriesListSelector = createSelector(
 
 export const productsListSelector = createSelector(
   productsSelector,
+  Object.values
+);
+
+export const reviewsListSelector = createSelector(
+  reviewsSelector,
   Object.values
 );
 
