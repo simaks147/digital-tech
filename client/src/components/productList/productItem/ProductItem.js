@@ -7,13 +7,13 @@ import styles from './productItem.module.css';
 import {productSelector} from "../../../redux/selectors";
 import {Link} from "react-router-dom";
 import {increaseCart} from "../../../redux/actions";
-
+import {PRODUCT_ROUTE} from "../../../utils/consts";
 
 const ProductItem = ({product, increaseCart}) => (
   <div className={styles.main}>
     <Row>
       <Col md='auto'>
-        <Link to={`/product/${product.slug}`} className={styles.picture}>
+        <Link to={`${PRODUCT_ROUTE}/${product.slug}`} className={styles.picture}>
           <Figure>
             <Figure.Image width={260} src={process.env.PUBLIC_URL + product.img[0]}/>
           </Figure>
@@ -23,7 +23,7 @@ const ProductItem = ({product, increaseCart}) => (
         <div className={styles.content}>
           <Row className='align-items-center'>
             <Col>
-              <Link to={`/product/${product.slug}`} className={styles.info}>
+              <Link to={`${PRODUCT_ROUTE}/${product.slug}`} className={styles.info}>
                 <div className={styles.title}>{product.title}</div>
                 <div className={styles.subtitle}>{product.subTitle}</div>
                 <div className={styles.description}>{product.description}</div>

@@ -1,7 +1,7 @@
 import React from 'react';
-import BasketList from "../basketList";
-import BasketCheckout from "../basketCheckout";
-import BasketCompleted from "../basketCompleted";
+import BasketList from "./basketList";
+import BasketCheckout from "./basketCheckout";
+import BasketCompleted from "./basketCompleted";
 import {Redirect, Route, Switch} from "react-router-dom";
 import {
   BASKET_ROUTE_CHECKOUT,

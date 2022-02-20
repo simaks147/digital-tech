@@ -5,8 +5,9 @@ import {Container, Row, Col, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {orderProductsSelector, orderTotalSelector} from "../../redux/selectors";
-import {processCheckout} from "../../redux/actions";
+import {orderProductsSelector, orderTotalSelector} from "../../../redux/selectors";
+import {processCheckout} from "../../../redux/actions";
+import {HOME_ROUTE} from "../../../utils/consts";
 
 const BasketList = ({order, total, processCheckout}) => {
   return (
@@ -49,7 +50,7 @@ const BasketList = ({order, total, processCheckout}) => {
         }
 
         <div className={styles.buttons}>
-          <Button className='c-button2' as={Link} to='/'>Continue Shopping</Button>
+          <Button className='c-button2' as={Link} to={HOME_ROUTE}>Continue Shopping</Button>
           { !!total && <Button className='c-button' onClick={processCheckout}>Process Checkout</Button> }
         </div>
       </Container>

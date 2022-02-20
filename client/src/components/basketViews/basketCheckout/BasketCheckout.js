@@ -2,9 +2,9 @@ import React from 'react';
 import styles from "./basketCheckout.module.css";
 import {Col, Row, Container, FloatingLabel, Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import {makeOrder} from "../../redux/actions";
+import {makeOrder} from "../../../redux/actions";
 import {connect} from "react-redux";
-import useForm from "../../hooks/use-form";
+import useForm from "../../../hooks/use-form";
 
 const INITIAL_VALUES = {
   name: '',

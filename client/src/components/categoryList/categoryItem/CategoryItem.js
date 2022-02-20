@@ -22,7 +22,7 @@ const CategoryItem = ({item, activeSubcategory, activeCategory}) => (
           <Dropdown.Item as={Link}
                          className={cn({active: subc.slug === activeSubcategory}, styles.subcategory)}
                          key={subc.slug}
-                         to={CATEGORY_ROUTE + '/' + subc.slug}>{subc.title}
+                         to={`${CATEGORY_ROUTE}/${subc.slug}`}>{subc.title}
           </Dropdown.Item>)
       }
     </Dropdown.Menu>

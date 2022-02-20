@@ -5,18 +5,19 @@ import {
   increaseCart,
   decreaseCart,
   removeFromCart
-} from "../../../redux/actions";
+} from "../../../../redux/actions";
 import {Link} from "react-router-dom";
+import {PRODUCT_ROUTE} from "../../../../utils/consts";
 
 const BasketItem = ({item, increaseCart, decreaseCart, removeFromCart}) => (
   <tr key={item.id}>
     <td className={styles.picture}>
-      <Link to={`/product/${item.slug}`}>
+      <Link to={`${PRODUCT_ROUTE}/${item.slug}`}>
         <img src={process.env.PUBLIC_URL + item.img[0]} alt=""/>
       </Link>
     </td>
     <td className={styles.title}>
-      <Link to={`/product/${item.slug}`}>{item.title}</Link>
+      <Link to={`${PRODUCT_ROUTE}/${item.slug}`}>{item.title}</Link>
     </td>
     <td className={styles.count}>
       <div>
