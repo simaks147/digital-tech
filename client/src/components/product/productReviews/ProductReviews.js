@@ -5,15 +5,21 @@ import {ReactComponent as StarFullIcon} from "../../../icons/star-full-icon.svg"
 import {ReactComponent as StarEmptyIcon} from "../../../icons/star-empty-icon.svg";
 import Button from "react-bootstrap/Button";
 import cn from "classnames";
-import {loadedReviewsSelector, loadingReviewsSelector, reviewsListSelector} from "../../../redux/selectors";
+import {
+  loadedReviewsSelector,
+  loadingReviewsSelector,
+  overallRatingSelector,
+  reviewsListSelector
+} from "../../../redux/selectors";
 import {loadReviews} from "../../../redux/actions";
 import {connect} from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
+import Rate from "../../rate/Rate";
 
-const ProductReviews = ({loadReviews, loading, loaded, reviews}) => {
+const ProductReviews = ({loadReviews, loading, loaded, reviews, overallRating}) => {
   useEffect(() => {
     loadReviews();
-  }, [loadReviews]);
+  }, [loadReviews, reviews]);
 
   const [recommendValue, setRecommendValue] = useState(false);
   const handleChangeRecommend = () => setRecommendValue(!recommendValue);
@@ -34,29 +40,26 @@ const ProductReviews = ({loadReviews, loading, loaded, reviews}) => {
             <div className={styles.overallTitle}>Overall Customer Rating:</div>
             <div className={styles.overallRating}>
               <div className={styles.overallStars}>
-                <StarFullIcon/>
-                <StarFullIcon/>
-                <StarFullIcon/>
-                <StarFullIcon/>
-                <StarEmptyIcon/>
+                <Rate value={overallRating}/>
               </div>
-              <div className={styles.overallCount}>3.75</div>
+              <div className={styles.overallCount}>{overallRating}</div>
             </div>
             <div className={styles.overallSubtitle}>Based on 4 Reviews</div>
             <div className={styles.overallText}>75% of customers would recommend this product to a friend (3 out of 4)
             </div>
           </div>
+
           <div className={styles.form}>
             <div className={styles.formTitle}>Write Your Review:</div>
             <div className={styles.formRating}>
               <span className={styles.formRatingCaption}>Rating:</span>
               <span className={styles.formStars}>
-              <StarFullIcon/>
-              <StarFullIcon/>
-              <StarFullIcon/>
-              <StarEmptyIcon/>
-              <StarEmptyIcon/>
-            </span>
+                <StarFullIcon/>
+                <StarFullIcon/>
+                <StarFullIcon/>
+                <StarEmptyIcon/>
+                <StarEmptyIcon/>
+              </span>
             </div>
             <Form>
               <FloatingLabel controlId="name" label="Your Name">
@@ -72,24 +75,23 @@ const ProductReviews = ({loadReviews, loading, loaded, reviews}) => {
                 <Form.Control as="textarea" name="review" placeholder="Your Review"/>
               </FloatingLabel>
               <Form.Check id="recommend" className={cn(styles.formRecommend, {active: recommendValue})}>
-                <Form.Check.Input type={'checkbox'} className={styles.formRecommendInput} checked={recommendValue} onChange={handleChangeRecommend}/>
-                <Form.Check.Label className={styles.formRecommendLabel}>I would recommend this to a friend!</Form.Check.Label>
+                <Form.Check.Input type={'checkbox'} className={styles.formRecommendInput} checked={recommendValue}
+                                  onChange={handleChangeRecommend}/>
+                <Form.Check.Label className={styles.formRecommendLabel}>I would recommend this to a
+                  friend!</Form.Check.Label>
               </Form.Check>
               <Button className={cn('c-button', styles.submitButton)}>Submit Review</Button>
             </Form>
           </div>
         </Col>
+
         <Col lg={6}>
           <div className={styles.list}>
             {
               reviews.map(review => (
                 <div className={styles.item} key={review.id}>
                   <div className={styles.itemStars}>
-                    <StarFullIcon/>
-                    <StarFullIcon/>
-                    <StarFullIcon/>
-                    <StarFullIcon/>
-                    <StarFullIcon/>
+                    <Rate value={review.rating}/>
                   </div>
                   <div className={styles.itemDate}>{review.date}</div>
                   <div className={styles.itemName}>{review.name}</div>
@@ -110,6 +112,7 @@ const mapStateToProps = (state, props) => ({
   reviews: reviewsListSelector(state, props),
   loading: loadingReviewsSelector(state, props),
   loaded: loadedReviewsSelector(state, props),
+  overallRating: overallRatingSelector(state, props)
 })
 
 const mapDispatchToProps = (dispatch, props) => ({

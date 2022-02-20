@@ -90,6 +90,11 @@ export const activeBasketViewSelector = createSelector(
   }
 );
 
+export const overallRatingSelector = createSelector(
+  reviewsListSelector,
+  reviews => reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
+);
+
 
 
 
