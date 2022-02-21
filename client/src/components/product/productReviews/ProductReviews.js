@@ -91,21 +91,24 @@ const ProductReviews = ({loadReviews, loading, loaded, reviews, rating}) => {
         <Col lg={6}>
           {
             !!reviews.length
-              ? <div className={styles.list}>
-                {
-                  reviews.map(review => (
-                    <div className={styles.item} key={review.id}>
-                      <div className={styles.itemStars}>
-                        <Rate value={review.rating}/>
+              ? <>
+                <div className={styles.list}>
+                  {
+                    reviews.map(review => (
+                      <div className={styles.item} key={review.id}>
+                        <div className={styles.itemStars}>
+                          <Rate value={review.rating}/>
+                        </div>
+                        <div className={styles.itemDate}>{review.date}</div>
+                        <div className={styles.itemName}>{review.name}</div>
+                        <div className={styles.itemTitle}>{review.title}</div>
+                        <div className={styles.itemText}>{review.text}</div>
                       </div>
-                      <div className={styles.itemDate}>{review.date}</div>
-                      <div className={styles.itemName}>{review.name}</div>
-                      <div className={styles.itemTitle}>{review.title}</div>
-                      <div className={styles.itemText}>{review.text}</div>
-                    </div>
-                  ))
-                }
-              </div>
+                    ))
+                  }
+                </div>
+                <Button className={cn('c-button', styles.moreButton)}>Load More Reviews</Button>
+              </>
               : <div>There are no reviews for this product yet.</div>
           }
         </Col>
