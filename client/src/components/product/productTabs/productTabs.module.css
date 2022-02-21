@@ -48,6 +48,7 @@
 .main :global(.tab-content) {
     background-color: var(--c-color3);
     padding: 20px 30px;
+    position: relative;
 }
 
 @media (min-width: 768px) {
