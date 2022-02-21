@@ -24,8 +24,8 @@ import {
   loadingProductsSelector,
   loadedProductsSelector,
   subcategoriesSelector,
-  loadingReviewsSelector,
-  loadedReviewsSelector
+  // loadingReviewsSelector,
+  // loadedReviewsSelector
 } from "./selectors";
 
 export const increaseCart = (id) => ({
@@ -114,9 +114,8 @@ const _loadReviews = (productId) => ({
 
 export const loadReviews = (productId) => async (dispatch, getState) => {
   let state = getState();
-  const loading = loadingReviewsSelector(state);
-  const loaded = loadedReviewsSelector(state);
-
+  const loading = state.reviews[productId]?.loading;
+  const loaded = state.reviews[productId]?.loaded;
 
   if (!loading && !loaded) {
     await dispatch(_loadReviews(productId));

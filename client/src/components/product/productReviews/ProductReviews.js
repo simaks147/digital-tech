@@ -6,23 +6,23 @@ import {ReactComponent as StarEmptyIcon} from "../../../icons/star-empty-icon.sv
 import Button from "react-bootstrap/Button";
 import cn from "classnames";
 import {
-  loadedReviewsSelector,
-  loadingReviewsSelector,
-  overallRatingSelector,
-  reviewsListSelector
+  loadedReviewsByProductSelector,
+  loadingReviewsByProductSelector,
+  ratingSelector,
+  reviewsByProductSelector
 } from "../../../redux/selectors";
 import {loadReviews} from "../../../redux/actions";
 import {connect} from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
 import Rate from "../../rate/Rate";
 
-const ProductReviews = ({loadReviews, loading, loaded, reviews, overallRating}) => {
+const ProductReviews = ({loadReviews, loading, loaded, reviews, rating}) => {
   useEffect(() => {
     loadReviews();
-  }, [loadReviews, reviews]);
+  }, [loadReviews]);
 
-  const [recommendValue, setRecommendValue] = useState(false);
-  const handleChangeRecommend = () => setRecommendValue(!recommendValue);
+  const [recommendedValue, setRecommendedValue] = useState(false);
+  const handleChangeRecommended = () => setRecommendedValue(!recommendedValue);
 
   if (loading) return (
     <Spinner animation="border" role="status" className='c-loader'>
@@ -36,18 +36,21 @@ const ProductReviews = ({loadReviews, loading, loaded, reviews, overallRating}) 
     <div className={styles.main}>
       <Row>
         <Col lg={6}>
-          <div className={styles.overall}>
-            <div className={styles.overallTitle}>Overall Customer Rating:</div>
-            <div className={styles.overallRating}>
-              <div className={styles.overallStars}>
-                <Rate value={overallRating}/>
+          {
+            !!reviews.length &&
+            <div className={styles.overall}>
+              <div className={styles.overallTitle}>Overall Customer Rating:</div>
+              <div className={styles.overallRating}>
+                <div className={styles.overallStars}>
+                  <Rate value={rating.overall}/>
+                </div>
+                <div className={styles.overallCount}>{rating.overall}</div>
               </div>
-              <div className={styles.overallCount}>{overallRating}</div>
+              <div className={styles.overallSubtitle}>Based on {reviews.length} Reviews</div>
+              <div className={styles.overallText}>{rating.recommendedShare()}% of customers would recommend this product to a friend ({rating.recommendedLength} out of {reviews.length})
+              </div>
             </div>
-            <div className={styles.overallSubtitle}>Based on 4 Reviews</div>
-            <div className={styles.overallText}>75% of customers would recommend this product to a friend (3 out of 4)
-            </div>
-          </div>
+          }
 
           <div className={styles.form}>
             <div className={styles.formTitle}>Write Your Review:</div>
@@ -74,10 +77,10 @@ const ProductReviews = ({loadReviews, loading, loaded, reviews, overallRating}) 
               <FloatingLabel controlId="review" label="Your Review">
                 <Form.Control as="textarea" name="review" placeholder="Your Review"/>
               </FloatingLabel>
-              <Form.Check id="recommend" className={cn(styles.formRecommend, {active: recommendValue})}>
-                <Form.Check.Input type={'checkbox'} className={styles.formRecommendInput} checked={recommendValue}
-                                  onChange={handleChangeRecommend}/>
-                <Form.Check.Label className={styles.formRecommendLabel}>I would recommend this to a
+              <Form.Check id="recommended" className={cn(styles.formRecommended, {active: recommendedValue})}>
+                <Form.Check.Input type={'checkbox'} className={styles.formRecommendInput} checked={recommendedValue}
+                                  onChange={handleChangeRecommended}/>
+                <Form.Check.Label className={styles.formRecommendedLabel}>I would recommend this to a
                   friend!</Form.Check.Label>
               </Form.Check>
               <Button className={cn('c-button', styles.submitButton)}>Submit Review</Button>
@@ -86,22 +89,25 @@ const ProductReviews = ({loadReviews, loading, loaded, reviews, overallRating}) 
         </Col>
 
         <Col lg={6}>
-          <div className={styles.list}>
-            {
-              reviews.map(review => (
-                <div className={styles.item} key={review.id}>
-                  <div className={styles.itemStars}>
-                    <Rate value={review.rating}/>
-                  </div>
-                  <div className={styles.itemDate}>{review.date}</div>
-                  <div className={styles.itemName}>{review.name}</div>
-                  <div className={styles.itemTitle}>{review.title}</div>
-                  <div className={styles.itemText}>{review.text}</div>
-                </div>
-              ))
-            }
-          </div>
-          <Button className={cn('c-button', styles.moreButton)}>Load More Reviews</Button>
+          {
+            !!reviews.length
+              ? <div className={styles.list}>
+                {
+                  reviews.map(review => (
+                    <div className={styles.item} key={review.id}>
+                      <div className={styles.itemStars}>
+                        <Rate value={review.rating}/>
+                      </div>
+                      <div className={styles.itemDate}>{review.date}</div>
+                      <div className={styles.itemName}>{review.name}</div>
+                      <div className={styles.itemTitle}>{review.title}</div>
+                      <div className={styles.itemText}>{review.text}</div>
+                    </div>
+                  ))
+                }
+              </div>
+              : <div>There are no reviews for this product yet.</div>
+          }
         </Col>
       </Row>
     </div>
@@ -109,10 +115,10 @@ const ProductReviews = ({loadReviews, loading, loaded, reviews, overallRating}) 
 }
 
 const mapStateToProps = (state, props) => ({
-  reviews: reviewsListSelector(state, props),
-  loading: loadingReviewsSelector(state, props),
-  loaded: loadedReviewsSelector(state, props),
-  overallRating: overallRatingSelector(state, props)
+  reviews: reviewsByProductSelector(state, props),
+  loading: loadingReviewsByProductSelector(state, props),
+  loaded: loadedReviewsByProductSelector(state, props),
+  rating: ratingSelector(state, props)
 })
 
 const mapDispatchToProps = (dispatch, props) => ({

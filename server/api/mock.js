@@ -262,6 +262,11 @@ const products = [
     slug: 'nikon',
     subTitle: 'black',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    specification: [
+      {name: 'Operating System', value: 'Some'},
+      {name: 'Memory', value: 'Some2'},
+      {name: 'Processor', value: 'Some3'},
+    ],
     price: 230,
   },{
     id: '111_1_3',
@@ -274,6 +279,11 @@ const products = [
     slug: 'alienware',
     subTitle: 'black',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    specification: [
+      {name: 'Operating System', value: 'Any'},
+      {name: 'Memory', value: 'Any2'},
+      {name: 'Processor', value: 'Any3'},
+    ],
     price: 230,
   }
 ];
@@ -286,7 +296,8 @@ const reviews = [
     title: 'Perfect Size and Easy to Use',
     text: 'I love the camera and the display and it works well as a camera monitor for my A7S3. My only complaint is that I need to use a capture card for that to work, which is a pain and wasnt so clear in the marketing.',
     date: 'November, 24 2016',
-    rating: 5
+    rating: 5,
+    recommended: true
   },
   {
     id: '2_1',
@@ -295,8 +306,19 @@ const reviews = [
     title: 'Neither a good camera phone, nor a good phone camera',
     text: 'I wanted to love this phone. Really did. Was very excited when I heard about it. 1 sensor, SD card slot, and a 3.5 jack in 2021? That\'s really rare. The latter two features are the only reason I decided to still keep the phone. It\'s not really a great phone. One of the main issues is battery life and charging. Battery lasts only half a day when heavily used. There is no wireless charging.',
     date: 'April, 10 2019',
-    rating: 2
+    rating: 2,
+    recommended: false
   },
+  {
+    id: '3_1',
+    userId: '2',
+    productId: 'iphone',
+    title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    date: 'May, 17 2019',
+    rating: 4,
+    recommended: true
+  }
 ];
 
 const users = [

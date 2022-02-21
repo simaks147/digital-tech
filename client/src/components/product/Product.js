@@ -33,8 +33,8 @@ const Product = ({product, increaseCart, loadProduct, loading, loaded}) => {
         <Row className='align-items-center'>
           <Col md={{span: 5, order: 'last'}}>
             <div className={styles.content}>
-              <div className={styles.title}>{product?.title}</div>
-              <div className={styles.price}>${product?.price}</div>
+              <div className={styles.title}>{product.title}</div>
+              <div className={styles.price}>${product.price}</div>
               <Button className='c-button' onClick={increaseCart}>Buy now!</Button>
             </div>
           </Col>

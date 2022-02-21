@@ -7,32 +7,34 @@ import {
   FAILURE
 } from "../consts";
 
-const initialState = {
-  entities: {},
-  loading: false,
-  loaded: false,
-  error: null
-}
+// const initialState = {
+  // entities: {},
+  // loading: false,
+  // loaded: false,
+  // error: null
+// }
 
-export default (state = initialState, action) =>
+export default (state = {}, action) =>
   produce(state, draft => {
-    const {type, data, error} = action;
+    const {type, productId, data, error} = action;
 
     switch (type) {
       case LOAD_REVIEWS + REQUEST:
-        draft.loading = true;
+        draft[productId] = {};
+        draft[productId].loading = true;
+        draft[productId].error = null;
         break;
 
       case LOAD_REVIEWS + SUCCESS:
-        draft.loading = false;
-        draft.loaded = true;
-        draft.entities = {...draft.entities, ...arrToMap(data)};
+        draft[productId].loading = false;
+        draft[productId].loaded = true;
+        draft[productId].entities = data;
         break;
 
       case LOAD_REVIEWS + FAILURE:
-        draft.loading = false;
-        draft.loaded = false;
-        draft.error = error;
+        draft[productId].loading = false;
+        draft[productId].loaded = false;
+        draft[productId].error = error;
         break;
 
       default:
