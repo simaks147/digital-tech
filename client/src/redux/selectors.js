@@ -15,6 +15,7 @@ export const loadedProductsSelector = (state) => state.products.loaded;
 
 export const loadingReviewsByProductSelector = (state, {slug}) => reviewsSelector(state)[slug]?.loading;
 export const loadedReviewsByProductSelector = (state, {slug}) => reviewsSelector(state)[slug]?.loaded;
+// export const loadCountReviewsByProductSelector = (state, {slug}) => reviewsSelector(state)[slug]?.loadCount;
 
 export const productSelector = (state, {id}) => productsSelector(state)[id];
 

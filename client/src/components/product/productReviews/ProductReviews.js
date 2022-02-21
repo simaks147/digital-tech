@@ -22,7 +22,10 @@ const ProductReviews = ({loadReviews, loading, loaded, reviews, rating}) => {
   }, [loadReviews]);
 
   const [recommendedValue, setRecommendedValue] = useState(false);
+  const [lastVisibleReview, setLastVisibleReview] = useState(3);
+
   const handleChangeRecommended = () => setRecommendedValue(!recommendedValue);
+  const handleLastVisibleReview = () => setLastVisibleReview(reviews.length);
 
   if (loading) return (
     <Spinner animation="border" role="status" className='c-loader'>
@@ -94,7 +97,7 @@ const ProductReviews = ({loadReviews, loading, loaded, reviews, rating}) => {
               ? <>
                 <div className={styles.list}>
                   {
-                    reviews.map(review => (
+                    reviews.slice(0, lastVisibleReview).map(review => (
                       <div className={styles.item} key={review.id}>
                         <div className={styles.itemStars}>
                           <Rate value={review.rating}/>
@@ -107,7 +110,10 @@ const ProductReviews = ({loadReviews, loading, loaded, reviews, rating}) => {
                     ))
                   }
                 </div>
-                <Button className={cn('c-button', styles.moreButton)}>Load More Reviews</Button>
+                {
+                  (lastVisibleReview < reviews.length) &&
+                    <Button className={cn('c-button', styles.moreButton)} onClick={handleLastVisibleReview}>Load More Reviews</Button>
+                }
               </>
               : <div>There are no reviews for this product yet.</div>
           }
