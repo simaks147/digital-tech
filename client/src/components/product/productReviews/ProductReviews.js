@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from "./productReviews.module.css";
 import {Row, Col, FloatingLabel, Form} from "react-bootstrap";
-import {ReactComponent as StarFullIcon} from "../../../icons/star-full-icon.svg";
-import {ReactComponent as StarEmptyIcon} from "../../../icons/star-empty-icon.svg";
 import Button from "react-bootstrap/Button";
 import cn from "classnames";
 import {
@@ -15,17 +13,32 @@ import {loadReviews} from "../../../redux/actions";
 import {connect} from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
 import Rate from "../../rate/Rate";
+import useForm from "../../../hooks/use-form";
+import {addReview} from "../../../redux/actions";
+const INITIAL_VALUES = {
+  // name: '',
+  // email: '',
+  title: '',
+  text: '',
+  rating: 3,
+};
 
-const ProductReviews = ({loadReviews, loading, loaded, reviews, rating}) => {
+const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, addReview}) => {
   useEffect(() => {
     loadReviews();
   }, [loadReviews]);
 
-  const [recommendedValue, setRecommendedValue] = useState(false);
   const [lastVisibleReview, setLastVisibleReview] = useState(3);
+  const [recommended, setRecommended] = useState(false);
+  const {values, handlers, reset} = useForm(INITIAL_VALUES);
 
-  const handleChangeRecommended = () => setRecommendedValue(!recommendedValue);
   const handleLastVisibleReview = () => setLastVisibleReview(reviews.length);
+  const handleChangeRecommended = () => setRecommended(!recommended);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    reset();
+    addReview({...values, recommended, productId: slug, id: '1_10', userId: '10', date: 'September, 24 2016'});
+  };
 
   if (loading) return (
     <Spinner animation="border" role="status" className='c-loader'>
@@ -60,33 +73,28 @@ const ProductReviews = ({loadReviews, loading, loaded, reviews, rating}) => {
             <div className={styles.formRating}>
               <span className={styles.formRatingCaption}>Rating:</span>
               <span className={styles.formStars}>
-                <StarFullIcon/>
-                <StarFullIcon/>
-                <StarFullIcon/>
-                <StarEmptyIcon/>
-                <StarEmptyIcon/>
+                <Rate {...handlers.rating}/>
               </span>
             </div>
             <Form>
               <FloatingLabel controlId="name" label="Your Name">
-                <Form.Control type="text" name="name" placeholder="Your Name"/>
+                <Form.Control type="text" name="name" placeholder="Your Name" {...handlers.name}/>
               </FloatingLabel>
               <FloatingLabel controlId="email" label="Your E-mail">
-                <Form.Control type="email" name="email" placeholder="Your E-mail"/>
+                <Form.Control type="email" name="email" placeholder="Your E-mail" {...handlers.email}/>
               </FloatingLabel>
               <FloatingLabel controlId="title" label="Review Title">
-                <Form.Control type="text" name="title" placeholder="Review Title"/>
+                <Form.Control type="text" name="title" placeholder="Review Title" {...handlers.title}/>
               </FloatingLabel>
-              <FloatingLabel controlId="review" label="Your Review">
-                <Form.Control as="textarea" name="review" placeholder="Your Review"/>
+              <FloatingLabel controlId="text" label="Your Review">
+                <Form.Control as="textarea" name="text" placeholder="Your Review"  {...handlers.text}/>
               </FloatingLabel>
-              <Form.Check id="recommended" className={cn(styles.formRecommended, {active: recommendedValue})}>
-                <Form.Check.Input type={'checkbox'} className={styles.formRecommendInput} checked={recommendedValue}
-                                  onChange={handleChangeRecommended}/>
+              <Form.Check id="recommended" className={cn(styles.formRecommended, {active: recommended})}>
+                <Form.Check.Input type={'checkbox'} className={styles.formRecommendInput} onChange={handleChangeRecommended} checked={recommended}/>
                 <Form.Check.Label className={styles.formRecommendedLabel}>I would recommend this to a
                   friend!</Form.Check.Label>
               </Form.Check>
-              <Button className={cn('c-button', styles.submitButton)}>Submit Review</Button>
+              <Button className={cn('c-button', styles.submitButton)} onClick={handleSubmit}>Submit Review</Button>
             </Form>
           </div>
         </Col>
@@ -131,7 +139,8 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
-  loadReviews: () => dispatch(loadReviews(props.slug))
+  loadReviews: () => dispatch(loadReviews(props.slug)),
+  addReview: (values) => dispatch(addReview(props.slug, values))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductReviews);

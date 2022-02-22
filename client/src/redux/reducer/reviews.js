@@ -1,10 +1,11 @@
 import produce from "immer";
-import {arrToMap} from "../utils";
+// import {arrToMap} from "../utils";
 import {
   LOAD_REVIEWS,
   REQUEST,
   SUCCESS,
-  FAILURE
+  FAILURE,
+  ADD_REVIEW
 } from "../consts";
 
 // const initialState = {
@@ -16,7 +17,7 @@ import {
 
 export default (state = {}, action) =>
   produce(state, draft => {
-    const {type, productId, data, error} = action;
+    const {type, productId, values, data, error} = action;
 
     switch (type) {
       case LOAD_REVIEWS + REQUEST:
@@ -35,6 +36,10 @@ export default (state = {}, action) =>
         draft[productId].loading = false;
         draft[productId].loaded = false;
         draft[productId].error = error;
+        break;
+
+      case ADD_REVIEW:
+        draft[productId].entities.push(values)
         break;
 
       default:

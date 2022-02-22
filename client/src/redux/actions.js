@@ -10,7 +10,8 @@ import {
   LOAD_PRODUCT,
   SET_ACTIVE_CATEGORIES,
   PROCESS_CHECKOUT,
-  LOAD_REVIEWS
+  LOAD_REVIEWS,
+  ADD_REVIEW
 } from "./consts";
 
 import {
@@ -121,3 +122,9 @@ export const loadReviews = (productId) => async (dispatch, getState) => {
     await dispatch(_loadReviews(productId));
   }
 }
+
+export const addReview = (productId, values) => ({
+  type: ADD_REVIEW,
+  productId,
+  values
+});

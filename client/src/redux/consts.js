@@ -17,5 +17,8 @@ export const SET_ACTIVE_CATEGORIES = 'SET_ACTIVE_CATEGORIES';
 
 export const ROUTER_LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
 
+export const ADD_REVIEW = 'ADD_REVIEW';
+
+
 
 
