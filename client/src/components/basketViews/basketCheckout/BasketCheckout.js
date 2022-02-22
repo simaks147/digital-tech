@@ -9,6 +9,8 @@ import useForm from "../../../hooks/use-form";
 const INITIAL_VALUES = {
   name: '',
   email: '',
+  address: '',
+  city: ''
 };
 
 const BasketCheckout = ({makeOrder}) => {
@@ -42,7 +44,7 @@ const BasketCheckout = ({makeOrder}) => {
             </Col>
             <Col className="mb-4">
               <FloatingLabel controlId="city" label="City">
-                <Form.Select name="city">
+                <Form.Select name="city" {...handlers.city}>
                   <option value="saintPetersburg">Saint-Petersburg</option>
                   <option value="london">London</option>
                   <option value="milan">Milan</option>
