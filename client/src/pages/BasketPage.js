@@ -1,16 +1,13 @@
 import React from 'react';
 import BasketNav from "../components/basketNav";
-import Header from "../components/header";
 import BasketViews from "../components/basketViews";
+import Layout from "../components/Layout";
 
-const BasketPage = () => {
-  return (
-    <>
-      <Header/>
-      <BasketNav/>
-      <BasketViews/>
-    </>
-  );
-};
+const BasketPage = () => (
+  <Layout>
+    <BasketNav/>
+    <BasketViews/>
+  </Layout>
+);
 
 export default BasketPage;

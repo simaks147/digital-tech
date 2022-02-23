@@ -1,8 +1,12 @@
+.section {
+    width: initial;
+}
+
 .nav {
     justify-content: center;
 }
 
 .subcategory.active,
 .subcategory:active {
-     background-color: var(--c-color1);
- }
+    background-color: var(--c-color1);
+}

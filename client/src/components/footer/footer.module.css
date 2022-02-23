@@ -1,0 +1,50 @@
+.section {
+    background-color: var(--bs-gray-100);
+    padding-top: 40px;
+    padding-bottom: 46px;
+    font-size: 12px;
+}
+
+.brand {
+    font-size: 28px;
+    font-weight: 500;
+    color: black;
+    text-decoration: none;
+    margin-bottom: 16px;
+}
+
+.brand:hover {
+    color: black;
+}
+
+.address {
+    color: var(--bs-gray-500);
+    margin-bottom: 4px;
+}
+
+.phone {
+    text-decoration: none;
+    margin: 0 8px;
+    color: var(--bs-gray-500);
+}
+
+.phone:hover {
+    color: var(--bs-gray-600);
+}
+
+.email {
+    text-decoration: none;
+    margin: 0 8px;
+    font-weight: 500;
+    color: var(--c-color1);
+}
+
+.email:hover {
+    color: var(--c-color2);
+}
+
+@media (min-width: 768px) {
+    .section {
+        font-size: 14px;
+    }
+}

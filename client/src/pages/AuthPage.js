@@ -1,13 +1,10 @@
 import React from 'react';
-import Header from "../components/header";
+import Layout from "../components/Layout";
 
-const AuthPage = () => {
-  return (
-    <div>
-      <Header/>
-      Auth
-    </div>
-  );
-};
+const AuthPage = () => (
+  <Layout>
+    Auth
+  </Layout>
+);
 
 export default AuthPage;

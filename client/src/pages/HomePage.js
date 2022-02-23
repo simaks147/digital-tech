@@ -1,14 +1,11 @@
 import React from 'react';
 import Slider from "../components/slider";
-import Header from "../components/header";
+import Layout from "../components/Layout";
 
-const HomePage = () => {
-  return (
-    <>
-      <Header/>
-      <Slider/>
-    </>
-  );
-};
+const HomePage = () => (
+  <Layout>
+    <Slider/>
+  </Layout>
+);
 
 export default HomePage;

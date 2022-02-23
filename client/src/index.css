@@ -57,6 +57,11 @@ body {
     color: var(--bs-gray-700);
 }
 
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
 .c-button {
     text-transform: uppercase;
