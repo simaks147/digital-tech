@@ -37,7 +37,14 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
   const handleSubmit = (e) => {
     e.preventDefault();
     reset();
-    addReview({...values, recommended, productId: slug, id: '1_10', userId: '10', date: 'September, 24 2016'});
+    addReview({
+      id: '1_10',
+      userId: '10',
+      productId: slug,
+      recommended,
+      date: 'September, 24 2016',
+      ...values,
+    });
   };
 
   if (loading) return (
@@ -90,7 +97,7 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
                 <Form.Control as="textarea" name="text" placeholder="Your Review"  {...handlers.text}/>
               </FloatingLabel>
               <Form.Check id="recommended" className={cn(styles.formRecommended, {active: recommended})}>
-                <Form.Check.Input type={'checkbox'} className={styles.formRecommendInput} onChange={handleChangeRecommended} checked={recommended}/>
+                <Form.Check.Input type={'checkbox'} className={styles.formRecommendedInput} onChange={handleChangeRecommended} checked={recommended}/>
                 <Form.Check.Label className={styles.formRecommendedLabel}>I would recommend this to a
                   friend!</Form.Check.Label>
               </Form.Check>
