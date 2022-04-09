@@ -8,6 +8,9 @@ import {productSelector} from "../../../redux/selectors";
 import {Link} from "react-router-dom";
 import {increaseCart} from "../../../redux/actions";
 import {PRODUCT_ROUTE} from "../../../utils/consts";
+import {imagesUrlEndpoint} from "../../../config";
+import {IKImage} from 'imagekitio-react';
+
 
 const ProductItem = ({product, increaseCart}) => (
   <div className={styles.main}>
@@ -15,7 +18,14 @@ const ProductItem = ({product, increaseCart}) => (
       <Col md='auto'>
         <Link to={`${PRODUCT_ROUTE}/${product.slug}`} className={styles.picture}>
           <Figure>
-            <Figure.Image width={260} src={process.env.PUBLIC_URL + product.img[0]}/>
+            {/*<Figure.Image width={260} src={process.env.PUBLIC_URL + product.images[0]}/>*/}
+            <IKImage
+              urlEndpoint={imagesUrlEndpoint}
+              path={product.images[0]}
+              transformation={[{
+                height: 260,
+                width: 260
+              }]}/>
           </Figure>
         </Link>
       </Col>

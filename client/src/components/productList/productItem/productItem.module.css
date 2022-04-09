@@ -17,9 +17,11 @@
 
 .main :global(.figure) img {
     margin-bottom: 0;
+    max-width: 100%;
 }
 
 .picture {
+    height: 100%;
     display: block;
 }
 

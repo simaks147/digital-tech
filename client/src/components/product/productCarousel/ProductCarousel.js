@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import styles from "./productCarousel.module.css";
 import cn from "classnames";
 import {Carousel} from "react-bootstrap";
+import {IKImage} from 'imagekitio-react';
+import {imagesUrlEndpoint} from "../../../config";
 
 const ProductCarousel = ({product}) => {
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -11,11 +13,19 @@ const ProductCarousel = ({product}) => {
     <>
       <div className={styles.indicators}>
         {
-          product?.img.map((picture, i) => (
+          product?.images.map((img, i) => (
             <div key={i}
                  onClick={() => handleSelectCarouselItem(i)}
                  className={cn({active: carouselIndex === i}, styles.indicatorsItem)}>
-              <img src={process.env.PUBLIC_URL + picture} alt=""/>
+              {/*<img src={process.env.PUBLIC_URL + picture} alt=""/>*/}
+              <IKImage
+                urlEndpoint={imagesUrlEndpoint}
+                path={img}
+                transformation={[{
+                  height: 54,
+                  width: 54
+                }]}
+              />
             </div>))
         }
       </div>
@@ -26,9 +36,17 @@ const ProductCarousel = ({product}) => {
                 activeIndex={carouselIndex}
                 onSelect={handleSelectCarouselItem}>
         {
-          product?.img.map((picture, i) => (
+          product?.images.map((img, i) => (
             <Carousel.Item key={i} className={styles.picture}>
-              <img src={process.env.PUBLIC_URL + picture} alt=""/>
+              {/*<img src={process.env.PUBLIC_URL + picture} alt=""/>*/}
+              <IKImage
+                urlEndpoint={'https://ik.imagekit.io/lrgi6op5tryx/'}
+                path={img}
+                transformation={[{
+                  height: 500,
+                  width: 500
+                }]}
+              />
             </Carousel.Item>
           ))
         }

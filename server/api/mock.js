@@ -238,26 +238,30 @@ const products = [
   {
     id: '111_1_1',
     subcategoryId: 'subcategory-111-1',
-    img: [
-      '/img/products/iphone.png',
-      '/img/products/iphone4.jpg',
-      '/img/products/iphone3.png',
-      '/img/products/iphone2.png',
+    images: [
+      'canon_eos_r5_mirrorless_digital_1.jpg',
+      'canon_eos_r5_mirrorless_digital_2.jpg',
+      'canon_eos_r5_mirrorless_digital_3.jpg',
     ],
     title: 'Iphone',
     slug: 'iphone',
     subTitle: 'white',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    specification: [
-      {name: 'Operating System', value: 'Android 11'},
-      {name: 'Memory', value: '12 GB'},
-      {name: 'Processor', value: 'Qualcomm Snapdragon 888'},
-    ],
+    // specification: [
+    //   {name: 'Operating System', value: 'Android 11'},
+    //   {name: 'Memory', value: '12 GB'},
+    //   {name: 'Processor', value: 'Qualcomm Snapdragon 888'},
+    // ],
+    specification: {
+      'Operating System': 'Android 11',
+      'Memory': '12 GB',
+      'Processor': 'Qualcomm Snapdragon 888',
+    },
     price: 420,
-  },{
+  }, {
     id: '111_1_2',
     subcategoryId: 'subcategory-111-1',
-    img: ['/img/products/nikon.png'],
+    images: ['/img/products/nikon.png'],
     title: 'Nikon',
     slug: 'nikon',
     subTitle: 'black',
@@ -268,10 +272,10 @@ const products = [
       {name: 'Processor', value: 'Some3'},
     ],
     price: 230,
-  },{
+  }, {
     id: '111_1_3',
     subcategoryId: 'subcategory-333-2',
-    img: [
+    images: [
       '/img/products/alienware.png',
       '/img/products/alienware2.jpg'
     ],

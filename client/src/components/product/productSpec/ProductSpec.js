@@ -4,7 +4,13 @@ import styles from "./productSpec.module.css";
 const ProductSpec = ({specification}) => (
   <div className={styles.main}>
     {
-      specification.map(({name, value}) => (
+      // specification.map(({name, value}) => (
+      //   <div key={name} className={styles.item}>
+      //     <div className={styles.itemName}>{name}</div>
+      //     <div className={styles.itemValue}>{value}</div>
+      //   </div>)
+      // )
+      Object.entries(specification).map(([name, value]) => (
         <div key={name} className={styles.item}>
           <div className={styles.itemName}>{name}</div>
           <div className={styles.itemValue}>{value}</div>
