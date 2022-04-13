@@ -87,9 +87,9 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
               <FloatingLabel controlId="name" label="Your Name">
                 <Form.Control type="text" name="name" placeholder="Your Name" {...handlers.name}/>
               </FloatingLabel>
-              <FloatingLabel controlId="email" label="Your E-mail">
-                <Form.Control type="email" name="email" placeholder="Your E-mail" {...handlers.email}/>
-              </FloatingLabel>
+              {/*<FloatingLabel controlId="email" label="Your E-mail">*/}
+              {/*  <Form.Control type="email" name="email" placeholder="Your E-mail" {...handlers.email}/>*/}
+              {/*</FloatingLabel>*/}
               <FloatingLabel controlId="title" label="Review Title">
                 <Form.Control type="text" name="title" placeholder="Review Title" {...handlers.title}/>
               </FloatingLabel>
