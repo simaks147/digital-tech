@@ -1,5 +1,6 @@
 const Router = require('koa-router');
 const categoryList = require('./controllers/categories');
+const {productsBySubcategory} = require('./controllers/products');
 // const { sliders, categories, products, reviews } = require('./mock');
 
 const router = new Router({
@@ -12,5 +13,7 @@ const router = new Router({
 // });
 
 router.get('/categories', categoryList);
+
+router.get('/products', productsBySubcategory);
 
 module.exports = router;

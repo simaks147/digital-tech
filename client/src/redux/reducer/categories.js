@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
     case LOAD_CATEGORIES + SUCCESS:
       return {
         ...state,
-        entities: arrToMap(data),
+        entities: arrToMap(data.categories),
         loading: false,
         loaded: true
       }

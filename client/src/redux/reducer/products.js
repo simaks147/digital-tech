@@ -29,13 +29,13 @@ export default (state = initialState, action) =>
       case LOAD_PRODUCTS + SUCCESS:
         draft.loading = false;
         draft.loaded = true;
-        draft.entities = {...draft.entities, ...arrToMap(data)};
+        draft.entities = {...draft.entities, ...arrToMap(data.products)};
         break;
 
       case LOAD_PRODUCT + SUCCESS:
         draft.loading = false;
         draft.loaded = true;
-        draft.entities[id] = data;
+        draft.entities[id] = data.products;
         break;
 
       case LOAD_PRODUCTS + FAILURE:
