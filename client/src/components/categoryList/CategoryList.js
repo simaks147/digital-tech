@@ -11,7 +11,7 @@ const CategoryList = ({categories}) => (
     <Container>
       <Nav className={styles.nav}>
         {
-          categories.map((item, i) => <CategoryItem key={i} item={item}/>)
+          categories.map((item, i) => <CategoryItem key={item.slug} item={item}/>)
         }
       </Nav>
     </Container>

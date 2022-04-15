@@ -29,7 +29,7 @@ export default (state = {}, action) =>
       case LOAD_REVIEWS + SUCCESS:
         draft[productId].loading = false;
         draft[productId].loaded = true;
-        draft[productId].entities = data;
+        draft[productId].entities = data.reviews;
         break;
 
       case LOAD_REVIEWS + FAILURE:

@@ -86,7 +86,7 @@ export const loadProducts = (subcategoryId) => async (dispatch, getState) => {
 
 const _loadProduct = (id) => ({
   type: LOAD_PRODUCT,
-  CallApi: `/api/product?id=${id}`,
+  CallApi: `/api/product/${id}`,
   id
 });
 

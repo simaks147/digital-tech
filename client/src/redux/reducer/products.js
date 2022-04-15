@@ -35,7 +35,7 @@ export default (state = initialState, action) =>
       case LOAD_PRODUCT + SUCCESS:
         draft.loading = false;
         draft.loaded = true;
-        draft.entities[id] = data.products;
+        draft.entities[id] = data.product;
         break;
 
       case LOAD_PRODUCTS + FAILURE:

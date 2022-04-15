@@ -1,19 +1,15 @@
 const Router = require('koa-router');
 const categoryList = require('./controllers/categories');
-const {productsBySubcategory} = require('./controllers/products');
-// const { sliders, categories, products, reviews } = require('./mock');
+const {productsBySubcategory, productsList, productBySlug} = require('./controllers/products');
+const reviewsByProduct = require('./controllers/reviews');
 
 const router = new Router({
   prefix: '/api'
 });
 
-// router.get('/categories', async (ctx) => {
-//   await new Promise(resolve => setTimeout(resolve, 1000));
-//   ctx.body = categories;
-// });
-
 router.get('/categories', categoryList);
-
-router.get('/products', productsBySubcategory);
+router.get('/products', productsBySubcategory, productsList);
+router.get('/product/:slug', productBySlug);
+router.get('/reviews', reviewsByProduct);
 
 module.exports = router;
