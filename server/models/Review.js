@@ -30,7 +30,8 @@ const reviewSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-
+}, {
+  timestamps: true
 });
 
 module.exports = connection.model('Review', reviewSchema);

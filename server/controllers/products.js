@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const {mapProduct} = require('../utils/mappers');
 
 module.exports.productsBySubcategory = async (ctx, next) => {
   const {subcategoryId} = ctx.query;
@@ -7,13 +8,13 @@ module.exports.productsBySubcategory = async (ctx, next) => {
 
   const products = await Product.find({subcategoryId});
 
-  ctx.body = {products};
+  ctx.body = {products: products.map(mapProduct)};
 };
 
 module.exports.productsList = async (ctx) => {
   const products = await Product.find().limit(3);
 
-  ctx.body = {products};
+  ctx.body = {products: products.map(mapProduct)};
 };
 
 module.exports.productBySlug = async (ctx) => {
@@ -21,7 +22,9 @@ module.exports.productBySlug = async (ctx) => {
 
   const product = await Product.findOne({slug});
 
-  ctx.body = {product};
+  if (!product) ctx.throw(404, `No product with ${ctx.params.slug} slug`);
+
+  ctx.body = {product: mapProduct(product)};
 };
 
 
