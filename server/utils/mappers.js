@@ -18,5 +18,7 @@ module.exports.mapReview = (review) => ({
   text: review.text,
   recommended: review.recommended,
   rating: review.rating,
-  date: review.createdAt
+  date: new Date(review.createdAt).toLocaleDateString('en-US', {
+    year: 'numeric', month: 'long', day: 'numeric'
+  })
 });
