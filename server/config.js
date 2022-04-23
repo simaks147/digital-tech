@@ -10,5 +10,10 @@ module.exports = {
   // domain: DOMAIN,
   mongodb: {
     uri: process.env.MONGODB_URI
+  },
+  crypto: {
+    iterations: process.env.NODE_ENV !== 'production' ? 1 : 10000,
+    length: 128,
+    digest: 'sha512'
   }
 }
