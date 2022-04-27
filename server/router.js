@@ -1,14 +1,19 @@
 const Router = require('koa-router');
+const session = require('./middleware/session');
+const {mustBeAuthenticated, alreadyAuthenticated} = require('./middleware/authentication');
 const validationErrors = require('./middleware/validationErrors');
 const categoryList = require('./controllers/categories');
 const {productsBySubcategory, productsList, productBySlug} = require('./controllers/products');
 const {reviewsByProduct, createReview} = require('./controllers/reviews');
 const login = require('./controllers/login');
 const {oauth, oauthCallback} = require('./controllers/oauth');
+const me = require('./controllers/me');
 
 const router = new Router({
   prefix: '/api'
 });
+
+router.use(session);
 
 router.get('/categories', categoryList);
 
@@ -18,9 +23,11 @@ router.get('/product/:slug', productBySlug);
 router.get('/reviews', reviewsByProduct);
 router.post('/reviews', validationErrors, createReview);
 
-router.post('/login', login);
+router.post('/login', alreadyAuthenticated, validationErrors, login);
 router.get('/oauth/:provider', oauth);
 router.post('/oauth_callback', oauthCallback);
+
+router.get('/me', mustBeAuthenticated, me);
 
 
 module.exports = router;

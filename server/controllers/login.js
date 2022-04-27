@@ -1,7 +1,8 @@
 const passport = require('../libs/passport');
+const Session = require("../models/Session");
 
 module.exports = async (ctx, next) => {
-  await passport.authenticate('local', (err, user, info) => {
+  await passport.authenticate('local', async (err, user, info) => {
     if (err) throw err;
 
     if (!user) {
@@ -10,6 +11,6 @@ module.exports = async (ctx, next) => {
       return;
     }
 
-    ctx.body = user.displayName;
+    ctx.body = await ctx.login(user);
   })(ctx, next);
 };
