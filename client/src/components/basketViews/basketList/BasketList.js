@@ -30,7 +30,7 @@ const BasketList = ({order, total, processCheckout}) => {
               <tbody>
               {
                 order.map(item => (
-                  <BasketItem key={item.id} item={item}/>
+                  <BasketItem key={item.slug} item={item}/>
                 ))
               }
               </tbody>

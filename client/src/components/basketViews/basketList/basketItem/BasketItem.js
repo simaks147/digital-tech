@@ -8,12 +8,20 @@ import {
 } from "../../../../redux/actions";
 import {Link} from "react-router-dom";
 import {PRODUCT_ROUTE} from "../../../../utils/consts";
+import {imagesUrlEndpoint} from "../../../../config";
+import {IKImage} from 'imagekitio-react';
 
 const BasketItem = ({item, increaseCart, decreaseCart, removeFromCart}) => (
-  <tr key={item.id}>
+  <tr>
     <td className={styles.picture}>
       <Link to={`${PRODUCT_ROUTE}/${item.slug}`}>
-        <img src={process.env.PUBLIC_URL + item.img[0]} alt=""/>
+        <IKImage
+          urlEndpoint={imagesUrlEndpoint}
+          path={item.images[0]}
+          transformation={[{
+            height: 88,
+            width: 88
+          }]}/>
       </Link>
     </td>
     <td className={styles.title}>
