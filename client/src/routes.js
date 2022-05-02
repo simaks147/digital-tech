@@ -3,14 +3,16 @@ import {
   BASKET_ROUTE_SHOPPING,
   BASKET_ROUTE_CHECKOUT,
   BASKET_ROUTE_COMPLETED,
-  HOME_ROUTE, LOGIN_ROUTE,
-  REGISTRATION_ROUTE,
+  HOME_ROUTE,
+  LOGIN_ROUTE,
+  REGISTER_ROUTE,
   CATEGORY_ROUTE,
   PRODUCT_ROUTE
 } from "./utils/consts";
 import BasketPage from "./pages/BasketPage";
 import HomePage from "./pages/HomePage";
-import AuthPage from "./pages/AuthPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
 
@@ -24,7 +26,7 @@ export const authRoutes = [
     ],
     Component: BasketPage
   }
-]
+];
 
 export const publicRoutes = [
   {
@@ -34,11 +36,11 @@ export const publicRoutes = [
   },
   {
     path: LOGIN_ROUTE,
-    Component: AuthPage
+    Component: LoginPage
   },
   {
-    path: REGISTRATION_ROUTE,
-    Component: AuthPage
+    path: REGISTER_ROUTE,
+    Component: RegisterPage
   },
   {
     path: [
@@ -54,5 +56,5 @@ export const publicRoutes = [
     ],
     Component: ProductPage
   },
-]
+];
 

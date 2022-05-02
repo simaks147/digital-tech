@@ -128,3 +128,5 @@ export const addReview = (productId, values) => ({
   productId,
   values
 });
+
+export const login = () => console.log('login');

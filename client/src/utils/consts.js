@@ -1,5 +1,5 @@
 export const LOGIN_ROUTE = '/login';
-export const REGISTRATION_ROUTE = '/registration';
+export const REGISTER_ROUTE = '/register';
 export const HOME_ROUTE = '/';
 export const BASKET_ROUTE = '/basket';
 export const BASKET_ROUTE_SHOPPING = '/basket/shopping';

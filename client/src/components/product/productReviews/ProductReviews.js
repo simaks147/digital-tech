@@ -15,7 +15,8 @@ import Spinner from "react-bootstrap/Spinner";
 import Rate from "../../rate/Rate";
 import useForm from "../../../hooks/use-form";
 import {addReview} from "../../../redux/actions";
-const INITIAL_VALUES = {
+
+const initialValues = {
   // name: '',
   // email: '',
   title: '',
@@ -30,7 +31,7 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
 
   const [lastVisibleReview, setLastVisibleReview] = useState(3);
   const [recommended, setRecommended] = useState(false);
-  const {values, handlers, reset} = useForm(INITIAL_VALUES);
+  const {values, handlers, reset} = useForm(initialValues);
 
   const handleLastVisibleReview = () => setLastVisibleReview(reviews.length);
   const handleChangeRecommended = () => setRecommended(!recommended);

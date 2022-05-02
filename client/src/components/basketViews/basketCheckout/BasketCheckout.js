@@ -6,7 +6,7 @@ import {makeOrder} from "../../../redux/actions";
 import {connect} from "react-redux";
 import useForm from "../../../hooks/use-form";
 
-const INITIAL_VALUES = {
+const initialValues = {
   name: '',
   email: '',
   address: '',
@@ -14,7 +14,7 @@ const INITIAL_VALUES = {
 };
 
 const BasketCheckout = ({makeOrder}) => {
-  const {values, handlers, reset} = useForm(INITIAL_VALUES);
+  const {values, handlers, reset} = useForm(initialValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();

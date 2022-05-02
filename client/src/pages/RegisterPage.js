@@ -1,10 +1,10 @@
 import React from 'react';
 import Layout from "../components/Layout";
 
-const AuthPage = () => (
+const RegisterPage = () => (
   <Layout>
-    Auth
+    {/*<Register/>*/}
   </Layout>
 );
 
-export default AuthPage;
+export default RegisterPage;
