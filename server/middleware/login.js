@@ -12,7 +12,7 @@ module.exports = (ctx, next) => {
       ip: ctx.request.ip
     });
 
-    return token;
+    return {token};
   };
 
   return next();

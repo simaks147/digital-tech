@@ -23,6 +23,9 @@ export const activeSubcategorySelector = (state) => state.subcategories.active;
 
 export const reviewsByProductSelector = (state, {slug}) => reviewsSelector(state)[slug]?.entities;
 
+export const loginSelector = (state) => state.auth.login;
+export const tokenSelector = (state) => state.auth.token;
+
 export const categoriesListSelector = createSelector(
   categoriesSelector,
   Object.values

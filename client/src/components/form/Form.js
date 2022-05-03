@@ -4,7 +4,7 @@ import {Container, FloatingLabel, Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import useForm from "../../hooks/use-form";
 
-const CustomForm = ({title, subtitle, fields, onSubmit}) => {
+const CustomForm = ({title, subtitle, fields, onSubmit, submitButton}) => {
   const initialValues = useMemo(
     () => fields.reduce((acc, field) => ({...acc, [field.name]: ''}), {}),
     [fields]
@@ -32,7 +32,7 @@ const CustomForm = ({title, subtitle, fields, onSubmit}) => {
             ))
           }
         </Form>
-        <Button className='c-button' onClick={handleSubmit}>Log In</Button>
+        <Button className='c-button' onClick={handleSubmit}>{submitButton}</Button>
       </Container>
     </div>
   );

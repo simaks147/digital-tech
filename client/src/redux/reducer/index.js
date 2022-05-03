@@ -5,6 +5,7 @@ import products from "./products";
 import order from "./order";
 import subcategories from "./subcategories";
 import reviews from "./reviews";
+import auth from "./auth";
 
 const createRootReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -12,7 +13,8 @@ const createRootReducer = (history) => combineReducers({
   products,
   order,
   subcategories,
-  reviews
+  reviews,
+  auth
 });
 
 export default createRootReducer;

@@ -11,7 +11,8 @@ import {
   SET_ACTIVE_CATEGORIES,
   PROCESS_CHECKOUT,
   LOAD_REVIEWS,
-  ADD_REVIEW
+  ADD_REVIEW,
+  LOGIN
 } from "./consts";
 
 import {
@@ -129,4 +130,17 @@ export const addReview = (productId, values) => ({
   values
 });
 
-export const login = () => console.log('login');
+const _login = (values) => ({
+  type: LOGIN,
+  CallApi: '/api/login',
+  values
+});
+
+export const login = (values) => async (dispatch, getState) => {
+  let state = getState();
+  const processing = state.auth.login.processing;
+
+  if (!processing) {
+    await dispatch(_login(values));
+  }
+}

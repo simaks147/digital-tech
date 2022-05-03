@@ -19,6 +19,8 @@ export const ROUTER_LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
 
 export const ADD_REVIEW = 'ADD_REVIEW';
 
+export const LOGIN = 'LOGIN';
+
 
 
 

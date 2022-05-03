@@ -2,12 +2,13 @@ import React from 'react';
 import Form from "../form";
 import {connect} from "react-redux";
 import {login} from "../../redux/actions";
-import {Link} from "react-router-dom";
-import {REGISTER_ROUTE} from "../../utils/consts";
+import {Link, Redirect} from "react-router-dom";
+import {HOME_ROUTE, REGISTER_ROUTE} from "../../utils/consts";
 import styles from "../form/form.module.css";
+import {tokenSelector} from "../../redux/selectors";
 
 const formFields = [
-  {id: 'username', label: 'Username', type: 'text', name: 'username', placeholder: 'Username'},
+  {id: 'email', label: 'Email', type: 'text', name: 'email', placeholder: 'Email'},
   {id: 'password', label: 'Password', type: 'password', name: 'password', placeholder: 'Password'}
 ];
 
@@ -16,16 +17,23 @@ const formSubtitle = <>
   <Link to={REGISTER_ROUTE} className={styles.link}>Register&nbsp;Here</Link>
 </>;
 
-const Login = () => {
+const Login = ({token, login}) => {
+  if (token) return <Redirect to={HOME_ROUTE}/>;
+
   return (
     <Form
       title='Welcome Back'
       subtitle={formSubtitle}
       fields={formFields}
       onSubmit={login}
+      submitButton='Log In'
     />
   );
 };
 
-export default connect(null, {login})(Login);
+const mapStateToProps = (state, props) => ({
+  token: tokenSelector(state, props),
+});
+
+export default connect(mapStateToProps,{login})(Login);
 
