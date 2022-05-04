@@ -12,7 +12,11 @@ module.exports = (ctx, next) => {
       ip: ctx.request.ip
     });
 
-    return {token};
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve({token});
+      }, 2000);
+    });
   };
 
   return next();

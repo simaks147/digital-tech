@@ -15,10 +15,6 @@ const sessionSchema = new mongoose.Schema({
   lastVisit: {
     type: Date,
     required: true
-  },
-  ip: {
-    type: String,
-    required: true
   }
 });
 

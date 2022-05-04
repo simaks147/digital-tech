@@ -82,6 +82,11 @@ body {
     box-shadow: none;
 }
 
+.c-button:disabled {
+    background-color: var(--bs-gray-600);
+    border-color: var(--bs-gray-700);
+}
+
 .c-button2 {
     text-transform: uppercase;
     background-color: transparent;

@@ -36,6 +36,10 @@
     margin-bottom: 22px;
 }
 
+.section :global(.form-control):disabled {
+    background-color: #fff;
+}
+
 .section :global(label) {
     color: var(--bs-gray-500);
     font-size: 16px;
@@ -44,9 +48,14 @@
 }
 
 .section :global(.c-button) {
+    position: relative;
     min-width: 250px;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.section :global(.c-loader) {
+    left: 20px;
 }
 
 @media (min-width: 576px) {
