@@ -8,7 +8,7 @@ module.exports = async (ctx, next) => {
   if (!token) return next();
 
   const session = await Session.findOne({token}).populate('user');
-  if (!session) ctx.throw(401, 'Неверный аутентификационный токен');
+  if (!session) ctx.throw(401, 'Invalid authentication token');
 
   session.lastVisit = new Date();
   await session.save();

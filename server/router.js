@@ -1,6 +1,6 @@
 const Router = require('koa-router');
 const session = require('./middleware/session');
-const {mustBeAuthenticated, alreadyAuthenticated} = require('./middleware/authentication');
+const {mustBeAuthenticated} = require('./middleware/authentication');
 const validationErrors = require('./middleware/validationErrors');
 const categoryList = require('./controllers/categories');
 const {productsBySubcategory, productsList, productBySlug} = require('./controllers/products');
@@ -23,7 +23,7 @@ router.get('/product/:slug', productBySlug);
 router.get('/reviews', reviewsByProduct);
 router.post('/reviews', validationErrors, createReview);
 
-router.post('/login', alreadyAuthenticated, validationErrors, login);
+router.post('/login', validationErrors, login);
 router.get('/oauth/:provider', oauth);
 router.post('/oauth_callback', oauthCallback);
 

@@ -26,8 +26,7 @@ import {
   loadingProductsSelector,
   loadedProductsSelector,
   subcategoriesSelector,
-  // loadingReviewsSelector,
-  // loadedReviewsSelector
+  loginSelector
 } from "./selectors";
 
 export const increaseCart = (id) => ({
@@ -83,7 +82,7 @@ export const loadProducts = (subcategoryId) => async (dispatch, getState) => {
   }
 
   await dispatch(_setActiveCategory(subcategoryId, categoryId));
-}
+};
 
 const _loadProduct = (id) => ({
   type: LOAD_PRODUCT,
@@ -106,7 +105,7 @@ export const loadProduct = (id) => async (dispatch, getState) => {
   const categoryId = activeCategoryBySubcategorySelector(state, {subcategoryId});
 
   await dispatch(_setActiveCategory(subcategoryId, categoryId));
-}
+};
 
 const _loadReviews = (productId) => ({
   type: LOAD_REVIEWS,
@@ -122,7 +121,7 @@ export const loadReviews = (productId) => async (dispatch, getState) => {
   if (!loading && !loaded) {
     await dispatch(_loadReviews(productId));
   }
-}
+};
 
 export const addReview = (productId, values) => ({
   type: ADD_REVIEW,
@@ -138,9 +137,10 @@ const _login = (values) => ({
 
 export const login = (values) => async (dispatch, getState) => {
   let state = getState();
-  const processing = state.auth.login.processing;
+  let login = loginSelector(state);
+  const processing = login.processing;
 
   if (!processing) {
     await dispatch(_login(values));
   }
-}
+};
