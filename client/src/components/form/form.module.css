@@ -58,6 +58,47 @@
     left: 20px;
 }
 
+.or {
+    text-transform: uppercase;
+    margin: 30px 0;
+}
+
+.social {
+    max-width: 470px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.social a {
+    display: block;
+    margin: 0 5px;
+    height: 30px;
+    width: 76px;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.2), 0 2px 10px 0 rgba(0,0,0,.1);
+    line-height: 30px;
+    border-radius: 4px;
+    transition: box-shadow .15s;
+}
+
+.social a:hover {
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,.2), 0 4px 20px 0 rgba(0,0,0,.1);
+}
+
+.social :global(.social-github) {
+    background-color: #57606A;
+}
+
+.social :global(.social-yandex) {
+    background-color: #FC3F1D;
+}
+
+.social :global(.social-vk) {
+    background-color: #0077FF;
+}
+
 @media (min-width: 576px) {
     .title {
         font-size: 55px;

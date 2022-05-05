@@ -4,6 +4,15 @@ import {Alert, Container, FloatingLabel, Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import useForm from "../../hooks/use-form";
 import Spinner from "react-bootstrap/Spinner";
+import {ReactComponent as GitHubIcon} from "../../icons/github.svg";
+import {ReactComponent as YandexIcon} from "../../icons/yandex.svg";
+import {ReactComponent as VKIcon} from "../../icons/vk.svg";
+
+const social = [
+  {className: 'social-github', Icon: GitHubIcon},
+  {className: 'social-yandex', Icon: YandexIcon},
+  {className: 'social-vk', Icon: VKIcon}
+];
 
 const CustomForm = ({disabled, title, subtitle, fields, onSubmit, submitButton, errors}) => {
   const initialValues = useMemo(
@@ -45,7 +54,18 @@ const CustomForm = ({disabled, title, subtitle, fields, onSubmit, submitButton, 
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           }
-          {submitButton}</Button>
+          {submitButton}
+        </Button>
+        <div className={styles.or}>or</div>
+        <div className={styles.social}>
+          {
+            social.map(({className, Icon}) => (
+              <a key={className} href="#" className={className}>
+                <Icon/>
+              </a>
+            ))
+          }
+        </div>
       </Container>
     </div>
   );
