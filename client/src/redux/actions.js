@@ -12,7 +12,8 @@ import {
   PROCESS_CHECKOUT,
   LOAD_REVIEWS,
   ADD_REVIEW,
-  LOGIN
+  LOGIN,
+  OAUTH, OAUTH_CALLBACK
 } from "./consts";
 
 import {
@@ -144,3 +145,14 @@ export const login = (values) => async (dispatch, getState) => {
     await dispatch(_login(values));
   }
 };
+
+export const oauth = (provider) => ({
+  type: OAUTH,
+  CallApi: `/api/oauth/${provider}`
+});
+
+export const oauthCallback = (provider, code) => ({
+  type: OAUTH_CALLBACK,
+  CallApi: `/api/oauth_callback/?code=${code}`,
+  values: {provider}
+});

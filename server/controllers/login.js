@@ -1,5 +1,4 @@
 const passport = require('../libs/passport');
-const Session = require("../models/Session");
 
 module.exports = async (ctx, next) => {
   await passport.authenticate('local', async (err, user, info) => {

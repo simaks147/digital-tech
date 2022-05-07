@@ -16,15 +16,15 @@ module.exports.oauth = async (ctx, next) => {
 module.exports.oauthCallback = async (ctx, next) => {
   const provider = ctx.request.body.provider;
 
-  await passport.authenticate(provider, (err, user, info) => {
+  await passport.authenticate(provider, {session: false}, async (err, user, info) => {
     if (err) throw err;
 
-    // if (!user) {
+    if (!user) {
       ctx.status = 400;
       ctx.body = {error: info};
-      // return;
-    // }
+      return;
+    }
 
-    // ctx.body = user.displayName;
+    ctx.body = await ctx.login(user);
   })(ctx, next);
 };

@@ -8,8 +8,7 @@ module.exports = (ctx, next) => {
     await Session.create({
       user,
       token,
-      lastVisit: new Date(),
-      ip: ctx.request.ip
+      lastVisit: new Date()
     });
 
     return new Promise(resolve => {

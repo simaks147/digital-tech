@@ -20,6 +20,8 @@ export const ROUTER_LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
 export const ADD_REVIEW = 'ADD_REVIEW';
 
 export const LOGIN = 'LOGIN';
+export const OAUTH = 'OAUTH';
+export const OAUTH_CALLBACK = 'OAUTH_CALLBACK';
 
 
 

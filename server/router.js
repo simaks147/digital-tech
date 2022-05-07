@@ -25,7 +25,7 @@ router.post('/reviews', validationErrors, createReview);
 
 router.post('/login', validationErrors, login);
 router.get('/oauth/:provider', oauth);
-router.post('/oauth_callback', oauthCallback);
+router.post('/oauth_callback', validationErrors, oauthCallback);
 
 router.get('/me', mustBeAuthenticated, me);
 

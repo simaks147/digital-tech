@@ -7,11 +7,12 @@ import {
   LOGIN_ROUTE,
   REGISTER_ROUTE,
   CATEGORY_ROUTE,
-  PRODUCT_ROUTE
+  PRODUCT_ROUTE, OAUTH_CALLBACK_ROUTE
 } from "./utils/consts";
 import BasketPage from "./pages/BasketPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import OauthCallbackPage from "./pages/OauthCallbackPage";
 import RegisterPage from "./pages/RegisterPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
@@ -37,6 +38,10 @@ export const publicRoutes = [
   {
     path: LOGIN_ROUTE,
     Component: LoginPage
+  },
+  {
+    path: OAUTH_CALLBACK_ROUTE,
+    Component: OauthCallbackPage
   },
   {
     path: REGISTER_ROUTE,

@@ -25,6 +25,8 @@ export const reviewsByProductSelector = (state, {slug}) => reviewsSelector(state
 
 export const loginSelector = (state) => state.auth.login;
 export const tokenSelector = (state) => state.auth.token;
+export const oauthSelector = (state) => state.auth.oauth;
+export const oauthCallbackSelector = (state) => state.auth.oauthCallback;
 
 export const categoriesListSelector = createSelector(
   categoriesSelector,

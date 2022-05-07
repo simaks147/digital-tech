@@ -1,5 +1,6 @@
 const Strategy = require('passport-vkontakte').Strategy;
 const config = require('../../config');
+const authenticate = require('./authenticate');
 
 module.exports = new Strategy({
   clientID: config.providers.vkontakte.app_id,
@@ -9,10 +10,5 @@ module.exports = new Strategy({
   scope: ['user:email'],
   session: false,
 }, (accessToken, refreshToken, params, profile, done) => {
-  try {
-    done(null, false, 'Стратегия VK еще не подключена')
-  }
-  catch (err) {
-    done(err);
-  }
+  authenticate(params.email, profile.displayName, done)
 });

@@ -1,4 +1,5 @@
 export const LOGIN_ROUTE = '/login';
+export const OAUTH_CALLBACK_ROUTE = '/oauth/:provider';
 export const REGISTER_ROUTE = '/register';
 export const HOME_ROUTE = '/';
 export const BASKET_ROUTE = '/basket';
