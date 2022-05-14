@@ -23,6 +23,8 @@ export default (store) => (next) => async (action) => {
     const res = await fetch(CallApi, params);
     const data = await res.json();
 
+    if (res.status === 401) localStorage.removeItem('token');
+
     if (!res.ok) throw data;
 
     next({...rest, type: type + SUCCESS, data});
