@@ -13,7 +13,10 @@ import {
   LOAD_REVIEWS,
   ADD_REVIEW,
   LOGIN,
-  OAUTH, OAUTH_CALLBACK
+  OAUTH,
+  OAUTH_CALLBACK,
+  REGISTER,
+  CONFIRM
 } from "./consts";
 
 import {
@@ -27,7 +30,8 @@ import {
   loadingProductsSelector,
   loadedProductsSelector,
   subcategoriesSelector,
-  loginSelector
+  loginSelector,
+  registrationSelector
 } from "./selectors";
 
 export const increaseCart = (id) => ({
@@ -155,4 +159,26 @@ export const oauthCallback = (provider, code) => ({
   type: OAUTH_CALLBACK,
   CallApi: `/api/oauth_callback/?code=${code}`,
   values: {provider}
+});
+
+const _register = (values) => ({
+  type: REGISTER,
+  CallApi: '/api/register',
+  values
+});
+
+export const register = (values) => async (dispatch, getState) => {
+  let state = getState();
+  let registration = registrationSelector(state);
+  const processing = registration.processing;
+
+  if (!processing) {
+    await dispatch(_register(values));
+  }
+};
+
+export const confirm = (verificationToken) => ({
+  type: CONFIRM,
+  CallApi: '/api/confirm',
+  values: {verificationToken}
 });

@@ -13,11 +13,11 @@
     font-size: 16px;
 }
 
-.subtitle .link {
+.subtitle a {
     color: var(--c-color1);
 }
 
-.subtitle .link:hover {
+.subtitle a:hover {
     color: var(--c-color2);
 }
 

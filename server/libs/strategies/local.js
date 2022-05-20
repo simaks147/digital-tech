@@ -9,15 +9,19 @@ module.exports = new LocalStrategy({
     const user = await User.findOne({email});
 
     if (!user) {
-      return done(null, null, {message: 'No such user'});
+      return done(null, false, 'No such user');
     }
 
     if (!user.passwordHash) {
-      return done(null, null, {message: 'No password set for user, login with social network'});
+      return done(null, false, 'No password set for user, login with social network');
     }
 
     if (!await user.checkPassword(password)) {
-      return done(null, null, {message: 'Incorrect password'});
+      return done(null, false, 'Incorrect password');
+    }
+
+    if (user.verificationToken) {
+      return done(null, false, 'Confirm your email please');
     }
 
     return done(null, user);

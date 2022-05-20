@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 const Footer = () => {
   return (
     <div className={styles.section}>
-      <Container className='d-flex flex-column'>
+      <Container className='d-flex flex-column align-items-center'>
         <Link to={HOME_ROUTE} className={styles.brand}>DigitalTech</Link>
         <div className={styles.address}>77 Freestone, Largepoint, London, 777777</div>
         <div>

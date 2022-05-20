@@ -1,13 +1,15 @@
 require('dotenv').config();
 
+const APP_NAME = 'DigitalTech';
 const PORT = process.env.PORT || 3001;
 const HOST = process.env.HOST || '127.0.0.1';
 const DOMAIN = process.env.DOMAIN || `http://${HOST}${PORT !== 80 ? ':' + PORT : ''}`;
 
 module.exports = {
+  app_name: APP_NAME,
   port: PORT,
   host: HOST,
-  // domain: DOMAIN,
+  domain: DOMAIN,
   mongodb: {
     uri: process.env.MONGODB_URI
   },
@@ -25,5 +27,9 @@ module.exports = {
         scope: ['email'],
       }
     }
+  },
+  mailer: {
+    api_key: process.env.MAILGUN_API_KEY || '',
+    domain: process.env.MAILGUN_DOMAIN || ''
   }
 }

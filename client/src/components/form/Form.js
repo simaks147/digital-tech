@@ -46,7 +46,9 @@ const CustomForm = ({disabled, title, subtitle, fields, onSubmit, submitButton, 
           }
           {
             errors &&
-            <Alert variant="danger">{errors?.error.message}</Alert>
+              errors.map((err) => (
+                <Alert variant="danger">{err}</Alert>
+              ))
           }
         </Form>
         <Button className='c-button' onClick={handleSubmit} disabled={disabled}>

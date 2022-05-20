@@ -6,14 +6,17 @@ import {
   HOME_ROUTE,
   LOGIN_ROUTE,
   REGISTER_ROUTE,
+  CONFIRM_ROUTE,
   CATEGORY_ROUTE,
-  PRODUCT_ROUTE, OAUTH_CALLBACK_ROUTE
+  PRODUCT_ROUTE,
+  OAUTH_CALLBACK_ROUTE
 } from "./utils/consts";
 import BasketPage from "./pages/BasketPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import OauthCallbackPage from "./pages/OauthCallbackPage";
 import RegisterPage from "./pages/RegisterPage";
+import ConfirmPage from "./pages/ConfirmPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
 
@@ -31,7 +34,6 @@ export const authRoutes = [
 
 export const publicRoutes = [
   {
-
     path: HOME_ROUTE,
     Component: HomePage
   },
@@ -46,6 +48,10 @@ export const publicRoutes = [
   {
     path: REGISTER_ROUTE,
     Component: RegisterPage
+  },
+  {
+    path: CONFIRM_ROUTE,
+    Component: ConfirmPage
   },
   {
     path: [

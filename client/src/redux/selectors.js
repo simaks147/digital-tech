@@ -27,6 +27,8 @@ export const loginSelector = (state) => state.auth.login;
 export const tokenSelector = (state) => state.auth.token;
 export const oauthSelector = (state) => state.auth.oauth;
 export const oauthCallbackSelector = (state) => state.auth.oauthCallback;
+export const registrationSelector = (state) => state.auth.registration;
+export const confirmationSelector = (state) => state.auth.confirmation;
 
 export const categoriesListSelector = createSelector(
   categoriesSelector,

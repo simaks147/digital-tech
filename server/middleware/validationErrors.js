@@ -7,10 +7,10 @@ module.exports = async (ctx, next) => {
 
     ctx.status = 400;
 
-    const errors = Object.entries(err.errors).map(([key, value]) => ({
+    const error = Object.entries(err.errors).map(([key, value]) => ({
       [key]: value.message
     }));
 
-    ctx.body = {errors};
+    ctx.body = {error};
   }
 }

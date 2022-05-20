@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const uniqueValidator = require("mongoose-unique-validator");
 const connection = require('../libs/connection');
 const config = require('../config');
 
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    required: 'E-mail must not be empty',
+    required: 'Email must not be empty',
     validate: [
       {
         validator(value) {
@@ -15,22 +16,28 @@ const userSchema = new mongoose.Schema({
         message: 'Invalid email',
       }
     ],
-    unique: 'This email already exists,'
+    unique: true,
   },
   displayName: {
     type: String,
     required: 'The user must have a username',
-    unique: 'This name already exists'
+    // unique: 'This name already exists'
   },
   salt: {
     type: String
   },
   passwordHash: {
     type: String
+  },
+  verificationToken: {
+    type: String,
+    index: true
   }
 }, {
   timestamps: true
 });
+
+userSchema.plugin(uniqueValidator, { message: 'User with this {PATH} already exists' });
 
 const generatePassword = (salt, password) => {
   return new Promise((resolve, reject) => {

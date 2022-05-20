@@ -17,16 +17,15 @@ const SwitchBar = ({token}) => (
         </Col>
         <Col xs={6} lg={2} style={{textAlign: "right"}}>
           {
-            !token &&
-            <>
-              <Link to={LOGIN_ROUTE} className={styles.link}>Log&nbsp;In</Link>
-              <span> or </span>
-              <Link to={REGISTER_ROUTE} className={styles.link}>Sign&nbsp;Up</Link>
-            </>
-          }
-          {
-            token &&
-            <a onClick={logout} className={styles.link}>Log&nbsp;Out</a>
+            !token
+              ?
+              <>
+                <Link to={LOGIN_ROUTE} className={styles.link}>Log&nbsp;In</Link>
+                <span> or </span>
+                <Link to={REGISTER_ROUTE} className={styles.link}>Sign&nbsp;Up</Link>
+              </>
+              :
+              <a onClick={logout} className={styles.link}>Log&nbsp;Out</a>
           }
         </Col>
       </Row>

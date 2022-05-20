@@ -5,10 +5,10 @@ module.exports = async (ctx, next) => {
   catch (err) {
     if (err.status) {
       ctx.status = err.status;
-      ctx.body = {error: err.message}
+      ctx.body = {error: {message: err.message}}
       return;
     }
     ctx.status = 500;
-    ctx.body = {error: 'Internal server error'};
+    ctx.body = {error: {message: 'Internal server error'}};
   }
 };

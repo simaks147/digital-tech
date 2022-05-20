@@ -7,6 +7,7 @@ const {productsBySubcategory, productsList, productBySlug} = require('./controll
 const {reviewsByProduct, createReview} = require('./controllers/reviews');
 const login = require('./controllers/login');
 const {oauth, oauthCallback} = require('./controllers/oauth');
+const {register, confirm} = require('./controllers/registration');
 const me = require('./controllers/me');
 
 const router = new Router({
@@ -27,7 +28,9 @@ router.post('/login', validationErrors, login);
 router.get('/oauth/:provider', oauth);
 router.post('/oauth_callback', validationErrors, oauthCallback);
 
-router.get('/me', mustBeAuthenticated, me);
+router.post('/register', validationErrors, register);
+router.post('/confirm', confirm);
 
+router.get('/me', mustBeAuthenticated, me);
 
 module.exports = router;

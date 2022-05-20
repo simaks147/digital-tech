@@ -19,11 +19,7 @@ module.exports.oauthCallback = async (ctx, next) => {
   await passport.authenticate(provider, {session: false}, async (err, user, info) => {
     if (err) throw err;
 
-    if (!user) {
-      ctx.status = 400;
-      ctx.body = {error: info};
-      return;
-    }
+    if (!user) ctx.throw(400, info);
 
     ctx.body = await ctx.login(user);
   })(ctx, next);

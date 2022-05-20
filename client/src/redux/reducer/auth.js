@@ -1,11 +1,16 @@
 import produce from "immer";
+import {objToArr} from "../utils";
 
 import {
   LOGIN,
   OAUTH,
   REQUEST,
   SUCCESS,
-  FAILURE, OAUTH_CALLBACK
+  FAILURE,
+  OAUTH_CALLBACK,
+  REGISTER,
+  CONFIRM,
+  ROUTER_LOCATION_CHANGE
 } from "../consts";
 
 const token = localStorage.getItem('token') || null;
@@ -23,8 +28,17 @@ const initialState = {
   oauthCallback: {
     processing: false,
     error: null
-  }
-}
+  },
+  registration: {
+    processing: false,
+    error: null,
+    complete: false
+  },
+  confirmation: {
+    processing: false,
+    error: null
+  },
+};
 
 export default (state = initialState, action) =>
   produce(state, draft => {
@@ -39,11 +53,12 @@ export default (state = initialState, action) =>
         localStorage.setItem('token', data.token);
         draft.token = data.token;
         draft.login.processing = false;
+        draft.login.error = null;
         break;
 
       case LOGIN + FAILURE:
         draft.login.processing = false;
-        draft.login.error = error;
+        draft.login.error = objToArr(error.error);
         break;
 
       case OAUTH + REQUEST:
@@ -52,6 +67,7 @@ export default (state = initialState, action) =>
 
       case OAUTH + SUCCESS:
         draft.oauth.processing = false;
+        draft.oauth.error = null;
         window.location.href = data.location
         break;
 
@@ -68,11 +84,51 @@ export default (state = initialState, action) =>
         localStorage.setItem('token', data.token);
         draft.token = data.token;
         draft.oauthCallback.processing = false;
+        draft.oauthCallback.error = null;
         break;
 
       case OAUTH_CALLBACK + FAILURE:
         draft.oauthCallback.processing = false;
-        draft.oauthCallback.error = error;
+        draft.oauthCallback.error = objToArr(error.error);
+        break;
+
+      case REGISTER + REQUEST:
+        draft.registration.processing = true;
+        break;
+
+      case REGISTER + SUCCESS:
+        draft.registration.complete = true;
+        draft.registration.processing = false;
+        draft.registration.error = null;
+        break;
+
+      case REGISTER + FAILURE:
+        draft.registration.processing = false;
+        draft.registration.error = objToArr(error.error);
+        break;
+
+      case CONFIRM + REQUEST:
+        draft.confirmation.processing = true;
+        break;
+
+      case CONFIRM + SUCCESS:
+        localStorage.setItem('token', data.token);
+        draft.token = data.token;
+        draft.confirmation.processing = false;
+        draft.confirmation.error = null;
+        break;
+
+      case CONFIRM + FAILURE:
+        draft.confirmation.processing = false;
+        draft.confirmation.error = objToArr(error.error);
+        break;
+
+      case ROUTER_LOCATION_CHANGE:
+        draft.login.error = null;
+        draft.oauth.error = null;
+        draft.oauthCallback.error = null;
+        draft.registration.error = null;
+        draft.confirmation.error = null;
         break;
 
       default:
