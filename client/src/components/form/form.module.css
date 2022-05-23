@@ -27,13 +27,16 @@
     margin-bottom: 60px;
 }
 
+.section :global(.form-floating) {
+    margin-bottom: 22px;
+}
+
 .section :global(.form-control) {
     border-width: 0;
     border-bottom-width: 1px;
     border-radius: 0;
     padding-left: 0;
     padding-right: 0;
-    margin-bottom: 22px;
 }
 
 .section :global(.form-control):disabled {
@@ -52,6 +55,7 @@
     min-width: 250px;
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-top: 34px;
 }
 
 .section :global(.c-loader) {
@@ -104,8 +108,11 @@
         font-size: 55px;
     }
 
+    .section :global(.form-floating) {
+        margin-bottom: 26px;
+    }
+
     .section :global(.form-control) {
         height: 80px;
-        margin-bottom: 26px;
     }
 }

@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 import styles from './form.module.css';
 import {Alert, Container, FloatingLabel, Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -22,12 +22,27 @@ const CustomForm = ({disabled, title, subtitle, fields, onSubmit, submitButton, 
     [fields]
   );
 
+
+  const [validated, setValidated] = useState(false);
+
   const {values, handlers, reset} = useForm(initialValues);
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   reset();
+  //   onSubmit(values);
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    reset();
-    onSubmit(values);
+    // e.stopPropagation();
+
+    // const form = e.currentTarget;
+    if (e.currentTarget.checkValidity()) onSubmit(values);
+
+
+    setValidated(true);
+    // reset();
   };
 
   return (
@@ -35,31 +50,43 @@ const CustomForm = ({disabled, title, subtitle, fields, onSubmit, submitButton, 
       <Container>
         <div className={styles.title}>{title}</div>
         <div className={styles.subtitle}>{subtitle}</div>
-        <Form>
+        <Form onSubmit={handleSubmit} noValidate validated={validated}>
           {
-            fields.map(field => (
-              <FloatingLabel key={field.id} controlId={field.id} label={field.label}>
-                <Form.Control type={field.type} name={field.name}
-                              placeholder={field.placeholder} {...handlers[field.name]} disabled={disabled}/>
-              </FloatingLabel>
-            ))
+            fields.map(field => {
+              const {id, label, type, name, placeholder, required, message, pattern} = field;
+              return (
+                <FloatingLabel key={id} controlId={id} label={label}>
+                  <Form.Control type={type}
+                                name={name}
+                                placeholder={placeholder}
+                                disabled={disabled}
+                                required={required}
+                                pattern={pattern}
+                                {...handlers[name]}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {message || 'Field must not be empty'}
+                  </Form.Control.Feedback>
+                </FloatingLabel>
+              )
+            })
           }
           {
             errors &&
-              errors.map((err) => (
-                <Alert variant="danger">{err}</Alert>
-              ))
+            errors.map((err) => (
+              <Alert variant="danger">{err}</Alert>
+            ))
           }
+          <Button className='c-button' disabled={disabled} type='submit'>
+            {
+              disabled &&
+              <Spinner animation="border" role="status" className='c-loader' type="submit">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            }
+            {submitButton}
+          </Button>
         </Form>
-        <Button className='c-button' onClick={handleSubmit} disabled={disabled}>
-          {
-            disabled &&
-            <Spinner animation="border" role="status" className='c-loader'>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          }
-          {submitButton}
-        </Button>
         <div className={styles.or}>or</div>
         <div className={styles.social}>
           {

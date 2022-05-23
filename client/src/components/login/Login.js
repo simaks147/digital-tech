@@ -3,14 +3,9 @@ import Form from "../form";
 import {connect} from "react-redux";
 import {login} from "../../redux/actions";
 import {Link, Redirect} from "react-router-dom";
-import {HOME_ROUTE, REGISTER_ROUTE} from "../../utils/consts";
+import {HOME_ROUTE, REGISTER_ROUTE, LOGIN_FIELDS} from "../../utils/consts";
 import styles from "../form/form.module.css";
 import {tokenSelector, loginSelector} from "../../redux/selectors";
-
-const formFields = [
-  {id: 'email', label: 'Email', type: 'text', name: 'email', placeholder: 'Email'},
-  {id: 'password', label: 'Password', type: 'password', name: 'password', placeholder: 'Password'}
-];
 
 const formSubtitle = <>
   <span>Didn't have an account yet? </span>
@@ -25,7 +20,7 @@ const Login = ({token, login, loginAction}) => {
       disabled={login.processing}
       title='Welcome Back'
       subtitle={formSubtitle}
-      fields={formFields}
+      fields={LOGIN_FIELDS}
       onSubmit={loginAction}
       submitButton='Log In'
       errors={login.error}
@@ -38,5 +33,5 @@ const mapStateToProps = (state, props) => ({
   login: loginSelector(state, props)
 });
 
-export default connect(mapStateToProps,{loginAction: login})(Login);
+export default connect(mapStateToProps, {loginAction: login})(Login);
 

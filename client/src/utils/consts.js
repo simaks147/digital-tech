@@ -16,3 +16,30 @@ export const BASKET_VIEWS = {
   completed: 'Completed'
 };
 
+export const REGISTRATION_FIELDS = [
+  {id: 'username', label: 'Username', type: 'text', name: 'username', placeholder: 'Username', required: true},
+  {
+    id: 'email', label: 'Email', type: 'email', name: 'email', placeholder: 'Email', required: true,
+    message: 'Email must be correct.',
+    pattern: '^[-.\\w]+@([\\w-]+\\.)+[\\w-]{2,12}$'
+  },
+  {
+    id: 'password', label: 'Password', type: 'password', name: 'password', placeholder: 'Password', required: true,
+    message: 'Password must be between 6 and 16 characters. It must contain numbers, lowercase and uppercase letters.',
+    pattern: '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,16}$'
+  }
+];
+
+export const LOGIN_FIELDS = [
+  {
+    id: 'email', label: 'Email', type: 'email', name: 'email', placeholder: 'Email', required: true,
+    message: 'Email must be correct.',
+    pattern: '^[-.\\w]+@([\\w-]+\\.)+[\\w-]{2,12}$'
+  },
+  {
+    id: 'password', label: 'Password', type: 'password', name: 'password', placeholder: 'Password', required: true,
+    message: 'Password must be between 6 and 16 characters. It must contain numbers, lowercase and uppercase letters.',
+    pattern: '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,16}$'
+  }
+];
+

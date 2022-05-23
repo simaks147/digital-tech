@@ -5,7 +5,7 @@ const sendMail = require('../libs/sendMail');
 
 module.exports.register = async (ctx, next) => {
   if (!(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,16}$/.test(ctx.request.body.password))) {
-    ctx.throw(400, 'Invalid password. It must be between 6 and 16 characters. It must contain numbers, lowercase and uppercase letters.');
+    ctx.throw(400, 'Password must be between 6 and 16 characters, and contain numbers, lowercase and uppercase letters.');
   }
 
   const verificationToken = uuid();
@@ -31,7 +31,7 @@ module.exports.register = async (ctx, next) => {
   }
   catch (err) {
     await User.deleteOne({email: user.email});
-    ctx.throw(403, err.details.message)
+    ctx.throw(403, 'An error occurred while sending mail');
   }
 
   ctx.body = {status: 'ok'};

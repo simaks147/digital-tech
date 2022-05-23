@@ -3,16 +3,10 @@ import Form from "../form";
 import {connect} from "react-redux";
 import {register} from "../../redux/actions";
 import {Link, Redirect} from "react-router-dom";
-import {HOME_ROUTE, LOGIN_ROUTE} from "../../utils/consts";
+import {HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_FIELDS} from "../../utils/consts";
 import {registrationSelector, tokenSelector} from "../../redux/selectors";
 import styles from "./register.module.css";
 import {Container} from "react-bootstrap";
-
-const formFields = [
-  {id: 'username', label: 'Username', type: 'text', name: 'username', placeholder: 'Username'},
-  {id: 'email', label: 'Email', type: 'text', name: 'email', placeholder: 'Email'},
-  {id: 'password', label: 'Password', type: 'password', name: 'password', placeholder: 'Password'}
-];
 
 const formSubtitle = <>
   <span>Already have an account? </span>
@@ -39,7 +33,7 @@ const Register = ({token, registration, registerAction}) => {
       disabled={registration.processing}
       title='Join With Us'
       subtitle={formSubtitle}
-      fields={formFields}
+      fields={REGISTRATION_FIELDS}
       onSubmit={registerAction}
       submitButton='Register'
       errors={registration.error}
