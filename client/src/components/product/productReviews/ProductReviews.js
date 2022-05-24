@@ -15,10 +15,10 @@ import Spinner from "react-bootstrap/Spinner";
 import Rate from "../../rate/Rate";
 import useForm from "../../../hooks/use-form";
 import {addReview} from "../../../redux/actions";
+import {REVIEW_FIELDS} from "../../../utils/consts";
 
 const initialValues = {
-  // name: '',
-  // email: '',
+  name: '',
   title: '',
   text: '',
   rating: 3,
@@ -29,24 +29,35 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
     loadReviews();
   }, [loadReviews]);
 
-  const [lastVisibleReview, setLastVisibleReview] = useState(3);
+  const [displayAll, setDisplayAll] = useState(false);
   const [recommended, setRecommended] = useState(false);
+  const [validated, setValidated] = useState(false);
   const {values, handlers, reset} = useForm(initialValues);
 
-  const handleLastVisibleReview = () => setLastVisibleReview(reviews.length);
-  const handleChangeRecommended = () => setRecommended(!recommended);
   const handleSubmit = (e) => {
     e.preventDefault();
-    reset();
-    addReview({
-      id: '1_10',
-      userId: '10',
-      productId: slug,
-      recommended,
-      date: 'September, 24 2016',
-      ...values,
-    });
+
+    if (e.currentTarget.checkValidity()) {
+      addReview({
+        id: Date.now().toString(),
+        productId: slug,
+        recommended,
+        date: new Date().toLocaleDateString('en-US', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        }),
+        ...values,
+      });
+
+      setRecommended(false);
+      setValidated(false);
+      reset();
+      return;
+    }
+
+    setValidated(true);
   };
+
+  const addedReview = localStorage.getItem('addedReview');
 
   if (loading) return (
     <Spinner animation="border" role="status" className='c-loader'>
@@ -71,39 +82,56 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
                 <div className={styles.overallCount}>{rating.overall}</div>
               </div>
               <div className={styles.overallSubtitle}>Based on {reviews.length} Reviews</div>
-              <div className={styles.overallText}>{rating.recommendedShare()}% of customers would recommend this product to a friend ({rating.recommendedLength} out of {reviews.length})
+              <div className={styles.overallText}>{rating.recommendedShare()}% of customers would recommend this product
+                to a friend ({rating.recommendedLength} out of {reviews.length})
               </div>
             </div>
           }
 
           <div className={styles.form}>
-            <div className={styles.formTitle}>Write Your Review:</div>
-            <div className={styles.formRating}>
-              <span className={styles.formRatingCaption}>Rating:</span>
-              <span className={styles.formStars}>
-                <Rate {...handlers.rating}/>
-              </span>
-            </div>
-            <Form>
-              <FloatingLabel controlId="name" label="Your Name">
-                <Form.Control type="text" name="name" placeholder="Your Name" {...handlers.name}/>
-              </FloatingLabel>
-              {/*<FloatingLabel controlId="email" label="Your E-mail">*/}
-              {/*  <Form.Control type="email" name="email" placeholder="Your E-mail" {...handlers.email}/>*/}
-              {/*</FloatingLabel>*/}
-              <FloatingLabel controlId="title" label="Review Title">
-                <Form.Control type="text" name="title" placeholder="Review Title" {...handlers.title}/>
-              </FloatingLabel>
-              <FloatingLabel controlId="text" label="Your Review">
-                <Form.Control as="textarea" name="text" placeholder="Your Review"  {...handlers.text}/>
-              </FloatingLabel>
-              <Form.Check id="recommended" className={cn(styles.formRecommended, {active: recommended})}>
-                <Form.Check.Input type={'checkbox'} className={styles.formRecommendedInput} onChange={handleChangeRecommended} checked={recommended}/>
-                <Form.Check.Label className={styles.formRecommendedLabel}>I would recommend this to a
-                  friend!</Form.Check.Label>
-              </Form.Check>
-              <Button className={cn('c-button', styles.submitButton)} onClick={handleSubmit}>Submit Review</Button>
-            </Form>
+            {
+              addedReview
+                ?
+                <div className={styles.formSuccessTitle}>You have already left a review for this product...</div>
+                :
+                <>
+                  <div className={styles.formTitle}>Write Your Review:</div>
+                  <div className={styles.formRating}>
+                    <span className={styles.formRatingCaption}>Rating:</span>
+                    <span className={styles.formStars}>
+                      <Rate {...handlers.rating}/>
+                    </span>
+                  </div>
+                  <Form onSubmit={handleSubmit} noValidate validated={validated}>
+                    {
+                      REVIEW_FIELDS.map(field => {
+                        const {id, label, type, as, name, placeholder, required} = field;
+                        return (
+                          <FloatingLabel key={id} controlId={id} label={label}>
+                            <Form.Control type={type}
+                                          as={as}
+                                          name={name}
+                                          placeholder={placeholder}
+                                          required={required}
+                                          {...handlers[name]}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              Field must not be empty
+                            </Form.Control.Feedback>
+                          </FloatingLabel>
+                        )
+                      })
+                    }
+                    <Form.Check id="recommended" className={cn(styles.formRecommended, {active: recommended})}>
+                      <Form.Check.Input type={'checkbox'} className={styles.formRecommendedInput}
+                                        onChange={() => setRecommended(!recommended)} checked={recommended}/>
+                      <Form.Check.Label className={styles.formRecommendedLabel}>I would recommend this to a
+                        friend!</Form.Check.Label>
+                    </Form.Check>
+                    <Button className={cn('c-button', styles.submitButton)} type='submit'>Submit Review</Button>
+                  </Form>
+                </>
+            }
           </div>
         </Col>
 
@@ -113,7 +141,7 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
               ? <>
                 <div className={styles.list}>
                   {
-                    reviews.slice(0, lastVisibleReview).map(review => (
+                    reviews.slice(0, (displayAll ? reviews.length : 3)).map(review => (
                       <div className={styles.item} key={review.id}>
                         <div className={styles.itemStars}>
                           <Rate value={review.rating}/>
@@ -127,8 +155,8 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
                   }
                 </div>
                 {
-                  (lastVisibleReview < reviews.length) &&
-                    <Button className={cn('c-button', styles.moreButton)} onClick={handleLastVisibleReview}>Load More Reviews</Button>
+                  !displayAll &&
+                  <Button className={cn('c-button', styles.moreButton)} onClick={setDisplayAll}>Load More Reviews</Button>
                 }
               </>
               : <div>There are no reviews for this product yet.</div>

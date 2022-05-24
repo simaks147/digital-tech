@@ -8,12 +8,7 @@ import {
   ADD_REVIEW
 } from "../consts";
 
-// const initialState = {
-  // entities: {},
-  // loading: false,
-  // loaded: false,
-  // error: null
-// }
+const addedReview = localStorage.getItem('addedReview') || null;
 
 export default (state = {}, action) =>
   produce(state, draft => {
@@ -29,7 +24,7 @@ export default (state = {}, action) =>
       case LOAD_REVIEWS + SUCCESS:
         draft[productId].loading = false;
         draft[productId].loaded = true;
-        draft[productId].entities = data.reviews;
+        draft[productId].entities = addedReview ? [].concat(JSON.parse(addedReview), data.reviews) : data.reviews;
         break;
 
       case LOAD_REVIEWS + FAILURE:
@@ -39,7 +34,8 @@ export default (state = {}, action) =>
         break;
 
       case ADD_REVIEW:
-        draft[productId].entities.push(values)
+        localStorage.setItem('addedReview', JSON.stringify(values));
+        draft[productId].entities.unshift(values);
         break;
 
       default:

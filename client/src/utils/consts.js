@@ -43,3 +43,9 @@ export const LOGIN_FIELDS = [
   }
 ];
 
+export const REVIEW_FIELDS = [
+  {id: 'name', label: 'Your Name', type: 'text', name: 'name', placeholder: 'Your Name', required: true},
+  {id: 'title', label: 'Review Title', type: 'text', name: 'title', placeholder: 'Review Title', required: true},
+  {id: 'text', label: 'Your Review', as: 'textarea', name: 'text', placeholder: 'Your Review', required: true}
+];
+

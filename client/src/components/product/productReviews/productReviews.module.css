@@ -58,11 +58,11 @@
 
 .form :global(.form-control) {
     height: 50px;
-    margin-bottom: 16px;
 }
 
 .form :global(.form-floating) {
     font-size: 12px;
+    margin-bottom: 16px;
 }
 
 .form textarea:global(.form-control) {
@@ -75,6 +75,13 @@
     font-size: 19px;
     font-weight: 500;
     margin-bottom: 10px;
+}
+
+.formSuccessTitle {
+    font-family: var(--c-font-family-second);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--bs-success);
 }
 
 .formRating {
@@ -114,6 +121,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    color: inherit !important;
 }
 
 .formRecommendedLabel:before {
