@@ -2,15 +2,17 @@ import React from 'react';
 import {ReactComponent as StarFullIcon} from "../../icons/star-full-icon.svg";
 import {ReactComponent as StarEmptyIcon} from "../../icons/star-empty-icon.svg";
 
-const Rate = ({value, onChange}) => (
+const Rate = ({value, onChange, disabled}) => (
   <>
     {
       [...Array(5)].map((_, i) => {
         const props = {
           key: i,
-          style: onChange ? {cursor: 'pointer'} : {cursor: 'default'},
-          onClick: onChange ? () => onChange(i + 1) : undefined
+          style: (onChange && !disabled) ? {cursor: 'pointer'} : {cursor: 'default'},
+          onClick: (onChange && !disabled) ? () => onChange(i + 1) : undefined
         }
+
+        if (disabled) return <StarFullIcon {...props} className={'disabled'}/>
 
         return i <= value - 1
           ? <StarFullIcon {...props}/>

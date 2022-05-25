@@ -1,5 +1,4 @@
 import produce from "immer";
-// import {arrToMap} from "../utils";
 import {
   LOAD_REVIEWS,
   REQUEST,
@@ -8,7 +7,7 @@ import {
   ADD_REVIEW
 } from "../consts";
 
-const addedReview = localStorage.getItem('addedReview') || null;
+const addedReview = localStorage.getItem('addedReview');
 
 export default (state = {}, action) =>
   produce(state, draft => {
@@ -22,6 +21,8 @@ export default (state = {}, action) =>
         break;
 
       case LOAD_REVIEWS + SUCCESS:
+        data.reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+
         draft[productId].loading = false;
         draft[productId].loaded = true;
         draft[productId].entities = addedReview ? [].concat(JSON.parse(addedReview), data.reviews) : data.reviews;

@@ -100,6 +100,10 @@
     margin-right: 4px;
 }
 
+.formStars svg:global(.disabled) {
+    fill: var(--bs-gray-400);
+}
+
 .formRecommended {
     padding: 0;
     display: inline-block;
@@ -124,6 +128,10 @@
     color: inherit !important;
 }
 
+.formRecommendedInput[disabled] ~ .formRecommendedLabel {
+    cursor: default;
+}
+
 .formRecommendedLabel:before {
     content: '';
     min-width: 24px;
@@ -144,6 +152,7 @@
 }
 
 .submitButton {
+    position: relative;
     border-bottom: 0;
     font-size: 14px;
     font-weight: 500;
@@ -152,6 +161,13 @@
     margin-left: auto;
     display: block;
     margin-top: 40px;
+}
+
+.submitButton :global(.c-loader) {
+    width: 1rem;
+    height: 1rem;
+    top: calc(50% - 7px);
+    left: 12px;
 }
 
 .item {

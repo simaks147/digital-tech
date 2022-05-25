@@ -17,12 +17,7 @@ import useForm from "../../../hooks/use-form";
 import {addReview} from "../../../redux/actions";
 import {REVIEW_FIELDS} from "../../../utils/consts";
 
-const initialValues = {
-  name: '',
-  title: '',
-  text: '',
-  rating: 3,
-};
+const initialValues = {name: '', title: '', text: '', rating: 3};
 
 const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, addReview}) => {
   useEffect(() => {
@@ -32,22 +27,32 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
   const [displayAll, setDisplayAll] = useState(false);
   const [recommended, setRecommended] = useState(false);
   const [validated, setValidated] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const {values, handlers, reset} = useForm(initialValues);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (e.currentTarget.checkValidity()) {
-      addReview({
-        id: Date.now().toString(),
-        productId: slug,
-        recommended,
-        date: new Date().toLocaleDateString('en-US', {
-          year: 'numeric', month: 'long', day: 'numeric'
-        }),
-        ...values,
+      setUploading(true);
+
+      await new Promise(resolve => {
+        setTimeout(() => {
+          addReview({
+            id: Date.now().toString(),
+            productId: slug,
+            recommended,
+            date: new Date().toLocaleDateString('en-US', {
+              year: 'numeric', month: 'long', day: 'numeric'
+            }),
+            ...values,
+          });
+
+          resolve();
+        }, 3000);
       });
 
+      setUploading(false);
       setRecommended(false);
       setValidated(false);
       reset();
@@ -99,7 +104,7 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
                   <div className={styles.formRating}>
                     <span className={styles.formRatingCaption}>Rating:</span>
                     <span className={styles.formStars}>
-                      <Rate {...handlers.rating}/>
+                      <Rate {...handlers.rating} disabled={uploading}/>
                     </span>
                   </div>
                   <Form onSubmit={handleSubmit} noValidate validated={validated}>
@@ -113,6 +118,7 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
                                           name={name}
                                           placeholder={placeholder}
                                           required={required}
+                                          disabled={uploading}
                                           {...handlers[name]}
                             />
                             <Form.Control.Feedback type="invalid">
@@ -123,12 +129,20 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
                       })
                     }
                     <Form.Check id="recommended" className={cn(styles.formRecommended, {active: recommended})}>
-                      <Form.Check.Input type={'checkbox'} className={styles.formRecommendedInput}
+                      <Form.Check.Input type={'checkbox'} className={styles.formRecommendedInput} disabled={uploading}
                                         onChange={() => setRecommended(!recommended)} checked={recommended}/>
                       <Form.Check.Label className={styles.formRecommendedLabel}>I would recommend this to a
                         friend!</Form.Check.Label>
                     </Form.Check>
-                    <Button className={cn('c-button', styles.submitButton)} type='submit'>Submit Review</Button>
+                    <Button className={cn('c-button', styles.submitButton)} type='submit' disabled={uploading}>
+                      {
+                        uploading &&
+                        <Spinner animation="border" role="status" className='c-loader' type="submit">
+                          <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                      }
+                      Submit Review
+                    </Button>
                   </Form>
                 </>
             }
@@ -141,17 +155,24 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
               ? <>
                 <div className={styles.list}>
                   {
-                    reviews.slice(0, (displayAll ? reviews.length : 3)).map(review => (
-                      <div className={styles.item} key={review.id}>
-                        <div className={styles.itemStars}>
-                          <Rate value={review.rating}/>
+                    reviews.slice(0, (displayAll ? reviews.length : 3)).map(review => {
+                      const {id, rating, name, title, text} = review;
+                      const date = new Date(review.date).toLocaleDateString('en-US', {
+                        year: 'numeric', month: 'long', day: 'numeric'
+                      });
+
+                      return (
+                        <div className={styles.item} key={id}>
+                          <div className={styles.itemStars}>
+                            <Rate value={rating}/>
+                          </div>
+                          <div className={styles.itemDate}>{date}</div>
+                          <div className={styles.itemName}>{name}</div>
+                          <div className={styles.itemTitle}>{title}</div>
+                          <div className={styles.itemText}>{text}</div>
                         </div>
-                        <div className={styles.itemDate}>{review.date}</div>
-                        <div className={styles.itemName}>{review.name}</div>
-                        <div className={styles.itemTitle}>{review.title}</div>
-                        <div className={styles.itemText}>{review.text}</div>
-                      </div>
-                    ))
+                      )
+                    })
                   }
                 </div>
                 {
