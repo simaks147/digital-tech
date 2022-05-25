@@ -8,10 +8,10 @@ import {
 } from "../../redux/selectors";
 import {Col, Container, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import Spinner from "react-bootstrap/Spinner";
 import {loadProduct, increaseCart} from "../../redux/actions";
 import ProductCarousel from "./productCarousel";
 import ProductTabs from "./productTabs";
+import Loader from "../loader";
 
 
 const Product = ({product, increaseCart, loadProduct, loading, loaded}) => {
@@ -19,11 +19,7 @@ const Product = ({product, increaseCart, loadProduct, loading, loaded}) => {
       loadProduct();
   }, [loadProduct]);
 
-  if (loading) return (
-    <Spinner animation="border" role="status" className='c-loader'>
-      <span className="visually-hidden">Loading...</span>
-    </Spinner>
-  )
+  if (loading) return <Loader/>;
 
   if (!loaded) return 'Error!!!';
 

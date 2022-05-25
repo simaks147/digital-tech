@@ -5,8 +5,8 @@ import {connect} from "react-redux";
 import {Link, Redirect, useParams} from "react-router-dom";
 import styles from './oauthCallback.module.css';
 import {Alert, Container} from "react-bootstrap";
-import Spinner from "react-bootstrap/Spinner";
 import {HOME_ROUTE, LOGIN_ROUTE} from "../../utils/consts";
+import Loader from "../loader";
 
 const OauthCallback = ({token, oauthCallback, oauthCallbackAction}) => {
   const provider = useParams().provider;
@@ -37,9 +37,7 @@ const OauthCallback = ({token, oauthCallback, oauthCallbackAction}) => {
               <Link to={LOGIN_ROUTE}>Log&nbsp;In</Link>
             </>
             :
-            <Spinner animation="border" role="status" className='c-loader'>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
+            <Loader/>
         }
       </Container>
     </div>

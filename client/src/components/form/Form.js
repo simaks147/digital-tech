@@ -3,12 +3,12 @@ import styles from './form.module.css';
 import {Alert, Container, FloatingLabel, Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import useForm from "../../hooks/use-form";
-import Spinner from "react-bootstrap/Spinner";
 import {ReactComponent as GitHubIcon} from "../../icons/github.svg";
 import {ReactComponent as YandexIcon} from "../../icons/yandex.svg";
 import {ReactComponent as VKIcon} from "../../icons/vk.svg";
 import {connect} from "react-redux";
 import {oauth} from "../../redux/actions";
+import Loader from "../loader";
 
 const social = [
   {provider: 'github', className: 'social-github', Icon: GitHubIcon},
@@ -78,12 +78,7 @@ const CustomForm = ({disabled, title, subtitle, fields, onSubmit, submitButton, 
             ))
           }
           <Button className='c-button' disabled={disabled} type='submit'>
-            {
-              disabled &&
-              <Spinner animation="border" role="status" className='c-loader' type="submit">
-                <span className="visually-hidden">Loading...</span>
-              </Spinner>
-            }
+            {disabled && <Loader/>}
             {submitButton}
           </Button>
         </Form>

@@ -11,11 +11,11 @@ import {
 } from "../../../redux/selectors";
 import {loadReviews} from "../../../redux/actions";
 import {connect} from "react-redux";
-import Spinner from "react-bootstrap/Spinner";
 import Rate from "../../rate/Rate";
 import useForm from "../../../hooks/use-form";
 import {addReview} from "../../../redux/actions";
 import {REVIEW_FIELDS} from "../../../utils/consts";
+import Loader from "../../loader";
 
 const initialValues = {name: '', title: '', text: '', rating: 3};
 
@@ -64,11 +64,7 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
 
   const addedReview = localStorage.getItem('addedReview');
 
-  if (loading) return (
-    <Spinner animation="border" role="status" className='c-loader'>
-      <span className="visually-hidden">Loading...</span>
-    </Spinner>
-  )
+  if (loading) return <Loader/>;
 
   if (!loaded) return 'Error!!!';
 
@@ -137,9 +133,7 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
                     <Button className={cn('c-button', styles.submitButton)} type='submit' disabled={uploading}>
                       {
                         uploading &&
-                        <Spinner animation="border" role="status" className='c-loader' type="submit">
-                          <span className="visually-hidden">Loading...</span>
-                        </Spinner>
+                        <Loader/>
                       }
                       Submit Review
                     </Button>

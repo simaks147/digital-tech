@@ -3,7 +3,7 @@ import AppRouter from "../AppRouter";
 import {loadedCategoriesSelector, loadingCategoriesSelector} from "../../redux/selectors";
 import {connect} from "react-redux";
 import {loadCategories} from "../../redux/actions";
-import Spinner from "react-bootstrap/Spinner";
+import Loader from "../loader";
 
 
 const App = ({loadCategories, loading, loaded}) => {
@@ -11,11 +11,7 @@ const App = ({loadCategories, loading, loaded}) => {
     if (!loading && !loaded) loadCategories();
   }, [loadCategories, loading, loaded]);
 
-  if (loading) return (
-    <Spinner animation="border" role="status" className='c-loader'>
-      <span className="visually-hidden">Loading...</span>
-    </Spinner>
-  )
+  if (loading) return <Loader/>;
 
   if (!loaded) return 'Error!!!';
 

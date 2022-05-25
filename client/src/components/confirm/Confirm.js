@@ -5,8 +5,8 @@ import {connect} from "react-redux";
 import {Link, Redirect, useParams} from "react-router-dom";
 import styles from './confirm.module.css';
 import {Alert, Container} from "react-bootstrap";
-import Spinner from "react-bootstrap/Spinner";
 import {HOME_ROUTE, REGISTER_ROUTE} from "../../utils/consts";
+import Loader from "../loader";
 
 const Confirm = ({token, confirmation, confirmAction}) => {
   const verificationToken = useParams().verificationToken;
@@ -33,9 +33,7 @@ const Confirm = ({token, confirmation, confirmAction}) => {
               <Link to={REGISTER_ROUTE}>Sign&nbsp;Up</Link>
             </>
             :
-            <Spinner animation="border" role="status" className='c-loader'>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
+            <Loader/>
         }
       </Container>
     </div>

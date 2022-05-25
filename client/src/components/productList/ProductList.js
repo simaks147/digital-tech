@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
-import Spinner from "react-bootstrap/Spinner";
 import ProductItem from "./productItem";
 import {
   loadingProductsSelector,
@@ -9,6 +8,7 @@ import {
 } from "../../redux/selectors";
 import {connect} from "react-redux";
 import {loadProducts} from "../../redux/actions";
+import Loader from "../loader";
 
 const ProductList = ({subcategoryId, productsIds, loadProducts, loading, loaded}) => {
   useEffect(() => {
@@ -16,11 +16,7 @@ const ProductList = ({subcategoryId, productsIds, loadProducts, loading, loaded}
     loadProducts(subcategoryId);
   }, [loadProducts, subcategoryId]);
 
-  if (loading) return (
-    <Spinner animation="border" role="status" className='c-loader'>
-      <span className="visually-hidden">Loading...</span>
-    </Spinner>
-  )
+  if (loading) return <Loader/>;
 
   if (!loaded) return 'Error!!!';
 
