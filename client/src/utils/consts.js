@@ -10,6 +10,8 @@ export const BASKET_ROUTE_COMPLETED = '/basket/completed';
 export const CATEGORY_ROUTE = '/category';
 export const PRODUCT_ROUTE = '/product';
 
+export const CURRENCIES = ['USD', 'EUR', 'RUB'];
+
 export const BASKET_VIEWS = {
   shopping: 'Shopping Cart',
   checkout: 'Checkout',

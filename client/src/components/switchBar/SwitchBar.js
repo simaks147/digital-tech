@@ -1,19 +1,19 @@
 import React from 'react';
 import {Container, Row, Col} from "react-bootstrap";
 import styles from './switchBar.module.css';
-import LangBar from "../langBar";
 import {Link} from "react-router-dom";
 import {LOGIN_ROUTE, REGISTER_ROUTE, HOME_ROUTE} from "../../utils/consts";
 import {tokenSelector} from "../../redux/selectors";
 import {connect} from "react-redux";
 import logout from "../../utils/logout";
+import Currency from "../currency";
 
 const SwitchBar = ({token}) => (
   <div className={styles.section}>
     <Container>
       <Row className={'justify-content-between align-items-center'}>
         <Col xs={6} lg={1}>
-          <LangBar/>
+          <Currency/>
         </Col>
         <Col xs={6} lg={2} style={{textAlign: "right"}}>
           {
