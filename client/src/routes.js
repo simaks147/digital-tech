@@ -20,19 +20,7 @@ import ConfirmPage from "./pages/ConfirmPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
 
-export const authRoutes = [
-  {
-    path: [
-      BASKET_ROUTE,
-      BASKET_ROUTE_SHOPPING,
-      BASKET_ROUTE_CHECKOUT,
-      BASKET_ROUTE_COMPLETED
-    ],
-    Component: BasketPage
-  }
-];
-
-export const publicRoutes = [
+const routes = [
   {
     path: HOME_ROUTE,
     Component: HomePage
@@ -67,5 +55,16 @@ export const publicRoutes = [
     ],
     Component: ProductPage
   },
+  {
+    path: [
+      BASKET_ROUTE,
+      BASKET_ROUTE_SHOPPING,
+      BASKET_ROUTE_CHECKOUT,
+      BASKET_ROUTE_COMPLETED
+    ],
+    Component: BasketPage
+  }
 ];
+
+export default routes;
 
