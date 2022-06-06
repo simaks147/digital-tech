@@ -16,7 +16,8 @@ import {
   OAUTH,
   OAUTH_CALLBACK,
   REGISTER,
-  CONFIRM
+  CONFIRM,
+  FETCH_PROFILE
 } from "./consts";
 
 import {
@@ -31,7 +32,9 @@ import {
   loadedProductsSelector,
   subcategoriesSelector,
   loginSelector,
-  registrationSelector
+  registrationSelector,
+  profileSelector,
+  tokenSelector
 } from "./selectors";
 
 export const increaseCart = (id) => ({
@@ -182,3 +185,20 @@ export const confirm = (verificationToken) => ({
   CallApi: '/api/confirm',
   values: {verificationToken}
 });
+
+const _fetchProfile = (token) => ({
+  type: FETCH_PROFILE,
+  CallApi: '/api/me',
+  token
+});
+
+export const fetchProfile = () => async (dispatch, getState) => {
+  const state = getState();
+  const profile = profileSelector(state);
+  const token = tokenSelector(state);
+  const fetching = profile.fetching;
+
+  if (!fetching) {
+    await dispatch(_fetchProfile(token));
+  }
+};

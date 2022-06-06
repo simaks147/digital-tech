@@ -21,25 +21,12 @@ const CustomForm = ({disabled, title, subtitle, fields, onSubmit, submitButton, 
     () => fields.reduce((acc, field) => ({...acc, [field.name]: ''}), {}),
     [fields]
   );
-
-
   const [validated, setValidated] = useState(false);
-
   const {values, handlers, reset} = useForm(initialValues);
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   reset();
-  //   onSubmit(values);
-  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // e.stopPropagation();
-
-    // const form = e.currentTarget;
     if (e.currentTarget.checkValidity()) onSubmit(values);
-
 
     setValidated(true);
     // reset();
@@ -73,8 +60,8 @@ const CustomForm = ({disabled, title, subtitle, fields, onSubmit, submitButton, 
           }
           {
             errors &&
-            errors.map((err) => (
-              <Alert variant="danger">{err}</Alert>
+            errors.map((err, i) => (
+              <Alert variant="danger" key={i}>{err}</Alert>
             ))
           }
           <Button className='c-button' disabled={disabled} type='submit'>

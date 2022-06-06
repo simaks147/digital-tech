@@ -1,12 +1,16 @@
 import React, {useEffect} from 'react';
 import AppRouter from "../AppRouter";
-import {loadedCategoriesSelector, loadingCategoriesSelector} from "../../redux/selectors";
+import {loadedCategoriesSelector, loadingCategoriesSelector, tokenSelector} from "../../redux/selectors";
 import {connect} from "react-redux";
-import {loadCategories} from "../../redux/actions";
+import {loadCategories, fetchProfile} from "../../redux/actions";
 import Loader from "../loader";
 
 
-const App = ({loadCategories, loading, loaded}) => {
+const App = ({loadCategories, loading, loaded, token, fetchProfile}) => {
+  useEffect(() => {
+    if (token) fetchProfile();
+  }, [token, fetchProfile]);
+
   useEffect(() => {
     if (!loading && !loaded) loadCategories();
   }, [loadCategories, loading, loaded]);
@@ -15,16 +19,13 @@ const App = ({loadCategories, loading, loaded}) => {
 
   if (!loaded) return 'Error!!!';
 
-  return (
-    <>
-      <AppRouter/>
-    </>
-  );
+  return <AppRouter/>;
 }
 
 const mapStateToProps = (state, props) => ({
   loading: loadingCategoriesSelector(state),
-  loaded: loadedCategoriesSelector(state)
+  loaded: loadedCategoriesSelector(state),
+  token: tokenSelector(state)
 });
 
-export default connect(mapStateToProps, {loadCategories})(App);
+export default connect(mapStateToProps, {loadCategories, fetchProfile})(App);

@@ -2,7 +2,7 @@ import React from 'react';
 import {Container, Row, Col} from "react-bootstrap";
 import styles from './switchBar.module.css';
 import {Link} from "react-router-dom";
-import {LOGIN_ROUTE, REGISTER_ROUTE, HOME_ROUTE} from "../../utils/consts";
+import {LOGIN_ROUTE, REGISTER_ROUTE} from "../../utils/consts";
 import {tokenSelector} from "../../redux/selectors";
 import {connect} from "react-redux";
 import logout from "../../utils/logout";

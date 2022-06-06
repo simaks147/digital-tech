@@ -29,6 +29,7 @@ export const oauthSelector = (state) => state.auth.oauth;
 export const oauthCallbackSelector = (state) => state.auth.oauthCallback;
 export const registrationSelector = (state) => state.auth.registration;
 export const confirmationSelector = (state) => state.auth.confirmation;
+export const profileSelector = (state) => state.auth.profile;
 
 export const categoriesListSelector = createSelector(
   categoriesSelector,

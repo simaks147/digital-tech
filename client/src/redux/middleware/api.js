@@ -4,26 +4,24 @@ import {
   FAILURE
 } from "../consts";
 
-const createPostParams = (data) => ({
-  method: 'POST',
-  headers: {'Content-Type': 'application/json'},
-  body: JSON.stringify(data)
-});
+import {createReqParams} from "../utils";
 
 export default (store) => (next) => async (action) => {
   if (!action.CallApi) return next(action);
 
-  const {CallApi, values, type, ...rest} = action;
+  const {CallApi, values, token, type, ...rest} = action;
 
   next({...rest, type: type + REQUEST});
 
   try {
-    const params = values ? createPostParams(values) : {};
-
+    const params = createReqParams(values, token);
     const res = await fetch(CallApi, params);
     const data = await res.json();
 
-    if (res.status === 401) localStorage.removeItem('token');
+    if (res.status === 401) {
+      localStorage.removeItem('token');
+      window.location.reload();
+    }
 
     if (!res.ok) throw data;
 

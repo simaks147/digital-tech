@@ -10,6 +10,7 @@ import {
   OAUTH_CALLBACK,
   REGISTER,
   CONFIRM,
+  FETCH_PROFILE,
   ROUTER_LOCATION_CHANGE
 } from "../consts";
 
@@ -38,6 +39,10 @@ const initialState = {
     processing: false,
     error: null
   },
+  profile: {
+    fetching: false,
+    data: null
+  }
 };
 
 export default (state = initialState, action) =>
@@ -121,6 +126,15 @@ export default (state = initialState, action) =>
       case CONFIRM + FAILURE:
         draft.confirmation.processing = false;
         draft.confirmation.error = objToArr(error.error);
+        break;
+
+      case FETCH_PROFILE + REQUEST:
+        draft.profile.fetching = true;
+        break;
+
+      case FETCH_PROFILE + SUCCESS:
+        draft.profile = data;
+        draft.profile.fetching = false;
         break;
 
       case ROUTER_LOCATION_CHANGE:
