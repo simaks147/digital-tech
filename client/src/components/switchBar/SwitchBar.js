@@ -3,29 +3,32 @@ import {Container, Row, Col} from "react-bootstrap";
 import styles from './switchBar.module.css';
 import {Link} from "react-router-dom";
 import {LOGIN_ROUTE, REGISTER_ROUTE} from "../../utils/consts";
-import {tokenSelector} from "../../redux/selectors";
+import {profileSelector, tokenSelector} from "../../redux/selectors";
 import {connect} from "react-redux";
 import logout from "../../utils/logout";
 import Currency from "../currency";
 
-const SwitchBar = ({token}) => (
+const SwitchBar = ({token, profile}) => (
   <div className={styles.section}>
     <Container>
       <Row className={'justify-content-between align-items-center'}>
         <Col xs={6} lg={1}>
           <Currency/>
         </Col>
-        <Col xs={6} lg={2} style={{textAlign: "right"}}>
+        <Col xs={6} lg={3} style={{textAlign: "right"}}>
           {
             !token
               ?
               <>
                 <Link to={LOGIN_ROUTE} className={styles.link}>Log&nbsp;In</Link>
-                <span> or </span>
+                <span className={styles.or}> or </span>
                 <Link to={REGISTER_ROUTE} className={styles.link}>Sign&nbsp;Up</Link>
               </>
               :
-              <a onClick={logout} className={styles.link}>Log&nbsp;Out</a>
+              <>
+                <div className={styles.hello}>Hello,&nbsp;<span>{profile.displayName.split(' ')[0]}</span></div>
+                <a onClick={logout} className={styles.link}>Log&nbsp;Out</a>
+              </>
           }
         </Col>
       </Row>
@@ -35,6 +38,7 @@ const SwitchBar = ({token}) => (
 
 const mapStateToProps = (state, props) => ({
   token: tokenSelector(state, props),
+  profile: profileSelector(state)
 });
 
 export default connect(mapStateToProps)(SwitchBar);

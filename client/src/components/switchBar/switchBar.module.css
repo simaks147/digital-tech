@@ -10,11 +10,34 @@
     cursor: pointer;
 }
 
-.section span {
+.link:hover {
+    color: var(--c-color1);
+}
+
+.or {
     color: var(--bs-gray-600);
     font-size: 11px;
 }
 
-.link:hover {
-    color: var(--c-color1);
+.hello {
+    color: var(--bs-gray-600);
+    font-size: 12px;
+}
+
+.hello span {
+    font-weight: 500;
+    /*font-size: 14px;*/
+}
+
+@media (min-width: 768px) {
+    .hello {
+        display: inline;
+        margin-right: 30px;
+        font-size: 14px;
+    }
+
+    .hello span {
+        font-weight: 500;
+        /*font-size: 14px;*/
+    }
 }
