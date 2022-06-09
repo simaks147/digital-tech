@@ -1,4 +1,4 @@
-import {push} from "connected-react-router";
+import {push, replace} from "connected-react-router";
 
 import {
   INCREASE_CART,
@@ -34,7 +34,8 @@ import {
   loginSelector,
   registrationSelector,
   profileSelector,
-  tokenSelector
+  tokenSelector,
+  orderSelector,
 } from "./selectors";
 
 export const increaseCart = (id) => ({
@@ -57,9 +58,22 @@ export const processCheckout = () => async (dispatch, getState) => {
   dispatch(push(BASKET_ROUTE_CHECKOUT))
 };
 
-export const makeOrder = () => async (dispatch, getState) => {
-  await dispatch({type: MAKE_ORDER});
-  dispatch(push(BASKET_ROUTE_COMPLETED))
+const _makeOrder = (values, products, token) => ({
+  type: MAKE_ORDER,
+  CallApi: '/api/order',
+  values: {...values, products},
+  token
+});
+
+export const makeOrder = (values) => async (dispatch, getState) => {
+  const state = getState();
+  const products = orderSelector(state);
+  const token = tokenSelector(state);
+
+  try {
+    await dispatch(_makeOrder(values, products, token));
+    dispatch(replace(BASKET_ROUTE_COMPLETED));
+  } catch {}
 };
 
 export const _setActiveCategory = (subcategoryId, categoryId) => ({

@@ -26,7 +26,7 @@ const SwitchBar = ({token, profile}) => (
               </>
               :
               <>
-                <div className={styles.hello}>Hello,&nbsp;<span>{profile.displayName.split(' ')[0]}</span></div>
+                <div className={styles.hello}>Hello,&nbsp;<span>{profile.displayName?.split(' ')[0]}</span></div>
                 <a onClick={logout} className={styles.link}>Log&nbsp;Out</a>
               </>
           }

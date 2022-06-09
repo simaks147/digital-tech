@@ -13,7 +13,12 @@
 }
 
 .buttons :global(.c-button) {
+    position: relative;
     text-transform: none;
     margin-left: auto;
     padding: 10px 60px;
+}
+
+.buttons :global(.c-loader) {
+    left: 20px;
 }

@@ -4,47 +4,49 @@ import styles from './BasketNav.module.css';
 import {Container, Row, Col} from "react-bootstrap";
 import {ReactComponent as ArrowIcon} from '../../icons/arrow.svg';
 import {ReactComponent as CartIcon} from '../../icons/cart-icon2.svg';
-import {orderTotalSelector, activeBasketViewSelector} from "../../redux/selectors";
+import {activeBasketViewSelector, orderListSelector} from "../../redux/selectors";
 import {connect} from "react-redux";
-import {BASKET_VIEWS} from "../../utils/consts";
+import {BASKET_ROUTE_SHOPPING, BASKET_VIEWS} from "../../utils/consts";
+import {useRouteMatch} from "react-router-dom";
 
-const BasketNav = ({total, activeBasketView}) => (
-  <div className={styles.section}>
-    <Container>
-      <div className={styles.sectionInner}>
-        <Row xs='auto' className={cn(styles.header, 'justify-content-center', 'align-items-center')}>
-          <Col>
-            <CartIcon/>
-            <span className={styles.title}>{total ? BASKET_VIEWS[activeBasketView] : 'Cart is Empty'}</span>
-          </Col>
-        </Row>
-        {
-          !!total &&
-          <Row xs='auto' className={cn(styles.list, 'justify-content-center', 'align-items-center')}>
-            {
-              Object.values(BASKET_VIEWS).map((view, i) => (
-                <React.Fragment key={i}>
-                  <Col>
-                    <div className={cn(styles.listItem, {active: view === BASKET_VIEWS[activeBasketView]})}>
-                      <div className={styles.listItemNum}>{i + 1}</div>
-                      <div className={styles.listItemTitle}>{view}</div>
-                    </div>
-                  </Col>
-                  <Col>
-                    <ArrowIcon/>
-                  </Col>
-                </React.Fragment>
-              ))
-            }
+const BasketNav = ({order, activeBasketView}) => {
+  const shoppingPage = useRouteMatch(BASKET_ROUTE_SHOPPING);
+
+  return (
+    <div className={styles.section}>
+      <Container>
+        <div className={styles.sectionInner}>
+          <Row xs='auto' className={cn(styles.header, 'justify-content-center', 'align-items-center')}>
+            <Col>
+              <CartIcon/>
+              <span className={styles.title}>{!order.length && shoppingPage ? 'Cart is Empty' : BASKET_VIEWS[activeBasketView]}</span>
+            </Col>
           </Row>
-        }
-      </div>
-    </Container>
-  </div>
-);
+          {
+            !order.length && shoppingPage
+              ? ''
+              : <Row xs='auto' className={cn(styles.list, 'justify-content-center', 'align-items-center')}>
+                {
+                  Object.values(BASKET_VIEWS).map((view, i) => (
+                      <Col key={i} className="align-items-center d-flex">
+                        <div className={cn(styles.listItem, {active: view === BASKET_VIEWS[activeBasketView]})}>
+                          <div className={styles.listItemNum}>{i + 1}</div>
+                          <div className={styles.listItemTitle}>{view}</div>
+                        </div>
+                        <ArrowIcon/>
+                      </Col>
+                  ))
+                }
+              </Row>
+          }
+        </div>
+      </Container>
+    </div>
+  );
+}
 
 const mapStateToProps = (state, props) => ({
-  total: orderTotalSelector(state, props),
+  order: orderListSelector(state, props),
   activeBasketView: activeBasketViewSelector(state, props)
 });
 

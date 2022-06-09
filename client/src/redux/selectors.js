@@ -3,7 +3,7 @@ import {createSelector} from "reselect";
 export const categoriesSelector = (state) => state.categories.entities;
 export const productsSelector = (state) => state.products.entities;
 export const reviewsSelector = (state) => state.reviews;
-export const orderSelector = (state) => state.order;
+export const orderSelector = (state) => state.order.entities;
 export const subcategoriesSelector = (state) => state.subcategories.entities;
 export const routerSelector = (state) => state.router;
 
@@ -15,6 +15,9 @@ export const loadedProductsSelector = (state) => state.products.loaded;
 
 export const loadingReviewsByProductSelector = (state, {slug}) => reviewsSelector(state)[slug]?.loading;
 export const loadedReviewsByProductSelector = (state, {slug}) => reviewsSelector(state)[slug]?.loaded;
+
+export const processingOrderSelector = (state) => state.order.processing;
+export const errorOrderSelector = (state) => state.order.error;
 
 export const productSelector = (state, {id}) => productsSelector(state)[id];
 
@@ -51,9 +54,7 @@ export const productsIdsByCategorySelector = createSelector(
   (state, props) => props.subcategoryId,
   (products, subcategoryId) => products
     .filter(prod => prod.subcategoryId === subcategoryId)
-    // .sort((prod1, prod2) => prod1.price - prod2.price)
     .map(prod => prod.slug)
-
 );
 
 export const orderCountSelector = createSelector(

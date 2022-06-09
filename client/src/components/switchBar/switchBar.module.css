@@ -26,7 +26,7 @@
 
 .hello span {
     font-weight: 500;
-    /*font-size: 14px;*/
+    color: var(--bs-gray-900);
 }
 
 @media (min-width: 768px) {
@@ -34,10 +34,5 @@
         display: inline;
         margin-right: 30px;
         font-size: 14px;
-    }
-
-    .hello span {
-        font-weight: 500;
-        /*font-size: 14px;*/
     }
 }

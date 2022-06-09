@@ -9,6 +9,7 @@ const login = require('./controllers/login');
 const {oauth, oauthCallback} = require('./controllers/oauth');
 const {register, confirm} = require('./controllers/registration');
 const me = require('./controllers/me');
+const {checkout} = require('./controllers/orders');
 
 const router = new Router({
   prefix: '/api'
@@ -32,5 +33,7 @@ router.post('/register', validationErrors, register);
 router.post('/confirm', confirm);
 
 router.get('/me', mustBeAuthenticated, me);
+
+router.post('/order', mustBeAuthenticated, validationErrors, checkout);
 
 module.exports = router;

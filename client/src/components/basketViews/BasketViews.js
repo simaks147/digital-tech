@@ -6,17 +6,28 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import {
   BASKET_ROUTE_CHECKOUT,
   BASKET_ROUTE_COMPLETED,
-  BASKET_ROUTE_SHOPPING
+  BASKET_ROUTE_SHOPPING,
+  LOGIN_ROUTE
 } from "../../utils/consts";
+import {tokenSelector} from "../../redux/selectors";
+import {connect} from "react-redux";
 
 
-export const BasketViews = () => (
-  <Switch>
-    <Route path={BASKET_ROUTE_SHOPPING} component={BasketList}/>
-    <Route path={BASKET_ROUTE_CHECKOUT} component={BasketCheckout}/>
-    <Route path={BASKET_ROUTE_COMPLETED} component={BasketCompleted}/>
-    <Redirect to={BASKET_ROUTE_SHOPPING}/>
-  </Switch>
-);
+export const BasketViews = ({token}) => {
+  if (!token) return <Redirect to={LOGIN_ROUTE}/>;
 
-export default BasketViews;
+  return (
+    <Switch>
+      <Route path={BASKET_ROUTE_SHOPPING} component={BasketList}/>
+      <Route path={BASKET_ROUTE_CHECKOUT} component={BasketCheckout}/>
+      <Route path={BASKET_ROUTE_COMPLETED} component={BasketCompleted}/>
+      <Redirect to={BASKET_ROUTE_SHOPPING}/>
+    </Switch>
+  );
+}
+
+const mapStateToProps = (state, props) => ({
+  token: tokenSelector(state, props)
+});
+
+export default connect(mapStateToProps)(BasketViews);
