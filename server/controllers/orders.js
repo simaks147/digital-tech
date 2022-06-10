@@ -26,20 +26,19 @@ module.exports.checkout = async (ctx, next) => {
     country: ctx.request.body.country,
   });
 
-  // try {
-  //   await sendMail({
-  //     to: {
-  //       name: ctx.user.displayName,
-  //       address: ctx.user.email
-  //     },
-  //     subject: 'New order',
-  //     html: 'New order'
-  //   });
-  // }
-  // catch (err) {
-  //   await Order.findByIdAndDelete(order.id);
-  //   ctx.throw(403, 'An error occurred while sending mail');
-  // }
+  try {
+    await sendMail({
+      to: {
+        name: order.user.displayName,
+        address: order.user.email
+      },
+      subject: 'New order',
+      html: `Your order №${order.id.slice(-6)} has been placed`
+    });
+  }
+  catch (err) {
+    ctx.throw(403, 'An error occurred while sending mail');
+  }
 
   ctx.body = {order: order.id};
 
