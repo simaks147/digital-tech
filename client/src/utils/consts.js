@@ -19,14 +19,14 @@ export const BASKET_VIEWS = {
 };
 
 export const REGISTRATION_FIELDS = [
-  {id: 'username', label: 'Username', type: 'text', name: 'username', placeholder: 'Username', maxlength: 50, required: true},
+  {id: 'username', label: 'Username', type: 'text', name: 'username', placeholder: 'Username', maxLength: 50, required: true},
   {
-    id: 'email', label: 'Email', type: 'email', name: 'email', placeholder: 'Email', maxlength: 100, required: true,
+    id: 'email', label: 'Email', type: 'email', name: 'email', placeholder: 'Email', maxLength: 100, required: true,
     message: 'Email must be correct.',
     pattern: '^[-.\\w]+@([\\w-]+\\.)+[\\w-]{2,12}$'
   },
   {
-    id: 'password', label: 'Password', type: 'password', name: 'password', placeholder: 'Password', maxlength: 16, required: true,
+    id: 'password', label: 'Password', type: 'password', name: 'password', placeholder: 'Password', maxLength: 16, required: true,
     message: 'Password must be between 6 and 16 characters. It must contain numbers, lowercase and uppercase letters.',
     pattern: '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,16}$'
   }
@@ -34,30 +34,30 @@ export const REGISTRATION_FIELDS = [
 
 export const LOGIN_FIELDS = [
   {
-    id: 'email', label: 'Email', type: 'email', name: 'email', placeholder: 'Email', maxlength: 100, required: true,
+    id: 'email', label: 'Email', type: 'email', name: 'email', placeholder: 'Email', maxLength: 100, required: true,
     message: 'Email must be correct.',
     pattern: '^[-.\\w]+@([\\w-]+\\.)+[\\w-]{2,12}$'
   },
   {
-    id: 'password', label: 'Password', type: 'password', name: 'password', placeholder: 'Password', maxlength: 16, required: true,
+    id: 'password', label: 'Password', type: 'password', name: 'password', placeholder: 'Password', maxLength: 16, required: true,
     message: 'Password must be between 6 and 16 characters. It must contain numbers, lowercase and uppercase letters.',
     pattern: '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,16}$'
   }
 ];
 
 export const REVIEW_FIELDS = [
-  {id: 'name', label: 'Your Name', type: 'text', name: 'name', placeholder: 'Your Name', maxlength: 50, required: true},
-  {id: 'title', label: 'Review Title', type: 'text', name: 'title', placeholder: 'Review Title', maxlength: 50, required: true},
-  {id: 'text', label: 'Your Review', as: 'textarea', name: 'text', placeholder: 'Your Review', maxlength: 300, required: true}
+  {id: 'name', label: 'Your Name', type: 'text', name: 'name', placeholder: 'Your Name', maxLength: 50, required: true},
+  {id: 'title', label: 'Review Title', type: 'text', name: 'title', placeholder: 'Review Title', maxLength: 50, required: true},
+  {id: 'text', label: 'Your Review', as: 'textarea', name: 'text', placeholder: 'Your Review', maxLength: 300, required: true}
 ];
 
 export const CHECKOUT_FIELDS = [
-  {id: 'phone', label: 'Phone', type: 'text', name: 'phone', placeholder: 'Phone', maxlength: 14, required: true,
+  {id: 'phone', label: 'Phone', type: 'text', name: 'phone', placeholder: 'Phone', maxLength: 14, required: true,
     message: 'Password must be between 6 and 14 characters. It must contain only numbers or a plus at the beginning',
     pattern: '\\+?\\d{6,14}'
   },
-  {id: 'address', label: 'Address', type: 'text', name: 'address', placeholder: 'Address', maxlength: 100, required: true},
-  {id: 'city', label: 'City', type: 'text', name: 'city', placeholder: 'City', maxlength: 50, required: true},
+  {id: 'address', label: 'Address', type: 'text', name: 'address', placeholder: 'Address', maxLength: 100, required: true},
+  {id: 'city', label: 'City', type: 'text', name: 'city', placeholder: 'City', maxLength: 50, required: true},
   {id: 'country', label: 'Country', as: 'select', name: 'country', placeholder: 'Country', required: true, initialValue: 'russia',
     children: ['Russia', 'Germany', 'France'].map(option => <option key={option} value={option}>{option}</option>)
   }
