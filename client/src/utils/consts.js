@@ -51,3 +51,15 @@ export const REVIEW_FIELDS = [
   {id: 'text', label: 'Your Review', as: 'textarea', name: 'text', placeholder: 'Your Review', required: true}
 ];
 
+export const CHECKOUT_FIELDS = [
+  {id: 'phone', label: 'Phone', type: 'text', name: 'phone', placeholder: 'Phone', maxlength: 14, required: true,
+    message: 'Password must be between 6 and 14 characters. It must contain only numbers or a plus at the beginning',
+    pattern: '\\+?\\d{6,14}'
+  },
+  {id: 'address', label: 'Address', type: 'text', name: 'address', placeholder: 'Address', maxlength: 50, required: true},
+  {id: 'city', label: 'City', type: 'text', name: 'city', placeholder: 'City', maxlength: 50, required: true},
+  {id: 'country', label: 'Country', as: 'select', name: 'country', placeholder: 'Country', required: true, initialValue: 'russia',
+    children: ['Russia', 'Germany', 'France'].map(option => <option key={option} value={option}>{option}</option>)
+  }
+];
+
