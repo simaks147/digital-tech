@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import styles from "./productReviews.module.css";
 import {Row, Col, FloatingLabel, Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -17,18 +17,20 @@ import {addReview} from "../../../redux/actions";
 import {REVIEW_FIELDS} from "../../../utils/consts";
 import Loader from "../../loader";
 
-const initialValues = {name: '', title: '', text: '', rating: 3};
-
 const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, addReview}) => {
   useEffect(() => {
     loadReviews();
   }, [loadReviews]);
 
+  const initialValues = useMemo(
+    () => REVIEW_FIELDS.reduce((acc, field) => ({...acc, [field.name]: ''}), {}),
+    [REVIEW_FIELDS]
+  );
   const [displayAll, setDisplayAll] = useState(false);
   const [recommended, setRecommended] = useState(false);
   const [validated, setValidated] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const {values, handlers, reset} = useForm(initialValues);
+  const {values, handlers, reset} = useForm({...initialValues, rating: 3});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -106,16 +108,12 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
                   <Form onSubmit={handleSubmit} noValidate validated={validated}>
                     {
                       REVIEW_FIELDS.map(field => {
-                        const {id, label, type, as, name, placeholder, required} = field;
+                        const {id, label, ...rest} = field;
                         return (
                           <FloatingLabel key={id} controlId={id} label={label}>
-                            <Form.Control type={type}
-                                          as={as}
-                                          name={name}
-                                          placeholder={placeholder}
-                                          required={required}
-                                          disabled={uploading}
-                                          {...handlers[name]}
+                            <Form.Control disabled={uploading}
+                                          {...rest}
+                                          {...handlers[id]}
                             />
                             <Form.Control.Feedback type="invalid">
                               Field must not be empty

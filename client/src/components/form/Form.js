@@ -40,16 +40,12 @@ const CustomForm = ({disabled, title, subtitle, fields, onSubmit, submitButton, 
         <Form onSubmit={handleSubmit} noValidate validated={validated}>
           {
             fields.map(field => {
-              const {id, label, type, name, placeholder, required, message, pattern} = field;
+              const {id, label, message, ...rest} = field;
               return (
                 <FloatingLabel key={id} controlId={id} label={label}>
-                  <Form.Control type={type}
-                                name={name}
-                                placeholder={placeholder}
-                                disabled={disabled}
-                                required={required}
-                                pattern={pattern}
-                                {...handlers[name]}
+                  <Form.Control disabled={disabled}
+                                {...rest}
+                                {...handlers[id]}
                   />
                   <Form.Control.Feedback type="invalid">
                     {message || 'Field must not be empty'}
