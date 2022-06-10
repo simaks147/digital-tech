@@ -4,21 +4,20 @@ import {Row, Col} from "react-bootstrap";
 import Figure from 'react-bootstrap/Figure';
 import Button from 'react-bootstrap/Button';
 import styles from './productItem.module.css';
-import {productSelector} from "../../../redux/selectors";
+import {orderSelector, productSelector, tokenSelector} from "../../../redux/selectors";
 import {Link} from "react-router-dom";
 import {increaseCart} from "../../../redux/actions";
-import {PRODUCT_ROUTE} from "../../../utils/consts";
+import {PRODUCT_ROUTE, BASKET_ROUTE_SHOPPING, LOGIN_ROUTE} from "../../../utils/consts";
 import {imagesUrlEndpoint} from "../../../config";
 import {IKImage} from 'imagekitio-react';
+import {push} from 'connected-react-router';
 
-
-const ProductItem = ({product, increaseCart}) => (
+const ProductItem = ({product, order, token, increaseCart, push}) => (
   <div className={styles.main}>
     <Row>
       <Col md='auto'>
         <Link to={`${PRODUCT_ROUTE}/${product.slug}`} className={styles.picture}>
           <Figure>
-            {/*<Figure.Image width={260} src={process.env.PUBLIC_URL + product.images[0]}/>*/}
             <IKImage
               urlEndpoint={imagesUrlEndpoint}
               path={product.images[0]}
@@ -41,7 +40,11 @@ const ProductItem = ({product, increaseCart}) => (
               </Link>
             </Col>
             <Col md='auto' className='mt-3 mt-md-0'>
-              <Button className='c-button' onClick={increaseCart}>Add to cart</Button>
+              {
+                order[product.slug]
+                  ? <Button className='c-button2' onClick={() => push(BASKET_ROUTE_SHOPPING)}>In cart</Button>
+                  : <Button className='c-button' onClick={token ? increaseCart : () => push(LOGIN_ROUTE)}>Add to cart</Button>
+              }
             </Col>
           </Row>
         </div>
@@ -51,11 +54,14 @@ const ProductItem = ({product, increaseCart}) => (
 );
 
 const mapStateToProps = (state, props) => ({
-  product: productSelector(state, props)
+  product: productSelector(state, props),
+  order: orderSelector(state, props),
+  token: tokenSelector(state, props)
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-  increaseCart: () => dispatch(increaseCart(props.id))
+  increaseCart: () => dispatch(increaseCart(props.id)),
+  push: (route) => dispatch(push(route))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductItem);

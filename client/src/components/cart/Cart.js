@@ -6,10 +6,10 @@ import {Container, Row, Col} from "react-bootstrap";
 import {ReactComponent as Icon} from '../../icons/cart-icon.svg';
 import {Link} from "react-router-dom";
 import {orderCountSelector, orderTotalSelector} from "../../redux/selectors";
-import {BASKET_ROUTE} from "../../utils/consts";
+import {BASKET_ROUTE_SHOPPING} from "../../utils/consts";
 
 const Cart = ({className, count, total}) => (
-  <Link to={BASKET_ROUTE} className={cn(styles.main, className)}>
+  <Link to={BASKET_ROUTE_SHOPPING} className={cn(styles.main, className)}>
     <Container>
       <Row>
         <Col xs={6}>

@@ -1,13 +1,6 @@
 .main {
     border: 1px solid var(--bs-gray-300);
-    /*text-decoration: none;*/
-    /*color: currentColor;*/
-    /*display: block;*/
 }
-
-/*.main:hover {*/
-/*    color: currentColor;*/
-/*}*/
 
 .main :global(.figure) {
     margin-bottom: 0;
@@ -68,7 +61,20 @@
 .main :global(.btn) {
     width: 160px;
     line-height: 2.2;
+}
+
+.main :global(.c-button) {
     border-bottom: 6px solid var(--c-color2);
+}
+
+.main :global(.c-button2):focus {
+    background-color: transparent;
+    color: var(--c-color1);
+}
+
+.main :global(.c-button2):hover {
+    background-color: var(--c-color1);
+    color: white;
 }
 
 @media (min-width: 768px) {
