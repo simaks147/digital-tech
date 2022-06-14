@@ -1,7 +1,7 @@
 .section {
     background-color: var(--bs-gray-100);
-    padding-top: 40px;
-    padding-bottom: 46px;
+    padding-top: 20px;
+    padding-bottom: 26px;
     font-size: 12px;
 }
 
@@ -46,5 +46,7 @@
 @media (min-width: 768px) {
     .section {
         font-size: 14px;
+        padding-top: 40px;
+        padding-bottom: 46px;
     }
 }
