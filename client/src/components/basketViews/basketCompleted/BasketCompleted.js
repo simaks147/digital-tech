@@ -12,7 +12,7 @@ const BasketCompleted = () => (
     <Container>
       <Icon/>
       <div className={styles.title}>thank you!</div>
-      <div className={styles.text}>Let's looks our recommended items</div>
+      <div className={styles.text}>You will receive e-mail confirmation. <br></br> Let's looks our recommended items</div>
       <Button className='c-button' as={Link} to={HOME_ROUTE}>Continue Shopping</Button>
     </Container>
   </div>
