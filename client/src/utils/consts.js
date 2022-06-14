@@ -59,6 +59,7 @@ export const CHECKOUT_FIELDS = [
   {id: 'address', label: 'Address', type: 'text', name: 'address', placeholder: 'Address', maxLength: 100, required: true},
   {id: 'city', label: 'City', type: 'text', name: 'city', placeholder: 'City', maxLength: 50, required: true},
   {id: 'country', label: 'Country', as: 'select', name: 'country', placeholder: 'Country', required: true, initialValue: 'russia',
+    className: 'form-select',
     children: ['Russia', 'Germany', 'France'].map(option => <option key={option} value={option}>{option}</option>)
   }
 ];

@@ -1,5 +1,5 @@
 .section {
-    margin: 60px 0;
+    margin: 30px 0;
 }
 
 :global(.form-control):focus,
@@ -9,7 +9,7 @@
 
 .buttons {
     text-align: right;
-    margin-top: 36px;
+    margin-top: 6px;
 }
 
 .buttons :global(.c-button) {
@@ -21,4 +21,14 @@
 
 .buttons :global(.c-loader) {
     left: 20px;
+}
+
+@media (min-width: 768px) {
+    .section {
+        margin: 60px 0;
+    }
+
+    .buttons {
+        margin-top: 36px;
+    }
 }

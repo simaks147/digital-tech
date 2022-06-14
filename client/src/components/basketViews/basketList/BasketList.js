@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import {orderProductsSelector, orderTotalSelector} from "../../../redux/selectors";
 import {processCheckout} from "../../../redux/actions";
 import {HOME_ROUTE} from "../../../utils/consts";
+import cn from "classnames";
 
 const BasketList = ({order, total, processCheckout}) => {
   return (
@@ -22,7 +23,7 @@ const BasketList = ({order, total, processCheckout}) => {
                 <th>Products</th>
                 <th></th>
                 <th>Quantity</th>
-                <th>Price</th>
+                <th className="d-none d-md-block">Price</th>
                 <th>Total</th>
                 <th></th>
               </tr>
@@ -49,9 +50,9 @@ const BasketList = ({order, total, processCheckout}) => {
           </>
         }
 
-        <div className={styles.buttons}>
-          <Button className='c-button2' as={Link} to={HOME_ROUTE}>Continue Shopping</Button>
+        <div className={cn(styles.buttons, 'd-flex justify-content-end')}>
           { !!total && <Button className='c-button' onClick={processCheckout}>Process Checkout</Button> }
+          <Button className='c-button2' as={Link} to={HOME_ROUTE}>Continue Shopping</Button>
         </div>
       </Container>
     </div>
