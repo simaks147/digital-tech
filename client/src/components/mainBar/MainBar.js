@@ -13,7 +13,7 @@ const MainBar = () => (
           <Link to={HOME_ROUTE} className={styles.brand}>DigitalTech</Link>
         </Col>
         <Col xs={'auto'} md={{order: 3}}>
-          <Cart className={styles.cart}/>
+          <Cart/>
         </Col>
         <Col xs={12} md>
           <Form.Control className={styles.search} type="text" placeholder="Search by keyword and press Enter"/>
