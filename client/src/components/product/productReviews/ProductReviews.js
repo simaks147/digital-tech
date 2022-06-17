@@ -16,6 +16,7 @@ import useForm from "../../../hooks/use-form";
 import {addReview} from "../../../redux/actions";
 import {REVIEW_FIELDS} from "../../../utils/consts";
 import Loader from "../../loader";
+import Checkbox from "../../checkbox";
 
 const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, addReview}) => {
   useEffect(() => {
@@ -122,12 +123,12 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
                         )
                       })
                     }
-                    <Form.Check id="recommended" className={cn(styles.formRecommended, {active: recommended})}>
-                      <Form.Check.Input type={'checkbox'} className={styles.formRecommendedInput} disabled={uploading}
-                                        onChange={() => setRecommended(!recommended)} checked={recommended}/>
-                      <Form.Check.Label className={styles.formRecommendedLabel}>I would recommend this to a
-                        friend!</Form.Check.Label>
-                    </Form.Check>
+                    <Checkbox id="recommended"
+                              active={recommended}
+                              disabled={uploading}
+                              onChange={setRecommended}
+                              labelText="I would recommend this to a friend!"
+                    />
                     <Button className={cn('c-button', styles.submitButton)} type='submit' disabled={uploading}>
                       {
                         uploading &&

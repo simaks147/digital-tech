@@ -104,53 +104,6 @@
     fill: var(--bs-gray-400);
 }
 
-.formRecommended {
-    padding: 0;
-    display: inline-block;
-}
-
-.formRecommendedInput {
-    opacity: 0;
-    height: 0;
-    width: 0;
-    position: absolute;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: 0 !important;
-    left: -10000px;
-}
-
-.formRecommendedLabel {
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    color: inherit !important;
-}
-
-.formRecommendedInput[disabled] ~ .formRecommendedLabel {
-    cursor: default;
-}
-
-.formRecommendedLabel:before {
-    content: '';
-    min-width: 24px;
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background-color: #fff;
-    background-repeat: no-repeat;
-    background-position: 50%;
-    border-radius: 50%;
-    border: 2px solid var(--c-color1);
-    margin-right: 12px;
-}
-
-.formRecommended:global(.active) .formRecommendedLabel:before {
-    background-color: var(--c-color1);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath fill='%23fff' d='M734.182,1651.54l-2.387-2.2-0.795.73,3.182,2.93,6.818-6.27-0.795-.73Z' transform='translate(-731 -1646)'/%3E%3C/svg%3E%0A");
-}
-
 .submitButton {
     position: relative;
     border-bottom: 0;
