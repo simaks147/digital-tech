@@ -1,0 +1,78 @@
+.main {
+    border: 1px solid var(--bs-gray-300);
+    border-radius: 4px 4px 0 0;
+    background-color: var(--c-color3);
+    display: flex;
+    align-items: center;
+    height: 70px;
+    margin-bottom: 30px;
+    padding: 0 35px;
+    font-size: 15px;
+}
+
+.order {
+    margin-right: 40px;
+    display: none;
+}
+
+.orderTitle {
+    font-weight: 500;
+    color: var(--bs-gray-800);
+}
+
+.toggle {
+    border: none;
+    background-color: transparent !important;
+    border-radius: 0;
+    color: var(--bs-gray-600) !important;
+    box-shadow: none !important;
+    padding: 0;
+    margin-left: 6px;
+}
+
+.toggle:after {
+    vertical-align: middle;
+}
+
+.menu {
+    padding: 0;
+}
+
+.main :global(.dropdown) {
+    display: inline-block;
+}
+
+.main :global(.dropdown-item.active),
+.main :global(.dropdown-item:active) {
+    background-color: var(--c-color1);
+}
+
+.view {
+    margin-left: auto;
+}
+
+.viewItem {
+    margin-left: 20px;
+}
+
+.viewItem:hover {
+    cursor: pointer;
+}
+
+.viewItem svg path {
+    fill: var(--bs-gray-500);
+}
+
+.viewItem:global(.active) svg path {
+    fill: var(--bs-gray-700);
+}
+
+.viewItem:hover svg path {
+    fill: var(--c-color1);
+}
+
+@media (min-width: 768px) {
+    .order {
+        display: block;
+    }
+}

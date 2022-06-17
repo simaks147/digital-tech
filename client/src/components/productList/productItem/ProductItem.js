@@ -15,7 +15,7 @@ import {push} from 'connected-react-router';
 const ProductItem = ({product, order, token, increaseCart, push}) => (
   <div className={styles.main}>
     <Row>
-      <Col md='auto'>
+      <Col sm='auto'>
         <Link to={`${PRODUCT_ROUTE}/${product.slug}`} className={styles.picture}>
           <Figure>
             <IKImage
@@ -35,7 +35,7 @@ const ProductItem = ({product, order, token, increaseCart, push}) => (
               <Link to={`${PRODUCT_ROUTE}/${product.slug}`} className={styles.info}>
                 <div className={styles.title}>{product.title}</div>
                 <div className={styles.subtitle}>{product.subTitle}</div>
-                <div className={styles.description}>{product.description}</div>
+                <div className={styles.description}>{product.description.slice(0, 130)}...</div>
                 <div className={styles.price}>${product.price}</div>
               </Link>
             </Col>

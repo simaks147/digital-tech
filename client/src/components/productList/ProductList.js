@@ -9,10 +9,12 @@ import {
 import {connect} from "react-redux";
 import {loadProducts} from "../../redux/actions";
 import Loader from "../loader";
+import ProductFilter from "./productFilter";
+import styles from './productList.module.css';
+import ProductSort from "./productSort";
 
 const ProductList = ({subcategoryId, productsIds, loadProducts, loading, loaded}) => {
   useEffect(() => {
-    // if (!subcategories[subcategoryId])
     loadProducts(subcategoryId);
   }, [loadProducts, subcategoryId]);
 
@@ -21,17 +23,25 @@ const ProductList = ({subcategoryId, productsIds, loadProducts, loading, loaded}
   if (!loaded) return 'Error!!!';
 
   return (
-    <div>
+    <div className={styles.main}>
       <Container>
-        <Row xs={1}>
-          {
-            productsIds.map(id => (
-                <Col key={id} className='my-3'>
-                  <ProductItem id={id}/>
-                </Col>
-              )
-            )
-          }
+        <Row className="align-items-start">
+          <Col lg={3}>
+            <ProductFilter/>
+          </Col>
+          <Col lg={9}>
+            <ProductSort/>
+            <Row xs={1}>
+              {
+                productsIds.map(id => (
+                    <Col key={id}>
+                      <ProductItem id={id}/>
+                    </Col>
+                  )
+                )
+              }
+            </Row>
+          </Col>
         </Row>
       </Container>
     </div>

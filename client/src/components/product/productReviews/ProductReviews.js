@@ -123,12 +123,9 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
                         )
                       })
                     }
-                    <Checkbox id="recommended"
-                              active={recommended}
-                              disabled={uploading}
-                              onChange={setRecommended}
-                              labelText="I would recommend this to a friend!"
-                    />
+                    <Checkbox id="recommended" active={recommended} disabled={uploading} onChange={setRecommended}>
+                      I would recommend this to a friend!
+                    </Checkbox>
                     <Button className={cn('c-button', styles.submitButton)} type='submit' disabled={uploading}>
                       {
                         uploading &&

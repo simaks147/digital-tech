@@ -10,11 +10,9 @@ const CategoryPage = ({match, categories}) => {
   if (!match.params.slug) return <Redirect to={`${CATEGORY_ROUTE}/${categories[0].subcategory[0].slug}`}/>
 
   return (
-    <>
-      <Layout>
-        <ProductList subcategoryId={match.params.slug}/>
-      </Layout>
-    </>
+    <Layout>
+      <ProductList subcategoryId={match.params.slug}/>
+    </Layout>
   );
 }
 
