@@ -4,10 +4,10 @@
     background-color: var(--c-color3);
     display: flex;
     align-items: center;
-    height: 70px;
+    height: 40px;
     margin-bottom: 30px;
-    padding: 0 35px;
-    font-size: 15px;
+    padding: 0 18px;
+    font-size: 13px;
 }
 
 .order {
@@ -28,6 +28,7 @@
     box-shadow: none !important;
     padding: 0;
     margin-left: 6px;
+    font-size: 13px;
 }
 
 .toggle:after {
@@ -71,8 +72,21 @@
     fill: var(--c-color1);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 576px) {
     .order {
         display: block;
+    }
+}
+
+@media (min-width: 992px) {
+    .main {
+        height: 70px;
+        padding-left: 35px;
+        padding-right: 35px;
+        font-size: 15px;
+    }
+
+    .toggle {
+        font-size: 16px;
     }
 }
