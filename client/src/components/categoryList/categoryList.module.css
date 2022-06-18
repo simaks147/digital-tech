@@ -1,12 +1,45 @@
-.section {
-    width: initial;
+.main {
+    position: fixed;
+    background-color: white;
+    z-index: 2;
+    display: flex;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.close {
+    width: 50px;
+    background-color: var(--c-color1);
 }
 
 .nav {
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: scroll;
+    width: 100%;
+    flex-wrap: nowrap;
 }
 
 .subcategory.active,
 .subcategory:active {
     background-color: var(--c-color1);
+}
+
+@media (min-width: 992px) {
+    .main {
+        position: static;
+        display: block;
+    }
+
+    .close {
+        display: none;
+    }
+
+    .nav {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 }
