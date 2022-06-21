@@ -34,6 +34,8 @@ export const registrationSelector = (state) => state.auth.registration;
 export const confirmationSelector = (state) => state.auth.confirmation;
 export const profileSelector = (state) => state.auth.profile;
 
+export const activeNavSelector = (state) => state.nav.active
+
 export const categoriesListSelector = createSelector(
   categoriesSelector,
   Object.values

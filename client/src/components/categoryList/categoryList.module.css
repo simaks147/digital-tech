@@ -1,17 +1,27 @@
 .main {
     position: fixed;
     background-color: white;
-    z-index: 2;
+    z-index: 1002;
     display: flex;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
+    width: 100%;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform .3s;
+}
+
+.main:global(.active) {
+    transform: translateX(0);
 }
 
 .close {
     width: 50px;
     background-color: var(--c-color1);
+}
+
+.close svg {
+    display: block;
+    margin: 14px auto;
+    cursor: pointer;
 }
 
 .nav {
@@ -20,6 +30,7 @@
     overflow: scroll;
     width: 100%;
     flex-wrap: nowrap;
+    padding: 12px 0;
 }
 
 .subcategory.active,
@@ -31,6 +42,10 @@
     .main {
         position: static;
         display: block;
+        transition: transform 0s;
+        transform: translateX(0);
+        z-index: 1001;
+        height: auto;
     }
 
     .close {
@@ -41,5 +56,7 @@
         flex-direction: row;
         justify-content: center;
         flex-wrap: wrap;
+        overflow: visible;
+        padding: 3px;
     }
 }

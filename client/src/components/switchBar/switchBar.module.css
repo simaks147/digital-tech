@@ -1,5 +1,22 @@
 .section {
     background-color: var(--bs-gray-100);
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.1)
+}
+
+.menuIcon {
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.menuIcon svg path {
+    fill: var(--bs-gray-700);
+}
+
+.menuIcon:hover svg path {
+    fill: var(--c-color1);
 }
 
 .link {
@@ -34,5 +51,15 @@
         display: inline;
         margin-right: 30px;
         font-size: 14px;
+    }
+}
+
+@media (min-width: 992px) {
+    .section {
+        z-index: 1002;
+    }
+
+    .menuIcon {
+        display: none;
     }
 }

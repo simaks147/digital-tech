@@ -5,7 +5,8 @@
 }
 
 .itemTitle {
-    font-size: 14px;
+    font-size: 12px;
+    text-transform: uppercase;
     color: var(--bs-gray-500);
     margin-top: 5px;
     margin-left: 10px;
@@ -46,10 +47,15 @@
 
 .item :global(.dropdown-menu) {
     padding: 0;
+    width: 100%;
 }
 
 .item :global(.dropdown-toggle:after) {
     display: none;
+}
+
+.item svg path {
+    fill: var(--bs-gray-500);
 }
 
 :global(.show).item svg path,
@@ -64,12 +70,26 @@
 @media (min-width: 992px) {
     .itemTitle {
         margin-left: 0;
+        text-transform: none;
     }
 
     .item :global(.nav-link) {
         display: block;
         text-align: center;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+        padding: 0.5rem;
+    }
+
+    .item :global(.dropdown-menu) {
+        width: auto;
+    }
+}
+
+@media (min-width: 1200px) {
+    .itemTitle {
+        font-size: 14px;
+    }
+
+    .item :global(.nav-link) {
+        padding: 1rem;
     }
 }

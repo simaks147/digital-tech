@@ -17,7 +17,9 @@ import {
   OAUTH_CALLBACK,
   REGISTER,
   CONFIRM,
-  FETCH_PROFILE
+  FETCH_PROFILE,
+  OPEN_NAV,
+  CLOSE_NAV
 } from "./consts";
 
 import {
@@ -216,3 +218,11 @@ export const fetchProfile = () => async (dispatch, getState) => {
     await dispatch(_fetchProfile(token));
   }
 };
+
+export const openNav = () => ({
+  type: OPEN_NAV
+});
+
+export const closeNav = () => ({
+  type: CLOSE_NAV
+});

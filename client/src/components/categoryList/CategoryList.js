@@ -1,23 +1,44 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import Nav from 'react-bootstrap/Nav'
 import styles from './categoryList.module.css'
 import CategoryItem from "./categoryItem";
-import {categoriesListSelector} from "../../redux/selectors";
+import {activeNavSelector, categoriesListSelector} from "../../redux/selectors";
+import {ReactComponent as CloseIcon} from "../../icons/close-icon.svg";
+import {closeNav} from "../../redux/actions";
+import cn from "classnames";
 
-const CategoryList = ({categories}) => (
-  <div className={styles.main}>
-    <div className={styles.close}></div>
-    <Nav className={styles.nav}>
-      {
-        categories.map((item, i) => <CategoryItem key={item.slug} item={item}/>)
-      }
-    </Nav>
-  </div>
-);
+const CategoryList = ({categories, activeNav, closeNav}) => {
+  // useEffect(() => {
+  //   window.addEventListener('resize', () => {
+  //     console.log(activeNav);
+  //     // if (activeNav) closeNav();
+  //   })
+  // }, []);
+
+  useEffect(() => {
+    activeNav
+      ? document.body.style.overflow = 'hidden'
+      : document.body.style.overflow = 'visible'
+  }, [activeNav]);
+
+  return (
+    <div className={cn(styles.main, {active: activeNav})}>
+      <div className={styles.close} onClick={closeNav}>
+        <CloseIcon/>
+      </div>
+      <Nav className={styles.nav}>
+        {
+          categories.map((item, i) => <CategoryItem key={item.slug} item={item}/>)
+        }
+      </Nav>
+    </div>
+  );
+}
 
 const mapStateToProps = (state, props) => ({
   categories: categoriesListSelector(state),
+  activeNav: activeNavSelector(state)
 });
 
-export default connect(mapStateToProps)(CategoryList);
+export default connect(mapStateToProps, {closeNav})(CategoryList);
