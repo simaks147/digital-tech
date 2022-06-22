@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
 import Nav from 'react-bootstrap/Nav'
 import styles from './categoryList.module.css'
@@ -9,18 +9,17 @@ import {closeNav} from "../../redux/actions";
 import cn from "classnames";
 
 const CategoryList = ({categories, activeNav, closeNav}) => {
-  // useEffect(() => {
-  //   window.addEventListener('resize', () => {
-  //     console.log(activeNav);
-  //     // if (activeNav) closeNav();
-  //   })
-  // }, []);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    activeNav
-      ? document.body.style.overflow = 'hidden'
-      : document.body.style.overflow = 'visible'
-  }, [activeNav]);
+    window.addEventListener('resize', () => {
+      setWindowWidth(window.innerWidth);
+    });
+  }, []);
+
+  useEffect(() => {
+      document.body.style.overflow = (windowWidth < 992) && activeNav ? 'hidden' : 'visible';
+  }, [activeNav, windowWidth]);
 
   return (
     <div className={cn(styles.main, {active: activeNav})}>
