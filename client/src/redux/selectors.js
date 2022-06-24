@@ -45,6 +45,11 @@ export const categoriesListSelector = createSelector(
   Object.values
 );
 
+export const brandsListSelector = createSelector(
+  brandsSelector,
+  Object.values
+);
+
 export const productsListSelector = createSelector(
   productsSelector,
   Object.values
@@ -113,6 +118,17 @@ export const ratingSelector = createSelector(
       return Math.round(this.recommendedLength / reviews.length * 100 * 100) / 100
     }
   })
+);
+
+export const brandsByProductsSelector = createSelector(
+  brandsListSelector,
+  productsListSelector,
+  activeSubcategorySelector,
+  (brands, products, activeCategory) => brands
+    .filter(brand => products
+      .filter(prod => prod.subcategoryId === activeCategory)
+      .find(prod => prod.brand.id === brand.id)
+    )
 );
 
 

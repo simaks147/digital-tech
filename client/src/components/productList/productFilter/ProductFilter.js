@@ -3,8 +3,9 @@ import {connect} from "react-redux";
 import styles from './productFilter.module.css';
 import {Accordion} from "react-bootstrap";
 import Checkbox from "../../checkbox";
+import {brandsByProductsSelector} from "../../../redux/selectors";
 
-const ProductFilter = () => (
+const ProductFilter = ({brands}) => (
   <div className={styles.main}>
     <div className={styles.header}>Refind Your Results</div>
     <div className={styles.content}>
@@ -21,8 +22,9 @@ const ProductFilter = () => (
           <Accordion.Header>Filter by Brands</Accordion.Header>
           <Accordion.Body>
             <Checkbox>All Brands</Checkbox>
-            <Checkbox>Nikon</Checkbox>
-            <Checkbox>Sony</Checkbox>
+            {
+              brands.map((brand) => <Checkbox key={brand.id}>{brand.title}</Checkbox>)
+            }
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
@@ -30,7 +32,9 @@ const ProductFilter = () => (
   </div>
 );
 
-const mapStateToProps = (state, props) => ({});
+const mapStateToProps = (state, props) => ({
+  brands: brandsByProductsSelector(state, props)
+});
 
 const mapDispatchToProps = (dispatch, props) => ({});
 
