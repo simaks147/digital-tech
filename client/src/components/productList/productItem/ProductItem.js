@@ -34,7 +34,6 @@ const ProductItem = ({product, order, token, increaseCart, push}) => (
             <Col>
               <Link to={`${PRODUCT_ROUTE}/${product.slug}`} className={styles.info}>
                 <div className={styles.title}>{product.title}</div>
-                <div className={styles.subtitle}>{product.subTitle}</div>
                 <div className={styles.description}>{product.description.slice(0, 130)}...</div>
                 <div className={styles.price}>${product.price}</div>
               </Link>

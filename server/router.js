@@ -3,7 +3,8 @@ const session = require('./middleware/session');
 const {mustBeAuthenticated} = require('./middleware/authentication');
 const validationErrors = require('./middleware/validationErrors');
 const categoryList = require('./controllers/categories');
-const {productsBySubcategory, productsList, productBySlug} = require('./controllers/products');
+const brandList = require('./controllers/brands');
+const {productsBySubcategory, productsList, productBySlug, createProduct} = require('./controllers/products');
 const {reviewsByProduct, createReview} = require('./controllers/reviews');
 const login = require('./controllers/login');
 const {oauth, oauthCallback} = require('./controllers/oauth');
@@ -18,9 +19,11 @@ const router = new Router({
 router.use(session);
 
 router.get('/categories', categoryList);
+router.get('/brands', brandList);
 
 router.get('/products', productsBySubcategory, productsList);
 router.get('/product/:slug', productBySlug);
+router.post('/product', createProduct);
 
 router.get('/reviews', reviewsByProduct);
 router.post('/reviews', validationErrors, createReview);

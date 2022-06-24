@@ -9,6 +9,7 @@ export const BASKET_ROUTE_CHECKOUT = '/basket/checkout';
 export const BASKET_ROUTE_COMPLETED = '/basket/completed';
 export const CATEGORY_ROUTE = '/category';
 export const PRODUCT_ROUTE = '/product';
+export const ADMIN_ROUTE = '/admin';
 
 export const CURRENCIES = ['USD', 'EUR', 'RUB'];
 
@@ -62,5 +63,11 @@ export const CHECKOUT_FIELDS = [
     className: 'form-select',
     children: ['Russia', 'Germany', 'France'].map(option => <option key={option} value={option}>{option}</option>)
   }
+];
+
+export const PRODUCT_CREATION_FIELDS = [
+  {id: 'title', label: 'Title', type: 'text', name: 'title', placeholder: 'Title', maxLength: 200, required: true,},
+  {id: 'description', label: 'Description', as: 'textarea', name: 'description', placeholder: 'Description', maxLength: 500, required: true},
+  {id: 'price', label: 'Price', type: 'text', name: 'price', placeholder: 'Price', maxLength: 7, required: true}
 ];
 

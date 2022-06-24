@@ -6,13 +6,13 @@ module.exports.productsBySubcategory = async (ctx, next) => {
 
   if (!subcategoryId) return next();
 
-  const products = await Product.find({subcategoryId});
+  const products = await Product.find({subcategoryId}).populate('brand');
 
   ctx.body = {products: products.map(mapProduct)};
 };
 
 module.exports.productsList = async (ctx) => {
-  const products = await Product.find().limit(3);
+  const products = await Product.find().limit(3).populate('brand');
 
   ctx.body = {products: products.map(mapProduct)};
 };
@@ -20,11 +20,25 @@ module.exports.productsList = async (ctx) => {
 module.exports.productBySlug = async (ctx) => {
   const slug = ctx.params.slug;
 
-  const product = await Product.findOne({slug});
+  const product = await Product.findOne({slug}).populate('brand');
 
   if (!product) ctx.throw(404, `No product with ${ctx.params.slug} slug`);
 
   ctx.body = {product: mapProduct(product)};
+};
+
+module.exports.createProduct = async (ctx) => {
+  const {
+    brand, description, price, subcategoryId, title, images, specification
+  } = ctx.request.body;
+
+  const slug = title.toLowerCase().split(' ').join('_');
+
+  const product = await Product.create({
+    brand, description, price, slug, subcategoryId, title, images, specification
+  });
+
+  ctx.body = {product};
 };
 
 

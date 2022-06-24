@@ -1,5 +1,15 @@
 module.exports.mapProduct = (product) => {
-  const {_id, ...rest} = product.toJSON();
+  const {_id, brand, ...rest} = product.toJSON();
+
+  rest.brand = this.mapBrand(product.brand);
+
+  return rest;
+};
+
+module.exports.mapBrand = (brand) => {
+  const {_id, ...rest} = brand.toJSON();
+
+  rest.id = _id;
 
   return rest;
 };

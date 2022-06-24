@@ -6,6 +6,7 @@ import {
   REMOVE_FROM_CART,
   MAKE_ORDER,
   LOAD_CATEGORIES,
+  LOAD_BRANDS,
   LOAD_PRODUCTS,
   LOAD_PRODUCT,
   SET_ACTIVE_CATEGORIES,
@@ -87,6 +88,11 @@ export const _setActiveCategory = (subcategoryId, categoryId) => ({
 export const loadCategories = () => ({
   type: LOAD_CATEGORIES,
   CallApi: '/api/categories'
+});
+
+export const loadBrands = () => ({
+  type: LOAD_BRANDS,
+  CallApi: '/api/brands'
 });
 
 const _loadProducts = (id) => ({

@@ -1,31 +1,49 @@
 import React, {useEffect} from 'react';
 import AppRouter from "../AppRouter";
-import {loadedCategoriesSelector, loadingCategoriesSelector, tokenSelector} from "../../redux/selectors";
+import {
+  loadedCategoriesSelector,
+  loadingCategoriesSelector,
+  loadedBrandsSelector,
+  loadingBrandsSelector,
+  tokenSelector
+} from "../../redux/selectors";
 import {connect} from "react-redux";
-import {loadCategories, fetchProfile} from "../../redux/actions";
+import {loadCategories, loadBrands, fetchProfile} from "../../redux/actions";
 import Loader from "../loader";
 
 
-const App = ({loadCategories, loading, loaded, token, fetchProfile}) => {
+const App = ({
+               loadCategories,
+               loadBrands,
+               loadingCategories,
+               loadedCategories,
+               loadingBrands,
+               loadedBrands,
+               token,
+               fetchProfile
+             }) => {
   useEffect(() => {
     if (token) fetchProfile();
   }, [token, fetchProfile]);
 
   useEffect(() => {
-    if (!loading && !loaded) loadCategories();
-  }, [loadCategories, loading, loaded]);
+    loadCategories();
+    loadBrands();
+  }, []);
 
-  if (loading) return <Loader/>;
+  if (loadingCategories || loadingBrands) return <Loader/>;
 
-  if (!loaded) return 'Error!!!';
+  if (!loadedCategories || !loadedBrands) return 'Error!!!';
 
   return <AppRouter/>;
 }
 
 const mapStateToProps = (state, props) => ({
-  loading: loadingCategoriesSelector(state),
-  loaded: loadedCategoriesSelector(state),
-  token: tokenSelector(state)
+  loadingCategories: loadingCategoriesSelector(state),
+  loadedCategories: loadedCategoriesSelector(state),
+  loadingBrands: loadingBrandsSelector(state),
+  loadedBrands: loadedBrandsSelector(state),
+  token: tokenSelector(state),
 });
 
-export default connect(mapStateToProps, {loadCategories, fetchProfile})(App);
+export default connect(mapStateToProps, {loadCategories, loadBrands, fetchProfile})(App);

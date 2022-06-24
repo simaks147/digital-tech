@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const connection = require('../libs/connection');
 
 const productSchema = new mongoose.Schema({
-  brand: {
+  title: {
     type: String,
     required: true
   },
@@ -10,23 +10,21 @@ const productSchema = new mongoose.Schema({
     type: String
   },
   price: {
-    type: String,
+    type: Number,
     required: true
   },
   slug: {
     type: String,
     required: true
   },
-  subTitle: {
-    type: String
-  },
   subcategoryId: {
     type: String,
     required: true
   },
-  title: {
-    type: String,
-    required: true
+  brand: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Brand'
   },
   images: {
     type: [String],

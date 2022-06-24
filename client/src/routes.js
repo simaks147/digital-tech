@@ -9,7 +9,8 @@ import {
   CONFIRM_ROUTE,
   CATEGORY_ROUTE,
   PRODUCT_ROUTE,
-  OAUTH_CALLBACK_ROUTE
+  OAUTH_CALLBACK_ROUTE,
+  ADMIN_ROUTE
 } from "./utils/consts";
 import BasketPage from "./pages/BasketPage";
 import HomePage from "./pages/HomePage";
@@ -19,6 +20,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ConfirmPage from "./pages/ConfirmPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
+import AdminPage from "./pages/AdminPage";
 
 const routes = [
   {
@@ -63,6 +65,10 @@ const routes = [
       BASKET_ROUTE_COMPLETED
     ],
     Component: BasketPage
+  },
+  {
+    path: ADMIN_ROUTE,
+    Component: AdminPage
   }
 ];
 
