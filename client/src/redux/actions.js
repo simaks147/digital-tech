@@ -20,7 +20,8 @@ import {
   CONFIRM,
   FETCH_PROFILE,
   OPEN_NAV,
-  CLOSE_NAV
+  CLOSE_NAV,
+  CREATE_PRODUCT
 } from "./consts";
 
 import {
@@ -231,4 +232,11 @@ export const openNav = () => ({
 
 export const closeNav = () => ({
   type: CLOSE_NAV
+});
+
+export const createProduct = (values, id) => ({
+  type: CREATE_PRODUCT,
+  CallApi: '/api/product',
+  values: {...values, slug: id},
+  id
 });

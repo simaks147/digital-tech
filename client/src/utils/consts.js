@@ -59,15 +59,20 @@ export const CHECKOUT_FIELDS = [
   },
   {id: 'address', label: 'Address', type: 'text', name: 'address', placeholder: 'Address', maxLength: 100, required: true},
   {id: 'city', label: 'City', type: 'text', name: 'city', placeholder: 'City', maxLength: 50, required: true},
-  {id: 'country', label: 'Country', as: 'select', name: 'country', placeholder: 'Country', required: true, initialValue: 'russia',
-    className: 'form-select',
-    children: ['Russia', 'Germany', 'France'].map(option => <option key={option} value={option}>{option}</option>)
+  {id: 'country', label: 'Country', as: 'select', name: 'country', placeholder: 'Country', required: true, className: 'form-select',
+    children: ['Choose yours...', 'Russia', 'Germany', 'France'].map((option, i) => <option key={option} value={i === 0 ? '' : option}>{option}</option>)
   }
 ];
 
-export const PRODUCT_CREATION_FIELDS = [
+export const PRODUCT_CREATION_FIELDS = (brands, categories) => ([
   {id: 'title', label: 'Title', type: 'text', name: 'title', placeholder: 'Title', maxLength: 200, required: true,},
   {id: 'description', label: 'Description', as: 'textarea', name: 'description', placeholder: 'Description', maxLength: 500, required: true},
-  {id: 'price', label: 'Price', type: 'text', name: 'price', placeholder: 'Price', maxLength: 7, required: true}
-];
+  {id: 'price', label: 'Price', type: 'text', name: 'price', placeholder: 'Price', maxLength: 7, required: true},
+  {id: 'brand', label: 'Brand', as: 'select', name: 'brand', placeholder: 'Brand', required: true, className: 'form-select',
+    children: [{title: 'Choose...', id: 0}, ...brands].map(({title, id}, i) => <option key={id} value={i === 0 ? '' : id}>{title}</option>)
+  },
+  {id: 'subcategoryId', label: 'Category', as: 'select', name: 'subcategoryId', placeholder: 'Category', required: true, className: 'form-select',
+    children: [{title: 'Choose...', slug: ''}, ...categories].map(({title, slug}, i) => <option key={slug} value={i === 0 ? '' : slug}>{title}</option>)
+  }
+]);
 

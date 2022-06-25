@@ -131,6 +131,11 @@ export const brandsByProductsSelector = createSelector(
     )
 );
 
+export const subcategoriesListSelector = createSelector(
+  categoriesListSelector,
+  categories => categories.flatMap(category => category.subcategory)
+);
+
 
 
 

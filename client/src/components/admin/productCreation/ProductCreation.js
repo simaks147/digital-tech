@@ -4,32 +4,38 @@ import useForm from "../../../hooks/use-form";
 import {PRODUCT_CREATION_FIELDS} from "../../../utils/consts";
 import Button from "react-bootstrap/Button";
 import Loader from "../../loader";
+import {connect} from "react-redux";
+import {brandsListSelector, subcategoriesListSelector} from "../../../redux/selectors";
+import styles from "./productCreation.module.css";
+import {createProduct} from "../../../redux/actions";
 
-const ProductCreation = () => {
+const ProductCreation = ({brands, subcategories, createProduct}) => {
   const processing = false;
 
   const initialValues = useMemo(
-    () => PRODUCT_CREATION_FIELDS.reduce((acc, field) => ({...acc, [field.name]: field.initialValue || ''}), {}),
-    [PRODUCT_CREATION_FIELDS]
+    () => PRODUCT_CREATION_FIELDS(brands, subcategories).reduce((acc, field) => ({...acc, [field.name]: ''}), {}),
+    []
   );
   const [validated, setValidated] = useState(false);
   const {values, handlers, reset} = useForm(initialValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (e.currentTarget.checkValidity()) console.log(values);
+    const slug = values.title.toLowerCase().split(' ').join('_');
+
+    if (e.currentTarget.checkValidity()) createProduct(values, slug);
 
     setValidated(true);
     // reset();
   };
 
   return (
-    <div>
+    <div className={styles.section}>
       <Container>
         <Form onSubmit={handleSubmit} noValidate validated={validated}>
           <Row xs={1}>
             {
-              PRODUCT_CREATION_FIELDS.map(field => {
+              PRODUCT_CREATION_FIELDS(brands, subcategories).map(field => {
                 const {id, label, message, initialValue, ...rest} = field;
                 return (
                   <Col className="mb-4" key={id}>
@@ -64,4 +70,9 @@ const ProductCreation = () => {
   );
 };
 
-export default ProductCreation;
+const mapStateToProps = (state) => ({
+  brands: brandsListSelector(state),
+  subcategories: subcategoriesListSelector(state)
+});
+
+export default connect(mapStateToProps, {createProduct})(ProductCreation);

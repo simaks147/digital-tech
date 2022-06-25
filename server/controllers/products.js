@@ -29,10 +29,8 @@ module.exports.productBySlug = async (ctx) => {
 
 module.exports.createProduct = async (ctx) => {
   const {
-    brand, description, price, subcategoryId, title, images, specification
+    brand, description, price, slug, subcategoryId, title, images, specification
   } = ctx.request.body;
-
-  const slug = title.toLowerCase().split(' ').join('_');
 
   const product = await Product.create({
     brand, description, price, slug, subcategoryId, title, images, specification

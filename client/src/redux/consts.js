@@ -30,6 +30,8 @@ export const FETCH_PROFILE = 'FETCH_PROFILE';
 export const OPEN_NAV = 'OPEN_NAV';
 export const CLOSE_NAV = 'CLOSE_NAV';
 
+export const CREATE_PRODUCT = 'CREATE_PRODUCT';
+
 
 
 

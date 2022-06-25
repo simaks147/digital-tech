@@ -14,7 +14,7 @@ import {CHECKOUT_FIELDS} from "../../../utils/consts";
 
 const BasketCheckout = ({order, processing, errors, makeOrder}) => {
   const initialValues = useMemo(
-    () => CHECKOUT_FIELDS.reduce((acc, field) => ({...acc, [field.name]: field.initialValue || ''}), {}),
+    () => CHECKOUT_FIELDS.reduce((acc, field) => ({...acc, [field.name]: ''}), {}),
     [CHECKOUT_FIELDS]
   );
   const [validated, setValidated] = useState(false);

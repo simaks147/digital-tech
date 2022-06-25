@@ -1,9 +1,9 @@
-// import {products} from "../../fixtures";
 import produce from "immer";
 import {arrToMap} from "../utils";
 import {
   LOAD_PRODUCTS,
   LOAD_PRODUCT,
+  CREATE_PRODUCT,
   REQUEST,
   SUCCESS,
   FAILURE
@@ -13,6 +13,7 @@ const initialState = {
   entities: {},
   loading: false,
   loaded: false,
+  processing: false,
   error: null
 }
 
@@ -42,6 +43,21 @@ export default (state = initialState, action) =>
       case LOAD_PRODUCT + FAILURE:
         draft.loading = false;
         draft.loaded = false;
+        draft.error = error;
+        break;
+
+      case CREATE_PRODUCT + REQUEST:
+        draft.processing = true;
+        draft.error = null;
+        break;
+
+      case CREATE_PRODUCT + SUCCESS:
+        draft.processing = false;
+        draft.entities[id] = data.product;
+        break;
+
+      case CREATE_PRODUCT + FAILURE:
+        draft.processing = false;
         draft.error = error;
         break;
 

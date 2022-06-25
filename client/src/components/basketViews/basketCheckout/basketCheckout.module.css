@@ -2,8 +2,8 @@
     margin: 30px 0;
 }
 
-:global(.form-control):focus,
-:global(.form-select):focus {
+.section :global(.form-control):focus,
+.section :global(.form-select):focus {
     box-shadow: none;
 }
 
