@@ -4,6 +4,7 @@ import cn from "classnames";
 import {Carousel} from "react-bootstrap";
 import {IKImage} from 'imagekitio-react';
 import {imagesUrlEndpoint} from "../../../config";
+import ErrorBoundary from "../../ErrorBoundary";
 
 const ProductCarousel = ({product}) => {
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -18,14 +19,16 @@ const ProductCarousel = ({product}) => {
                  onClick={() => handleSelectCarouselItem(i)}
                  className={cn({active: carouselIndex === i}, styles.indicatorsItem)}>
               {/*<img src={process.env.PUBLIC_URL + picture} alt=""/>*/}
-              <IKImage
-                urlEndpoint={imagesUrlEndpoint}
-                path={img}
-                transformation={[{
-                  height: 54,
-                  width: 54
-                }]}
-              />
+              <ErrorBoundary>
+                <IKImage
+                  urlEndpoint={imagesUrlEndpoint}
+                  path={img}
+                  transformation={[{
+                    height: 54,
+                    width: 54
+                  }]}
+                />
+              </ErrorBoundary>
             </div>))
         }
       </div>
@@ -39,14 +42,16 @@ const ProductCarousel = ({product}) => {
           product?.images.map((img, i) => (
             <Carousel.Item key={i} className={styles.picture}>
               {/*<img src={process.env.PUBLIC_URL + picture} alt=""/>*/}
-              <IKImage
-                urlEndpoint={'https://ik.imagekit.io/lrgi6op5tryx/'}
-                path={img}
-                transformation={[{
-                  height: 500,
-                  width: 500
-                }]}
-              />
+              <ErrorBoundary>
+                <IKImage
+                  urlEndpoint={imagesUrlEndpoint}
+                  path={img}
+                  transformation={[{
+                    height: 500,
+                    width: 500
+                  }]}
+                />
+              </ErrorBoundary>
             </Carousel.Item>
           ))
         }

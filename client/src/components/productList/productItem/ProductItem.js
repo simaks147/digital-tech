@@ -11,6 +11,7 @@ import {PRODUCT_ROUTE, BASKET_ROUTE_SHOPPING, LOGIN_ROUTE} from "../../../utils/
 import {imagesUrlEndpoint} from "../../../config";
 import {IKImage} from 'imagekitio-react';
 import {push} from 'connected-react-router';
+import ErrorBoundary from "../../ErrorBoundary";
 
 const ProductItem = ({product, order, token, increaseCart, push}) => (
   <div className={styles.main}>
@@ -18,13 +19,15 @@ const ProductItem = ({product, order, token, increaseCart, push}) => (
       <Col sm='auto'>
         <Link to={`${PRODUCT_ROUTE}/${product.slug}`} className={styles.picture}>
           <Figure>
-            <IKImage
-              urlEndpoint={imagesUrlEndpoint}
-              path={product.images[0]}
-              transformation={[{
-                height: 260,
-                width: 260
-              }]}/>
+            <ErrorBoundary>
+              <IKImage
+                urlEndpoint={imagesUrlEndpoint}
+                path={product.images[0]}
+                transformation={[{
+                  height: 260,
+                  width: 260
+                }]}/>
+            </ErrorBoundary>
           </Figure>
         </Link>
       </Col>
