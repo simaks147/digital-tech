@@ -1,0 +1,10 @@
+.main {
+    font-size: 28px;
+    font-weight: 500;
+    color: black;
+    text-decoration: none;
+}
+
+.main:hover {
+    color: black;
+}

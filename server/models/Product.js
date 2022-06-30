@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 const connection = require('../libs/connection');
+const uniqueValidator = require("mongoose-unique-validator");
 
 const productSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
+    uniqueCaseInsensitive: true
   },
   description: {
     type: String
@@ -34,5 +37,7 @@ const productSchema = new mongoose.Schema({
     type: {}
   }
 });
+
+productSchema.plugin(uniqueValidator, { message: 'Product with this {PATH} already exists' });
 
 module.exports = connection.model('Product', productSchema);

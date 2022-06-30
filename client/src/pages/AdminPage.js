@@ -1,11 +1,11 @@
 import React from 'react';
-import Layout from "../components/Layout";
+import AdminLayout from "../components/admin/AdminLayout";
 import ProductCreation from "../components/admin/productCreation";
 
 const AdminPage = () => (
-  <Layout>
+  <AdminLayout>
     <ProductCreation/>
-  </Layout>
+  </AdminLayout>
 );
 
 export default AdminPage;

@@ -7,7 +7,7 @@
 }
 
 .section form textarea {
-    height: 150px;
+    height: 120px !important;
     resize: none;
 }
 

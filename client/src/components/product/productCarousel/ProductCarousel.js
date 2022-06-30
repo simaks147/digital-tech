@@ -3,7 +3,7 @@ import styles from "./productCarousel.module.css";
 import cn from "classnames";
 import {Carousel} from "react-bootstrap";
 import {IKImage} from 'imagekitio-react';
-import {imagesUrlEndpoint} from "../../../config";
+import {images} from "../../../config";
 import ErrorBoundary from "../../ErrorBoundary";
 
 const ProductCarousel = ({product}) => {
@@ -21,7 +21,7 @@ const ProductCarousel = ({product}) => {
               {/*<img src={process.env.PUBLIC_URL + picture} alt=""/>*/}
               <ErrorBoundary>
                 <IKImage
-                  urlEndpoint={imagesUrlEndpoint}
+                  urlEndpoint={images.urlEndpoint}
                   path={img}
                   transformation={[{
                     height: 54,
@@ -44,7 +44,7 @@ const ProductCarousel = ({product}) => {
               {/*<img src={process.env.PUBLIC_URL + picture} alt=""/>*/}
               <ErrorBoundary>
                 <IKImage
-                  urlEndpoint={imagesUrlEndpoint}
+                  urlEndpoint={images.urlEndpoint}
                   path={img}
                   transformation={[{
                     height: 500,

@@ -31,5 +31,10 @@ module.exports = {
   mailer: {
     api_key: process.env.MAILGUN_API_KEY || '',
     domain: process.env.MAILGUN_DOMAIN || ''
+  },
+  images: {
+    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
+    publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+    privateKey: process.env.IMAGEKIT_PRIVATE_KEY
   }
 }

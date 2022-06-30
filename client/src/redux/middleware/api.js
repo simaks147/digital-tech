@@ -28,6 +28,6 @@ export default (store) => (next) => async (action) => {
     next({...rest, type: type + SUCCESS, data});
   }
   catch (error) {
-    throw next({...rest, type: type + FAILURE, error});
+    next({...rest, type: type + FAILURE, error});
   }
 }

@@ -5,19 +5,8 @@
     font-size: 12px;
 }
 
-.brand {
-    font-size: 28px;
-    font-weight: 500;
-    color: black;
-    text-decoration: none;
-    margin-bottom: 16px;
-}
-
-.brand:hover {
-    color: black;
-}
-
 .address {
+    margin-top: 16px;
     color: var(--bs-gray-500);
     margin-bottom: 4px;
 }

@@ -8,6 +8,10 @@ import {connect} from "react-redux";
 import {brandsListSelector, subcategoriesListSelector} from "../../../redux/selectors";
 import styles from "./productCreation.module.css";
 import {createProduct} from "../../../redux/actions";
+import {IKContext, IKImage, IKUpload} from 'imagekitio-react';
+import {images as imagesConfig} from "../../../config";
+import ErrorBoundary from "../../ErrorBoundary";
+import useImageUpload from "../../../hooks/use-image-upload";
 
 const ProductCreation = ({brands, subcategories, createProduct}) => {
   const processing = false;
@@ -17,13 +21,16 @@ const ProductCreation = ({brands, subcategories, createProduct}) => {
     []
   );
   const [validated, setValidated] = useState(false);
+  const [file, setFile] = useState(null);
+  // const [images, setImages] = useState([]);
+  const {images, setImages} = useImageUpload();
   const {values, handlers, reset} = useForm(initialValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const slug = values.title.toLowerCase().split(' ').join('_');
 
-    if (e.currentTarget.checkValidity()) createProduct(values, slug);
+    if (e.currentTarget.checkValidity()) createProduct(values, slug, images);
 
     setValidated(true);
     // reset();
@@ -52,6 +59,46 @@ const ProductCreation = ({brands, subcategories, createProduct}) => {
                 )
               })
             }
+
+            {
+              !!images.length &&
+              <Col className="mb-4">
+                <Row xs='auto'>
+                  {
+                    images.map((image, i) => (
+                      <Col key={i}>
+                        <ErrorBoundary>
+                          <IKImage
+                            urlEndpoint={imagesConfig.urlEndpoint}
+                            path={image}
+                            transformation={[{
+                              height: 80,
+                              width: 80
+                            }]}
+                          />
+                        </ErrorBoundary>
+                      </Col>
+                    ))
+                  }
+                </Row>
+              </Col>
+            }
+
+            <Col className="mb-4">
+              <IKContext
+                publicKey={imagesConfig.publicKey}
+                urlEndpoint={imagesConfig.urlEndpoint}
+                authenticationEndpoint={imagesConfig.authEndpoint}
+              >
+                <IKUpload
+                  fileName={file}
+                  onInput={ev => {
+                    setFile(ev.target.files[0].name);
+                  }}
+                  onSuccess={res => setImages(res.name)}
+                />
+              </IKContext>
+            </Col>
           </Row>
           {/*{*/}
           {/*  errors?.map((err, i) => (*/}

@@ -11,6 +11,7 @@ const {oauth, oauthCallback} = require('./controllers/oauth');
 const {register, confirm} = require('./controllers/registration');
 const me = require('./controllers/me');
 const {checkout} = require('./controllers/orders');
+const authImages = require('./controllers/authImages');
 
 const router = new Router({
   prefix: '/api'
@@ -23,7 +24,7 @@ router.get('/brands', brandList);
 
 router.get('/products', productsBySubcategory, productsList);
 router.get('/product/:slug', productBySlug);
-router.post('/product', createProduct);
+router.post('/product', validationErrors, createProduct);
 
 router.get('/reviews', reviewsByProduct);
 router.post('/reviews', validationErrors, createReview);
@@ -31,6 +32,8 @@ router.post('/reviews', validationErrors, createReview);
 router.post('/login', validationErrors, login);
 router.get('/oauth/:provider', oauth);
 router.post('/oauth_callback', validationErrors, oauthCallback);
+
+router.get('/auth_images', authImages);
 
 router.post('/register', validationErrors, register);
 router.post('/confirm', confirm);

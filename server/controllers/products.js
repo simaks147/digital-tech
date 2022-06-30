@@ -36,7 +36,7 @@ module.exports.createProduct = async (ctx) => {
     brand, description, price, slug, subcategoryId, title, images, specification
   });
 
-  ctx.body = {product};
+  ctx.body = {product: mapProduct(product)};
 };
 
 

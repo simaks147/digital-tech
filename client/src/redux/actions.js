@@ -74,10 +74,8 @@ export const makeOrder = (values) => async (dispatch, getState) => {
   const products = orderSelector(state);
   const token = tokenSelector(state);
 
-  try {
-    await dispatch(_makeOrder(values, products, token));
-    dispatch(replace(BASKET_ROUTE_COMPLETED));
-  } catch {}
+  await dispatch(_makeOrder(values, products, token));
+  dispatch(replace(BASKET_ROUTE_COMPLETED));
 };
 
 export const _setActiveCategory = (subcategoryId, categoryId) => ({
@@ -234,9 +232,9 @@ export const closeNav = () => ({
   type: CLOSE_NAV
 });
 
-export const createProduct = (values, id) => ({
+export const createProduct = (values, id, images) => ({
   type: CREATE_PRODUCT,
   CallApi: '/api/product',
-  values: {...values, slug: id},
+  values: {...values, slug: id, images},
   id
 });

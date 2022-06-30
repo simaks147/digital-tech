@@ -8,7 +8,7 @@ import {orderSelector, productSelector, tokenSelector} from "../../../redux/sele
 import {Link} from "react-router-dom";
 import {increaseCart} from "../../../redux/actions";
 import {PRODUCT_ROUTE, BASKET_ROUTE_SHOPPING, LOGIN_ROUTE} from "../../../utils/consts";
-import {imagesUrlEndpoint} from "../../../config";
+import {images} from "../../../config";
 import {IKImage} from 'imagekitio-react';
 import {push} from 'connected-react-router';
 import ErrorBoundary from "../../ErrorBoundary";
@@ -21,7 +21,7 @@ const ProductItem = ({product, order, token, increaseCart, push}) => (
           <Figure>
             <ErrorBoundary>
               <IKImage
-                urlEndpoint={imagesUrlEndpoint}
+                urlEndpoint={images.urlEndpoint}
                 path={product.images[0]}
                 transformation={[{
                   height: 260,
