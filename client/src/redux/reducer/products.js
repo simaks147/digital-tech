@@ -1,5 +1,5 @@
 import produce from "immer";
-import {arrToMap} from "../utils";
+import {arrToMap, objToArr} from "../utils";
 import {
   LOAD_PRODUCTS,
   LOAD_PRODUCT,
@@ -43,7 +43,7 @@ export default (state = initialState, action) =>
       case LOAD_PRODUCT + FAILURE:
         draft.loading = false;
         draft.loaded = false;
-        draft.error = error;
+        draft.error = objToArr(error.error);
         break;
 
       case CREATE_PRODUCT + REQUEST:
@@ -58,7 +58,7 @@ export default (state = initialState, action) =>
 
       case CREATE_PRODUCT + FAILURE:
         draft.processing = false;
-        draft.error = error;
+        draft.error = objToArr(error.error);
         break;
 
       default:

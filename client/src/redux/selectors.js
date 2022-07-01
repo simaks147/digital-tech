@@ -16,6 +16,8 @@ export const loadedBrandsSelector = (state) => state.brands.loaded;
 
 export const loadingProductsSelector = (state) => state.products.loading;
 export const loadedProductsSelector = (state) => state.products.loaded;
+export const processingProductsSelector = (state) => state.products.processing;
+export const errorProductsSelector = (state) => state.products.error;
 
 export const loadingReviewsByProductSelector = (state, {slug}) => reviewsSelector(state)[slug]?.loading;
 export const loadedReviewsByProductSelector = (state, {slug}) => reviewsSelector(state)[slug]?.loaded;

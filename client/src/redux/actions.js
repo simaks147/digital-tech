@@ -26,7 +26,8 @@ import {
 
 import {
   BASKET_ROUTE_CHECKOUT,
-  BASKET_ROUTE_COMPLETED
+  BASKET_ROUTE_COMPLETED,
+  PRODUCT_ROUTE
 } from "../utils/consts";
 
 import {
@@ -59,7 +60,7 @@ export const removeFromCart = (id) => ({
 
 export const processCheckout = () => async (dispatch, getState) => {
   await dispatch({type: PROCESS_CHECKOUT});
-  dispatch(push(BASKET_ROUTE_CHECKOUT))
+  dispatch(push(BASKET_ROUTE_CHECKOUT));
 };
 
 const _makeOrder = (values, products, token) => ({
@@ -232,9 +233,14 @@ export const closeNav = () => ({
   type: CLOSE_NAV
 });
 
-export const createProduct = (values, id, images) => ({
+const _createProduct = (values, id, images, specification) => ({
   type: CREATE_PRODUCT,
   CallApi: '/api/product',
-  values: {...values, slug: id, images},
+  values: {...values, slug: id, images, specification},
   id
 });
+
+export const createProduct = (values, id, images, specification) => async (dispatch) => {
+  await dispatch(_createProduct(values, id, images, specification));
+  dispatch(push(`${PRODUCT_ROUTE}/${id}`))
+}

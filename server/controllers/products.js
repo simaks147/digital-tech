@@ -36,7 +36,13 @@ module.exports.createProduct = async (ctx) => {
     brand, description, price, slug, subcategoryId, title, images, specification
   });
 
-  ctx.body = {product: mapProduct(product)};
+  await product.populate('brand');
+
+  ctx.body = await new Promise(resolve => {
+    setTimeout(() => {
+      resolve({product: mapProduct(product)});
+    }, 3000);
+  });
 };
 
 
