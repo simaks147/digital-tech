@@ -10,7 +10,8 @@ import {
   CATEGORY_ROUTE,
   PRODUCT_ROUTE,
   OAUTH_CALLBACK_ROUTE,
-  ADMIN_ROUTE
+  ADMIN_ROUTE,
+  ADMIN_PRODUCT_ROUTE
 } from "./utils/consts";
 import BasketPage from "./pages/BasketPage";
 import HomePage from "./pages/HomePage";
@@ -20,7 +21,8 @@ import RegisterPage from "./pages/RegisterPage";
 import ConfirmPage from "./pages/ConfirmPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
-import AdminPage from "./pages/AdminPage";
+import AdminProductPage from "./pages/AdminProductPage";
+import AdminProductsListPage from "./pages/AdminProductsListPage";
 
 const routes = [
   {
@@ -68,7 +70,14 @@ const routes = [
   },
   {
     path: ADMIN_ROUTE,
-    Component: AdminPage
+    Component: AdminProductsListPage
+  },
+  {
+    path: [
+      ADMIN_PRODUCT_ROUTE,
+      ADMIN_PRODUCT_ROUTE + '/:slug',
+    ],
+    Component: AdminProductPage
   }
 ];
 

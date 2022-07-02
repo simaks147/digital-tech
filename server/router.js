@@ -4,7 +4,14 @@ const {mustBeAuthenticated} = require('./middleware/authentication');
 const validationErrors = require('./middleware/validationErrors');
 const categoryList = require('./controllers/categories');
 const brandList = require('./controllers/brands');
-const {productsBySubcategory, productsList, productBySlug, createProduct} = require('./controllers/products');
+const {
+  productsBySubcategory,
+  productsList,
+  productBySlug,
+  createProduct,
+  deleteProduct,
+  // updateProduct
+} = require('./controllers/products');
 const {reviewsByProduct, createReview} = require('./controllers/reviews');
 const login = require('./controllers/login');
 const {oauth, oauthCallback} = require('./controllers/oauth');
@@ -23,8 +30,11 @@ router.get('/categories', categoryList);
 router.get('/brands', brandList);
 
 router.get('/products', productsBySubcategory, productsList);
+
 router.get('/product/:slug', productBySlug);
 router.post('/product', validationErrors, createProduct);
+router.del('/product/:slug', deleteProduct);
+// router.put('/product/:slug', updateProduct);
 
 router.get('/reviews', reviewsByProduct);
 router.post('/reviews', validationErrors, createReview);

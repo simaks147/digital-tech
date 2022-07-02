@@ -4,6 +4,7 @@ import {
   LOAD_PRODUCTS,
   LOAD_PRODUCT,
   CREATE_PRODUCT,
+  DELETE_PRODUCT,
   REQUEST,
   SUCCESS,
   FAILURE
@@ -59,6 +60,18 @@ export default (state = initialState, action) =>
       case CREATE_PRODUCT + FAILURE:
         draft.processing = false;
         draft.error = objToArr(error.error);
+        break;
+
+      case DELETE_PRODUCT + REQUEST:
+        draft.error = null;
+        break;
+
+      case DELETE_PRODUCT + SUCCESS:
+        draft.entities = {};
+        break;
+
+      case DELETE_PRODUCT + FAILURE:
+        draft.error = 'erger';
         break;
 
       default:

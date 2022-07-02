@@ -7,16 +7,16 @@ import {
   productsIdsByCategorySelector,
 } from "../../redux/selectors";
 import {connect} from "react-redux";
-import {loadProducts} from "../../redux/actions";
+import {loadProductsByCategory} from "../../redux/actions";
 import Loader from "../loader";
 import ProductFilter from "./productFilter";
 import styles from './productList.module.css';
 import ProductSort from "./productSort";
 
-const ProductList = ({subcategoryId, productsIds, loadProducts, loading, loaded}) => {
+const ProductList = ({subcategoryId, productsIds, loadProductsByCategory, loading, loaded}) => {
   useEffect(() => {
-    loadProducts(subcategoryId);
-  }, [loadProducts, subcategoryId]);
+    loadProductsByCategory(subcategoryId);
+  }, [loadProductsByCategory, subcategoryId]);
 
   if (loading) return <Loader/>;
 
@@ -53,4 +53,4 @@ const mapStateToProps = (state, props) => ({
   loading: loadingProductsSelector(state, props),
   loaded: loadedProductsSelector(state, props),
 });
-export default connect(mapStateToProps, {loadProducts})(ProductList);
+export default connect(mapStateToProps, {loadProductsByCategory})(ProductList);

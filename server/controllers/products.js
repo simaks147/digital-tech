@@ -12,7 +12,7 @@ module.exports.productsBySubcategory = async (ctx, next) => {
 };
 
 module.exports.productsList = async (ctx) => {
-  const products = await Product.find().limit(3).populate('brand');
+  const products = await Product.find().populate('brand');
 
   ctx.body = {products: products.map(mapProduct)};
 };
@@ -43,6 +43,12 @@ module.exports.createProduct = async (ctx) => {
       resolve({product: mapProduct(product)});
     }, 3000);
   });
+};
+
+module.exports.deleteProduct = async (ctx) => {
+  // await Product.deleteOne({slug: ctx.params.slug});
+
+  ctx.body = 'ok';
 };
 
 

@@ -21,7 +21,8 @@ import {
   FETCH_PROFILE,
   OPEN_NAV,
   CLOSE_NAV,
-  CREATE_PRODUCT
+  CREATE_PRODUCT,
+  DELETE_PRODUCT
 } from "./consts";
 
 import {
@@ -95,20 +96,32 @@ export const loadBrands = () => ({
   CallApi: '/api/brands'
 });
 
-const _loadProducts = (id) => ({
+export const loadProductsList = () => ({
+  type: LOAD_PRODUCTS,
+  CallApi: '/api/products',
+});
+
+export const deleteProduct = (id) => ({
+  type: DELETE_PRODUCT,
+  CallApi: `/api/product/${id}`,
+  method: 'DELETE',
+  id
+});
+
+const _loadProductsByCategory = (id) => ({
   type: LOAD_PRODUCTS,
   CallApi: `/api/products?subcategoryId=${id}`,
   id
 });
 
-export const loadProducts = (subcategoryId) => async (dispatch, getState) => {
+export const loadProductsByCategory = (subcategoryId) => async (dispatch, getState) => {
   let state = getState();
   const subcategories = subcategoriesSelector(state);
   const categoryId = activeCategoryBySubcategorySelector(state, {subcategoryId});
 
 
   if (!subcategories[subcategoryId]) {
-    await dispatch(_loadProducts(subcategoryId));
+    await dispatch(_loadProductsByCategory(subcategoryId));
   }
 
   await dispatch(_setActiveCategory(subcategoryId, categoryId));

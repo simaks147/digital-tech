@@ -4,7 +4,7 @@ export const arrToMap = (arr) =>
 export const objToArr = (obj) =>
   [].concat(obj).reduce((acc, item) => [...acc, ...Object.values(item)], []);
 
-export const createReqParams = (values, token) => {
+export const createReqParams = (values, token, method) => {
   let params = {};
   let headers = new Headers();
 
@@ -16,6 +16,10 @@ export const createReqParams = (values, token) => {
     headers.set('Content-Type', 'application/json');
     params.method = 'POST';
     params.body = JSON.stringify(values);
+  }
+
+  if (method === 'DELETE') {
+    params.method = 'DELETE';
   }
 
   params.headers = headers;
