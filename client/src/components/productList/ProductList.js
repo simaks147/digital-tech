@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
-import {Col, Container, Row} from "react-bootstrap";
+import {Alert, Col, Container, Row} from "react-bootstrap";
 import ProductItem from "./productItem";
 import {
   loadingProductsSelector,
-  loadedProductsSelector,
+  errorProductsSelector,
   productsIdsByCategorySelector,
+  subcategoriesSelector,
 } from "../../redux/selectors";
 import {connect} from "react-redux";
 import {loadProductsByCategory} from "../../redux/actions";
@@ -13,14 +14,24 @@ import ProductFilter from "./productFilter";
 import styles from './productList.module.css';
 import ProductSort from "./productSort";
 
-const ProductList = ({subcategoryId, productsIds, loadProductsByCategory, loading, loaded}) => {
+const ProductList = ({subcategoryId, subcategories, productsIds, loadProductsByCategory, loading, errors}) => {
   useEffect(() => {
     loadProductsByCategory(subcategoryId);
   }, [loadProductsByCategory, subcategoryId]);
 
-  if (loading) return <Loader/>;
+  if (errors && !subcategories[subcategoryId])
+    return <div className={styles.main}>
+      <Container>
+        {
+          errors.map((err, i) => (
+            <Alert variant="danger" key={i}>{err}</Alert>
+          ))
+        }
+      </Container>
+    </div>
 
-  if (!loaded) return 'Error!!!';
+  if (loading || !subcategories[subcategoryId]) return <Loader/>;
+
 
   return (
     <div className={styles.main}>
@@ -51,6 +62,7 @@ const ProductList = ({subcategoryId, productsIds, loadProductsByCategory, loadin
 const mapStateToProps = (state, props) => ({
   productsIds: productsIdsByCategorySelector(state, props),
   loading: loadingProductsSelector(state, props),
-  loaded: loadedProductsSelector(state, props),
+  errors: errorProductsSelector(state, props),
+  subcategories: subcategoriesSelector(state, props)
 });
 export default connect(mapStateToProps, {loadProductsByCategory})(ProductList);

@@ -18,8 +18,14 @@ export const createReqParams = (values, token, method) => {
     params.body = JSON.stringify(values);
   }
 
-  if (method === 'DELETE') {
-    params.method = 'DELETE';
+  switch (method) {
+    case 'DELETE':
+      params.method = 'DELETE';
+      break;
+
+    case 'PUT':
+      params.method = 'PUT';
+      break;
   }
 
   params.headers = headers;

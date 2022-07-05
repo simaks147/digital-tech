@@ -3,12 +3,13 @@ import styles from './product.module.css';
 import {connect} from "react-redux";
 import {
   loadingProductsSelector,
-  loadedProductsSelector,
+  errorProductsSelector,
   productSelector,
   orderSelector,
-  tokenSelector
+  tokenSelector,
+  productsSelector
 } from "../../redux/selectors";
-import {Col, Container, Row} from "react-bootstrap";
+import {Alert, Col, Container, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {loadProduct, increaseCart} from "../../redux/actions";
 import ProductCarousel from "./productCarousel";
@@ -17,15 +18,23 @@ import Loader from "../loader";
 import {BASKET_ROUTE_SHOPPING, LOGIN_ROUTE} from "../../utils/consts";
 import {push} from "connected-react-router";
 
-
-const Product = ({product, order, token, increaseCart, push, loadProduct, loading, loaded}) => {
+const Product = ({products, id, product, order, token, increaseCart, push, loadProduct, loading, errors}) => {
   useEffect(() => {
-      loadProduct();
+    loadProduct();
   }, [loadProduct]);
 
-  if (loading) return <Loader/>;
+  if (errors && !products[id])
+    return <div className={styles.section}>
+      <Container>
+        {
+          errors.map((err, i) => (
+            <Alert variant="danger" key={i}>{err}</Alert>
+          ))
+        }
+      </Container>
+    </div>
 
-  if (!loaded) return 'Error!!!';
+  if (loading || !products[id]) return <Loader/>;
 
   return (
     <div className={styles.section}>
@@ -38,7 +47,8 @@ const Product = ({product, order, token, increaseCart, push, loadProduct, loadin
               {
                 order[product.slug]
                   ? <Button className='c-button2' onClick={() => push(BASKET_ROUTE_SHOPPING)}>In cart</Button>
-                  : <Button className='c-button' onClick={token ? increaseCart : () => push(LOGIN_ROUTE)}>Buy now!</Button>
+                  : <Button className='c-button' onClick={token ? increaseCart : () => push(LOGIN_ROUTE)}>Buy
+                    now!</Button>
               }
             </div>
           </Col>
@@ -53,9 +63,10 @@ const Product = ({product, order, token, increaseCart, push, loadProduct, loadin
 };
 
 const mapStateToProps = (state, props) => ({
+  products: productsSelector(state, props),
   product: productSelector(state, props),
   loading: loadingProductsSelector(state, props),
-  loaded: loadedProductsSelector(state, props),
+  errors: errorProductsSelector(state, props),
   order: orderSelector(state, props),
   token: tokenSelector(state, props)
 })

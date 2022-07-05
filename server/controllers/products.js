@@ -8,6 +8,8 @@ module.exports.productsBySubcategory = async (ctx, next) => {
 
   const products = await Product.find({subcategoryId}).populate('brand');
 
+  if (products.length === 0) ctx.throw(404, `No products in category '${subcategoryId}'`);
+
   ctx.body = {products: products.map(mapProduct)};
 };
 
@@ -22,7 +24,7 @@ module.exports.productBySlug = async (ctx) => {
 
   const product = await Product.findOne({slug}).populate('brand');
 
-  if (!product) ctx.throw(404, `No product with ${ctx.params.slug} slug`);
+  if (!product) ctx.throw(404, 'No such product');
 
   ctx.body = {product: mapProduct(product)};
 };
@@ -46,9 +48,9 @@ module.exports.createProduct = async (ctx) => {
 };
 
 module.exports.deleteProduct = async (ctx) => {
-  // await Product.deleteOne({slug: ctx.params.slug});
+  await Product.deleteOne({slug: ctx.params.slug});
 
-  ctx.body = 'ok';
+  ctx.body = {status: 'ok'};
 };
 
 

@@ -22,7 +22,8 @@ import {
   OPEN_NAV,
   CLOSE_NAV,
   CREATE_PRODUCT,
-  DELETE_PRODUCT
+  DELETE_PRODUCT,
+  UPDATE_PRODUCT
 } from "./consts";
 
 import {
@@ -34,14 +35,13 @@ import {
 import {
   activeCategoryBySubcategorySelector,
   activeSubCategoryByProductSelector,
-  loadingProductsSelector,
-  loadedProductsSelector,
   subcategoriesSelector,
   loginSelector,
   registrationSelector,
   profileSelector,
   tokenSelector,
   orderSelector,
+  productsSelector,
 } from "./selectors";
 
 export const increaseCart = (id) => ({
@@ -135,10 +135,9 @@ const _loadProduct = (id) => ({
 
 export const loadProduct = (id) => async (dispatch, getState) => {
   let state = getState();
-  const loading = loadingProductsSelector(state);
-  const loaded = loadedProductsSelector(state);
+  const products = productsSelector(state);
 
-  if (!loading && !loaded) {
+  if (!products[id]) {
     await dispatch(_loadProduct(id));
   }
 
@@ -147,7 +146,7 @@ export const loadProduct = (id) => async (dispatch, getState) => {
   const subcategoryId = activeSubCategoryByProductSelector(state, {id});
   const categoryId = activeCategoryBySubcategorySelector(state, {subcategoryId});
 
-  await dispatch(_setActiveCategory(subcategoryId, categoryId));
+  if (categoryId) await dispatch(_setActiveCategory(subcategoryId, categoryId));
 };
 
 const _loadReviews = (productId) => ({
@@ -256,4 +255,17 @@ const _createProduct = (values, id, images, specification) => ({
 export const createProduct = (values, id, images, specification) => async (dispatch) => {
   await dispatch(_createProduct(values, id, images, specification));
   dispatch(push(`${PRODUCT_ROUTE}/${id}`))
-}
+};
+
+const _updateProduct = (values, id, images, specification) => ({
+  type: UPDATE_PRODUCT,
+  CallApi: '/api/product',
+  values: {...values, slug: id, images, specification},
+  id,
+  method: 'PUT'
+});
+
+export const updateProduct = (values, id, images, specification) => async (dispatch) => {
+  await dispatch(_updateProduct(values, id, images, specification));
+  dispatch(push(`${PRODUCT_ROUTE}/${id}`))
+};

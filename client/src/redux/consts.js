@@ -32,6 +32,7 @@ export const CLOSE_NAV = 'CLOSE_NAV';
 
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 
 
 

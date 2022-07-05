@@ -15,7 +15,6 @@ export const loadingBrandsSelector = (state) => state.brands.loading;
 export const loadedBrandsSelector = (state) => state.brands.loaded;
 
 export const loadingProductsSelector = (state) => state.products.loading;
-export const loadedProductsSelector = (state) => state.products.loaded;
 export const processingProductsSelector = (state) => state.products.processing;
 export const errorProductsSelector = (state) => state.products.error;
 
@@ -94,13 +93,13 @@ export const activeCategoryBySubcategorySelector = createSelector(
   (categories, activeSubcategory) => categories
       .find(category => category.subcategory
         .map(subcat => subcat.slug)
-        .includes(activeSubcategory)).slug
+        .includes(activeSubcategory))?.slug
 );
 
 export const activeSubCategoryByProductSelector = createSelector(
   productsSelector,
   (state, {id}) => id,
-  (products, id) => products[id].subcategoryId
+  (products, id) => (products[id])?.subcategoryId
 );
 
 export const activeBasketViewSelector = createSelector(

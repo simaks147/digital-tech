@@ -13,7 +13,6 @@ import {
 const initialState = {
   entities: {},
   loading: false,
-  loaded: false,
   processing: false,
   error: null
 }
@@ -26,24 +25,22 @@ export default (state = initialState, action) =>
       case LOAD_PRODUCTS + REQUEST:
       case LOAD_PRODUCT + REQUEST:
         draft.loading = true;
+        draft.error = null;
         break;
 
       case LOAD_PRODUCTS + SUCCESS:
         draft.loading = false;
-        draft.loaded = true;
         draft.entities = {...draft.entities, ...arrToMap(data.products)};
         break;
 
       case LOAD_PRODUCT + SUCCESS:
         draft.loading = false;
-        draft.loaded = true;
         draft.entities[id] = data.product;
         break;
 
       case LOAD_PRODUCTS + FAILURE:
       case LOAD_PRODUCT + FAILURE:
         draft.loading = false;
-        draft.loaded = false;
         draft.error = objToArr(error.error);
         break;
 
@@ -67,11 +64,11 @@ export default (state = initialState, action) =>
         break;
 
       case DELETE_PRODUCT + SUCCESS:
-        draft.entities = {};
+        draft.entities = Object.keys(draft.entities).reduce((acc, slug) => (slug !== id) ? {...acc, [slug]: draft.entities[slug]} : acc, {});
         break;
 
       case DELETE_PRODUCT + FAILURE:
-        draft.error = 'erger';
+        draft.error = objToArr(error.error);
         break;
 
       default:

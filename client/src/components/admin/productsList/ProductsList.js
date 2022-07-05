@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react';
 import styles from './productsList.module.css';
-import {Col, Container, Row} from "react-bootstrap";
+import {Alert, Col, Container, Row} from "react-bootstrap";
 import {connect} from "react-redux";
 import {
-  loadedProductsSelector,
+  errorProductsSelector,
   loadingProductsSelector,
   productsListSelector
 } from "../../../redux/selectors";
 import {deleteProduct, loadProductsList} from "../../../redux/actions";
 import Loader from "../../loader";
-import {PRODUCT_ROUTE} from "../../../utils/consts";
+import {PRODUCT_ROUTE, ADMIN_PRODUCT_ROUTE} from "../../../utils/consts";
 import ErrorBoundary from "../../ErrorBoundary";
 import {IKImage} from "imagekitio-react";
 import {images as imagesConfig} from "../../../config";
@@ -18,14 +18,23 @@ import cn from "classnames";
 import {ReactComponent as EditIcon} from "../../../icons/edit-icon.svg";
 import {ReactComponent as DeleteIcon} from "../../../icons/delete-icon.svg";
 
-const ProductsList = ({products, loadProductsList, loaded, loading, deleteProduct}) => {
+const ProductsList = ({products, loadProductsList, loading, deleteProduct, errors}) => {
   useEffect(() => {
     loadProductsList();
   }, [loadProductsList]);
 
-  if (loading) return <Loader/>;
+  if (errors)
+    return <div className={styles.main}>
+      <Container>
+        {
+          errors.map((err, i) => (
+            <Alert variant="danger" key={i}>{err}</Alert>
+          ))
+        }
+      </Container>
+    </div>
 
-  if (!loaded) return 'Error!!!';
+  if (loading) return <Loader/>;
 
   return (
     <div className={styles.section}>
@@ -52,7 +61,9 @@ const ProductsList = ({products, loadProductsList, loaded, loading, deleteProduc
                 <Link to={`${PRODUCT_ROUTE}/${slug}`}>{title}</Link>
               </Col>
               <Col xs='auto' className={styles.icons}>
-                <EditIcon/>
+                <Link to={`${ADMIN_PRODUCT_ROUTE}/${slug}`}>
+                  <EditIcon />
+                </Link>
                 <DeleteIcon onClick={() => deleteProduct(slug)}/>
               </Col>
             </Row>
@@ -66,7 +77,7 @@ const ProductsList = ({products, loadProductsList, loaded, loading, deleteProduc
 const mapStateToProps = (state) => ({
   products: productsListSelector(state),
   loading: loadingProductsSelector(state),
-  loaded: loadedProductsSelector(state)
+  errors: errorProductsSelector(state)
 });
 
 export default connect(mapStateToProps, {loadProductsList, deleteProduct})(ProductsList);

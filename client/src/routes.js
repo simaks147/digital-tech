@@ -21,7 +21,8 @@ import RegisterPage from "./pages/RegisterPage";
 import ConfirmPage from "./pages/ConfirmPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
-import AdminProductPage from "./pages/AdminProductPage";
+import AdminProductCreationPage from "./pages/AdminProductCreationPage";
+import AdminProductUpdatePage from "./pages/AdminProductUpdatePage";
 import AdminProductsListPage from "./pages/AdminProductsListPage";
 
 const routes = [
@@ -73,11 +74,12 @@ const routes = [
     Component: AdminProductsListPage
   },
   {
-    path: [
-      ADMIN_PRODUCT_ROUTE,
-      ADMIN_PRODUCT_ROUTE + '/:slug',
-    ],
-    Component: AdminProductPage
+    path: ADMIN_PRODUCT_ROUTE,
+    Component: AdminProductCreationPage
+  },
+  {
+    path: ADMIN_PRODUCT_ROUTE + '/:slug',
+    Component: AdminProductUpdatePage
   }
 ];
 
