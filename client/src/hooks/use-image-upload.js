@@ -1,19 +1,22 @@
 import {useReducer} from "react";
 
-export default function useImageUpload () {
+export default function useImageUpload(initImages) {
   const [images, setImages] = useReducer((state, action) => {
-    const {type, name} = action;
+    const {type, name, num} = action;
 
     switch (type) {
-      case 'success':
+      case 'add':
         return [...state, name];
+      case 'delete':
+        return state.filter((img, i) => i !== num);
       default:
         return state;
     }
-  }, []);
+  }, initImages);
 
   return {
     images,
-    setImages: (name, type = 'success') => setImages({type, name})
+    addImg: (name) => setImages({type: 'add', name}),
+    deleteImg: (num) => setImages({type: 'delete', num}),
   };
-}
+};

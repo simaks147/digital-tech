@@ -259,7 +259,7 @@ export const createProduct = (values, id, images, specification) => async (dispa
 
 const _updateProduct = (values, id, images, specification) => ({
   type: UPDATE_PRODUCT,
-  CallApi: '/api/product',
+  CallApi: `/api/product/${id}`,
   values: {...values, slug: id, images, specification},
   id,
   method: 'PUT'

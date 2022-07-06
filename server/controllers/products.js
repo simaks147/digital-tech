@@ -42,7 +42,23 @@ module.exports.createProduct = async (ctx) => {
 
   ctx.body = await new Promise(resolve => {
     setTimeout(() => {
-      resolve({product: mapProduct(product)});
+      resolve({success: 'ok'});
+    }, 3000);
+  });
+};
+
+module.exports.updateProduct = async (ctx) => {
+  const {
+    brand, description, price, slug, subcategoryId, title, images, specification
+  } = ctx.request.body;
+
+  await Product.updateOne({slug}, {
+    brand, description, price, subcategoryId, title, images, specification
+  });
+
+  ctx.body = await new Promise(resolve => {
+    setTimeout(() => {
+      resolve({success: 'ok'});
     }, 3000);
   });
 };

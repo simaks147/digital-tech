@@ -11,6 +11,30 @@
     resize: none;
 }
 
+.image {
+    position: relative;
+}
+
+.image:hover svg {
+    opacity: 1;
+}
+
+.image img {
+    margin-right: 20px;
+}
+
+.image svg {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    cursor: pointer;
+}
+
+.image svg path {
+    fill: var(--bs-gray-400);
+}
+
 .selectImgButton {
     position: relative;
     cursor: default !important;

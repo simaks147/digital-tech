@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useState} from 'react';
 import {Alert, Col, Container, FloatingLabel, Form, Row} from "react-bootstrap";
 import useForm from "../../../hooks/use-form";
 import {PRODUCT_CREATION_FIELDS} from "../../../utils/consts";
@@ -8,9 +8,7 @@ import {connect} from "react-redux";
 import {
   brandsListSelector,
   errorProductsSelector,
-  loadingProductsSelector,
   processingProductsSelector,
-  productSelector,
   subcategoriesListSelector
 } from "../../../redux/selectors";
 import styles from "./productUpdate.module.css";
@@ -19,44 +17,28 @@ import {IKContext, IKImage, IKUpload} from 'imagekitio-react';
 import {images as imagesConfig} from "../../../config";
 import ErrorBoundary from "../../ErrorBoundary";
 import useImageUpload from "../../../hooks/use-image-upload";
+import useSpecification from "../../../hooks/use-specification";
 import cn from "classnames";
+import {ReactComponent as DeleteIcon} from "../../../icons/close-icon.svg";
 
-const ProductUpdate = ({id, loadProduct, product, loading, brands, subcategories, updateProduct, processing, errors}) => {
-  useEffect(() => {
-    loadProduct(id);
-  }, [loadProduct]);
-
+const ProductUpdate = ({id, initValues, initSpecification, initImages, brands, subcategories, updateProduct, processing, errors}) => {
   const [validated, setValidated] = useState(false);
   const [file, setFile] = useState(null);
-  const [specification, setSpec] = useState([]);
-  const {images, setImages} = useImageUpload();
-  const {values, handlers, reset} = useForm({
-    title: product?.title,
-    description: product?.description,
-    price: product?.price,
-  });
-
-  if (loading || !product) return <Loader/>;
+  const {specification, addSpec, deleteSpec, changeSpec} = useSpecification(initSpecification);
+  const {images, addImg, deleteImg} = useImageUpload(initImages);
+  const {values, handlers} = useForm(initValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const slug = values.title.toLowerCase().split(' ').join('_');
+    // const slug = values.title.toLowerCase().split(' ').join('_');
     const specObj = specification.reduce((acc, {title, desc}) => {
       return {...acc, [title]: desc}
     }, {});
 
-    if (e.currentTarget.checkValidity()) updateProduct(values, slug, images, specObj);
+    if (e.currentTarget.checkValidity()) updateProduct(values, id, images, specObj);
 
     setValidated(true);
-    // reset();
   };
-
-  const addSpec = () => setSpec([...specification, {title: '', desc: '', num: Date.now()}]);
-  const deleteSpec = (num) => setSpec(specification.filter(spec => spec.num !== num));
-  const changeSpec = (key, value, num) => setSpec(specification.map((spec) => spec.num === num ? {
-    ...spec,
-    [key]: value
-  } : spec));
 
   return (
     <div className={styles.section}>
@@ -65,7 +47,7 @@ const ProductUpdate = ({id, loadProduct, product, loading, brands, subcategories
           <Row xs={1}>
             {
               PRODUCT_CREATION_FIELDS(brands, subcategories).map(field => {
-                const {id, label, message, initialValue, ...rest} = field;
+                const {id, label, message, ...rest} = field;
                 return (
                   <Col className="mb-4" key={id}>
                     <FloatingLabel controlId={id} label={label}>
@@ -135,7 +117,7 @@ const ProductUpdate = ({id, loadProduct, product, loading, brands, subcategories
                 <Row xs='auto'>
                   {
                     images.map((image, i) => (
-                      <Col key={i} className='mb-2'>
+                      <Col key={i} className={cn(styles.image, 'mb-2')}>
                         <ErrorBoundary>
                           <IKImage
                             urlEndpoint={imagesConfig.urlEndpoint}
@@ -146,6 +128,7 @@ const ProductUpdate = ({id, loadProduct, product, loading, brands, subcategories
                             }]}
                           />
                         </ErrorBoundary>
+                        <DeleteIcon onClick={() => deleteImg(i)}/>
                       </Col>
                     ))
                   }
@@ -163,7 +146,7 @@ const ProductUpdate = ({id, loadProduct, product, loading, brands, subcategories
                     onInput={ev => {
                       setFile(ev.target.files[0].name);
                     }}
-                    onSuccess={res => setImages(res.name)}
+                    onSuccess={res => addImg(res.name)}
                   />
                 </IKContext>
               </Button>
@@ -176,7 +159,7 @@ const ProductUpdate = ({id, loadProduct, product, loading, brands, subcategories
           }
           <Button className={cn('c-button', styles.createButton)} disabled={processing} type='submit'>
             {processing && <Loader/>}
-            Create Product
+            Update Product
           </Button>
         </Form>
       </Container>
@@ -184,13 +167,11 @@ const ProductUpdate = ({id, loadProduct, product, loading, brands, subcategories
   );
 };
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state) => ({
   brands: brandsListSelector(state),
   subcategories: subcategoriesListSelector(state),
   processing: processingProductsSelector(state),
   errors: errorProductsSelector(state),
-  product: productSelector(state, props),
-  loading: loadingProductsSelector(state)
 });
 
 export default connect(mapStateToProps, {updateProduct, loadProduct})(ProductUpdate);

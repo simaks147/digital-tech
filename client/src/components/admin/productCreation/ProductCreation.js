@@ -18,6 +18,8 @@ import {images as imagesConfig} from "../../../config";
 import ErrorBoundary from "../../ErrorBoundary";
 import useImageUpload from "../../../hooks/use-image-upload";
 import cn from "classnames";
+import useSpecification from "../../../hooks/use-specification";
+import {ReactComponent as DeleteIcon} from "../../../icons/close-icon.svg";
 
 const ProductCreation = ({brands, subcategories, createProduct, processing, errors}) => {
   const initialValues = useMemo(
@@ -26,9 +28,9 @@ const ProductCreation = ({brands, subcategories, createProduct, processing, erro
   );
   const [validated, setValidated] = useState(false);
   const [file, setFile] = useState(null);
-  const [specification, setSpec] = useState([]);
-  const {images, setImages} = useImageUpload();
-  const {values, handlers, reset} = useForm(initialValues);
+  const {specification, addSpec, deleteSpec, changeSpec} = useSpecification([]);
+  const {images, addImg, deleteImg} = useImageUpload([]);
+  const {values, handlers} = useForm(initialValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,15 +42,7 @@ const ProductCreation = ({brands, subcategories, createProduct, processing, erro
     if (e.currentTarget.checkValidity()) createProduct(values, slug, images, specObj);
 
     setValidated(true);
-    // reset();
   };
-
-  const addSpec = () => setSpec([...specification, {title: '', desc: '', num: Date.now()}]);
-  const deleteSpec = (num) => setSpec(specification.filter(spec => spec.num !== num));
-  const changeSpec = (key, value, num) => setSpec(specification.map((spec) => spec.num === num ? {
-    ...spec,
-    [key]: value
-  } : spec));
 
   return (
     <div className={styles.section}>
@@ -127,7 +121,7 @@ const ProductCreation = ({brands, subcategories, createProduct, processing, erro
                 <Row xs='auto'>
                   {
                     images.map((image, i) => (
-                      <Col key={i} className='mb-2'>
+                      <Col key={i} className={cn(styles.image, 'mb-2')}>
                         <ErrorBoundary>
                           <IKImage
                             urlEndpoint={imagesConfig.urlEndpoint}
@@ -138,6 +132,7 @@ const ProductCreation = ({brands, subcategories, createProduct, processing, erro
                             }]}
                           />
                         </ErrorBoundary>
+                        <DeleteIcon onClick={() => deleteImg(i)}/>
                       </Col>
                     ))
                   }
@@ -155,7 +150,7 @@ const ProductCreation = ({brands, subcategories, createProduct, processing, erro
                     onInput={ev => {
                       setFile(ev.target.files[0].name);
                     }}
-                    onSuccess={res => setImages(res.name)}
+                    onSuccess={res => addImg(res.name)}
                   />
                 </IKContext>
               </Button>
