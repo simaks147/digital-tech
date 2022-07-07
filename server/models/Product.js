@@ -31,13 +31,15 @@ const productSchema = new mongoose.Schema({
   },
   images: {
     type: [String],
-    // required: true
   },
   specification: {
-    type: {}
+    type: [{
+      title: String,
+      description: String
+    }]
   }
 });
 
-productSchema.plugin(uniqueValidator, { message: 'Product with this {PATH} already exists' });
+productSchema.plugin(uniqueValidator, {message: 'Product with this {PATH} already exists'});
 
 module.exports = connection.model('Product', productSchema);

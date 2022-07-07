@@ -34,12 +34,13 @@ const ProductCreation = ({brands, subcategories, createProduct, processing, erro
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const slug = values.title.toLowerCase().split(' ').join('_');
-    const specObj = specification.reduce((acc, {title, desc}) => {
-      return {...acc, [title]: desc}
-    }, {});
 
-    if (e.currentTarget.checkValidity()) createProduct(values, slug, images, specObj);
+    if (e.currentTarget.checkValidity()) createProduct(
+      values,
+      values.title.toLowerCase().split(' ').join('_'),
+      images,
+      specification.map( ({title, desc}) => ({title, description: desc}) )
+    );
 
     setValidated(true);
   };

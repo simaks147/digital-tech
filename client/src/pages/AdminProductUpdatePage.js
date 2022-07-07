@@ -29,10 +29,10 @@ const AdminProductUpdatePage = ({loadProduct, products, loading, match}) => {
     subcategoryId: products[id].subcategoryId,
   };
 
-  const initSpecification = Object.entries(products[id].specification).map(( spec, i) => {
+  const initSpecification = products[id].specification.map(( {title, description}, i) => {
     return {
-      title: [spec[0]],
-      desc: [spec[1]],
+      title,
+      desc: description,
       num: Date.now() + i
     };
   });

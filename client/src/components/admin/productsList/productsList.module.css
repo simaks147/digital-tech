@@ -2,10 +2,6 @@
     margin: 30px 0;
 }
 
-.section a {
-    display: block;
-}
-
 .item {
     align-items: center;
     border-bottom: 1px solid var(--bs-gray-300);

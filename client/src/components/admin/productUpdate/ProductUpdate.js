@@ -30,12 +30,13 @@ const ProductUpdate = ({id, initValues, initSpecification, initImages, brands, s
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const slug = values.title.toLowerCase().split(' ').join('_');
-    const specObj = specification.reduce((acc, {title, desc}) => {
-      return {...acc, [title]: desc}
-    }, {});
 
-    if (e.currentTarget.checkValidity()) updateProduct(values, id, images, specObj);
+    if (e.currentTarget.checkValidity()) updateProduct(
+      values,
+      id,
+      images,
+      specification.map( ({title, desc}) => ({title, description: desc}) )
+    );
 
     setValidated(true);
   };
