@@ -2,7 +2,7 @@ import React from 'react';
 import {Container, Row, Col} from "react-bootstrap";
 import styles from './switchBar.module.css';
 import {Link} from "react-router-dom";
-import {LOGIN_ROUTE, REGISTER_ROUTE} from "../../utils/consts";
+import {ADMIN_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE} from "../../utils/consts";
 import {profileSelector, tokenSelector} from "../../redux/selectors";
 import {connect} from "react-redux";
 import logout from "../../utils/logout";
@@ -12,6 +12,9 @@ import {openNav} from "../../redux/actions";
 
 const SwitchBar = ({token, profile, openNav}) => (
   <div className={styles.section}>
+    <div className={styles.admin}>
+      <Link to={ADMIN_ROUTE}>Admin</Link>
+    </div>
     <Container>
       <Row className="justify-content-between align-items-center">
         <Col xs={6} lg={1} className="d-flex align-items-center">

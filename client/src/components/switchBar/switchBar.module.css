@@ -46,6 +46,19 @@
     color: var(--bs-gray-900);
 }
 
+.admin {
+    background-color: var(--c-color1);
+    padding: 0 12px;
+}
+
+.admin a {
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: var(--c-font-family-second);
+    font-size: 11px;
+}
+
 @media (min-width: 768px) {
     .hello {
         display: inline;
