@@ -1,17 +1,15 @@
 import React, {useEffect} from 'react';
 import AdminLayout from "../components/admin/AdminLayout";
-import ProductUpdate from "../components/admin/productUpdate";
+import Product from "../components/admin/product";
 import {
-  brandsListSelector,
   loadingProductsSelector,
   productsSelector,
-  subcategoriesListSelector
 } from "../redux/selectors";
 import {connect} from "react-redux";
-import {loadProduct} from "../redux/actions";
+import {loadProduct, updateProduct} from "../redux/actions";
 import Loader from "../components/loader";
 
-const AdminProductUpdatePage = ({loadProduct, products, loading, match}) => {
+const AdminProductUpdatePage = ({loadProduct, updateProduct, products, loading, match}) => {
   const id = match.params.slug;
 
   useEffect(() => {
@@ -37,20 +35,23 @@ const AdminProductUpdatePage = ({loadProduct, products, loading, match}) => {
     };
   });
 
-  const initImages = products[id].images
-
   return (
     <AdminLayout>
-      <ProductUpdate id={id} initValues={initValues} initSpecification={initSpecification} initImages={initImages}/>
+      <Product
+        id={id}
+        initValues={initValues}
+        initSpecification={initSpecification}
+        initImages={products[id].images}
+        buttonTitle='Update Product'
+        handleSetProduct={updateProduct}
+      />
     </AdminLayout>
   );
 }
 
 const mapStateToProps = (state, props) => ({
-  brands: brandsListSelector(state),
-  subcategories: subcategoriesListSelector(state),
   products: productsSelector(state, props),
   loading: loadingProductsSelector(state)
 });
 
-export default connect(mapStateToProps, {loadProduct})(AdminProductUpdatePage);
+export default connect(mapStateToProps, {loadProduct, updateProduct})(AdminProductUpdatePage);

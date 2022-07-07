@@ -1,9 +1,14 @@
-import React, {useMemo, useState} from 'react';
+import React, {useState} from 'react';
 import {Alert, Col, Container, FloatingLabel, Form, Row} from "react-bootstrap";
-import useForm from "../../../hooks/use-form";
-import {PRODUCT_CREATION_FIELDS} from "../../../utils/consts";
 import Button from "react-bootstrap/Button";
+import {IKContext, IKImage, IKUpload} from 'imagekitio-react';
 import Loader from "../../loader";
+import ErrorBoundary from "../../ErrorBoundary";
+import {Link} from "react-router-dom";
+import {ReactComponent as DeleteIcon} from "../../../icons/close-icon.svg";
+import useForm from "../../../hooks/use-form";
+import useImageUpload from "../../../hooks/use-image-upload";
+import useSpecification from "../../../hooks/use-specification";
 import {connect} from "react-redux";
 import {
   brandsListSelector,
@@ -11,36 +16,40 @@ import {
   processingProductsSelector,
   subcategoriesListSelector
 } from "../../../redux/selectors";
-import styles from "./productCreation.module.css";
-import {createProduct} from "../../../redux/actions";
-import {IKContext, IKImage, IKUpload} from 'imagekitio-react';
-import {images as imagesConfig} from "../../../config";
-import ErrorBoundary from "../../ErrorBoundary";
-import useImageUpload from "../../../hooks/use-image-upload";
+import styles from "./product.module.css";
 import cn from "classnames";
-import useSpecification from "../../../hooks/use-specification";
-import {ReactComponent as DeleteIcon} from "../../../icons/close-icon.svg";
+import {images as imagesConfig} from "../../../config";
+import {PRODUCT_CREATION_FIELDS, ADMIN_ROUTE} from "../../../utils/consts";
 
-const ProductCreation = ({brands, subcategories, createProduct, processing, errors}) => {
-  const initialValues = useMemo(
-    () => PRODUCT_CREATION_FIELDS(brands, subcategories).reduce((acc, field) => ({...acc, [field.name]: ''}), {}),
-    []
-  );
+const Product = (
+  {
+    id = undefined,
+    initValues = {},
+    initSpecification = [],
+    initImages = [],
+    buttonTitle,
+    brands,
+    subcategories,
+    handleSetProduct,
+    processing,
+    errors
+  }) => {
+
   const [validated, setValidated] = useState(false);
   const [file, setFile] = useState(null);
-  const {specification, addSpec, deleteSpec, changeSpec} = useSpecification([]);
-  const {images, addImg, deleteImg} = useImageUpload([]);
-  const {values, handlers} = useForm(initialValues);
+  const {specification, addSpec, deleteSpec, changeSpec} = useSpecification(initSpecification);
+  const {images, addImg, deleteImg} = useImageUpload(initImages);
+  const {values, handlers} = useForm(initValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (e.currentTarget.checkValidity()) createProduct(
-      values,
-      values.title.toLowerCase().split(' ').join('_'),
-      images,
-      specification.map( ({title, desc}) => ({title, description: desc}) )
-    );
+    if (e.currentTarget.checkValidity()) {
+      const slug = id ? id : values.title.toLowerCase().split(' ').join('_');
+      const specMap = specification.map(({title, desc}) => ({title, description: desc}));
+
+      handleSetProduct(values, slug, images, specMap);
+    }
 
     setValidated(true);
   };
@@ -49,10 +58,13 @@ const ProductCreation = ({brands, subcategories, createProduct, processing, erro
     <div className={styles.section}>
       <Container>
         <Form onSubmit={handleSubmit} noValidate validated={validated}>
+          <div className='d-flex justify-content-end mb-4'>
+            <Button as={Link} to={ADMIN_ROUTE}>All Products</Button>
+          </div>
           <Row xs={1}>
             {
               PRODUCT_CREATION_FIELDS(brands, subcategories).map(field => {
-                const {id, label, message, initialValue, ...rest} = field;
+                const {id, label, message, ...rest} = field;
                 return (
                   <Col className="mb-4" key={id}>
                     <FloatingLabel controlId={id} label={label}>
@@ -164,7 +176,7 @@ const ProductCreation = ({brands, subcategories, createProduct, processing, erro
           }
           <Button className={cn('c-button', styles.createButton)} disabled={processing} type='submit'>
             {processing && <Loader/>}
-            Create Product
+            {buttonTitle}
           </Button>
         </Form>
       </Container>
@@ -176,7 +188,7 @@ const mapStateToProps = (state) => ({
   brands: brandsListSelector(state),
   subcategories: subcategoriesListSelector(state),
   processing: processingProductsSelector(state),
-  errors: errorProductsSelector(state)
+  errors: errorProductsSelector(state),
 });
 
-export default connect(mapStateToProps, {createProduct})(ProductCreation);
+export default connect(mapStateToProps)(Product);

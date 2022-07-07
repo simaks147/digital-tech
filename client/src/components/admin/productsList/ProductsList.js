@@ -17,6 +17,7 @@ import {Link} from "react-router-dom";
 import cn from "classnames";
 import {ReactComponent as EditIcon} from "../../../icons/edit-icon.svg";
 import {ReactComponent as DeleteIcon} from "../../../icons/delete-icon.svg";
+import Button from "react-bootstrap/Button";
 
 const ProductsList = ({products, loadProductsList, loading, deleteProduct, errors}) => {
   useEffect(() => {
@@ -39,6 +40,7 @@ const ProductsList = ({products, loadProductsList, loading, deleteProduct, error
   return (
     <div className={styles.section}>
       <Container>
+        <Button as={Link} to={ADMIN_PRODUCT_ROUTE} className='mb-4'>New Product</Button>
         {
           products.map(item => {
             const {title, slug, images} = item;

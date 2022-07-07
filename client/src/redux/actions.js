@@ -27,9 +27,9 @@ import {
 } from "./consts";
 
 import {
+  ADMIN_ROUTE,
   BASKET_ROUTE_CHECKOUT,
-  BASKET_ROUTE_COMPLETED,
-  PRODUCT_ROUTE
+  BASKET_ROUTE_COMPLETED
 } from "../utils/consts";
 
 import {
@@ -254,7 +254,7 @@ const _createProduct = (values, id, images, specification) => ({
 
 export const createProduct = (values, id, images, specification) => async (dispatch) => {
   await dispatch(_createProduct(values, id, images, specification));
-  dispatch(push(`${PRODUCT_ROUTE}/${id}`))
+  dispatch(push(ADMIN_ROUTE));
 };
 
 const _updateProduct = (values, id, images, specification) => ({
@@ -267,5 +267,5 @@ const _updateProduct = (values, id, images, specification) => ({
 
 export const updateProduct = (values, id, images, specification) => async (dispatch) => {
   await dispatch(_updateProduct(values, id, images, specification));
-  dispatch(push(`${PRODUCT_ROUTE}/${id}`))
+  dispatch(push(ADMIN_ROUTE));
 };
