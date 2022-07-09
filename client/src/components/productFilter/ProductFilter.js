@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from "react-redux";
 import styles from './productFilter.module.css';
 import {Accordion} from "react-bootstrap";
-import Checkbox from "../../checkbox";
-import {brandsByProductsSelector} from "../../../redux/selectors";
+import Checkbox from "../checkbox";
+import {brandsByProductsSelector} from "../../redux/selectors";
 
 const ProductFilter = ({brands}) => (
   <div className={styles.main}>
@@ -32,9 +32,7 @@ const ProductFilter = ({brands}) => (
   </div>
 );
 
-const mapStateToProps = (state, props) => ({
-  brands: brandsByProductsSelector(state, props)
-});
+const mapStateToProps = (state, props) => ({});
 
 const mapDispatchToProps = (dispatch, props) => ({});
 

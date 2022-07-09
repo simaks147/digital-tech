@@ -6,15 +6,16 @@ import {
   errorProductsSelector,
   productsIdsByCategorySelector,
   subcategoriesSelector,
+  brandsByProductsSelector,
 } from "../../redux/selectors";
 import {connect} from "react-redux";
 import {loadProductsByCategory} from "../../redux/actions";
 import Loader from "../loader";
-import ProductFilter from "./productFilter";
+import ProductFilter from "../productFilter";
 import styles from './productList.module.css';
-import ProductSort from "./productSort";
+import ProductSort from "../productSort";
 
-const ProductList = ({subcategoryId, subcategories, productsIds, loadProductsByCategory, loading, errors}) => {
+const ProductList = ({subcategoryId, subcategories, brands, productsIds, loadProductsByCategory, loading, errors}) => {
   useEffect(() => {
     loadProductsByCategory(subcategoryId);
   }, [loadProductsByCategory, subcategoryId]);
@@ -38,7 +39,7 @@ const ProductList = ({subcategoryId, subcategories, productsIds, loadProductsByC
       <Container>
         <Row className="align-items-start">
           <Col lg={3}>
-            <ProductFilter/>
+            <ProductFilter brands={brands}/>
           </Col>
           <Col lg={9}>
             <ProductSort/>
@@ -63,6 +64,7 @@ const mapStateToProps = (state, props) => ({
   productsIds: productsIdsByCategorySelector(state, props),
   loading: loadingProductsSelector(state, props),
   errors: errorProductsSelector(state, props),
-  subcategories: subcategoriesSelector(state, props)
+  subcategories: subcategoriesSelector(state, props),
+  brands: brandsByProductsSelector(state, props)
 });
 export default connect(mapStateToProps, {loadProductsByCategory})(ProductList);
