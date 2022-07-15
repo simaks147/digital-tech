@@ -27,6 +27,7 @@ import {
 } from "./consts";
 
 import {
+  ADMIN_PRODUCT_ROUTE,
   ADMIN_ROUTE,
   BASKET_ROUTE_CHECKOUT,
   BASKET_ROUTE_COMPLETED
@@ -42,6 +43,7 @@ import {
   tokenSelector,
   orderSelector,
   productsSelector,
+  routerSelector
 } from "./selectors";
 
 export const increaseCart = (id) => ({
@@ -96,11 +98,6 @@ export const loadBrands = () => ({
   CallApi: '/api/brands'
 });
 
-export const loadProductsList = () => ({
-  type: LOAD_PRODUCTS,
-  CallApi: '/api/products',
-});
-
 export const deleteProduct = (id) => ({
   type: DELETE_PRODUCT,
   CallApi: `/api/product/${id}`,
@@ -108,20 +105,45 @@ export const deleteProduct = (id) => ({
   id
 });
 
-const _loadProductsByCategory = (id) => ({
+export const changeProductPageLocation = (attr, param) => async (dispatch, getState) => {
+  const state = getState();
+  const router = routerSelector(state);
+  const searchParams = {...router.location.query, [attr]: param};
+
+  dispatch(push(`${ADMIN_ROUTE}?${new URLSearchParams({...searchParams})}`));
+};
+
+export const loadProductsList = (page, limit) => {
+  const searchParams = {};
+  if (page) searchParams.page = page;
+  if (limit) searchParams.limit = limit;
+
+  return {
+    type: LOAD_PRODUCTS,
+    CallApi: `/api/products?${new URLSearchParams({...searchParams})}`,
+  };
+};
+
+const _loadProductsByCategory = (searchParams, subcategoryId) => ({
   type: LOAD_PRODUCTS,
-  CallApi: `/api/products?subcategoryId=${id}`,
-  id
+  // CallApi: `/api/products?subcategoryId=${id}`,
+  CallApi: `/api/products?${new URLSearchParams({...searchParams, subcategoryId})}`,
+  subcategoryId
 });
 
-export const loadProductsByCategory = (subcategoryId) => async (dispatch, getState) => {
+export const loadProductsByCategory = (page, limit, subcategoryId) => async (dispatch, getState) => {
   let state = getState();
   const subcategories = subcategoriesSelector(state);
   const categoryId = activeCategoryBySubcategorySelector(state, {subcategoryId});
 
+  const searchParams = {};
+  if (page) searchParams.page = page;
+  if (limit) searchParams.limit = limit;
+  if (subcategoryId) searchParams.subcategoryId = subcategoryId;
+
 
   if (!subcategories[subcategoryId]) {
-    await dispatch(_loadProductsByCategory(subcategoryId));
+    await dispatch(_loadProductsByCategory(searchParams, subcategoryId));
   }
 
   await dispatch(_setActiveCategory(subcategoryId, categoryId));

@@ -13,6 +13,7 @@ import {
 
 const initialState = {
   entities: {},
+  totalCount: 0,
   loading: false,
   processing: false,
   error: null
@@ -31,7 +32,8 @@ export default (state = initialState, action) =>
 
       case LOAD_PRODUCTS + SUCCESS:
         draft.loading = false;
-        draft.entities = {...draft.entities, ...arrToMap(data.products)};
+        draft.entities = {...arrToMap(data.products.entities)};
+        draft.totalCount = data.products.totalCount
         break;
 
       case LOAD_PRODUCT + SUCCESS:
@@ -69,6 +71,7 @@ export default (state = initialState, action) =>
 
       case DELETE_PRODUCT + SUCCESS:
         draft.entities = Object.keys(draft.entities).reduce((acc, slug) => (slug !== id) ? {...acc, [slug]: draft.entities[slug]} : acc, {});
+        draft.totalCount = draft.totalCount - 1;
         break;
 
       case DELETE_PRODUCT + FAILURE:

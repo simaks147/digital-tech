@@ -6,9 +6,11 @@ import {
   brandsListSelector,
   errorProductsSelector,
   loadingProductsSelector,
-  productsListSelector
+  productsListSelector,
+  routerSelector,
+  totalCountProductsSelector
 } from "../../../redux/selectors";
-import {deleteProduct, loadProductsList} from "../../../redux/actions";
+import {changeProductPageLocation, deleteProduct, loadProductsList} from "../../../redux/actions";
 import Loader from "../../loader";
 import {PRODUCT_ROUTE, ADMIN_PRODUCT_ROUTE} from "../../../utils/consts";
 import ErrorBoundary from "../../ErrorBoundary";
@@ -20,21 +22,35 @@ import {ReactComponent as DeleteIcon} from "../../../icons/delete-icon.svg";
 import Button from "react-bootstrap/Button";
 import ProductFilter from "../../productFilter/ProductFilter";
 import ProductSort from "../../productSort/ProductSort";
+import Pagination from "../../pagination";
 
-const ProductsList = ({products, brands, loadProductsList, loading, deleteProduct, errors}) => {
+const ProductsList = ({
+                        products,
+                        brands,
+                        loadProductsList,
+                        loading,
+                        deleteProduct,
+                        errors,
+                        queryParams,
+                        changeProductPageLocation,
+                        totalCount
+                      }) => {
   useEffect(() => {
-    loadProductsList();
-  }, [loadProductsList]);
+    const {page, limit} = queryParams;
+    loadProductsList(page, limit);
+  }, [loadProductsList, queryParams, totalCount]);
 
   if (errors)
     return <div className={styles.main}>
-      <Container>
-        {
-          errors.map((err, i) => (
-            <Alert variant="danger" key={i}>{err}</Alert>
-          ))
-        }
-      </Container>
+      <div className={styles.section}>
+        <Container>
+          {
+            errors.map((err, i) => (
+              <Alert variant="danger" key={i}>{err}</Alert>
+            ))
+          }
+        </Container>
+      </div>
     </div>
 
   if (loading) return <Loader/>;
@@ -53,7 +69,6 @@ const ProductsList = ({products, brands, loadProductsList, loading, deleteProduc
               {
                 products.map(item => {
                   const {title, slug, images} = item;
-
                   return <div key={slug} className={styles.item}>
                     <Row className='align-items-center'>
                       <Col xs='auto' className={styles.image}>
@@ -83,6 +98,7 @@ const ProductsList = ({products, brands, loadProductsList, loading, deleteProduc
                 })
               }
             </div>
+            <Pagination/>
           </Col>
         </Row>
       </Container>
@@ -94,7 +110,9 @@ const mapStateToProps = (state) => ({
   products: productsListSelector(state),
   loading: loadingProductsSelector(state),
   errors: errorProductsSelector(state),
-  brands: brandsListSelector(state)
+  brands: brandsListSelector(state),
+  queryParams: routerSelector(state).location.query,
+  totalCount: totalCountProductsSelector(state)
 });
 
-export default connect(mapStateToProps, {loadProductsList, deleteProduct})(ProductsList);
+export default connect(mapStateToProps, {loadProductsList, deleteProduct, changeProductPageLocation})(ProductsList);

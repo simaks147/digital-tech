@@ -5,8 +5,8 @@ import {
   loadingProductsSelector,
   errorProductsSelector,
   productsIdsByCategorySelector,
-  subcategoriesSelector,
   brandsByProductsSelector,
+  routerSelector,
 } from "../../redux/selectors";
 import {connect} from "react-redux";
 import {loadProductsByCategory} from "../../redux/actions";
@@ -15,12 +15,13 @@ import ProductFilter from "../productFilter";
 import styles from './productList.module.css';
 import ProductSort from "../productSort";
 
-const ProductList = ({subcategoryId, subcategories, brands, productsIds, loadProductsByCategory, loading, errors}) => {
+const ProductList = ({subcategoryId, brands, productsIds, loadProductsByCategory, loading, errors}) => {
   useEffect(() => {
-    loadProductsByCategory(subcategoryId);
+    const {page, limit} = queryParams;
+    loadProductsByCategory(page, limit, subcategoryId);
   }, [loadProductsByCategory, subcategoryId]);
 
-  if (errors && !subcategories[subcategoryId])
+  if (errors)
     return <div className={styles.main}>
       <Container>
         {
@@ -31,8 +32,7 @@ const ProductList = ({subcategoryId, subcategories, brands, productsIds, loadPro
       </Container>
     </div>
 
-  if (loading || !subcategories[subcategoryId]) return <Loader/>;
-
+  if (loading) return <Loader/>;
 
   return (
     <div className={styles.main}>
@@ -64,7 +64,7 @@ const mapStateToProps = (state, props) => ({
   productsIds: productsIdsByCategorySelector(state, props),
   loading: loadingProductsSelector(state, props),
   errors: errorProductsSelector(state, props),
-  subcategories: subcategoriesSelector(state, props),
-  brands: brandsByProductsSelector(state, props)
+  brands: brandsByProductsSelector(state, props),
+  queryParams: routerSelector(state).location.query
 });
 export default connect(mapStateToProps, {loadProductsByCategory})(ProductList);

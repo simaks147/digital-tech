@@ -1,22 +1,53 @@
 const Product = require('../models/Product');
 const {mapProduct} = require('../utils/mappers');
 
-module.exports.productsBySubcategory = async (ctx, next) => {
-  const {subcategoryId} = ctx.query;
-
-  if (!subcategoryId) return next();
-
-  const products = await Product.find({subcategoryId}).populate('brand');
-
-  if (products.length === 0) ctx.throw(404, `No products in category '${subcategoryId}'`);
-
-  ctx.body = {products: products.map(mapProduct)};
-};
+// module.exports.productsBySubcategory = async (ctx, next) => {
+//   const {subcategoryId} = ctx.query;
+//
+//   if (!subcategoryId) return next();
+//
+//   const products = await Product.find({subcategoryId}).populate('brand');
+//
+//   if (products.length === 0) ctx.throw(404, `No products in category '${subcategoryId}'`);
+//
+//   ctx.body = {products: products.map(mapProduct)};
+// };
 
 module.exports.productsList = async (ctx) => {
-  const products = await Product.find().populate('brand');
+  // const products = await Product.find().sort().populate('brand');
 
-  ctx.body = {products: products.map(mapProduct)};
+  let {page, limit, subcategoryId} = ctx.query;
+  page = Number(page)|| 1;
+  limit = Number(limit) || 3;
+  const skip = page * limit - limit;
+
+  const params = {};
+  if (subcategoryId) params.subcategoryId = subcategoryId;
+
+  // const products = await Product
+  //   .find({brand: ['62b58731fdf8f32a56234361', '62b58449fdf8f32a56234350']})
+  //   .sort({price: 'desc'})
+  //   .skip(3)
+  //   .limit(3)
+  //   .populate('brand');
+
+  const products = await Product
+    .find({...params})
+    .skip(skip)
+    .limit(limit)
+    // .sort({ field: 'asc', test: -1 })
+    .populate('brand');
+
+  if (!products.length) ctx.throw(404, 'No products for to the specified parameters');
+
+  const totalCount = await Product.countDocuments({...params});
+
+  ctx.body = {
+    products: {
+      entities: products.map(mapProduct),
+      totalCount
+    }
+  };
 };
 
 module.exports.productBySlug = async (ctx) => {

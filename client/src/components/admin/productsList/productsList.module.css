@@ -46,6 +46,16 @@
     fill: var(--c-color1);
 }
 
+.section :global(.pagination) {
+    margin-top: 30px;
+    margin-bottom: 0;
+    justify-content: center;
+}
+
+.section :global(.pagination) a {
+    color: var(--bs-gray-700);
+}
+
 @media (min-width: 768px) {
     .section {
         margin: 60px 0;

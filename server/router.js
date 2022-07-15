@@ -5,7 +5,6 @@ const validationErrors = require('./middleware/validationErrors');
 const categoryList = require('./controllers/categories');
 const brandList = require('./controllers/brands');
 const {
-  productsBySubcategory,
   productsList,
   productBySlug,
   createProduct,
@@ -29,7 +28,7 @@ router.use(session);
 router.get('/categories', categoryList);
 router.get('/brands', brandList);
 
-router.get('/products', productsBySubcategory, productsList);
+router.get('/products', productsList);
 
 router.get('/product/:slug', productBySlug);
 router.post('/product', validationErrors, createProduct);
