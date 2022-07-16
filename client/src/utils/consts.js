@@ -12,8 +12,6 @@ export const PRODUCT_ROUTE = '/product';
 export const ADMIN_ROUTE = '/admin';
 export const ADMIN_PRODUCT_ROUTE = '/admin/product';
 
-export const CURRENCIES = ['USD', 'EUR', 'RUB'];
-
 export const BASKET_VIEWS = {
   shopping: 'Shopping Cart',
   checkout: 'Checkout',

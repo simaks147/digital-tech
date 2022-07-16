@@ -114,6 +114,15 @@ body {
     left: calc(50% - 16px);
 }
 
+.dropdown-item.active {
+    background-color: var(--c-color1) !important;
+}
+
+.dropdown-item:active {
+    color: inherit !important;
+    background-color: var(--bs-gray-200) !important;
+}
+
 
 @media (min-width: 1200px) {
     .container {

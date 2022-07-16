@@ -16,9 +16,11 @@ const {mapProduct} = require('../utils/mappers');
 module.exports.productsList = async (ctx) => {
   // const products = await Product.find().sort().populate('brand');
 
-  let {page, limit, subcategoryId} = ctx.query;
+  let {page, limit, sort, subcategoryId} = ctx.query;
   page = Number(page)|| 1;
-  limit = Number(limit) || 3;
+  limit = limit || 3;
+  if (limit === 'all') limit = null;
+  if (sort === 'title') sort = 'slug';
   const skip = page * limit - limit;
 
   const params = {};
@@ -33,9 +35,9 @@ module.exports.productsList = async (ctx) => {
 
   const products = await Product
     .find({...params})
+    .sort(sort)
     .skip(skip)
     .limit(limit)
-    // .sort({ field: 'asc', test: -1 })
     .populate('brand');
 
   if (!products.length) ctx.throw(404, 'No products for to the specified parameters');

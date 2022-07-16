@@ -43,7 +43,7 @@ import {
   tokenSelector,
   orderSelector,
   productsSelector,
-  routerSelector
+  queryParamsSelector
 } from "./selectors";
 
 export const increaseCart = (id) => ({
@@ -107,16 +107,17 @@ export const deleteProduct = (id) => ({
 
 export const changeProductPageLocation = (attr, param) => async (dispatch, getState) => {
   const state = getState();
-  const router = routerSelector(state);
-  const searchParams = {...router.location.query, [attr]: param};
+  const query = queryParamsSelector(state);
+  const searchParams = {...query, [attr]: param};
 
   dispatch(push(`${ADMIN_ROUTE}?${new URLSearchParams({...searchParams})}`));
 };
 
-export const loadProductsList = (page, limit) => {
+export const loadProductsList = (page, limit, sort) => {
   const searchParams = {};
   if (page) searchParams.page = page;
   if (limit) searchParams.limit = limit;
+  if (sort) searchParams.sort = sort;
 
   return {
     type: LOAD_PRODUCTS,

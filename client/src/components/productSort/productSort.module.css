@@ -43,11 +43,6 @@
     display: inline-block;
 }
 
-.main :global(.dropdown-item.active),
-.main :global(.dropdown-item:active) {
-    background-color: var(--c-color1);
-}
-
 .view {
     margin-left: auto;
 }

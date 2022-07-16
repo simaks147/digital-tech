@@ -5,25 +5,20 @@ import {ReactComponent as GridIcon} from "../../icons/grid-icon.svg";
 import {ReactComponent as ListIcon} from "../../icons/list-icon.svg";
 import {Dropdown} from "react-bootstrap";
 import cn from "classnames";
-import {routerSelector, totalCountProductsSelector} from "../../redux/selectors";
+import {productsLimitSelector, productsSortSelector} from "../../redux/selectors";
 import {changeProductPageLocation} from "../../redux/actions";
+import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 
-const ProductSort = ({showGridSwitcher = true, queryParams, totalCount, changeProductPageLocation}) => {
-  const limit = Number(queryParams.limit) || 3;
-
+const ProductSort = ({showGridSwitcher = true, sortVariants, limitVariants, changeProductPageLocation, limit, sort}) => {
   return (
     <div className={styles.main}>
       <div className={styles.order}>
         <span className={styles.orderTitle}>Sort By:</span>
-        <Dropdown>
-          <Dropdown.Toggle className={styles.toggle}>Popularity</Dropdown.Toggle>
+        <Dropdown onSelect={(eventKey) => changeProductPageLocation('sort', eventKey)}>
+          <Dropdown.Toggle className={styles.toggle}>{capitalizeFirstLetter(sort)}</Dropdown.Toggle>
           <Dropdown.Menu className={styles.menu}>
             {
-              <>
-                <Dropdown.Item className={styles.item} key={1} eventKey={1} active>Popularity</Dropdown.Item>
-                <Dropdown.Item className={styles.item} key={2} eventKey={2}>Price</Dropdown.Item>
-                <Dropdown.Item className={styles.item} key={3} eventKey={3}>Brand</Dropdown.Item>
-              </>
+                sortVariants.map((srt) => <Dropdown.Item className={styles.item} key={srt} eventKey={srt} active={srt === sort}>{capitalizeFirstLetter(srt)}</Dropdown.Item>)
             }
           </Dropdown.Menu>
         </Dropdown>
@@ -31,11 +26,10 @@ const ProductSort = ({showGridSwitcher = true, queryParams, totalCount, changePr
       <div className={styles.order}>
         <span className={styles.orderTitle}>Show:</span>
         <Dropdown onSelect={(eventKey) => changeProductPageLocation('limit', eventKey)}>
-          <Dropdown.Toggle className={styles.toggle}>{limit !== totalCount ? limit : 'All'}</Dropdown.Toggle>
+          <Dropdown.Toggle className={styles.toggle}>{capitalizeFirstLetter(limit)}</Dropdown.Toggle>
           <Dropdown.Menu className={styles.menu}>
-            <Dropdown.Item className={styles.item} eventKey={totalCount}>All</Dropdown.Item>
             {
-              [2, 4, 6].map((lim) => <Dropdown.Item className={styles.item} key={lim} eventKey={lim} active={lim === limit}>{lim}</Dropdown.Item>)
+              limitVariants.map((lim) => <Dropdown.Item className={styles.item} key={lim} eventKey={lim} active={lim === limit}>{capitalizeFirstLetter(lim)}</Dropdown.Item>)
             }
           </Dropdown.Menu>
         </Dropdown>
@@ -56,8 +50,8 @@ const ProductSort = ({showGridSwitcher = true, queryParams, totalCount, changePr
 }
 
 const mapStateToProps = (state, props) => ({
-  queryParams: routerSelector(state).location.query,
-  totalCount: totalCountProductsSelector(state)
+  limit: productsLimitSelector(state, props),
+  sort: productsSortSelector(state, props)
 });
 
 export default connect(mapStateToProps, {changeProductPageLocation})(ProductSort);

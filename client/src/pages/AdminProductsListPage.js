@@ -4,7 +4,7 @@ import ProductsList from "../components/admin/productsList";
 
 const AdminProductPage = () => (
   <AdminLayout>
-    <ProductsList/>
+    <ProductsList limitVariants={['3', '6', 'all']} sortVariants={['title', 'price']}/>
   </AdminLayout>
 );
 

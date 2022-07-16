@@ -6,11 +6,13 @@ import {
   brandsListSelector,
   errorProductsSelector,
   loadingProductsSelector,
-  productsListSelector,
-  routerSelector,
+  productsLimitSelector,
+  productsListSelector, productsPageSelector,
+  productsSortSelector,
+  queryParamsSelector,
   totalCountProductsSelector
 } from "../../../redux/selectors";
-import {changeProductPageLocation, deleteProduct, loadProductsList} from "../../../redux/actions";
+import {deleteProduct, loadProductsList} from "../../../redux/actions";
 import Loader from "../../loader";
 import {PRODUCT_ROUTE, ADMIN_PRODUCT_ROUTE} from "../../../utils/consts";
 import ErrorBoundary from "../../ErrorBoundary";
@@ -32,12 +34,15 @@ const ProductsList = ({
                         deleteProduct,
                         errors,
                         queryParams,
-                        changeProductPageLocation,
-                        totalCount
+                        totalCount,
+                        limit,
+                        limitVariants,
+                        sort,
+                        sortVariants,
+                        page
                       }) => {
   useEffect(() => {
-    const {page, limit} = queryParams;
-    loadProductsList(page, limit);
+    loadProductsList(page, limit, sort);
   }, [loadProductsList, queryParams, totalCount]);
 
   if (errors)
@@ -64,11 +69,15 @@ const ProductsList = ({
             <ProductFilter brands={brands}/>
           </Col>
           <Col lg={9}>
-            <ProductSort showGridSwitcher={false}/>
+            <ProductSort
+              showGridSwitcher={false}
+              sortVariants={sortVariants}
+              limitVariants={limitVariants}
+            />
             <div className={styles.list}>
               {
                 products.map(item => {
-                  const {title, slug, images} = item;
+                  const {title, slug, images, price} = item;
                   return <div key={slug} className={styles.item}>
                     <Row className='align-items-center'>
                       <Col xs='auto' className={styles.image}>
@@ -87,6 +96,9 @@ const ProductsList = ({
                       <Col className={styles.title}>
                         <Link to={`${PRODUCT_ROUTE}/${slug}`}>{title}</Link>
                       </Col>
+                      <Col>
+                        <div>{price}</div>
+                      </Col>
                       <Col xs='auto' className={styles.icons}>
                         <Link to={`${ADMIN_PRODUCT_ROUTE}/${slug}`}>
                           <EditIcon/>
@@ -98,7 +110,7 @@ const ProductsList = ({
                 })
               }
             </div>
-            <Pagination/>
+            <Pagination limitVariants={limitVariants}/>
           </Col>
         </Row>
       </Container>
@@ -106,13 +118,16 @@ const ProductsList = ({
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, props) => ({
   products: productsListSelector(state),
   loading: loadingProductsSelector(state),
   errors: errorProductsSelector(state),
   brands: brandsListSelector(state),
-  queryParams: routerSelector(state).location.query,
-  totalCount: totalCountProductsSelector(state)
+  queryParams: queryParamsSelector(state),
+  totalCount: totalCountProductsSelector(state),
+  limit: productsLimitSelector(state, props),
+  sort: productsSortSelector(state, props),
+  page: productsPageSelector(state, props)
 });
 
-export default connect(mapStateToProps, {loadProductsList, deleteProduct, changeProductPageLocation})(ProductsList);
+export default connect(mapStateToProps, {loadProductsList, deleteProduct})(ProductsList);

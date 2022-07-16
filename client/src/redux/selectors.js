@@ -7,6 +7,7 @@ export const reviewsSelector = (state) => state.reviews;
 export const orderSelector = (state) => state.order.entities;
 export const subcategoriesSelector = (state) => state.subcategories.entities;
 export const routerSelector = (state) => state.router;
+export const queryParamsSelector = (state) => state.router.location.query;
 
 export const loadingCategoriesSelector = (state) => state.categories.loading;
 export const loadedCategoriesSelector = (state) => state.categories.loaded;
@@ -72,7 +73,7 @@ export const productsIdsByCategorySelector = createSelector(
 
 export const orderCountSelector = createSelector(
   orderListSelector,
-  order => order.reduce((acc, item) => acc + item[1], 0 )
+  order => order.reduce((acc, item) => acc + item[1], 0)
 );
 
 export const orderProductsSelector = createSelector(
@@ -92,9 +93,9 @@ export const activeCategoryBySubcategorySelector = createSelector(
   categoriesListSelector,
   (state, {subcategoryId}) => subcategoryId,
   (categories, activeSubcategory) => categories
-      .find(category => category.subcategory
-        .map(subcat => subcat.slug)
-        .includes(activeSubcategory))?.slug
+    .find(category => category.subcategory
+      .map(subcat => subcat.slug)
+      .includes(activeSubcategory))?.slug
 );
 
 export const activeSubCategoryByProductSelector = createSelector(
@@ -116,7 +117,7 @@ export const ratingSelector = createSelector(
   reviews => ({
     overall: Math.round((reviews?.reduce((acc, review) => acc + review.rating, 0) / reviews?.length) * 100) / 100,
     recommendedLength: reviews?.filter(review => review.recommended === true).length,
-    recommendedShare: function() {
+    recommendedShare: function () {
       return Math.round(this.recommendedLength / reviews.length * 100 * 100) / 100
     }
   })
@@ -136,6 +137,39 @@ export const brandsByProductsSelector = createSelector(
 export const subcategoriesListSelector = createSelector(
   categoriesListSelector,
   categories => categories.flatMap(category => category.subcategory)
+);
+
+export const productsLimitSelector = createSelector(
+  queryParamsSelector,
+  (state, {limitVariants}) => limitVariants,
+  (queryParams, limitVariants) => limitVariants.includes(queryParams.limit) ? queryParams.limit : limitVariants[0]
+);
+
+export const productsSortSelector = createSelector(
+  queryParamsSelector,
+  (state, {sortVariants}) => sortVariants,
+  (queryParams, sortVariants) => sortVariants.includes(queryParams.sort) ? queryParams.sort : sortVariants[0]
+);
+
+export const productsAllPagesSelector = createSelector(
+  totalCountProductsSelector,
+  productsLimitSelector,
+  (totalCount, limit) => {
+    const pages = [];
+    const productsLimit = Number(limit) ? Math.ceil(totalCount / limit) : 1;
+
+    for (let i = 1; i <= productsLimit; i++) {
+      pages.push(i);
+    }
+
+    return pages;
+  }
+);
+
+export const productsPageSelector = createSelector(
+  queryParamsSelector,
+  productsAllPagesSelector,
+  (queryParams, productsAllPages) => productsAllPages.includes(Number(queryParams.page)) ? Number(queryParams.page) : 1
 );
 
 
