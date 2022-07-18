@@ -38,6 +38,8 @@ const productSchema = new mongoose.Schema({
       description: String
     }]
   }
+}, {
+  timestamps: true
 });
 
 productSchema.plugin(uniqueValidator, {message: 'Product with this {PATH} already exists'});

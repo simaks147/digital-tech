@@ -17,11 +17,18 @@ module.exports.productsList = async (ctx) => {
   // const products = await Product.find().sort().populate('brand');
 
   let {page, limit, sort, subcategoryId} = ctx.query;
-  page = Number(page)|| 1;
+
+  page = Number(page) || 1;
   limit = limit || 3;
   if (limit === 'all') limit = null;
-  if (sort === 'title') sort = 'slug';
   const skip = page * limit - limit;
+
+  let order = 'asc';
+  if (sort === 'title') sort = 'slug';
+  if (sort === 'newest') {
+    order = 'desc';
+    sort = 'createdAt';
+  }
 
   const params = {};
   if (subcategoryId) params.subcategoryId = subcategoryId;
@@ -35,7 +42,7 @@ module.exports.productsList = async (ctx) => {
 
   const products = await Product
     .find({...params})
-    .sort(sort)
+    .sort({[sort]: order})
     .skip(skip)
     .limit(limit)
     .populate('brand');
