@@ -13,7 +13,7 @@ const ProductTabs = ({product}) => {
   const TABS = useMemo(() => ([
     {title: 'Description', Icon: DescIcon, Pane: () => product.description},
     {title: 'Specification', Icon: SpecIcon, Pane: () => <ProductSpec specification={product.specification}/>},
-    {title: 'Reviews', Icon: ReviewIcon, Pane: () => <ProductReviews slug={product.slug}/>}
+    {title: 'Reviews', Icon: ReviewIcon, Pane: () => <ProductReviews productId={product.slug}/>}
   ]), [product]);
 
   return (

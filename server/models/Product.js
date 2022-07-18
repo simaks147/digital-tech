@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const connection = require('../libs/connection');
 const uniqueValidator = require("mongoose-unique-validator");
+const Double = require('@mongoosejs/double');
 
 const productSchema = new mongoose.Schema({
   title: {
@@ -34,9 +35,27 @@ const productSchema = new mongoose.Schema({
   },
   specification: {
     type: [{
+      _id: false,
       title: String,
       description: String
     }]
+  },
+  rating: {
+    type: {
+      _id: false,
+      overall: {
+        type: Double,
+        required: true
+      },
+      reviewsCount: {
+        type: Number,
+        required: true
+      }
+    },
+    default: {
+      overall: 0,
+      reviewsCount: 0
+    }
   }
 }, {
   timestamps: true

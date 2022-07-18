@@ -7,7 +7,8 @@ import {
   productSelector,
   orderSelector,
   tokenSelector,
-  productsSelector
+  productsSelector,
+  ratingSelector, reviewsByProductSelector
 } from "../../redux/selectors";
 import {Alert, Col, Container, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -17,8 +18,9 @@ import ProductTabs from "./productTabs";
 import Loader from "../loader";
 import {BASKET_ROUTE_SHOPPING, LOGIN_ROUTE} from "../../utils/consts";
 import {push} from "connected-react-router";
+import Rate from "../rate/Rate";
 
-const Product = ({products, id, product, order, token, increaseCart, push, loadProduct, loading, errors}) => {
+const Product = ({products, id, product, order, token, increaseCart, push, loadProduct, loading, errors, reviews, rating}) => {
   useEffect(() => {
     loadProduct();
   }, [loadProduct]);
@@ -43,6 +45,12 @@ const Product = ({products, id, product, order, token, increaseCart, push, loadP
           <Col md={{span: 5, order: 'last'}}>
             <div className={styles.content}>
               <div className={styles.title}>{product.title}</div>
+              <div className={styles.overallRating}>
+                <div className={styles.overallStars}>
+                  <Rate value={rating.overall || product.rating.overall}/>
+                </div>
+                <div className={styles.overallSubtitle}>{reviews?.length || product.rating.reviewsCount} Reviews</div>
+              </div>
               <div className={styles.price}>${product.price}</div>
               {
                 order[product.slug]
@@ -68,7 +76,9 @@ const mapStateToProps = (state, props) => ({
   loading: loadingProductsSelector(state, props),
   errors: errorProductsSelector(state, props),
   order: orderSelector(state, props),
-  token: tokenSelector(state, props)
+  token: tokenSelector(state, props),
+  rating: ratingSelector(state, props.id),
+  reviews: reviewsByProductSelector(state, props.id)
 })
 
 const mapDispatchToProps = (dispatch, props) => ({

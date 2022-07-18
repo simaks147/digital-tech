@@ -6,10 +6,6 @@ const reviewSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  // date: {
-  //   type: Date,
-  // required: true
-  // },
   name: {
     type: String,
     required: true

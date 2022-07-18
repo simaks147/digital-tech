@@ -23,7 +23,8 @@ import {
   CLOSE_NAV,
   CREATE_PRODUCT,
   DELETE_PRODUCT,
-  UPDATE_PRODUCT
+  UPDATE_PRODUCT,
+  CREATE_REVIEW
 } from "./consts";
 
 import {
@@ -43,7 +44,9 @@ import {
   tokenSelector,
   orderSelector,
   productsSelector,
-  queryParamsSelector
+  queryParamsSelector,
+  reviewsByProductSelector,
+  ratingSelector
 } from "./selectors";
 
 export const increaseCart = (id) => ({
@@ -174,7 +177,7 @@ export const loadProduct = (id) => async (dispatch, getState) => {
 
 const _loadReviews = (productId) => ({
   type: LOAD_REVIEWS,
-  CallApi: `/api/reviews?productId=${productId}`,
+  CallApi: `/api/reviews?id=${productId}`,
   productId
 });
 
@@ -188,11 +191,29 @@ export const loadReviews = (productId) => async (dispatch, getState) => {
   }
 };
 
-export const addReview = (productId, values) => ({
-  type: ADD_REVIEW,
-  productId,
-  values
+ const _addReview = (values, productId) => ({
+   type: ADD_REVIEW,
+   productId,
+   values: {...values, productId}
 });
+
+const _createReview = (values, productId, reviewsCount, overallRating) => ({
+  type: CREATE_REVIEW,
+  CallApi: '/api/reviews',
+  productId,
+  values: {...values, productId, reviewsCount, overallRating}
+});
+
+export const createReview = (values, productId) => async (dispatch, getState) => {
+  await dispatch(_addReview(values, productId));
+
+  const state = getState();
+  const reviewsCount = reviewsByProductSelector(state, productId).length;
+  const overallRating = ratingSelector(state, productId).overall;
+  const {id, date, ...rest} = values;
+
+  dispatch(_createReview(rest, productId, reviewsCount, overallRating));
+};
 
 const _login = (values) => ({
   type: LOGIN,

@@ -20,8 +20,8 @@ export const processingProductsSelector = (state) => state.products.processing;
 export const errorProductsSelector = (state) => state.products.error;
 export const totalCountProductsSelector = (state) => state.products.totalCount;
 
-export const loadingReviewsByProductSelector = (state, {slug}) => reviewsSelector(state)[slug]?.loading;
-export const loadedReviewsByProductSelector = (state, {slug}) => reviewsSelector(state)[slug]?.loaded;
+export const loadingReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.loading;
+export const loadedReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.loaded;
 
 export const processingOrderSelector = (state) => state.order.processing;
 export const errorOrderSelector = (state) => state.order.error;
@@ -31,7 +31,7 @@ export const productSelector = (state, {id}) => productsSelector(state)[id];
 export const activeCategorySelector = (state) => state.categories.active;
 export const activeSubcategorySelector = (state) => state.subcategories.active;
 
-export const reviewsByProductSelector = (state, {slug}) => reviewsSelector(state)[slug]?.entities;
+export const reviewsByProductSelector = (state, id) => reviewsSelector(state)[id]?.entities;
 
 export const loginSelector = (state) => state.auth.login;
 export const tokenSelector = (state) => state.auth.token;

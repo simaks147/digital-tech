@@ -13,12 +13,12 @@ import {loadReviews} from "../../../redux/actions";
 import {connect} from "react-redux";
 import Rate from "../../rate/Rate";
 import useForm from "../../../hooks/use-form";
-import {addReview} from "../../../redux/actions";
+import {createReview} from "../../../redux/actions";
 import {REVIEW_FIELDS} from "../../../utils/consts";
 import Loader from "../../loader";
 import Checkbox from "../../checkbox";
 
-const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, addReview}) => {
+const ProductReviews = ({loadReviews, loading, loaded, reviews, rating, createReview}) => {
   useEffect(() => {
     loadReviews();
   }, [loadReviews]);
@@ -39,21 +39,23 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
     if (e.currentTarget.checkValidity()) {
       setUploading(true);
 
-      await new Promise(resolve => {
-        setTimeout(() => {
-          addReview({
-            id: Date.now().toString(),
-            productId: slug,
-            recommended,
-            date: new Date().toLocaleDateString('en-US', {
-              year: 'numeric', month: 'long', day: 'numeric'
-            }),
-            ...values,
-          });
+      // await new Promise(resolve => {
+      //   setTimeout(() => {
+          createReview(
+            {
+              ...values,
+              recommended,
+              id: Date.now().toString(),
+              date: new Date().toLocaleDateString('en-US', {
+                year: 'numeric', month: 'long', day: 'numeric'
+              }),
+            }
+          );
 
-          resolve();
-        }, 3000);
-      });
+          // resolve();
+        // }, 3000);
+      // }
+    // );
 
       setUploading(false);
       setRecommended(false);
@@ -66,6 +68,7 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
   };
 
   const addedReview = localStorage.getItem('addedReview');
+  const defaultDisplayCount = 3;
 
   if (loading) return <Loader/>;
 
@@ -126,7 +129,7 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
                     <Checkbox id="recommended" active={recommended} disabled={uploading} onChange={setRecommended}>
                       I would recommend this to a friend!
                     </Checkbox>
-                    <Button className={cn('c-button', styles.submitButton)} type='submit' disabled={uploading}>
+                    <Button className={cn('c-button', styles.submitButton)} disabled={uploading} type='submit'>
                       {
                         uploading &&
                         <Loader/>
@@ -145,7 +148,7 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
               ? <>
                 <div className={styles.list}>
                   {
-                    reviews.slice(0, (displayAll ? reviews.length : 3)).map(review => {
+                    reviews.slice(0, (displayAll ? reviews.length : defaultDisplayCount)).map(review => {
                       const {id, rating, name, title, text} = review;
                       const date = new Date(review.date).toLocaleDateString('en-US', {
                         year: 'numeric', month: 'long', day: 'numeric'
@@ -166,7 +169,7 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
                   }
                 </div>
                 {
-                  !displayAll &&
+                  !displayAll && reviews.length > defaultDisplayCount &&
                   <Button className={cn('c-button', styles.moreButton)} onClick={setDisplayAll}>Load More Reviews</Button>
                 }
               </>
@@ -179,15 +182,15 @@ const ProductReviews = ({slug, loadReviews, loading, loaded, reviews, rating, ad
 }
 
 const mapStateToProps = (state, props) => ({
-  reviews: reviewsByProductSelector(state, props),
+  reviews: reviewsByProductSelector(state, props.productId),
   loading: loadingReviewsByProductSelector(state, props),
   loaded: loadedReviewsByProductSelector(state, props),
-  rating: ratingSelector(state, props)
+  rating: ratingSelector(state, props.productId)
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
-  loadReviews: () => dispatch(loadReviews(props.slug)),
-  addReview: (values) => dispatch(addReview(props.slug, values))
+  loadReviews: () => dispatch(loadReviews(props.productId)),
+  createReview: (values) => dispatch(createReview(values, props.productId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductReviews);
