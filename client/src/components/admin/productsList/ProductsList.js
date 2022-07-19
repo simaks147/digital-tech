@@ -77,7 +77,7 @@ const ProductsList = ({
             <div className={styles.list}>
               {
                 products.map(item => {
-                  const {title, slug, images, price} = item;
+                  const {title, slug, images, price, rating} = item;
                   return <div key={slug} className={styles.item}>
                     <Row className='align-items-center'>
                       <Col xs='auto' className={styles.image}>
@@ -98,6 +98,9 @@ const ProductsList = ({
                       </Col>
                       <Col>
                         <div>{price}</div>
+                      </Col>
+                      <Col>
+                        <div>{rating.overall}</div>
                       </Col>
                       <Col xs='auto' className={styles.icons}>
                         <Link to={`${ADMIN_PRODUCT_ROUTE}/${slug}`}>

@@ -24,10 +24,19 @@ module.exports.productsList = async (ctx) => {
   const skip = page * limit - limit;
 
   let order = 'asc';
-  if (sort === 'title') sort = 'slug';
-  if (sort === 'newest') {
-    order = 'desc';
-    sort = 'createdAt';
+
+  switch (sort) {
+    case 'title':
+      sort = 'slug';
+      break;
+    case 'newest':
+      order = 'desc';
+      sort = 'createdAt';
+      break;
+    case 'rating':
+      order = 'desc';
+      sort = 'rating.overall';
+      break;
   }
 
   const params = {};
