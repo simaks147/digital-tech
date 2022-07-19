@@ -7,11 +7,11 @@ import {
   ADD_REVIEW
 } from "../consts";
 
-// const addedReview = localStorage.getItem('addedReview');
+const storageReviews = JSON.parse(localStorage.getItem('addedReviews')) || {};
 
 export default (state = {}, action) =>
   produce(state, draft => {
-    const {type, productId, values, data, error} = action;
+    const {type, productId, overallRating, reviewsCount, values, data, error} = action;
 
     switch (type) {
       case LOAD_REVIEWS + REQUEST:
@@ -22,12 +22,10 @@ export default (state = {}, action) =>
         break;
 
       case LOAD_REVIEWS + SUCCESS:
-        // data.reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
-
         draft[productId].loading = false;
         draft[productId].loaded = true;
-        // draft[productId].entities = addedReview ? [].concat(JSON.parse(addedReview), data.reviews) : data.reviews;
-        draft[productId].entities = data.reviews;
+        draft[productId].entities = storageReviews?.[productId] ? [].concat(storageReviews[productId].entitie, data.reviews) : data.reviews;
+        // draft[productId].entities = data.reviews;
         break;
 
       case LOAD_REVIEWS + FAILURE:
@@ -37,7 +35,15 @@ export default (state = {}, action) =>
         break;
 
       case ADD_REVIEW:
-        // localStorage.setItem('addedReview', JSON.stringify(values));
+        storageReviews[productId] = {};
+        const currentStorageReview = storageReviews[productId];
+
+        currentStorageReview.entitie = values;
+        currentStorageReview.overallRating = overallRating;
+        currentStorageReview.reviewsCount = reviewsCount;
+
+        localStorage.setItem('addedReviews', JSON.stringify(storageReviews));
+
         draft[productId].entities.unshift(values);
         break;
 

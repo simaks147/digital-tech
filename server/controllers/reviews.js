@@ -11,7 +11,7 @@ module.exports.reviewsByProduct = async (ctx) => {
 };
 
 module.exports.createReview = async (ctx) => {
-  const {productId, recommended, name, text, title, rating, overallRating, reviewsCount} = ctx.request.body;
+  const {productId, recommended, name, text, title, rating} = ctx.request.body;
 
   const review = await Review.create({
     productId,
@@ -22,8 +22,16 @@ module.exports.createReview = async (ctx) => {
     rating,
   });
 
-  await  Product.findOneAndUpdate({slug: productId}, {
-    rating: {overall: overallRating, reviewsCount}
+  const reviews = await Review.aggregate([
+    {$match: {productId}},
+    {$group: {_id: null, rating: {$avg: '$rating'}, count: {$sum: 1}}}
+  ]);
+
+  await Product.findOneAndUpdate({slug: productId}, {
+    rating: {
+      overall: Math.round(reviews[0].rating * 100) / 100,
+      reviewsCount: reviews[0].count
+    }
   });
 
   ctx.body = {review: mapReview(review)};

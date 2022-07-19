@@ -28,7 +28,6 @@ import {
 } from "./consts";
 
 import {
-  ADMIN_PRODUCT_ROUTE,
   ADMIN_ROUTE,
   BASKET_ROUTE_CHECKOUT,
   BASKET_ROUTE_COMPLETED
@@ -45,8 +44,6 @@ import {
   orderSelector,
   productsSelector,
   queryParamsSelector,
-  reviewsByProductSelector,
-  ratingSelector
 } from "./selectors";
 
 export const increaseCart = (id) => ({
@@ -197,22 +194,19 @@ export const loadReviews = (productId) => async (dispatch, getState) => {
    values: {...values, productId}
 });
 
-const _createReview = (values, productId, reviewsCount, overallRating) => ({
-  type: CREATE_REVIEW,
-  CallApi: '/api/reviews',
-  productId,
-  values: {...values, productId, reviewsCount, overallRating}
-});
+// const _createReview = (values, productId) => ({
+//   type: CREATE_REVIEW,
+//   CallApi: '/api/reviews',
+//   productId,
+//   values: {...values, productId}
+// });
 
-export const createReview = (values, productId) => async (dispatch, getState) => {
+export const createReview = (values, productId) => async (dispatch) => {
   await dispatch(_addReview(values, productId));
 
-  const state = getState();
-  const reviewsCount = reviewsByProductSelector(state, productId).length;
-  const overallRating = ratingSelector(state, productId).overall;
-  const {id, date, ...rest} = values;
+  // const {id, date, ...rest} = values;
 
-  dispatch(_createReview(rest, productId, reviewsCount, overallRating));
+  // dispatch(_createReview(rest, productId,));
 };
 
 const _login = (values) => ({

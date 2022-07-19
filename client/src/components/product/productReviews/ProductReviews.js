@@ -18,7 +18,7 @@ import {REVIEW_FIELDS} from "../../../utils/consts";
 import Loader from "../../loader";
 import Checkbox from "../../checkbox";
 
-const ProductReviews = ({loadReviews, loading, loaded, reviews, rating, createReview}) => {
+const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, rating, createReview}) => {
   useEffect(() => {
     loadReviews();
   }, [loadReviews]);
@@ -39,23 +39,23 @@ const ProductReviews = ({loadReviews, loading, loaded, reviews, rating, createRe
     if (e.currentTarget.checkValidity()) {
       setUploading(true);
 
-      // await new Promise(resolve => {
-      //   setTimeout(() => {
-          createReview(
-            {
-              ...values,
-              recommended,
-              id: Date.now().toString(),
-              date: new Date().toLocaleDateString('en-US', {
-                year: 'numeric', month: 'long', day: 'numeric'
-              }),
-            }
-          );
+      await new Promise(resolve => {
+          setTimeout(() => {
+            createReview(
+              {
+                ...values,
+                recommended,
+                id: Date.now().toString(),
+                date: new Date().toLocaleDateString('en-US', {
+                  year: 'numeric', month: 'long', day: 'numeric'
+                }),
+              }
+            );
 
-          // resolve();
-        // }, 3000);
-      // }
-    // );
+            resolve();
+          }, 3000);
+        }
+      );
 
       setUploading(false);
       setRecommended(false);
@@ -67,12 +67,12 @@ const ProductReviews = ({loadReviews, loading, loaded, reviews, rating, createRe
     setValidated(true);
   };
 
-  const addedReview = localStorage.getItem('addedReview');
-  const defaultDisplayCount = 3;
-
   if (loading) return <Loader/>;
 
   if (!loaded) return 'Error!!!';
+
+  const storageReviews = JSON.parse(localStorage.getItem('addedReviews'));
+  const defaultDisplayCount = 3;
 
   return (
     <div className={styles.main}>
@@ -97,7 +97,7 @@ const ProductReviews = ({loadReviews, loading, loaded, reviews, rating, createRe
 
           <div className={styles.form}>
             {
-              addedReview
+              storageReviews?.[productId]
                 ?
                 <div className={styles.formSuccessTitle}>You have already left a review for this product...</div>
                 :
