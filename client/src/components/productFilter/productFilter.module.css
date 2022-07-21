@@ -16,7 +16,15 @@
 }
 
 .content {
-    padding: 8px;
+    /*padding: 8px;*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: center;*/
+    text-align: center;
+}
+
+.main :global(.accordion) {
+    /*width: 100%;*/
 }
 
 .main :global(.accordion-item) {
@@ -58,6 +66,15 @@
 
 .main :global(.form-check-label) {
     font-size: 16px;
+}
+
+.main :global(.c-button) {
+    font-size: 15px;
+    line-height: 1.8;
+    border-bottom-width: 6px;
+    padding-left: 26px;
+    padding-right: 26px;
+    margin-top: 20px;
 }
 
 @media (min-width: 992px) {

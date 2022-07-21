@@ -1,22 +1,23 @@
+const mongoose = require('mongoose');
 const Product = require('../models/Product');
 const {mapProduct} = require('../utils/mappers');
 
-// module.exports.productsBySubcategory = async (ctx, next) => {
-//   const {subcategoryId} = ctx.query;
-//
-//   if (!subcategoryId) return next();
-//
-//   const products = await Product.find({subcategoryId}).populate('brand');
-//
-//   if (products.length === 0) ctx.throw(404, `No products in category '${subcategoryId}'`);
-//
-//   ctx.body = {products: products.map(mapProduct)};
-// };
+module.exports.productsBySubcategory = async (ctx, next) => {
+  const {subcategoryId} = ctx.query;
+
+  if (!subcategoryId) return next();
+
+  const products = await Product.find({subcategoryId}).populate('brand');
+
+  if (products.length === 0) ctx.throw(404, `No products in category '${subcategoryId}'`);
+
+  ctx.body = {products: products.map(mapProduct)};
+};
 
 module.exports.productsList = async (ctx) => {
   // const products = await Product.find().sort().populate('brand');
 
-  let {page, limit, sort, subcategoryId} = ctx.query;
+  let {page, limit, sort, filters, subcategoryId, brand} = ctx.query;
 
   page = Number(page) || 1;
   limit = limit || 3;
@@ -40,7 +41,17 @@ module.exports.productsList = async (ctx) => {
   }
 
   const params = {};
-  if (subcategoryId) params.subcategoryId = subcategoryId;
+  if (brand) params.brand = brand;
+
+  // console.log(params);
+
+  // const filtersEntries = decodeURIComponent(filters).split(',').map(filter => {
+  //   return filter.split(':');
+  // });
+  //
+  // const filtersObject = Object.fromEntries(filtersEntries);
+
+  // if (subcategoryId) params.subcategoryId = subcategoryId;
 
   // const products = await Product
   //   .find({brand: ['62b58731fdf8f32a56234361', '62b58449fdf8f32a56234350']})
@@ -55,6 +66,8 @@ module.exports.productsList = async (ctx) => {
     .skip(skip)
     .limit(limit)
     .populate('brand');
+
+  console.log(products);
 
   if (!products.length) ctx.throw(404, 'No products for to the specified parameters');
 

@@ -3,9 +3,11 @@ import {connect} from "react-redux";
 import styles from './productFilter.module.css';
 import {Accordion} from "react-bootstrap";
 import Checkbox from "../checkbox";
-import {brandsByProductsSelector} from "../../redux/selectors";
+import {productsFiltersSelector} from "../../redux/selectors";
+import Button from "react-bootstrap/Button";
+import {changeProductPageLocation} from "../../redux/actions";
 
-const ProductFilter = ({brands}) => (
+const ProductFilter = ({brands, changeProductPageLocation, filters}) => (
   <div className={styles.main}>
     <div className={styles.header}>Refind Your Results</div>
     <div className={styles.content}>
@@ -28,12 +30,14 @@ const ProductFilter = ({brands}) => (
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
+      <Button className='c-button' onClick={() => changeProductPageLocation('filters', filters)}>Refine Search</Button>
+      <div>Reset Setting</div>
     </div>
   </div>
 );
 
-const mapStateToProps = (state, props) => ({});
+const mapStateToProps = (state, props) => ({
+  filters: productsFiltersSelector(state, props)
+});
 
-const mapDispatchToProps = (dispatch, props) => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductFilter);
+export default connect(mapStateToProps, {changeProductPageLocation})(ProductFilter);

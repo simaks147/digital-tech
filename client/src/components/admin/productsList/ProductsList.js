@@ -6,11 +6,11 @@ import {
   brandsListSelector,
   errorProductsSelector,
   loadingProductsSelector,
+  productsFiltersSelector,
   productsLimitSelector,
   productsListSelector,
   productsPageSelector,
-  productsSortSelector,
-  totalCountProductsSelector
+  productsSortSelector
 } from "../../../redux/selectors";
 import {deleteProduct, loadProductsList} from "../../../redux/actions";
 import Loader from "../../loader";
@@ -22,10 +22,23 @@ import ProductSort from "../../productSort/ProductSort";
 import Pagination from "../../pagination";
 import ProductItem from "./productItem";
 
-const ProductsList = ({products, brands, loadProductsList, loading, errors, totalCount, limit, limitVariants, sort, sortVariants, page}) => {
+const ProductsList = ({
+                        products,
+                        brands,
+                        loadProductsList,
+                        loading,
+                        errors,
+                        limit,
+                        limitVariants,
+                        sort,
+                        sortVariants,
+                        page,
+                        filters,
+                        filtersVariants
+                      }) => {
   useEffect(() => {
-    loadProductsList(page, limit, sort);
-  }, [loadProductsList, page, limit, sort, totalCount]);
+    loadProductsList(page, limit, sort, filters);
+  }, [loadProductsList, page, limit, sort, filters]);
 
   if (errors)
     return <div className={styles.main}>
@@ -48,7 +61,7 @@ const ProductsList = ({products, brands, loadProductsList, loading, errors, tota
         <Button as={Link} to={ADMIN_PRODUCT_ROUTE} className='mb-4'>New Product</Button>
         <Row className="align-items-start">
           <Col lg={3}>
-            <ProductFilter brands={brands}/>
+            <ProductFilter brands={brands} filtersVariants={filtersVariants}/>
           </Col>
           <Col lg={9}>
             <ProductSort
@@ -74,10 +87,10 @@ const mapStateToProps = (state, props) => ({
   loading: loadingProductsSelector(state),
   errors: errorProductsSelector(state),
   brands: brandsListSelector(state),
-  totalCount: totalCountProductsSelector(state),
   limit: productsLimitSelector(state, props),
   sort: productsSortSelector(state, props),
-  page: productsPageSelector(state, props)
+  page: productsPageSelector(state, props),
+  filters: productsFiltersSelector(state, props)
 });
 
 export default connect(mapStateToProps, {loadProductsList, deleteProduct})(ProductsList);
