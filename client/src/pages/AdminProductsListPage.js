@@ -7,7 +7,6 @@ const AdminProductPage = () => (
     <ProductsList
       limitVariants={['3', '6', 'all']}
       sortVariants={['title', 'price', 'newest', 'rating']}
-      filtersVariants={['brand', 'price', 'category', 'rating']}
     />
   </AdminLayout>
 );

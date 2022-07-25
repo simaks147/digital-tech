@@ -34,7 +34,6 @@ const ProductsList = ({
                         sortVariants,
                         page,
                         filters,
-                        filtersVariants
                       }) => {
   useEffect(() => {
     loadProductsList(page, limit, sort, filters);
@@ -61,7 +60,7 @@ const ProductsList = ({
         <Button as={Link} to={ADMIN_PRODUCT_ROUTE} className='mb-4'>New Product</Button>
         <Row className="align-items-start">
           <Col lg={3}>
-            <ProductFilter brands={brands} filtersVariants={filtersVariants}/>
+            <ProductFilter brands={brands}/>
           </Col>
           <Col lg={9}>
             <ProductSort

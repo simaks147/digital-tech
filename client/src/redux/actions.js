@@ -120,8 +120,6 @@ export const loadProductsList = (page, limit, sort, filters) => {
   if (sort) searchParams.sort = sort;
   // if (filters) searchParams.filters = filters;
 
-
-
   return {
     type: LOAD_PRODUCTS,
     CallApi: `/api/products?${new URLSearchParams({...searchParams, ...filters})}`,

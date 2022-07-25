@@ -174,30 +174,13 @@ export const productsPageSelector = createSelector(
 
 export const productsFiltersSelector = createSelector(
   queryParamsSelector,
-  (state, {filtersVariants}) => filtersVariants,
-  brandsSelector,
-  (queryParams, filtersVariants, brands) => {
+  queryParams => {
+    if (!queryParams.filters) return {};
+
     const filtersEntries = decodeURIComponent(queryParams.filters).split(',').map(filter => filter.split(':'));
 
-    // const filtersObject = Object.fromEntries(filtersEntries);
-
-    // const filters = {};
-
-    return filtersEntries.reduce((acc, [key, value]) => {
-      if (!filtersVariants.includes(key)) return acc;
-
-      let currentEntities;
-
-      switch (key) {
-        case 'brand':
-          currentEntities = brands;
-          break;
-        default: break;
-      }
-
-      if (!currentEntities[value]) return acc;
-
-      return {...acc, [key]: value};
+    return filtersEntries.reduce((acc, [key, values]) => {
+      return {...acc, [key]: values.split('|')};
     }, {});
   }
 );

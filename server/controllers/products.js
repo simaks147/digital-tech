@@ -15,9 +15,8 @@ module.exports.productsBySubcategory = async (ctx, next) => {
 };
 
 module.exports.productsList = async (ctx) => {
-  // const products = await Product.find().sort().populate('brand');
-
   let {page, limit, sort, filters, subcategoryId, brand} = ctx.query;
+
 
   page = Number(page) || 1;
   limit = limit || 3;
@@ -41,24 +40,11 @@ module.exports.productsList = async (ctx) => {
   }
 
   const params = {};
-  if (brand) params.brand = brand;
+  if (brand) params.brand = brand.split(',');
 
-  // console.log(params);
-
-  // const filtersEntries = decodeURIComponent(filters).split(',').map(filter => {
-  //   return filter.split(':');
-  // });
-  //
-  // const filtersObject = Object.fromEntries(filtersEntries);
-
-  // if (subcategoryId) params.subcategoryId = subcategoryId;
-
-  // const products = await Product
-  //   .find({brand: ['62b58731fdf8f32a56234361', '62b58449fdf8f32a56234350']})
-  //   .sort({price: 'desc'})
-  //   .skip(3)
-  //   .limit(3)
-  //   .populate('brand');
+  // if (brand) params.brand = ['62b58731fdf8f32a56234361', '62b58449fdf8f32a56234350'];
+  // params.subcategoryId = ['camcorders'];
+  // params['rating.overall'] = {$gte: 4};
 
   const products = await Product
     .find({...params})
@@ -66,8 +52,6 @@ module.exports.productsList = async (ctx) => {
     .skip(skip)
     .limit(limit)
     .populate('brand');
-
-  console.log(products);
 
   if (!products.length) ctx.throw(404, 'No products for to the specified parameters');
 
