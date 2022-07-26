@@ -110,6 +110,8 @@ export const changeProductPageLocation = (attr, param) => async (dispatch, getSt
   const query = queryParamsSelector(state);
   const searchParams = {...query, [attr]: param};
 
+  if (searchParams.filters) searchParams.filters = decodeURIComponent(searchParams.filters);
+
   dispatch(push(`${ADMIN_ROUTE}?${new URLSearchParams({...searchParams})}`));
 };
 
@@ -118,7 +120,6 @@ export const loadProductsList = (page, limit, sort, filters) => {
   if (page) searchParams.page = page;
   if (limit) searchParams.limit = limit;
   if (sort) searchParams.sort = sort;
-  // if (filters) searchParams.filters = filters;
 
   return {
     type: LOAD_PRODUCTS,

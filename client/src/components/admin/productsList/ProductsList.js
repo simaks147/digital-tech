@@ -10,7 +10,8 @@ import {
   productsLimitSelector,
   productsListSelector,
   productsPageSelector,
-  productsSortSelector
+  productsSortSelector,
+  subcategoriesListSelector
 } from "../../../redux/selectors";
 import {deleteProduct, loadProductsList} from "../../../redux/actions";
 import Loader from "../../loader";
@@ -34,6 +35,7 @@ const ProductsList = ({
                         sortVariants,
                         page,
                         filters,
+                        subcategories
                       }) => {
   useEffect(() => {
     loadProductsList(page, limit, sort, filters);
@@ -60,7 +62,10 @@ const ProductsList = ({
         <Button as={Link} to={ADMIN_PRODUCT_ROUTE} className='mb-4'>New Product</Button>
         <Row className="align-items-start">
           <Col lg={3}>
-            <ProductFilter brands={brands}/>
+            <ProductFilter
+              brands={brands}
+              subcategories={subcategories}
+            />
           </Col>
           <Col lg={9}>
             <ProductSort
@@ -89,7 +94,8 @@ const mapStateToProps = (state, props) => ({
   limit: productsLimitSelector(state, props),
   sort: productsSortSelector(state, props),
   page: productsPageSelector(state, props),
-  filters: productsFiltersSelector(state, props)
+  filters: productsFiltersSelector(state, props),
+  subcategories: subcategoriesListSelector(state)
 });
 
 export default connect(mapStateToProps, {loadProductsList, deleteProduct})(ProductsList);

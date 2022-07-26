@@ -1,22 +1,20 @@
-const mongoose = require('mongoose');
 const Product = require('../models/Product');
 const {mapProduct} = require('../utils/mappers');
 
-module.exports.productsBySubcategory = async (ctx, next) => {
-  const {subcategoryId} = ctx.query;
-
-  if (!subcategoryId) return next();
-
-  const products = await Product.find({subcategoryId}).populate('brand');
-
-  if (products.length === 0) ctx.throw(404, `No products in category '${subcategoryId}'`);
-
-  ctx.body = {products: products.map(mapProduct)};
-};
+// module.exports.productsBySubcategory = async (ctx, next) => {
+//   const {subcategoryId} = ctx.query;
+//
+//   if (!subcategoryId) return next();
+//
+//   const products = await Product.find({subcategoryId}).populate('brand');
+//
+//   if (products.length === 0) ctx.throw(404, `No products in category '${subcategoryId}'`);
+//
+//   ctx.body = {products: products.map(mapProduct)};
+// };
 
 module.exports.productsList = async (ctx) => {
-  let {page, limit, sort, filters, subcategoryId, brand} = ctx.query;
-
+  let {page, limit, sort, subcategoryId, brand, rating} = ctx.query;
 
   page = Number(page) || 1;
   limit = limit || 3;
@@ -41,10 +39,8 @@ module.exports.productsList = async (ctx) => {
 
   const params = {};
   if (brand) params.brand = brand.split(',');
-
-  // if (brand) params.brand = ['62b58731fdf8f32a56234361', '62b58449fdf8f32a56234350'];
-  // params.subcategoryId = ['camcorders'];
-  // params['rating.overall'] = {$gte: 4};
+  if (subcategoryId) params.subcategoryId = subcategoryId.split(',');
+  if (rating) params['rating.overall'] = {$gte: rating, $lt: +rating + 1};
 
   const products = await Product
     .find({...params})

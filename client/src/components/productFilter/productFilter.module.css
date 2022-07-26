@@ -16,15 +16,7 @@
 }
 
 .content {
-    /*padding: 8px;*/
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*align-items: center;*/
     text-align: center;
-}
-
-.main :global(.accordion) {
-    /*width: 100%;*/
 }
 
 .main :global(.accordion-item) {
@@ -65,7 +57,22 @@
 }
 
 .main :global(.form-check-label) {
-    font-size: 16px;
+    font-size: 13px;
+    text-align: left;
+    line-height: 1.2;
+}
+
+.main :global(.form-check-label) svg {
+    width: 15px;
+    height: 15px;
+    fill: var(--c-color1);
+    margin-right: 4px;
+}
+
+.main :global(.form-check-label):before {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
 }
 
 .main :global(.c-button) {
@@ -92,6 +99,10 @@
     }
 
     .main :global(.form-check) {
-        margin-bottom: 14px;
+        margin-bottom: 12px;
+    }
+
+    .main :global(.form-check-label) {
+        font-size: 16px;
     }
 }
