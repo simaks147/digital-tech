@@ -12,7 +12,7 @@ export default function useProductFilters(initFilters) {
       case 'changeCategory':
         return {...state, subcategoryId: active ? state.subcategoryId.filter((item) => item !== value) : [...state.subcategoryId, value]};
       case 'changeRating':
-        return {...state, rating: active ? [] : [value]};
+        return {...state, rating: active ? null : value};
       default:
         return state;
     }

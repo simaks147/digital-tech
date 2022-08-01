@@ -19,9 +19,9 @@ const ProductFilter = ({brands, changeProductPageLocation, filters, subcategorie
   const {currentFilters, changeBrand, changeCategory, changeRating, changePrice} = useProductFilters({
     brand: filters.brand || [],
     subcategoryId: filters.subcategoryId || [],
-    rating: filters.rating || [],
-    minPrice: +filters.minPrice || minPrice,
-    maxPrice: +filters.maxPrice || maxPrice
+    rating: Math.floor(filters.rating) || null,
+    minPrice: Math.floor(filters.minPrice) || minPrice,
+    maxPrice: Math.floor(filters.maxPrice) || maxPrice
   });
 
   return (
@@ -88,8 +88,8 @@ const ProductFilter = ({brands, changeProductPageLocation, filters, subcategorie
             <Accordion.Header>Filter by Rating</Accordion.Header>
             <Accordion.Body>
               {
-                ['1', '2', '3', '4', '5'].map(rating => {
-                  const active = currentFilters.rating[0] === String(rating);
+                [1, 2, 3, 4, 5].map(rating => {
+                  const active = currentFilters.rating === rating;
 
                   const stars = [...Array(5)].map((_, j) => {
                     if (j >= rating) return null;

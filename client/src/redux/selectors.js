@@ -182,7 +182,7 @@ export const productsFiltersSelector = createSelector(
     const filtersEntries = decodeURIComponent(queryParams.filters).split(',').map(filter => filter.split(':'));
 
     return filtersEntries.reduce((acc, [key, values]) => {
-      return {...acc, [key]: values.split('|')};
+      return {...acc, [key]: values?.split('|')};
     }, {});
   }
 );

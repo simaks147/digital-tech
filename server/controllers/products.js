@@ -39,10 +39,27 @@ module.exports.productsList = async (ctx) => {
   }
 
   const params = {};
+
   if (brand) params.brand = {$in: brand.split(',').map(item => mongoose.Types.ObjectId(item))};
+
   if (subcategoryId) params.subcategoryId = {$in: subcategoryId.split(',')};
-  if (rating) params['rating.overall'] = {$gte: rating, $lt: +rating + 1};
-  if (minPrice && maxPrice) params.price = {$gte: +minPrice, $lte: +maxPrice};
+
+  if ( rating && !isNaN( rating) ) {
+    const intRating = Math.floor(rating);
+    params['rating.overall'] = {$gte: intRating, $lt: intRating + 1};
+  }
+
+  if (minPrice || maxPrice) {
+    params.price = {};
+
+    if (minPrice && !isNaN(minPrice)) {
+      params.price.$gte = Math.floor(minPrice);
+    }
+
+    if (maxPrice && !isNaN(maxPrice)) {
+      params.price.$lte = Math.floor(maxPrice);
+    }
+  }
 
   const products = await Product
     .find(params)
