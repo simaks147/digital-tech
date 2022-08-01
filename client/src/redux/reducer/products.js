@@ -14,6 +14,8 @@ import {
 const initialState = {
   entities: {},
   totalCount: 0,
+  minPrice: 0,
+  maxPrice: 100000,
   loading: false,
   processing: false,
   error: null
@@ -34,6 +36,8 @@ export default (state = initialState, action) =>
         draft.loading = false;
         draft.entities = {...arrToMap(data.products.entities)};
         draft.totalCount = data.products.totalCount
+        draft.minPrice = data.products.minPrice
+        draft.maxPrice = data.products.maxPrice
         break;
 
       case LOAD_PRODUCT + SUCCESS:

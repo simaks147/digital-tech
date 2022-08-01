@@ -19,6 +19,8 @@ export const loadingProductsSelector = (state) => state.products.loading;
 export const processingProductsSelector = (state) => state.products.processing;
 export const errorProductsSelector = (state) => state.products.error;
 export const totalCountProductsSelector = (state) => state.products.totalCount;
+export const minPriceProductsSelector = (state) => state.products.minPrice;
+export const maxPriceProductsSelector = (state) => state.products.maxPrice;
 
 export const loadingReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.loading;
 export const loadedReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.loaded;

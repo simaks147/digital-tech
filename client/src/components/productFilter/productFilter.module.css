@@ -17,6 +17,7 @@
 
 .content {
     text-align: center;
+    padding: 10px;
 }
 
 .main :global(.accordion-item) {
@@ -29,7 +30,7 @@
     color: var(--bs-gray-800);
     background-color: transparent;
     box-shadow: none;
-    padding: 3px 10px;
+    padding: 6px 10px;
 }
 
 .main :global(.accordion-button):after {
@@ -49,6 +50,27 @@
 
 .main :global(.accordion-body) {
     padding-top: 10px;
+}
+
+.main :global(.input-range) {
+    margin: 20px 0;
+}
+
+.main :global(.input-range__track--active) {
+    background-color: var(--c-color1);
+}
+
+.main :global(.input-range__slider) {
+    background-color: var(--c-color1);
+    border-color: var(--c-color1);
+    border-radius: initial;
+    width: 8px;
+    margin-left: -4px;
+}
+
+.main :global(.input-range__label--min),
+.main :global(.input-range__label--max) {
+    opacity: 0;
 }
 
 .main :global(.form-check) {
@@ -84,6 +106,16 @@
     margin-top: 20px;
 }
 
+.resetButton {
+    margin-top: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.resetButton:hover {
+    color: var(--c-color1);
+}
+
 @media (min-width: 992px) {
     .header {
         font-size: 17px;
@@ -95,7 +127,7 @@
     }
 
     .content {
-        padding: 24px 8px;
+        padding: 24px 6px;
     }
 
     .main :global(.form-check) {

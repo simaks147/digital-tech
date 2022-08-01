@@ -1,45 +1,52 @@
-import React, {useReducer} from 'react';
 import {connect} from "react-redux";
 import styles from './productFilter.module.css';
 import {Accordion} from "react-bootstrap";
 import Checkbox from "../checkbox";
-import {productsFiltersSelector} from "../../redux/selectors";
+import {
+  minPriceProductsSelector,
+  maxPriceProductsSelector,
+  productsFiltersSelector
+} from "../../redux/selectors";
 import Button from "react-bootstrap/Button";
 import {changeProductPageLocation} from "../../redux/actions";
 import filtersToString from "../../utils/filtersToString";
 import {ReactComponent as StarFullIcon} from "../../icons/star-full-icon.svg";
+import InputRange from "react-input-range";
+import 'react-input-range/lib/css/index.css';
+import useProductFilters from "../../hooks/use-product-filters";
 
-const ProductFilter = ({brands, changeProductPageLocation, filters, subcategories}) => {
-  const reducer = (state, action) => {
-    const {type, value, active} = action;
-
-    switch (type) {
-      case 'changeBrand':
-        return {...state, brand: active ? state.brand.filter((item) => item !== value) : [...state.brand, value]};
-      case 'changeCategory':
-        return {...state, subcategoryId: active ? state.subcategoryId.filter((item) => item !== value) : [...state.subcategoryId, value]};
-      case 'changeRating':
-        return {...state, rating: [value]};
-      default:
-        return state;
-    }
-  }
-
-  const defaultState = {
+const ProductFilter = ({brands, changeProductPageLocation, filters, subcategories, minPrice, maxPrice}) => {
+  const {currentFilters, changeBrand, changeCategory, changeRating, changePrice} = useProductFilters({
     brand: filters.brand || [],
     subcategoryId: filters.subcategoryId || [],
-    rating: filters.rating || []
-  };
-
-  const [currentFilters, setCurrentFilters] = useReducer(reducer, defaultState);
+    rating: filters.rating || [],
+    minPrice: +filters.minPrice || minPrice,
+    maxPrice: +filters.maxPrice || maxPrice
+  });
 
   return (
     <div className={styles.main}>
       <div className={styles.header}>Refind Your Results</div>
       <div className={styles.content}>
-        <Accordion flush alwaysOpen>
+        <Accordion flush alwaysOpen defaultActiveKey={[0, 3]}>
 
-          <Accordion.Item eventKey="0">
+          <Accordion.Item eventKey={0}>
+            <Accordion.Header>Filter by Price</Accordion.Header>
+            <Accordion.Body>
+              <form>
+              <InputRange
+                minValue={minPrice}
+                maxValue={maxPrice}
+                allowSameValues={true}
+                // formatLabel={value => `${value} kg`}
+                value={{min: currentFilters.minPrice, max: currentFilters.maxPrice}}
+                onChange={value => changePrice(value)}
+              />
+              </form>
+            </Accordion.Body>
+          </Accordion.Item>
+
+          <Accordion.Item eventKey={1}>
             <Accordion.Header>Filter by Category</Accordion.Header>
             <Accordion.Body>
               {
@@ -52,17 +59,13 @@ const ProductFilter = ({brands, changeProductPageLocation, filters, subcategorie
                     id={slug}
                     active={active}
                     disabled={false}
-                    handleChange={() => setCurrentFilters({
-                      type: 'changeCategory',
-                      value: slug,
-                      active
-                    })}>{title}</Checkbox>
+                    handleChange={() => changeCategory(slug, active)}>{title}</Checkbox>
                 })
               }
             </Accordion.Body>
           </Accordion.Item>
 
-          <Accordion.Item eventKey="1">
+          <Accordion.Item eventKey={2}>
             <Accordion.Header>Filter by Brand</Accordion.Header>
             <Accordion.Body>
               {
@@ -75,13 +78,13 @@ const ProductFilter = ({brands, changeProductPageLocation, filters, subcategorie
                     id={id}
                     active={active}
                     disabled={false}
-                    handleChange={() => setCurrentFilters({type: 'changeBrand', value: id, active})}>{title}</Checkbox>
+                    handleChange={() => changeBrand(id, active)}>{title}</Checkbox>
                 })
               }
             </Accordion.Body>
           </Accordion.Item>
 
-          <Accordion.Item eventKey="2">
+          <Accordion.Item eventKey={3}>
             <Accordion.Header>Filter by Rating</Accordion.Header>
             <Accordion.Body>
               {
@@ -89,7 +92,7 @@ const ProductFilter = ({brands, changeProductPageLocation, filters, subcategorie
                   const active = currentFilters.rating[0] === String(rating);
 
                   const stars = [...Array(5)].map((_, j) => {
-                    if (j >= rating) return;
+                    if (j >= rating) return null;
 
                     return <StarFullIcon key={j}/>;
                   });
@@ -99,7 +102,7 @@ const ProductFilter = ({brands, changeProductPageLocation, filters, subcategorie
                     id={rating}
                     active={active}
                     disabled={false}
-                    handleChange={() => setCurrentFilters({type: 'changeRating', value: rating, active})}>{stars}</Checkbox>
+                    handleChange={() => changeRating(rating, active)}>{stars}</Checkbox>
                 })
               }
             </Accordion.Body>
@@ -109,14 +112,16 @@ const ProductFilter = ({brands, changeProductPageLocation, filters, subcategorie
         <Button className='c-button'
                 onClick={() => changeProductPageLocation('filters', filtersToString(currentFilters))}>Refine
           Search</Button>
-        <div>Reset Setting</div>
+        <div className={styles.resetButton} onClick={() => changeProductPageLocation('filters', filtersToString())}>Reset Setting</div>
       </div>
     </div>
   );
 }
 
 const mapStateToProps = (state, props) => ({
-  filters: productsFiltersSelector(state, props)
+  filters: productsFiltersSelector(state, props),
+  minPrice: minPriceProductsSelector(state),
+  maxPrice: maxPriceProductsSelector(state)
 });
 
 export default connect(mapStateToProps, {changeProductPageLocation})(ProductFilter);

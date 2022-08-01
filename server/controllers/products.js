@@ -1,5 +1,6 @@
 const Product = require('../models/Product');
 const {mapProduct} = require('../utils/mappers');
+const mongoose = require("mongoose");
 
 // module.exports.productsBySubcategory = async (ctx, next) => {
 //   const {subcategoryId} = ctx.query;
@@ -14,7 +15,7 @@ const {mapProduct} = require('../utils/mappers');
 // };
 
 module.exports.productsList = async (ctx) => {
-  let {page, limit, sort, subcategoryId, brand, rating} = ctx.query;
+  let {page, limit, sort, subcategoryId, brand, rating, minPrice, maxPrice} = ctx.query;
 
   page = Number(page) || 1;
   limit = limit || 3;
@@ -38,12 +39,13 @@ module.exports.productsList = async (ctx) => {
   }
 
   const params = {};
-  if (brand) params.brand = brand.split(',');
-  if (subcategoryId) params.subcategoryId = subcategoryId.split(',');
+  if (brand) params.brand = {$in: brand.split(',').map(item => mongoose.Types.ObjectId(item))};
+  if (subcategoryId) params.subcategoryId = {$in: subcategoryId.split(',')};
   if (rating) params['rating.overall'] = {$gte: rating, $lt: +rating + 1};
+  if (minPrice && maxPrice) params.price = {$gte: +minPrice, $lte: +maxPrice};
 
   const products = await Product
-    .find({...params})
+    .find(params)
     .sort({[sort]: order})
     .skip(skip)
     .limit(limit)
@@ -51,12 +53,19 @@ module.exports.productsList = async (ctx) => {
 
   if (!products.length) ctx.throw(404, 'No products for to the specified parameters');
 
-  const totalCount = await Product.countDocuments({...params});
+  const totalCount = await Product.countDocuments(params);
+
+  const minMaxPrice = await Product.aggregate([
+    {$match: {}},
+    {$group: {_id: null, min: {$min: '$price'}, max: {$max: '$price'}}},
+  ]);
 
   ctx.body = {
     products: {
       entities: products.map(mapProduct),
-      totalCount
+      totalCount,
+      minPrice: minMaxPrice[0].min,
+      maxPrice: minMaxPrice[0].max
     }
   };
 };
