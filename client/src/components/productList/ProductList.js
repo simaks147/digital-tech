@@ -5,8 +5,11 @@ import {
   loadingProductsSelector,
   errorProductsSelector,
   productsIdsByCategorySelector,
-  brandsByProductsSelector,
-  routerSelector,
+  brandsListSelector,
+  productsLimitSelector,
+  productsSortSelector,
+  productsPageSelector,
+  productsFiltersSelector,
 } from "../../redux/selectors";
 import {connect} from "react-redux";
 import {loadProductsByCategory} from "../../redux/actions";
@@ -14,12 +17,25 @@ import Loader from "../loader";
 import ProductFilter from "../productFilter";
 import styles from './productList.module.css';
 import ProductSort from "../productSort";
+import Pagination from "../pagination/Pagination";
 
-const ProductList = ({subcategoryId, brands, productsIds, loadProductsByCategory, loading, errors}) => {
+const ProductList = ({
+                       subcategoryId,
+                       brands,
+                       productsIds,
+                       loadProductsByCategory,
+                       loading,
+                       errors,
+                       limit,
+                       limitVariants,
+                       sort,
+                       sortVariants,
+                       page,
+                       filters
+                     }) => {
   useEffect(() => {
-    const {page, limit} = queryParams;
-    loadProductsByCategory(page, limit, subcategoryId);
-  }, [loadProductsByCategory, subcategoryId]);
+    loadProductsByCategory(page, limit, sort, filters, subcategoryId);
+  }, [loadProductsByCategory, page, limit, sort, filters, subcategoryId]);
 
   if (errors)
     return <div className={styles.main}>
@@ -42,7 +58,7 @@ const ProductList = ({subcategoryId, brands, productsIds, loadProductsByCategory
             <ProductFilter brands={brands}/>
           </Col>
           <Col lg={9}>
-            <ProductSort/>
+            <ProductSort sortVariants={sortVariants} limitVariants={limitVariants}/>
             <Row xs={1}>
               {
                 productsIds.map(id => (
@@ -53,6 +69,7 @@ const ProductList = ({subcategoryId, brands, productsIds, loadProductsByCategory
                 )
               }
             </Row>
+            <Pagination limitVariants={limitVariants}/>
           </Col>
         </Row>
       </Container>
@@ -64,7 +81,10 @@ const mapStateToProps = (state, props) => ({
   productsIds: productsIdsByCategorySelector(state, props),
   loading: loadingProductsSelector(state, props),
   errors: errorProductsSelector(state, props),
-  brands: brandsByProductsSelector(state, props),
-  queryParams: routerSelector(state).location.query
+  brands: brandsListSelector(state, props),
+  limit: productsLimitSelector(state, props),
+  sort: productsSortSelector(state, props),
+  page: productsPageSelector(state, props),
+  filters: productsFiltersSelector(state, props),
 });
 export default connect(mapStateToProps, {loadProductsByCategory})(ProductList);

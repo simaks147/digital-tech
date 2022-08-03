@@ -62,17 +62,10 @@ const ProductsList = ({
         <Button as={Link} to={ADMIN_PRODUCT_ROUTE} className='mb-4'>New Product</Button>
         <Row className="align-items-start">
           <Col lg={3}>
-            <ProductFilter
-              brands={brands}
-              subcategories={subcategories}
-            />
+            <ProductFilter brands={brands} subcategories={subcategories}/>
           </Col>
           <Col lg={9}>
-            <ProductSort
-              showGridSwitcher={false}
-              sortVariants={sortVariants}
-              limitVariants={limitVariants}
-            />
+            <ProductSort showGridSwitcher={false} sortVariants={sortVariants} limitVariants={limitVariants}/>
             <div className={styles.list}>
               {
                 products.map(item => <ProductItem key={item.slug} product={item}/>)

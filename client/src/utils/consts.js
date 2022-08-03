@@ -18,6 +18,10 @@ export const BASKET_VIEWS = {
   completed: 'Completed'
 };
 
+export const PRODUCTS_LIMIT_VARIANTS = ['3', '6', 'all']
+export const PRODUCTS_SORT_VARIANTS = ['title', 'price', 'newest', 'rating'];
+export const PRODUCTS_RATING_VARIANTS = [1, 2, 3, 4, 5];
+
 export const REGISTRATION_FIELDS = [
   {id: 'username', label: 'Username', type: 'text', name: 'username', placeholder: 'Username', maxLength: 50, required: true},
   {

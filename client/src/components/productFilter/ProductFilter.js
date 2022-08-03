@@ -14,8 +14,9 @@ import {ReactComponent as StarFullIcon} from "../../icons/star-full-icon.svg";
 import InputRange from "react-input-range";
 import 'react-input-range/lib/css/index.css';
 import useProductFilters from "../../hooks/use-product-filters";
+import {PRODUCTS_RATING_VARIANTS} from "../../utils/consts";
 
-const ProductFilter = ({brands, changeProductPageLocation, filters, subcategories, minPrice, maxPrice}) => {
+const ProductFilter = ({brands, subcategories, changeProductPageLocation, filters, minPrice, maxPrice}) => {
   const {currentFilters, changeBrand, changeCategory, changeRating, changePrice} = useProductFilters({
     brand: filters.brand || [],
     subcategoryId: filters.subcategoryId || [],
@@ -34,64 +35,70 @@ const ProductFilter = ({brands, changeProductPageLocation, filters, subcategorie
             <Accordion.Header>Filter by Price</Accordion.Header>
             <Accordion.Body>
               <form>
-              <InputRange
-                minValue={minPrice}
-                maxValue={maxPrice}
-                allowSameValues={true}
-                // formatLabel={value => `${value} kg`}
-                value={{min: currentFilters.minPrice, max: currentFilters.maxPrice}}
-                onChange={value => changePrice(value)}
-              />
+                <InputRange
+                  minValue={minPrice}
+                  maxValue={maxPrice}
+                  allowSameValues={true}
+                  formatLabel={value => `$${value}`}
+                  value={{min: currentFilters.minPrice, max: currentFilters.maxPrice}}
+                  onChange={value => changePrice(value)}
+                />
               </form>
             </Accordion.Body>
           </Accordion.Item>
 
-          <Accordion.Item eventKey={1}>
-            <Accordion.Header>Filter by Category</Accordion.Header>
-            <Accordion.Body>
-              {
-                subcategories.map((category) => {
-                  const {slug, title} = category;
-                  const active = currentFilters.subcategoryId?.includes(slug);
+          {
+            subcategories?.length > 0 &&
+            <Accordion.Item eventKey={1}>
+              <Accordion.Header>Filter by Category</Accordion.Header>
+              <Accordion.Body>
+                {
+                  subcategories.map((category) => {
+                    const {slug, title} = category;
+                    const active = currentFilters.subcategoryId?.includes(slug);
 
-                  return <Checkbox
-                    key={slug}
-                    id={slug}
-                    active={active}
-                    disabled={false}
-                    handleChange={() => changeCategory(slug, active)}>{title}</Checkbox>
-                })
-              }
-            </Accordion.Body>
-          </Accordion.Item>
+                    return <Checkbox
+                      key={slug}
+                      id={slug}
+                      active={active}
+                      disabled={false}
+                      handleChange={() => changeCategory(slug, active)}>{title}</Checkbox>
+                  })
+                }
+              </Accordion.Body>
+            </Accordion.Item>
+          }
 
-          <Accordion.Item eventKey={2}>
-            <Accordion.Header>Filter by Brand</Accordion.Header>
-            <Accordion.Body>
-              {
-                brands.map((brand) => {
-                  const {id, title} = brand;
-                  const active = currentFilters.brand?.includes(id);
+          {
+            brands?.length > 0 &&
+            <Accordion.Item eventKey={2}>
+              <Accordion.Header>Filter by Brand</Accordion.Header>
+              <Accordion.Body>
+                {
+                  brands.map((brand) => {
+                    const {id, title} = brand;
+                    const active = currentFilters.brand?.includes(id);
 
-                  return <Checkbox
-                    key={id}
-                    id={id}
-                    active={active}
-                    disabled={false}
-                    handleChange={() => changeBrand(id, active)}>{title}</Checkbox>
-                })
-              }
-            </Accordion.Body>
-          </Accordion.Item>
+                    return <Checkbox
+                      key={id}
+                      id={id}
+                      active={active}
+                      disabled={false}
+                      handleChange={() => changeBrand(id, active)}>{title}</Checkbox>
+                  })
+                }
+              </Accordion.Body>
+            </Accordion.Item>
+          }
 
           <Accordion.Item eventKey={3}>
             <Accordion.Header>Filter by Rating</Accordion.Header>
             <Accordion.Body>
               {
-                [1, 2, 3, 4, 5].map(rating => {
+                PRODUCTS_RATING_VARIANTS.map(rating => {
                   const active = currentFilters.rating === rating;
 
-                  const stars = [...Array(5)].map((_, j) => {
+                  const stars = [...Array(PRODUCTS_RATING_VARIANTS.length)].map((_, j) => {
                     if (j >= rating) return null;
 
                     return <StarFullIcon key={j}/>;
@@ -112,7 +119,9 @@ const ProductFilter = ({brands, changeProductPageLocation, filters, subcategorie
         <Button className='c-button'
                 onClick={() => changeProductPageLocation('filters', filtersToString(currentFilters))}>Refine
           Search</Button>
-        <div className={styles.resetButton} onClick={() => changeProductPageLocation('filters', filtersToString())}>Reset Setting</div>
+        <div className={styles.resetButton}
+             onClick={() => changeProductPageLocation('filters', filtersToString())}>Reset Setting
+        </div>
       </div>
     </div>
   );

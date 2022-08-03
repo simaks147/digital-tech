@@ -1,12 +1,13 @@
 import React from 'react';
 import AdminLayout from "../components/admin/AdminLayout";
 import ProductsList from "../components/admin/productsList";
+import {PRODUCTS_LIMIT_VARIANTS, PRODUCTS_SORT_VARIANTS} from "../utils/consts";
 
 const AdminProductPage = () => (
   <AdminLayout>
     <ProductsList
-      limitVariants={['3', '6', 'all']}
-      sortVariants={['title', 'price', 'newest', 'rating']}
+      limitVariants={PRODUCTS_LIMIT_VARIANTS}
+      sortVariants={PRODUCTS_SORT_VARIANTS}
     />
   </AdminLayout>
 );

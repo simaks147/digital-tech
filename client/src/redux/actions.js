@@ -112,7 +112,7 @@ export const changeProductPageLocation = (attr, param) => async (dispatch, getSt
 
   if (searchParams.filters) searchParams.filters = decodeURIComponent(searchParams.filters);
 
-  dispatch(push(`${ADMIN_ROUTE}?${new URLSearchParams({...searchParams})}`));
+  dispatch(push(`${window.location.pathname}?${new URLSearchParams({...searchParams})}`));
 };
 
 export const loadProductsList = (page, limit, sort, filters) => {
@@ -134,22 +134,22 @@ const _loadProductsByCategory = (searchParams, subcategoryId) => ({
   subcategoryId
 });
 
-export const loadProductsByCategory = (page, limit, subcategoryId) => async (dispatch, getState) => {
+export const loadProductsByCategory = (page, limit, sort, filters, subcategoryId) => async (dispatch, getState) => {
   let state = getState();
-  const subcategories = subcategoriesSelector(state);
+  // const subcategories = subcategoriesSelector(state);
   const categoryId = activeCategoryBySubcategorySelector(state, {subcategoryId});
 
   const searchParams = {};
   if (page) searchParams.page = page;
   if (limit) searchParams.limit = limit;
+  if (sort) searchParams.sort = sort;
   if (subcategoryId) searchParams.subcategoryId = subcategoryId;
 
+  // if (!subcategories[subcategoryId]) {
+  await dispatch(_loadProductsByCategory({...searchParams, ...filters}, subcategoryId));
+  // }
 
-  if (!subcategories[subcategoryId]) {
-    await dispatch(_loadProductsByCategory(searchParams, subcategoryId));
-  }
-
-  await dispatch(_setActiveCategory(subcategoryId, categoryId));
+  dispatch(_setActiveCategory(subcategoryId, categoryId));
 };
 
 const _loadProduct = (id) => ({
@@ -190,10 +190,10 @@ export const loadReviews = (productId) => async (dispatch, getState) => {
   }
 };
 
- const _addReview = (values, productId) => ({
-   type: ADD_REVIEW,
-   productId,
-   values: {...values, productId}
+const _addReview = (values, productId) => ({
+  type: ADD_REVIEW,
+  productId,
+  values: {...values, productId}
 });
 
 // const _createReview = (values, productId) => ({
