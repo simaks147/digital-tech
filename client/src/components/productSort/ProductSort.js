@@ -8,7 +8,7 @@ import cn from "classnames";
 import {productsLimitSelector, productsSortSelector} from "../../redux/selectors";
 import {changeProductPageLocation} from "../../redux/actions";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
-import {windowSize} from "../../config";
+import {windowWidth} from "../../config";
 import useWindowSize from "../../hooks/use-window-size";
 
 const ProductSort = ({
@@ -17,9 +17,11 @@ const ProductSort = ({
                        limitVariants,
                        changeProductPageLocation,
                        limit,
-                       sort
+                       sort,
+                       productView,
+                       changeProductView
                      }) => {
-  const {width: windowWidth} = useWindowSize();
+  const {width} = useWindowSize();
 
   return (
     <div className={styles.main}>
@@ -48,12 +50,12 @@ const ProductSort = ({
         </Dropdown>
       </div>
       {
-        showGridSwitcher && windowWidth >= windowSize.sm &&
+        showGridSwitcher && width >= windowWidth.md &&
         <div className={styles.view}>
-          <span className={styles.viewItem}>
+          <span className={cn(styles.viewItem, {active: productView === 'grid'})} onClick={() => changeProductView('grid')}>
             <GridIcon/>
           </span>
-            <span className={cn(styles.viewItem, 'active')}>
+          <span className={cn(styles.viewItem, {active: productView === 'list'})} onClick={() => changeProductView('list')}>
             <ListIcon/>
           </span>
         </div>

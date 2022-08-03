@@ -4,7 +4,7 @@ export const images = {
   publicKey: process.env.REACT_APP_IMAGEKIT_PUBLIC_KEY
 };
 
-export const windowSize = {
+export const windowWidth = {
   sm: 576,
   md: 768,
   lg: 992,

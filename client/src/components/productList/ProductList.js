@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, Col, Container, Row} from "react-bootstrap";
 import ProductItem from "./productItem";
 import {
@@ -18,6 +18,8 @@ import ProductFilter from "../productFilter";
 import styles from './productList.module.css';
 import ProductSort from "../productSort";
 import Pagination from "../pagination/Pagination";
+import useWindowSize from "../../hooks/use-window-size";
+import {windowWidth} from "../../config";
 
 const ProductList = ({
                        subcategoryId,
@@ -36,6 +38,10 @@ const ProductList = ({
   useEffect(() => {
     loadProductsByCategory(page, limit, sort, filters, subcategoryId);
   }, [loadProductsByCategory, page, limit, sort, filters, subcategoryId]);
+
+  const {width} = useWindowSize();
+
+  const [view, setView] = useState('list');
 
   if (errors)
     return <div className={styles.main}>
@@ -58,8 +64,13 @@ const ProductList = ({
             <ProductFilter brands={brands}/>
           </Col>
           <Col lg={9}>
-            <ProductSort sortVariants={sortVariants} limitVariants={limitVariants}/>
-            <Row xs={1}>
+            <ProductSort
+              sortVariants={sortVariants}
+              limitVariants={limitVariants}
+              productView={view}
+              changeProductView={setView}
+            />
+            <Row xs={view === 'list' || width < windowWidth.md ? 1 : 3}>
               {
                 productsIds.map(id => (
                     <Col key={id}>
