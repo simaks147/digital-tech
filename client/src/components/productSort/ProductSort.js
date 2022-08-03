@@ -8,8 +8,19 @@ import cn from "classnames";
 import {productsLimitSelector, productsSortSelector} from "../../redux/selectors";
 import {changeProductPageLocation} from "../../redux/actions";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
+import {windowSize} from "../../config";
+import useWindowSize from "../../hooks/use-window-size";
 
-const ProductSort = ({showGridSwitcher = true, sortVariants, limitVariants, changeProductPageLocation, limit, sort}) => {
+const ProductSort = ({
+                       showGridSwitcher = true,
+                       sortVariants,
+                       limitVariants,
+                       changeProductPageLocation,
+                       limit,
+                       sort
+                     }) => {
+  const {width: windowWidth} = useWindowSize();
+
   return (
     <div className={styles.main}>
       <div className={styles.order}>
@@ -18,7 +29,8 @@ const ProductSort = ({showGridSwitcher = true, sortVariants, limitVariants, chan
           <Dropdown.Toggle className={styles.toggle}>{capitalizeFirstLetter(sort)}</Dropdown.Toggle>
           <Dropdown.Menu className={styles.menu}>
             {
-                sortVariants.map((srt) => <Dropdown.Item className={styles.item} key={srt} eventKey={srt} active={srt === sort}>{capitalizeFirstLetter(srt)}</Dropdown.Item>)
+              sortVariants.map((srt) => <Dropdown.Item className={styles.item} key={srt} eventKey={srt}
+                                                       active={srt === sort}>{capitalizeFirstLetter(srt)}</Dropdown.Item>)
             }
           </Dropdown.Menu>
         </Dropdown>
@@ -29,20 +41,21 @@ const ProductSort = ({showGridSwitcher = true, sortVariants, limitVariants, chan
           <Dropdown.Toggle className={styles.toggle}>{capitalizeFirstLetter(limit)}</Dropdown.Toggle>
           <Dropdown.Menu className={styles.menu}>
             {
-              limitVariants.map((lim) => <Dropdown.Item className={styles.item} key={lim} eventKey={lim} active={lim === limit}>{capitalizeFirstLetter(lim)}</Dropdown.Item>)
+              limitVariants.map((lim) => <Dropdown.Item className={styles.item} key={lim} eventKey={lim}
+                                                        active={lim === limit}>{capitalizeFirstLetter(lim)}</Dropdown.Item>)
             }
           </Dropdown.Menu>
         </Dropdown>
       </div>
       {
-        showGridSwitcher &&
+        showGridSwitcher && windowWidth >= windowSize.sm &&
         <div className={styles.view}>
-        <span className={styles.viewItem}>
-          <GridIcon/>
-        </span>
-          <span className={cn(styles.viewItem, 'active')}>
-          <ListIcon/>
-        </span>
+          <span className={styles.viewItem}>
+            <GridIcon/>
+          </span>
+            <span className={cn(styles.viewItem, 'active')}>
+            <ListIcon/>
+          </span>
         </div>
       }
     </div>

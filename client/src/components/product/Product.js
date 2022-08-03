@@ -51,6 +51,15 @@ const Product = ({products, id, product, order, token, increaseCart, push, loadP
                 </div>
                 <div className={styles.overallSubtitle}>{reviews?.length || product.rating.reviewsCount} Reviews</div>
               </div>
+              <div className={styles.spec}>
+                {
+                  [...Array(3)].map((_, i) =>
+                    <div className={styles.specItem} key={i}>
+                      <span className={styles.specItemTitle}>{product.specification[i].title}: </span>
+                      <span className={styles.specItemDesc}>{product.specification[i].description}</span>
+                    </div>)
+                }
+              </div>
               <div className={styles.price}>${product.price}</div>
               {
                 order[product.slug]
