@@ -123,6 +123,14 @@ body {
     background-color: var(--bs-gray-200) !important;
 }
 
+.page-item .page-link {
+    color: var(--bs-gray-600);
+}
+
+.page-item.active .page-link {
+    background-color: var(--c-color1);
+    border-color: var(--c-color1);
+}
 
 @media (min-width: 1200px) {
     .container {
