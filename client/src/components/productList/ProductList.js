@@ -74,7 +74,7 @@ const ProductList = ({
               {
                 productsIds.map(id => (
                     <Col key={id}>
-                      <ProductItem id={id}/>
+                      <ProductItem id={id} view={view}/>
                     </Col>
                   )
                 )
