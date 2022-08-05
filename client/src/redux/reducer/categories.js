@@ -1,4 +1,3 @@
-// import {categories} from "../../fixtures";
 import {arrToMap} from "../utils";
 import {
   LOAD_CATEGORIES,
@@ -14,11 +13,12 @@ const initialState = {
   loading: false,
   loaded: false,
   error: null,
-  active: null
+  active: null,
+  activeSubcategory: null
 }
 
 export default (state = initialState, action) => {
-  const {type, categoryId, data, error} = action;
+  const {type, categoryId, subcategoryId, data, error} = action;
 
   switch (type) {
     case LOAD_CATEGORIES + REQUEST:
@@ -44,12 +44,14 @@ export default (state = initialState, action) => {
     case SET_ACTIVE_CATEGORIES:
       return {
         ...state,
-        active: categoryId
+        active: categoryId,
+        activeSubcategory: subcategoryId
       }
     case ROUTER_LOCATION_CHANGE:
       return {
         ...state,
-        active: null
+        active: null,
+        activeSubcategory: null
       }
     default:
       return state;

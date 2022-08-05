@@ -5,7 +5,6 @@ export const brandsSelector = (state) => state.brands.entities;
 export const productsSelector = (state) => state.products.entities;
 export const reviewsSelector = (state) => state.reviews;
 export const orderSelector = (state) => state.order.entities;
-export const subcategoriesSelector = (state) => state.subcategories.entities;
 export const routerSelector = (state) => state.router;
 export const queryParamsSelector = (state) => state.router.location.query;
 
@@ -31,13 +30,12 @@ export const errorOrderSelector = (state) => state.order.error;
 export const productSelector = (state, {id}) => productsSelector(state)[id];
 
 export const activeCategorySelector = (state) => state.categories.active;
-export const activeSubcategorySelector = (state) => state.subcategories.active;
+export const activeSubcategorySelector = (state) => state.categories.activeSubcategory;
 
 export const reviewsByProductSelector = (state, id) => reviewsSelector(state)[id]?.entities;
 
 export const loginSelector = (state) => state.auth.login;
 export const tokenSelector = (state) => state.auth.token;
-export const oauthSelector = (state) => state.auth.oauth;
 export const oauthCallbackSelector = (state) => state.auth.oauthCallback;
 export const registrationSelector = (state) => state.auth.registration;
 export const confirmationSelector = (state) => state.auth.confirmation;
@@ -125,20 +123,14 @@ export const ratingSelector = createSelector(
   })
 );
 
-export const brandsByProductsSelector = createSelector(
-  brandsListSelector,
-  productsListSelector,
-  activeSubcategorySelector,
-  (brands, products, activeCategory) => brands
-    .filter(brand => products
-      .filter(prod => prod.subcategoryId === activeCategory)
-      .find(prod => prod.brand.id === brand.id)
-    )
-);
-
 export const subcategoriesListSelector = createSelector(
   categoriesListSelector,
   categories => categories.flatMap(category => category.subcategory)
+);
+
+export const subcategoriesSelector = createSelector(
+  subcategoriesListSelector,
+  categories => categories.reduce((acc, category) => ({...acc, [category.slug]: category}), {})
 );
 
 export const productsLimitSelector = createSelector(

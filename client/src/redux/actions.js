@@ -30,13 +30,13 @@ import {
 import {
   ADMIN_ROUTE,
   BASKET_ROUTE_CHECKOUT,
-  BASKET_ROUTE_COMPLETED
+  BASKET_ROUTE_COMPLETED,
+  ERROR_ROUTE
 } from "../utils/consts";
 
 import {
   activeCategoryBySubcategorySelector,
   activeSubCategoryByProductSelector,
-  subcategoriesSelector,
   loginSelector,
   registrationSelector,
   profileSelector,
@@ -136,7 +136,6 @@ const _loadProductsByCategory = (searchParams, subcategoryId) => ({
 
 export const loadProductsByCategory = (page, limit, sort, filters, subcategoryId) => async (dispatch, getState) => {
   let state = getState();
-  // const subcategories = subcategoriesSelector(state);
   const categoryId = activeCategoryBySubcategorySelector(state, {subcategoryId});
 
   const searchParams = {};
@@ -145,9 +144,7 @@ export const loadProductsByCategory = (page, limit, sort, filters, subcategoryId
   if (sort) searchParams.sort = sort;
   if (subcategoryId) searchParams.subcategoryId = subcategoryId;
 
-  // if (!subcategories[subcategoryId]) {
   await dispatch(_loadProductsByCategory({...searchParams, ...filters}, subcategoryId));
-  // }
 
   dispatch(_setActiveCategory(subcategoryId, categoryId));
 };
@@ -163,7 +160,12 @@ export const loadProduct = (id) => async (dispatch, getState) => {
   const products = productsSelector(state);
 
   if (!products[id]) {
-    await dispatch(_loadProduct(id));
+    try {
+      await dispatch(_loadProduct(id));
+    }
+    catch {
+      dispatch(replace(ERROR_ROUTE));
+    }
   }
 
   state = getState();

@@ -68,7 +68,7 @@ module.exports.productsList = async (ctx) => {
     .limit(limit)
     .populate('brand');
 
-  if (!products.length) ctx.throw(404, 'No products for to the specified parameters');
+  // if (!products.length) ctx.throw(404, 'No products for to the specified parameters');
 
   const totalCount = await Product.countDocuments(params);
 
@@ -92,7 +92,7 @@ module.exports.productBySlug = async (ctx) => {
 
   const product = await Product.findOne({slug}).populate('brand');
 
-  if (!product) ctx.throw(404, 'No such product');
+  if (!product) ctx.throw(404, `No such product: '${slug}'`);
 
   ctx.body = {product: mapProduct(product)};
 };

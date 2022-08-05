@@ -2,13 +2,14 @@ import React from 'react';
 import ProductList from "../components/productList";
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
-import {categoriesListSelector} from "../redux/selectors";
-import {CATEGORY_ROUTE} from "../utils/consts";
+import {categoriesListSelector, subcategoriesSelector} from "../redux/selectors";
+import {CATEGORY_ROUTE, ERROR_ROUTE} from "../utils/consts";
 import Layout from "../components/Layout";
 import {PRODUCTS_LIMIT_VARIANTS, PRODUCTS_SORT_VARIANTS} from "../utils/consts";
 
-const CategoryPage = ({match, categories}) => {
-  if (!match.params.slug) return <Redirect to={`${CATEGORY_ROUTE}/${categories[0].subcategory[0].slug}`}/>
+const CategoryPage = ({match, subcategories}) => {
+  if (!match.params.slug) return <Redirect to={`${CATEGORY_ROUTE}/${subcategories[0].slug}`}/>
+  if (!subcategories[match.params.slug]) return <Redirect to={ERROR_ROUTE}/>
 
   return (
     <Layout>
@@ -22,7 +23,8 @@ const CategoryPage = ({match, categories}) => {
 };
 
 const mapStateToProps = (state) => ({
-  categories: categoriesListSelector(state)
+  categories: categoriesListSelector(state),
+  subcategories: subcategoriesSelector(state)
 });
 
 export default connect(mapStateToProps)(CategoryPage);

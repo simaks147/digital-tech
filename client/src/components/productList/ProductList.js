@@ -70,16 +70,22 @@ const ProductList = ({
               productView={view}
               changeProductView={setView}
             />
-            <Row xs={view === 'list' || width < windowWidth.md ? 1 : 3}>
-              {
-                productsIds.map(id => (
-                    <Col key={id}>
-                      <ProductItem id={id} view={view}/>
-                    </Col>
-                  )
-                )
-              }
-            </Row>
+            {
+              productsIds.length > 0
+                ?
+                <Row xs={view === 'list' || width < windowWidth.md ? 1 : 3}>
+                  {
+                    productsIds.map(id => (
+                        <Col key={id}>
+                          <ProductItem id={id} view={view}/>
+                        </Col>
+                      )
+                    )
+                  }
+                </Row>
+                :
+                <Alert variant="primary">No products for to the specified parameters</Alert>
+            }
             <Pagination limitVariants={limitVariants}/>
           </Col>
         </Row>

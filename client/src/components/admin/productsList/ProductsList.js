@@ -66,11 +66,17 @@ const ProductsList = ({
           </Col>
           <Col lg={9}>
             <ProductSort showGridSwitcher={false} sortVariants={sortVariants} limitVariants={limitVariants}/>
-            <div className={styles.list}>
-              {
-                products.map(item => <ProductItem key={item.slug} product={item}/>)
-              }
-            </div>
+            {
+              products.length > 0
+                ?
+                <div className={styles.list}>
+                  {
+                    products.map(item => <ProductItem key={item.slug} product={item}/>)
+                  }
+                </div>
+                :
+                <Alert variant="primary">No products for to the specified parameters</Alert>
+            }
             <Pagination limitVariants={limitVariants}/>
           </Col>
         </Row>

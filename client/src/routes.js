@@ -4,6 +4,7 @@ import {
   BASKET_ROUTE_CHECKOUT,
   BASKET_ROUTE_COMPLETED,
   HOME_ROUTE,
+  ERROR_ROUTE,
   LOGIN_ROUTE,
   REGISTER_ROUTE,
   CONFIRM_ROUTE,
@@ -15,6 +16,7 @@ import {
 } from "./utils/consts";
 import BasketPage from "./pages/BasketPage";
 import HomePage from "./pages/HomePage";
+import ErrorPage from "./pages/ErrorPage";
 import LoginPage from "./pages/LoginPage";
 import OauthCallbackPage from "./pages/OauthCallbackPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -29,6 +31,10 @@ const routes = [
   {
     path: HOME_ROUTE,
     Component: HomePage
+  },
+  {
+    path: ERROR_ROUTE,
+    Component: ErrorPage
   },
   {
     path: LOGIN_ROUTE,
