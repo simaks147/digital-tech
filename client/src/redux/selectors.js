@@ -10,9 +10,11 @@ export const queryParamsSelector = (state) => state.router.location.query;
 
 export const loadingCategoriesSelector = (state) => state.categories.loading;
 export const loadedCategoriesSelector = (state) => state.categories.loaded;
+export const errorCategoriesSelector = (state) => state.categories.error;
 
 export const loadingBrandsSelector = (state) => state.brands.loading;
 export const loadedBrandsSelector = (state) => state.brands.loaded;
+export const errorBrandsSelector = (state) => state.brands.error;
 
 export const loadingProductsSelector = (state) => state.products.loading;
 export const processingProductsSelector = (state) => state.products.processing;
@@ -23,6 +25,7 @@ export const maxPriceProductsSelector = (state) => state.products.maxPrice;
 
 export const loadingReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.loading;
 export const loadedReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.loaded;
+export const errorReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.error;
 
 export const processingOrderSelector = (state) => state.order.processing;
 export const errorOrderSelector = (state) => state.order.error;
@@ -39,7 +42,10 @@ export const tokenSelector = (state) => state.auth.token;
 export const oauthCallbackSelector = (state) => state.auth.oauthCallback;
 export const registrationSelector = (state) => state.auth.registration;
 export const confirmationSelector = (state) => state.auth.confirmation;
+
 export const profileSelector = (state) => state.auth.profile;
+export const fetchingProfileSelector = (state) => profileSelector(state).fetching;
+export const errorProfileSelector = (state) => profileSelector(state).error;
 
 export const activeNavSelector = (state) => state.nav.active
 

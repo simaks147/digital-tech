@@ -1,4 +1,4 @@
-import {arrToMap} from "../utils";
+import {arrToMap, objToArr} from "../utils";
 import {
   LOAD_BRANDS,
   REQUEST,
@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: false,
-        error
+        error: objToArr(error.error)
       }
     default:
       return state;

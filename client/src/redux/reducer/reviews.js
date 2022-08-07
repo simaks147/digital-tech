@@ -6,6 +6,7 @@ import {
   FAILURE,
   ADD_REVIEW
 } from "../consts";
+import {objToArr} from "../utils";
 
 const storageReviews = JSON.parse(localStorage.getItem('addedReviews')) || {};
 
@@ -25,13 +26,12 @@ export default (state = {}, action) =>
         draft[productId].loading = false;
         draft[productId].loaded = true;
         draft[productId].entities = storageReviews?.[productId] ? [].concat(storageReviews[productId].entitie, data.reviews) : data.reviews;
-        // draft[productId].entities = data.reviews;
         break;
 
       case LOAD_REVIEWS + FAILURE:
         draft[productId].loading = false;
         draft[productId].loaded = false;
-        draft[productId].error = error;
+        draft[productId].error = objToArr(error.error);
         break;
 
       case ADD_REVIEW:

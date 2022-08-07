@@ -1,9 +1,10 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import styles from "./productReviews.module.css";
-import {Row, Col, FloatingLabel, Form} from "react-bootstrap";
+import {Row, Col, FloatingLabel, Form, Alert} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import cn from "classnames";
 import {
+  errorReviewsByProductSelector,
   loadedReviewsByProductSelector,
   loadingReviewsByProductSelector,
   ratingSelector,
@@ -18,7 +19,7 @@ import {REVIEW_FIELDS} from "../../../utils/consts";
 import Loader from "../../loader";
 import Checkbox from "../../checkbox";
 
-const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, rating, createReview}) => {
+const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, rating, createReview, errors}) => {
   useEffect(() => {
     loadReviews();
   }, [loadReviews]);
@@ -69,7 +70,17 @@ const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, ratin
 
   if (loading) return <Loader/>;
 
-  if (!loaded) return 'Error!!!';
+  if (errors) return (
+    <>
+      {
+        errors.map((err, i) => (
+          <Alert variant="danger" key={i}>{err}</Alert>
+        ))
+      }
+    </>
+  );
+
+  if (!loaded) return null;
 
   const storageReviews = JSON.parse(localStorage.getItem('addedReviews'));
   const defaultDisplayCount = 3;
@@ -185,7 +196,8 @@ const mapStateToProps = (state, props) => ({
   reviews: reviewsByProductSelector(state, props.productId),
   loading: loadingReviewsByProductSelector(state, props),
   loaded: loadedReviewsByProductSelector(state, props),
-  rating: ratingSelector(state, props.productId)
+  rating: ratingSelector(state, props.productId),
+  errors: errorReviewsByProductSelector(state, props)
 })
 
 const mapDispatchToProps = (dispatch, props) => ({

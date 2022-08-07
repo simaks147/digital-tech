@@ -129,7 +129,6 @@ export const loadProductsList = (page, limit, sort, filters) => {
 
 const _loadProductsByCategory = (searchParams, subcategoryId) => ({
   type: LOAD_PRODUCTS,
-  // CallApi: `/api/products?subcategoryId=${id}`,
   CallApi: `/api/products?${new URLSearchParams({...searchParams, subcategoryId})}`,
   subcategoryId
 });
@@ -144,9 +143,13 @@ export const loadProductsByCategory = (page, limit, sort, filters, subcategoryId
   if (sort) searchParams.sort = sort;
   if (subcategoryId) searchParams.subcategoryId = subcategoryId;
 
-  await dispatch(_loadProductsByCategory({...searchParams, ...filters}, subcategoryId));
+  try {
+    await dispatch(_loadProductsByCategory({...searchParams, ...filters}, subcategoryId));
 
-  dispatch(_setActiveCategory(subcategoryId, categoryId));
+    dispatch(_setActiveCategory(subcategoryId, categoryId));
+  } catch (e) {
+    dispatch(replace(ERROR_ROUTE));
+  }
 };
 
 const _loadProduct = (id) => ({
@@ -162,8 +165,7 @@ export const loadProduct = (id) => async (dispatch, getState) => {
   if (!products[id]) {
     try {
       await dispatch(_loadProduct(id));
-    }
-    catch {
+    } catch {
       dispatch(replace(ERROR_ROUTE));
     }
   }
@@ -198,6 +200,8 @@ const _addReview = (values, productId) => ({
   values: {...values, productId}
 });
 
+///// FOR REAL REVIEW CREATION IN DB!
+
 // const _createReview = (values, productId) => ({
 //   type: CREATE_REVIEW,
 //   CallApi: '/api/reviews',
@@ -207,6 +211,7 @@ const _addReview = (values, productId) => ({
 
 export const createReview = (values, productId) => async (dispatch) => {
   await dispatch(_addReview(values, productId));
+  ///// FOR REAL REVIEW CREATION IN DB!
 
   // const {id, date, ...rest} = values;
 

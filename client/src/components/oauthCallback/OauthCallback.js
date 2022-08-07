@@ -13,7 +13,7 @@ const OauthCallback = ({token, oauthCallback, oauthCallbackAction}) => {
   const params = new URLSearchParams(window.location.search);
 
   useEffect(() => {
-    if (params.get('error')) return;
+    if (params.get('error') || token) return;
     oauthCallbackAction(provider, params.get('code'));
   }, []);
 

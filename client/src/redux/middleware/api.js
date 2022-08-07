@@ -17,7 +17,8 @@ export default (store) => (next) => async (action) => {
     const res = await fetch(CallApi, params);
 
     if (res.status === 404) {
-      throw {error: {message: `Invalid request for address ${res.url}`}};
+      // throw {error: {message: `Invalid request for address ${res.url}`}};
+      throw {error: {message: 'An error occurred, please try again later'}};
     }
 
     if (res.status === 401) {

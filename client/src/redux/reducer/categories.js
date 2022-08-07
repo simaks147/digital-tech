@@ -1,4 +1,4 @@
-import {arrToMap} from "../utils";
+import {arrToMap, objToArr} from "../utils";
 import {
   LOAD_CATEGORIES,
   REQUEST,
@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: false,
-        error
+        error: objToArr(error.error)
       }
     case SET_ACTIVE_CATEGORIES:
       return {

@@ -41,7 +41,8 @@ const initialState = {
   },
   profile: {
     fetching: false,
-    data: null
+    data: null,
+    error: null
   }
 };
 
@@ -135,6 +136,11 @@ export default (state = initialState, action) =>
       case FETCH_PROFILE + SUCCESS:
         draft.profile = data;
         draft.profile.fetching = false;
+        break;
+
+      case FETCH_PROFILE + FAILURE:
+        draft.profile.fetching = false;
+        draft.profile.error = objToArr(error.error);
         break;
 
       case ROUTER_LOCATION_CHANGE:
