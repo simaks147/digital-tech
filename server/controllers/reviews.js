@@ -1,6 +1,6 @@
 const Review = require('../models/Review');
 const Product = require('../models/Product');
-const {mapReview} = require('../utils/mappers');
+const {mapReview, mapCategory} = require('../utils/mappers');
 
 module.exports.reviewsByProduct = async (ctx) => {
   const {id} = ctx.query;
@@ -34,5 +34,9 @@ module.exports.createReview = async (ctx) => {
     }
   });
 
-  ctx.body = {review: mapReview(review)};
+  ctx.body = await new Promise(resolve => {
+    setTimeout(() => {
+      resolve({review: mapReview(review)});
+    }, 2000);
+  });
 }
