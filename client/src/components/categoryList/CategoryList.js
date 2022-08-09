@@ -17,9 +17,7 @@ const CategoryList = ({categories, activeNav, closeNav}) => {
     document.body.style.overflow = width < windowWidth.lg && activeNav ? 'hidden' : 'visible';
   }, [activeNav, width]);
 
-  // if (width < windowWidth.lg && !activeNav) return null;
-
-  return (
+  if (width < windowWidth.lg) return (
     <CSSTransition
       in={activeNav || width >= windowWidth.lg}
       timeout={300}
@@ -33,11 +31,24 @@ const CategoryList = ({categories, activeNav, closeNav}) => {
         </div>
         <Nav className={styles.nav}>
           {
-            categories.map((item, i) => <CategoryItem key={item.slug} item={item}/>)
+            categories.map((item) => <CategoryItem key={item.slug} item={item}/>)
           }
         </Nav>
       </div>
     </CSSTransition>
+  );
+
+  return (
+      <div className={styles.main}>
+        <div className={styles.close} onClick={closeNav}>
+          <CloseIcon/>
+        </div>
+        <Nav className={styles.nav}>
+          {
+            categories.map((item) => <CategoryItem key={item.slug} item={item}/>)
+          }
+        </Nav>
+      </div>
   );
 }
 
