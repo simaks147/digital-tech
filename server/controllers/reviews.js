@@ -8,6 +8,12 @@ module.exports.reviewsByProduct = async (ctx) => {
   const reviews = await Review.find({productId: id}).sort({createdAt: 'desc'});
 
   ctx.body = {reviews: reviews.map(mapReview)};
+
+  ctx.body = await new Promise(resolve => {
+    setTimeout(() => {
+      resolve({reviews: reviews.map(mapReview)});
+    }, 2000);
+  });
 };
 
 module.exports.createReview = async (ctx) => {
@@ -34,9 +40,5 @@ module.exports.createReview = async (ctx) => {
     }
   });
 
-  ctx.body = await new Promise(resolve => {
-    setTimeout(() => {
-      resolve({review: mapReview(review)});
-    }, 2000);
-  });
+  ctx.body = {review: mapReview(review)};
 }

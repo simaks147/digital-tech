@@ -24,7 +24,9 @@ import {
   CREATE_PRODUCT,
   DELETE_PRODUCT,
   UPDATE_PRODUCT,
-  CREATE_REVIEW
+  CREATE_REVIEW,
+  LOAD_PRODUCTS_BY_RECOMMENDATIONS,
+  LOAD_PRODUCTS_BY_RELATIONS
 } from "./consts";
 
 import {
@@ -44,6 +46,8 @@ import {
   orderSelector,
   productsSelector,
   queryParamsSelector,
+  loadedRecommendationsSelector,
+  loadingRecommendationsSelector
 } from "./selectors";
 
 export const increaseCart = (id) => ({
@@ -151,6 +155,24 @@ export const loadProductsByCategory = (page, limit, sort, filters, subcategoryId
     dispatch(replace(ERROR_ROUTE));
   }
 };
+
+const _loadRecommendations = () => ({
+  type: LOAD_PRODUCTS_BY_RECOMMENDATIONS,
+  CallApi: '/api/recommendations'
+});
+
+export const loadRecommendations = () => async (dispatch, getState) => {
+  const state = getState();
+  const loading = loadingRecommendationsSelector(state);
+  const loaded = loadedRecommendationsSelector(state);
+
+  if (!loading && !loaded) dispatch(_loadRecommendations());
+};
+
+export const loadRelations = (subcategoryId) => ({
+  type: LOAD_PRODUCTS_BY_RELATIONS,
+  CallApi: `/api/relations?subcategoryId=${subcategoryId}`
+});
 
 const _loadProduct = (id) => ({
   type: LOAD_PRODUCT,

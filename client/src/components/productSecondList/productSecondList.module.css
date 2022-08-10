@@ -1,5 +1,6 @@
 .section {
     margin: 30px 0;
+    position: relative;
 }
 
 .wrap {
@@ -20,6 +21,7 @@
 
 .slider {
     position: relative;
+    min-height: 100px;
 }
 
 .section :global(.swiper-slide) {
@@ -41,7 +43,6 @@
     background-color: white;
     width: 44px;
     height: 44px;
-    /*border: 3px solid;*/
     border-radius: 50%;
     position: absolute;
     top: 92%;
@@ -121,11 +122,6 @@
         box-shadow: 0 0 0 10px white;
         top: 50%;
         transform: translateY(-50%);
-
-        /*top: 50%;*/
-        /*transform: translateY(-50%);*/
-
-        /*box-shadow: 0 0 0 10px white;*/
     }
 
     .section :global(.c-button-prev) {

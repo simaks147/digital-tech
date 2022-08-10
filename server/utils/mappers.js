@@ -1,24 +1,31 @@
 module.exports.mapProduct = (product) => {
-  const {_id, __v, brand, ...rest} = product.toJSON();
+  const {description, images, price, rating, slug, specification, subTitle, subcategoryId, title} = product;
 
-  rest.brand = this.mapBrand(product.brand);
-
-  return rest;
+  return {
+    brand: this.mapBrand(product.brand),
+    description,
+    images,
+    price,
+    rating,
+    slug,
+    specification,
+    subTitle,
+    subcategoryId,
+    title
+  };
 };
 
-module.exports.mapBrand = (brand) => {
-  const {_id, ...rest} = brand.toJSON();
+module.exports.mapBrand = (brand) => ({
+  id: brand._id,
+  title: brand.title
+});
 
-  rest.id = _id;
-
-  return rest;
-};
-
-module.exports.mapCategory = (category) => {
-  const {_id, ...rest} = category.toJSON();
-
-  return rest;
-};
+module.exports.mapCategory = (category) => ({
+  img: category.img,
+  title: category.title,
+  slug: category.slug,
+  subcategory: category.subcategory
+});
 
 module.exports.mapReview = (review) => ({
   id: review.id,

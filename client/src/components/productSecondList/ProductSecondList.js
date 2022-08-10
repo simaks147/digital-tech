@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container} from "react-bootstrap";
+import {Alert, Container} from "react-bootstrap";
 import styles from './productSecondList.module.css';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation, Scrollbar} from 'swiper';
@@ -12,56 +12,44 @@ import ErrorBoundary from "../ErrorBoundary";
 import {IKImage} from "imagekitio-react";
 import {images} from "../../config";
 import {Link} from "react-router-dom";
+import Loader from "../loader";
 
-const ProductSecondList = ({title, products}) => {
+const ProductSecondList = ({title, products, loading, errors}) => {
+  // if (loading) return <Loader/>;
+  //
+  // if (errors) return (
+  //   <div className={styles.section}>
+  //     {
+  //       errors.map((err, i) => (
+  //         <Alert variant="danger" key={i}>{err}</Alert>
+  //       ))
+  //     }
+  //   </div>
+  // );
+
   return (
     <div className={styles.section}>
       <Container>
         <div className={styles.wrap}>
           <div className={styles.header}>{title}</div>
           <div className={styles.slider}>
+            {
+              loading && <Loader/>
+            }
+            {
+              errors?.map((err, i) => (
+                <Alert variant="danger" key={i}>{err}</Alert>
+              ))
+            }
             <Swiper
-              modules={[Navigation]}
+              modules={[Navigation, Scrollbar]}
               slidesPerView={2}
               autoHeight={false}
-              navigation={{
-                prevEl: '.c-button-prev',
-                nextEl: '.c-button-next'
-              }}
+              navigation={{prevEl: '.c-button-prev', nextEl: '.c-button-next'}}
               watchOverflow={false}
               scrollbar={{draggable: true}}
-              breakpoints={
-                {
-                  768: {
-                    slidesPerView: 3
-                  },
-                  992: {
-                    slidesPerView: 4
-                  },
-                }
-              }
+              breakpoints={{768: {slidesPerView: 3}, 992: {slidesPerView: 4},}}
             >
-              {
-                products.map((item) => (
-                  <SwiperSlide key={item.slug}>
-                    <Link to={`${PRODUCT_ROUTE}/${item.slug}`} className={styles.item}>
-                      <Figure className={styles.itemPicture}>
-                        <ErrorBoundary>
-                          <IKImage
-                            urlEndpoint={images.urlEndpoint}
-                            path={item.images[0]}
-                            transformation={[{
-                              height: 220,
-                              width: 220
-                            }]}/>
-                        </ErrorBoundary>
-                      </Figure>
-                      <div className={styles.itemTitle}>{item.title}</div>
-                      <div className={styles.itemPrice}>${item.price}</div>
-                    </Link>
-                  </SwiperSlide>
-                ))
-              }
               {
                 products.map((item) => (
                   <SwiperSlide key={item.slug}>
@@ -91,6 +79,6 @@ const ProductSecondList = ({title, products}) => {
       </Container>
     </div>
   );
-};
+}
 
 export default ProductSecondList;

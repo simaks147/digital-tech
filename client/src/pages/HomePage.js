@@ -3,21 +3,33 @@ import Slider from "../components/slider";
 import Layout from "../components/Layout";
 import ProductSecondList from "../components/productSecondList";
 import {connect} from "react-redux";
-import {loadProductsList} from "../redux/actions";
-import {productsListSelector} from "../redux/selectors";
+import {loadRecommendations} from "../redux/actions";
+import {
+  errorRecommendationsSelector,
+  loadingRecommendationsSelector,
+  recommendationsListSelector
+} from "../redux/selectors";
 
-const HomePage = ({recommendedProducts, loadProductsList}) => {
-  useEffect(loadProductsList, []);
+const HomePage = ({recommendations, loadRecommendations, loadingRecommendations, errorsRecommendations}) => {
+  useEffect(loadRecommendations, []);
+
   return (
     <Layout>
       <Slider/>
-      <ProductSecondList title='Featured Products' products={recommendedProducts}/>
+      <ProductSecondList
+        title='Featured Products'
+        products={recommendations}
+        loading={loadingRecommendations}
+        errors={errorsRecommendations}
+      />
     </Layout>
   );
 }
 
 const mapStateToProps = (state) => ({
-  recommendedProducts: productsListSelector(state),
+  recommendations: recommendationsListSelector(state),
+  loadingRecommendations: loadingRecommendationsSelector(state),
+  errorsRecommendations: errorRecommendationsSelector(state)
 });
 
-export default connect(mapStateToProps, {loadProductsList})(HomePage);
+export default connect(mapStateToProps, {loadRecommendations})(HomePage);

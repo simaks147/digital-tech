@@ -2,7 +2,9 @@ import {createSelector} from "reselect";
 
 export const categoriesSelector = (state) => state.categories.entities;
 export const brandsSelector = (state) => state.brands.entities;
-export const productsSelector = (state) => state.products.entities;
+export const productsSelector = (state) => state.products.common.entities;
+export const recommendationsSelector = (state) => state.products.byRecommendations.entities;
+export const relationsSelector = (state) => state.products.byRelations.entities;
 export const reviewsSelector = (state) => state.reviews;
 export const orderSelector = (state) => state.order.entities;
 export const routerSelector = (state) => state.router;
@@ -16,12 +18,20 @@ export const loadingBrandsSelector = (state) => state.brands.loading;
 export const loadedBrandsSelector = (state) => state.brands.loaded;
 export const errorBrandsSelector = (state) => state.brands.error;
 
-export const loadingProductsSelector = (state) => state.products.loading;
-export const processingProductsSelector = (state) => state.products.processing;
-export const errorProductsSelector = (state) => state.products.error;
-export const totalCountProductsSelector = (state) => state.products.totalCount;
-export const minPriceProductsSelector = (state) => state.products.minPrice;
-export const maxPriceProductsSelector = (state) => state.products.maxPrice;
+export const loadingProductsSelector = (state) => state.products.common.loading;
+export const processingProductsSelector = (state) => state.products.common.processing;
+export const errorProductsSelector = (state) => state.products.common.error;
+export const totalCountProductsSelector = (state) => state.products.common.totalCount;
+export const minPriceProductsSelector = (state) => state.products.common.minPrice;
+export const maxPriceProductsSelector = (state) => state.products.common.maxPrice;
+
+export const loadingRecommendationsSelector = (state) => state.products.byRecommendations.loading;
+export const loadedRecommendationsSelector = (state) => state.products.byRecommendations.loaded;
+export const errorRecommendationsSelector = (state) => state.products.byRecommendations.error;
+
+export const loadingRelationsSelector = (state) => state.products.byRelations.loading;
+export const loadedRelationsSelector = (state) => state.products.byRelations.loaded;
+export const errorRelationsSelector = (state) => state.products.byRelations.error;
 
 export const loadingReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.loading;
 export const loadedReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.loaded;
@@ -61,6 +71,16 @@ export const brandsListSelector = createSelector(
 
 export const productsListSelector = createSelector(
   productsSelector,
+  Object.values
+);
+
+export const recommendationsListSelector = createSelector(
+  recommendationsSelector,
+  Object.values
+);
+
+export const relationsListSelector = createSelector(
+  relationsSelector,
   Object.values
 );
 

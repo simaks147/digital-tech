@@ -10,7 +10,9 @@ const {
   productBySlug,
   createProduct,
   deleteProduct,
-  updateProduct
+  updateProduct,
+  recommendations,
+  relations
 } = require('./controllers/products');
 const {reviewsByProduct, createReview} = require('./controllers/reviews');
 const login = require('./controllers/login');
@@ -35,6 +37,9 @@ router.get('/product/:slug', productBySlug);
 router.post('/product', validationErrors, createProduct);
 router.del('/product/:slug', deleteProduct);
 router.put('/product/:slug', validationErrors, updateProduct);
+
+router.get('/recommendations', recommendations);
+router.get('/relations', relations);
 
 router.get('/reviews', reviewsByProduct);
 router.post('/reviews', validationErrors, createReview);

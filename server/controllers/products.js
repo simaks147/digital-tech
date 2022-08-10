@@ -139,4 +139,24 @@ module.exports.deleteProduct = async (ctx) => {
   ctx.body = {status: 'ok'};
 };
 
+module.exports.recommendations = async (ctx) => {
+  const recommendations = await Product.aggregate([
+    {$match: {'rating.overall': {$gte: 4, $lt: 5}}},
+    {$sample: {size: 2}}
+  ]);
+
+  ctx.body = {recommendations: recommendations.map(mapProduct)};
+}
+
+module.exports.relations = async (ctx) => {
+  let {subcategoryId} = ctx.query;
+
+  const relations = await Product.aggregate([
+    {$match: {subcategoryId}},
+    {$sample: {size: 2}}
+  ]);
+
+  ctx.body = {relations: relations.map(mapProduct)};
+}
+
 
