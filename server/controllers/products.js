@@ -142,7 +142,7 @@ module.exports.deleteProduct = async (ctx) => {
 module.exports.recommendations = async (ctx) => {
   const recommendations = await Product.aggregate([
     {$match: {'rating.overall': {$gte: 4, $lt: 5}}},
-    {$sample: {size: 2}}
+    {$sample: {size: 3}}
   ]);
 
   ctx.body = {recommendations: recommendations.map(mapProduct)};

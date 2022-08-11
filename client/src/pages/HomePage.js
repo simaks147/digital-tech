@@ -15,7 +15,11 @@ const HomePage = ({recommendations, loadRecommendations, loadingRecommendations,
 
   return (
     <Layout>
-      <Slider/>
+      <Slider
+        products={recommendations}
+        loading={loadingRecommendations}
+        errors={errorsRecommendations}
+      />
       <ProductSecondList
         title='Featured Products'
         products={recommendations}
