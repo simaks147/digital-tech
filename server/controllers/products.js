@@ -99,11 +99,11 @@ module.exports.productBySlug = async (ctx) => {
 
 module.exports.createProduct = async (ctx) => {
   const {
-    brand, description, price, slug, subcategoryId, title, images, specification
+    brand, description, price, slug, subcategoryId, title, images, specification, discountPercent, saleTitle, saleSubtitle, saleBgColor
   } = ctx.request.body;
 
   const product = await Product.create({
-    brand, description, price, slug, subcategoryId, title, images, specification
+    brand, description, price, slug, subcategoryId, title, images, specification, discountPercent, saleTitle, saleSubtitle, saleBgColor
   });
 
   await product.populate('brand');
@@ -117,11 +117,11 @@ module.exports.createProduct = async (ctx) => {
 
 module.exports.updateProduct = async (ctx) => {
   const {
-    brand, description, price, slug, subcategoryId, title, images, specification
+    brand, description, price, slug, subcategoryId, title, images, specification, discountPercent, saleTitle, saleSubtitle, saleBgColor
   } = ctx.request.body;
 
   const product = await Product.findOneAndUpdate({slug}, {
-    brand, description, price, subcategoryId, title, images, specification
+    brand, description, price, subcategoryId, title, images, specification, discountPercent, saleTitle, saleSubtitle, saleBgColor
   });
 
   await product.populate('brand');
@@ -146,7 +146,7 @@ module.exports.recommendations = async (ctx) => {
   ]);
 
   ctx.body = {recommendations: recommendations.map(mapProduct)};
-}
+};
 
 module.exports.relations = async (ctx) => {
   let {subcategoryId} = ctx.query;
@@ -158,5 +158,14 @@ module.exports.relations = async (ctx) => {
 
   ctx.body = {relations: relations.map(mapProduct)};
 }
+
+module.exports.sale = async (ctx) => {
+  const sale = await Product.aggregate([
+    {$match: {discountPercent: {$ne: 0}}},
+    {$sample: {size: 3}}
+  ]);
+
+  ctx.body = {sale: sale.map(mapProduct)};
+};
 
 

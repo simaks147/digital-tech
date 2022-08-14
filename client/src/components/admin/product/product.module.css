@@ -11,6 +11,10 @@
     resize: none;
 }
 
+.header {
+    font-weight: 700;
+}
+
 .image {
     position: relative;
 }

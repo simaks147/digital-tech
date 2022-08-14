@@ -10,7 +10,8 @@ import {
   SUCCESS,
   FAILURE,
   LOAD_PRODUCTS_BY_RECOMMENDATIONS,
-  LOAD_PRODUCTS_BY_RELATIONS
+  LOAD_PRODUCTS_BY_RELATIONS,
+  LOAD_PRODUCTS_BY_SALE
 } from "../consts";
 
 const initialState = {
@@ -30,6 +31,12 @@ const initialState = {
     error: null
   },
   byRelations: {
+    entities: {},
+    loading: false,
+    loaded: false,
+    error: null
+  },
+  bySale: {
     entities: {},
     loading: false,
     loaded: false,
@@ -101,6 +108,24 @@ export default (state = initialState, action) =>
       case LOAD_PRODUCTS_BY_RELATIONS + FAILURE:
         draft.byRelations.loading = false;
         draft.byRelations.error = objToArr(error.error);
+        break;
+
+
+
+      case LOAD_PRODUCTS_BY_SALE + REQUEST:
+        draft.bySale.loading = true;
+        draft.bySale.error = null;
+        break;
+
+      case LOAD_PRODUCTS_BY_SALE + SUCCESS:
+        draft.bySale.loading = false;
+        draft.bySale.loaded = true;
+        draft.bySale.entities = {...arrToMap(data.sale)};
+        break;
+
+      case LOAD_PRODUCTS_BY_SALE + FAILURE:
+        draft.bySale.loading = false;
+        draft.bySale.error = objToArr(error.error);
         break;
 
 

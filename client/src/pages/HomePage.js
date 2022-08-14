@@ -3,22 +3,37 @@ import Slider from "../components/slider";
 import Layout from "../components/Layout";
 import ProductSecondList from "../components/productSecondList";
 import {connect} from "react-redux";
-import {loadRecommendations} from "../redux/actions";
+import {loadRecommendations, loadSale} from "../redux/actions";
 import {
+  recommendationsListSelector,
   errorRecommendationsSelector,
   loadingRecommendationsSelector,
-  recommendationsListSelector
+  saleListSelector,
+  errorSaleSelector,
+  loadingSaleSelector,
 } from "../redux/selectors";
 
-const HomePage = ({recommendations, loadRecommendations, loadingRecommendations, errorsRecommendations}) => {
-  useEffect(loadRecommendations, []);
+const HomePage = ({
+                    recommendations,
+                    loadRecommendations,
+                    loadingRecommendations,
+                    errorsRecommendations,
+                    sale,
+                    loadSale,
+                    loadingSale,
+                    errorsSale
+                  }) => {
+  useEffect(() => {
+    loadRecommendations();
+    loadSale();
+  }, []);
 
   return (
     <Layout>
       <Slider
-        products={recommendations}
-        loading={loadingRecommendations}
-        errors={errorsRecommendations}
+        products={sale}
+        loading={loadingSale}
+        errors={errorsSale}
       />
       <ProductSecondList
         title='Featured Products'
@@ -33,7 +48,10 @@ const HomePage = ({recommendations, loadRecommendations, loadingRecommendations,
 const mapStateToProps = (state) => ({
   recommendations: recommendationsListSelector(state),
   loadingRecommendations: loadingRecommendationsSelector(state),
-  errorsRecommendations: errorRecommendationsSelector(state)
+  errorsRecommendations: errorRecommendationsSelector(state),
+  sale: saleListSelector(state),
+  loadingSale: loadingSaleSelector(state),
+  errorsSale: errorSaleSelector(state),
 });
 
-export default connect(mapStateToProps, {loadRecommendations})(HomePage);
+export default connect(mapStateToProps, {loadRecommendations, loadSale})(HomePage);

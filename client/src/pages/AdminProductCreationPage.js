@@ -11,6 +11,10 @@ const AdminProductCreationPage = ({createProduct}) => {
     price: '',
     brand: '',
     subcategoryId: '',
+    discountPercent: 0,
+    saleTitle: 'Sale!',
+    saleSubtitle: 'At the best price',
+    saleBgColor: 'black'
   };
 
   return (

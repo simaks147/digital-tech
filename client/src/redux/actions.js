@@ -26,7 +26,8 @@ import {
   UPDATE_PRODUCT,
   CREATE_REVIEW,
   LOAD_PRODUCTS_BY_RECOMMENDATIONS,
-  LOAD_PRODUCTS_BY_RELATIONS
+  LOAD_PRODUCTS_BY_RELATIONS,
+  LOAD_PRODUCTS_BY_SALE
 } from "./consts";
 
 import {
@@ -47,7 +48,9 @@ import {
   productsSelector,
   queryParamsSelector,
   loadedRecommendationsSelector,
-  loadingRecommendationsSelector
+  loadingRecommendationsSelector,
+  loadingSaleSelector,
+  loadedSaleSelector
 } from "./selectors";
 
 export const increaseCart = (id) => ({
@@ -65,10 +68,11 @@ export const removeFromCart = (id) => ({
   id
 });
 
-export const processCheckout = () => async (dispatch, getState) => {
+export const processCheckout = () => async (dispatch) => {
   await dispatch({type: PROCESS_CHECKOUT});
   dispatch(push(BASKET_ROUTE_CHECKOUT));
 };
+
 
 const _makeOrder = (values, products, token) => ({
   type: MAKE_ORDER,
@@ -85,6 +89,7 @@ export const makeOrder = (values) => async (dispatch, getState) => {
   await dispatch(_makeOrder(values, products, token));
   dispatch(replace(BASKET_ROUTE_COMPLETED));
 };
+
 
 export const _setActiveCategory = (subcategoryId, categoryId) => ({
   type: SET_ACTIVE_CATEGORIES,
@@ -109,6 +114,7 @@ export const deleteProduct = (id) => ({
   id
 });
 
+
 export const changeProductPageLocation = (attr, param) => async (dispatch, getState) => {
   const state = getState();
   const query = queryParamsSelector(state);
@@ -130,6 +136,7 @@ export const loadProductsList = (page, limit, sort, filters) => {
     CallApi: `/api/products?${new URLSearchParams({...searchParams, ...filters})}`,
   };
 };
+
 
 const _loadProductsByCategory = (searchParams, subcategoryId) => ({
   type: LOAD_PRODUCTS,
@@ -156,6 +163,7 @@ export const loadProductsByCategory = (page, limit, sort, filters, subcategoryId
   }
 };
 
+
 const _loadRecommendations = () => ({
   type: LOAD_PRODUCTS_BY_RECOMMENDATIONS,
   CallApi: '/api/recommendations'
@@ -169,10 +177,26 @@ export const loadRecommendations = () => async (dispatch, getState) => {
   if (!loading && !loaded) dispatch(_loadRecommendations());
 };
 
+
 export const loadRelations = (subcategoryId) => ({
   type: LOAD_PRODUCTS_BY_RELATIONS,
   CallApi: `/api/relations?subcategoryId=${subcategoryId}`
 });
+
+
+const _loadSale = () => ({
+  type: LOAD_PRODUCTS_BY_SALE,
+  CallApi: '/api/sale'
+});
+
+export const loadSale = () => async (dispatch, getState) => {
+  const state = getState();
+  const loading = loadingSaleSelector(state);
+  const loaded = loadedSaleSelector(state);
+
+  if (!loading && !loaded) dispatch(_loadSale());
+};
+
 
 const _loadProduct = (id) => ({
   type: LOAD_PRODUCT,
@@ -200,6 +224,7 @@ export const loadProduct = (id) => async (dispatch, getState) => {
   if (categoryId) await dispatch(_setActiveCategory(subcategoryId, categoryId));
 };
 
+
 const _loadReviews = (productId) => ({
   type: LOAD_REVIEWS,
   CallApi: `/api/reviews?id=${productId}`,
@@ -216,6 +241,7 @@ export const loadReviews = (productId) => async (dispatch, getState) => {
   }
 };
 
+
 const _addReview = (values, productId) => ({
   type: ADD_REVIEW,
   productId,
@@ -231,6 +257,7 @@ const _addReview = (values, productId) => ({
 //   values: {...values, productId}
 // });
 
+
 export const createReview = (values, productId) => async (dispatch) => {
   await dispatch(_addReview(values, productId));
   ///// FOR REAL REVIEW CREATION IN DB!
@@ -239,6 +266,7 @@ export const createReview = (values, productId) => async (dispatch) => {
 
   // dispatch(_createReview(rest, productId,));
 };
+
 
 const _login = (values) => ({
   type: LOGIN,
@@ -256,6 +284,7 @@ export const login = (values) => async (dispatch, getState) => {
   }
 };
 
+
 export const oauth = (provider) => ({
   type: OAUTH,
   CallApi: `/api/oauth/${provider}`
@@ -266,6 +295,7 @@ export const oauthCallback = (provider, code) => ({
   CallApi: `/api/oauth_callback/?code=${code}`,
   values: {provider}
 });
+
 
 const _register = (values) => ({
   type: REGISTER,
@@ -283,11 +313,13 @@ export const register = (values) => async (dispatch, getState) => {
   }
 };
 
+
 export const confirm = (verificationToken) => ({
   type: CONFIRM,
   CallApi: '/api/confirm',
   values: {verificationToken}
 });
+
 
 const _fetchProfile = (token) => ({
   type: FETCH_PROFILE,
@@ -306,6 +338,7 @@ export const fetchProfile = () => async (dispatch, getState) => {
   }
 };
 
+
 export const openNav = () => ({
   type: OPEN_NAV
 });
@@ -313,6 +346,7 @@ export const openNav = () => ({
 export const closeNav = () => ({
   type: CLOSE_NAV
 });
+
 
 const _createProduct = (values, id, images, specification) => ({
   type: CREATE_PRODUCT,
@@ -325,6 +359,7 @@ export const createProduct = (values, id, images, specification) => async (dispa
   await dispatch(_createProduct(values, id, images, specification));
   dispatch(push(ADMIN_ROUTE));
 };
+
 
 const _updateProduct = (values, id, images, specification) => ({
   type: UPDATE_PRODUCT,

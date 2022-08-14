@@ -56,6 +56,18 @@ const productSchema = new mongoose.Schema({
       overall: 0,
       reviewsCount: 0
     }
+  },
+  discountPercent: {
+    type: Number
+  },
+  saleTitle: {
+    type: String
+  },
+  saleSubtitle: {
+    type: String
+  },
+  saleBgColor: {
+    type: String
   }
 }, {
   timestamps: true

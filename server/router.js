@@ -12,7 +12,8 @@ const {
   deleteProduct,
   updateProduct,
   recommendations,
-  relations
+  relations,
+  sale
 } = require('./controllers/products');
 const {reviewsByProduct, createReview} = require('./controllers/reviews');
 const login = require('./controllers/login');
@@ -40,6 +41,7 @@ router.put('/product/:slug', validationErrors, updateProduct);
 
 router.get('/recommendations', recommendations);
 router.get('/relations', relations);
+router.get('/sale', sale);
 
 router.get('/reviews', reviewsByProduct);
 router.post('/reviews', validationErrors, createReview);

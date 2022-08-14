@@ -25,6 +25,10 @@ const AdminProductUpdatePage = ({loadProduct, updateProduct, products, loading, 
     price: products[id].price,
     brand: products[id].brand.id,
     subcategoryId: products[id].subcategoryId,
+    discountPercent: products[id].discountPercent,
+    saleTitle: products[id].saleTitle,
+    saleSubtitle: products[id].saleSubtitle,
+    saleBgColor: products[id].saleBgColor
   };
 
   const initSpecification = products[id].specification.map(( {title, description}, i) => {

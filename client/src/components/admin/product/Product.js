@@ -64,7 +64,10 @@ const Product = (
           <Row xs={1}>
             {
               PRODUCT_CREATION_FIELDS(brands, subcategories).map(field => {
-                const {id, label, message, ...rest} = field;
+                const {id, label, message, header, ...rest} = field;
+
+                if (header) return <p className={styles.header} key={id}>{header}:</p>;
+
                 return (
                   <Col className="mb-4" key={id}>
                     <FloatingLabel controlId={id} label={label}>
@@ -83,7 +86,7 @@ const Product = (
             }
 
             <Col className="mb-4">
-              <p>Specification:</p>
+              <p className={styles.header}>Specification:</p>
               {
                 specification.map(spec => {
                   const {title, desc, num} = spec;
@@ -128,7 +131,7 @@ const Product = (
             </Col>
 
             <Col className="mb-4">
-              <p>Image Upload:</p>
+              <p className={styles.header}>Image Upload:</p>
               {
                 !!images.length &&
                 <Row xs='auto'>
