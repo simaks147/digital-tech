@@ -8,7 +8,9 @@ import {
   orderSelector,
   tokenSelector,
   productsSelector,
-  ratingSelector, reviewsByProductSelector
+  ratingSelector,
+  reviewsByProductSelector,
+  productSalePriceSelector
 } from "../../redux/selectors";
 import {Alert, Col, Container, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -32,7 +34,8 @@ const Product = ({
                    loading,
                    errors,
                    reviews,
-                   rating
+                   rating,
+                   productSalePrice
                  }) => {
   useEffect(() => {
     loadProduct();
@@ -77,6 +80,20 @@ const Product = ({
                 }
               </div>
               <div className={styles.price}>${product.price}</div>
+
+              <div className={styles.priceWrap}>
+                {
+                  !product.sale.discountPercent && <span className={styles.price}>${product.price}</span>
+                }
+                {
+                  !!product.sale.discountPercent &&
+                  <>
+                    <span className={styles.oldPrice}>${product.price}</span>
+                    <span className={styles.salePrice}>${productSalePrice}</span>
+                  </>
+                }
+              </div>
+
               {
                 order[product.slug]
                   ? <Button className='c-button2' onClick={() => push(BASKET_ROUTE_SHOPPING)}>In cart</Button>
@@ -103,7 +120,8 @@ const mapStateToProps = (state, props) => ({
   order: orderSelector(state, props),
   token: tokenSelector(state, props),
   rating: ratingSelector(state, props.id),
-  reviews: reviewsByProductSelector(state, props.id)
+  reviews: reviewsByProductSelector(state, props.id),
+  productSalePrice: productSalePriceSelector(state, props)
 })
 
 const mapDispatchToProps = (dispatch, props) => ({

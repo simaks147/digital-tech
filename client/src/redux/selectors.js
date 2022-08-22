@@ -46,6 +46,7 @@ export const processingOrderSelector = (state) => state.order.processing;
 export const errorOrderSelector = (state) => state.order.error;
 
 export const productSelector = (state, {id}) => productsSelector(state)[id];
+export const saleProductSelector = (state, {id}) => saleSelector(state)[id];
 
 export const activeCategorySelector = (state) => state.categories.active;
 export const activeSubcategorySelector = (state) => state.categories.activeSubcategory;
@@ -216,8 +217,12 @@ export const productsFiltersSelector = createSelector(
 );
 
 export const productSalePriceSelector = createSelector(
-  (state, {product}) => product,
-  product => product.price - Math.floor((product.price / 100) * product.sale.discountPercent)
+  productSelector,
+  saleProductSelector,
+  (product, saleProduct) => {
+    const currentProduct = product || saleProduct;
+    return currentProduct?.price - Math.floor((currentProduct?.price / 100) * currentProduct?.sale.discountPercent)
+  }
 );
 
 
