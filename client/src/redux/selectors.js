@@ -215,6 +215,11 @@ export const productsFiltersSelector = createSelector(
   }
 );
 
+export const productSalePriceSelector = createSelector(
+  (state, {product}) => product,
+  product => product.price - Math.floor((product.price / 100) * product.sale.discountPercent)
+);
+
 
 
 

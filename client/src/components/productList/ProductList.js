@@ -4,7 +4,7 @@ import ProductItem from "./productItem";
 import {
   loadingProductsSelector,
   errorProductsSelector,
-  productsIdsByCategorySelector,
+  productsListSelector,
   brandsListSelector,
   productsLimitSelector,
   productsSortSelector,
@@ -24,7 +24,7 @@ import {windowWidth} from "../../config";
 const ProductList = ({
                        subcategoryId,
                        brands,
-                       productsIds,
+                       products,
                        loadProductsByCategory,
                        loading,
                        errors,
@@ -71,13 +71,13 @@ const ProductList = ({
               changeProductView={setView}
             />
             {
-              productsIds.length > 0
+              products.length > 0
                 ?
                 <Row xs={view === 'list' || width < windowWidth.md ? 1 : 3}>
                   {
-                    productsIds.map(id => (
-                        <Col key={id}>
-                          <ProductItem id={id} view={view}/>
+                    products.map(product => (
+                        <Col key={product.slug}>
+                          <ProductItem id={product.slug} product={product} view={view}/>
                         </Col>
                       )
                     )
@@ -95,8 +95,7 @@ const ProductList = ({
 };
 
 const mapStateToProps = (state, props) => ({
-  productsIds: productsIdsByCategorySelector(state, props),
-  loading: loadingProductsSelector(state, props),
+  products: productsListSelector(state, props),
   errors: errorProductsSelector(state, props),
   brands: brandsListSelector(state, props),
   limit: productsLimitSelector(state, props),

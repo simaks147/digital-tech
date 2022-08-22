@@ -73,16 +73,26 @@
     margin-top: 20px;
 }
 
-.price {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--c-color1);
+.priceWrap {
     margin-top: 20px;
 }
 
-.main:global(.gridItem) .price {
+.price {
+    font-size: 22px;
+    color: var(--bs-gray-600);
+}
+
+.oldPrice {
     font-size: 16px;
-    text-align: center;
+    text-decoration: line-through;
+    color: var(--bs-gray-500);
+}
+
+.salePrice {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--c-color1);
+    margin-left: 10px;
 }
 
 .main :global(.btn) {
@@ -103,6 +113,15 @@
 /*    background-color: var(--c-color1);*/
 /*    color: white;*/
 /*}*/
+
+.main:global(.gridItem) .priceWrap {
+    text-align: center;
+}
+
+.main:global(.gridItem) .price {
+    font-size: 22px;
+    /*text-align: center;*/
+}
 
 .main:global(.gridItem) .buttonContainer {
     display: none;

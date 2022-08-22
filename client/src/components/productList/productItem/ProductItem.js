@@ -4,7 +4,7 @@ import {Row, Col} from "react-bootstrap";
 import Figure from 'react-bootstrap/Figure';
 import Button from 'react-bootstrap/Button';
 import styles from './productItem.module.css';
-import {orderSelector, productSelector, tokenSelector} from "../../../redux/selectors";
+import {orderSelector, productSalePriceSelector, productSelector, tokenSelector} from "../../../redux/selectors";
 import {Link} from "react-router-dom";
 import {increaseCart} from "../../../redux/actions";
 import {PRODUCT_ROUTE, BASKET_ROUTE_SHOPPING, LOGIN_ROUTE} from "../../../utils/consts";
@@ -15,7 +15,7 @@ import ErrorBoundary from "../../ErrorBoundary";
 import cn from "classnames";
 import useWindowSize from "../../../hooks/use-window-size";
 
-const ProductItem = ({product, order, token, increaseCart, push, view}) => {
+const ProductItem = ({product, order, token, increaseCart, push, view, productSalePrice}) => {
   const {width} = useWindowSize();
 
   return (
@@ -46,14 +46,27 @@ const ProductItem = ({product, order, token, increaseCart, push, view}) => {
                     view === 'list' &&
                     <div className={styles.description}>{product.description.slice(0, 130)}...</div>
                   }
-                  <div className={styles.price}>${product.price}</div>
+                  {/*<div className={styles.price}>${product.price}</div>*/}
+                  <div className={styles.priceWrap}>
+                    {
+                      !product.sale.discountPercent && <span className={styles.price}>${product.price}</span>
+                    }
+                    {
+                      !!product.sale.discountPercent &&
+                      <>
+                        <span className={styles.oldPrice}>${product.price}</span>
+                        <span className={styles.salePrice}>${productSalePrice}</span>
+                      </>
+                    }
+                  </div>
                 </Link>
               </Col>
               <Col md='auto' className={cn('mt-3 mt-md-0', styles.buttonContainer)}>
                 {
                   order[product.slug]
                     ? <Button className='c-button2' onClick={() => push(BASKET_ROUTE_SHOPPING)}>In cart</Button>
-                    : <Button className='c-button' onClick={token ? increaseCart : () => push(LOGIN_ROUTE)}>Add to cart</Button>
+                    : <Button className='c-button' onClick={token ? increaseCart : () => push(LOGIN_ROUTE)}>Add to
+                      cart</Button>
                 }
               </Col>
             </Row>
@@ -65,9 +78,10 @@ const ProductItem = ({product, order, token, increaseCart, push, view}) => {
 }
 
 const mapStateToProps = (state, props) => ({
-  product: productSelector(state, props),
+  // product: productSelector(state, props),
   order: orderSelector(state, props),
-  token: tokenSelector(state, props)
+  token: tokenSelector(state, props),
+  productSalePrice: productSalePriceSelector(state, props)
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
