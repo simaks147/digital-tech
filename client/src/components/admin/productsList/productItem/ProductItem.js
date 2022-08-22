@@ -11,8 +11,8 @@ import {ReactComponent as DeleteIcon} from "../../../../icons/delete-icon.svg";
 import {connect} from "react-redux";
 import {deleteProduct} from "../../../../redux/actions";
 
-const ProductItem = ({product}) => {
-  const {title, slug, images, price, rating, deleteProduct} = product;
+const ProductItem = ({product, deleteProduct}) => {
+  const {title, slug, images, price, rating} = product;
   return (
     <div className={styles.main}>
       <Row className='align-items-center'>

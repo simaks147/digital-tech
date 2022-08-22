@@ -27,6 +27,7 @@ const Product = (
     initValues = {},
     initSpecification = [],
     initImages = [],
+    initSaleImages = [],
     buttonTitle,
     brands,
     subcategories,
@@ -37,8 +38,10 @@ const Product = (
 
   const [validated, setValidated] = useState(false);
   const [file, setFile] = useState(null);
+  const [saleFile, setSaleFile] = useState(null);
   const {specification, addSpec, deleteSpec, changeSpec} = useSpecification(initSpecification);
   const {images, addImg, deleteImg} = useImageUpload(initImages);
+  const {images: saleImages, addImg: addSaleImg, deleteImg: deleteSaleImg} = useImageUpload(initSaleImages);
   const {values, handlers} = useForm(initValues);
 
   const handleSubmit = (e) => {
@@ -48,7 +51,7 @@ const Product = (
       const slug = id ? id : values.title.toLowerCase().split(' ').join('_');
       const specMap = specification.map(({title, desc}) => ({title, description: desc}));
 
-      handleSetProduct(values, slug, images, specMap);
+      handleSetProduct(values, slug, images, specMap, saleImages);
     }
 
     setValidated(true);
@@ -84,6 +87,57 @@ const Product = (
                 )
               })
             }
+
+
+
+
+
+            <Col className="mb-4">
+              {/*<p className={styles.header}>Sale image upload:</p>*/}
+              {
+                !!saleImages.length &&
+                <Row xs='auto'>
+                  {
+                    saleImages.map((image, i) => (
+                      <Col key={i} className={cn(styles.image, 'mb-2')}>
+                        <ErrorBoundary>
+                          <IKImage
+                            urlEndpoint={imagesConfig.urlEndpoint}
+                            path={image}
+                            transformation={[{
+                              height: 80,
+                              width: 80
+                            }]}
+                          />
+                        </ErrorBoundary>
+                        <DeleteIcon onClick={() => deleteSaleImg(i)}/>
+                      </Col>
+                    ))
+                  }
+                </Row>
+              }
+              <Button className={styles.selectImgButton} disabled={processing}>
+                Select Sale Image
+                <IKContext
+                  publicKey={imagesConfig.publicKey}
+                  urlEndpoint={imagesConfig.urlEndpoint}
+                  authenticationEndpoint={imagesConfig.authEndpoint}
+                >
+                  <IKUpload
+                    fileName={saleFile}
+                    onInput={ev => {
+                      setSaleFile(ev.target.files[0].name);
+                    }}
+                    onSuccess={res => addSaleImg(res.name)}
+                  />
+                </IKContext>
+              </Button>
+            </Col>
+
+
+
+
+
 
             <Col className="mb-4">
               <p className={styles.header}>Specification:</p>
@@ -131,7 +185,7 @@ const Product = (
             </Col>
 
             <Col className="mb-4">
-              <p className={styles.header}>Image Upload:</p>
+              <p className={styles.header}>Images upload:</p>
               {
                 !!images.length &&
                 <Row xs='auto'>
@@ -155,7 +209,7 @@ const Product = (
                 </Row>
               }
               <Button className={styles.selectImgButton} disabled={processing}>
-                Select Image
+                Select Images
                 <IKContext
                   publicKey={imagesConfig.publicKey}
                   urlEndpoint={imagesConfig.urlEndpoint}
@@ -171,13 +225,14 @@ const Product = (
                 </IKContext>
               </Button>
             </Col>
+
           </Row>
           {
             errors?.map((err, i) => (
               <Alert variant="danger" key={i}>{err}</Alert>
             ))
           }
-          <Button className={cn('c-button', styles.createButton)} disabled={processing} type='submit'>
+          <Button className={cn('c-button mt-3', styles.createButton)} disabled={processing} type='submit'>
             {processing && <Loader/>}
             {buttonTitle}
           </Button>

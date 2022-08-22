@@ -1,21 +1,9 @@
 module.exports.mapProduct = (product) => {
-  const {description, images, price, rating, slug, specification, subcategoryId, title, discountPercent, saleTitle, saleSubtitle, saleBgColor}
+  const {description, images, price, rating, slug, specification, subcategoryId, title, sale}
     = product;
 
   return {
-    brand: this.mapBrand(product.brand),
-    description,
-    images,
-    price,
-    rating,
-    slug,
-    specification,
-    subcategoryId,
-    title,
-    discountPercent,
-    saleTitle,
-    saleSubtitle,
-    saleBgColor
+    brand: this.mapBrand(product.brand), description, images, price, rating, slug, specification, subcategoryId, title, sale
   };
 };
 

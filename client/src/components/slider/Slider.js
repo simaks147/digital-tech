@@ -32,36 +32,37 @@ const Slider = ({products, loading, errors}) => (
       >
         {
           products.map(item => (
-            <SwiperSlide key={item.slug} style={{backgroundColor: 'black'}}>
+            <SwiperSlide key={item.slug} style={{backgroundColor: item.sale.bgColor}}>
               <div className={styles.item}>
                 <Row xs={1} sm={2}>
                   <Col sm={{order: 2}}>
                     <Figure>
-                      <Figure.Image
-                        width={460}
-                        src={process.env.PUBLIC_URL + "/img/products/nikon.png"}
-                      />
+                      {/*<Figure.Image*/}
+                      {/*  width={460}*/}
+                      {/*  src={process.env.PUBLIC_URL + "/img/products/nikon.png"}*/}
+                      {/*/>*/}
 
-                      {/*<ErrorBoundary>*/}
-                      {/*  <IKImage*/}
-                      {/*    // lqip={{ active: true }}*/}
-                      {/*    urlEndpoint={images.urlEndpoint}*/}
-                      {/*    path={item.images[0]}*/}
-                      {/*    transformation={[{*/}
-                      {/*      // height: 200,*/}
-                      {/*      width: 460*/}
-                      {/*    }]}/>*/}
-                      {/*</ErrorBoundary>*/}
+                      <ErrorBoundary>
+                        <IKImage
+                          // lqip={{ active: true }}
+                          urlEndpoint={images.urlEndpoint}
+                          path={item.sale.images[0]}
+                          transformation={[{
+                            // height: 200,
+                            width: 460
+                          }]}/>
+                      </ErrorBoundary>
 
                     </Figure>
                   </Col>
                   <Col style={{position: 'relative'}}>
-                    <div className={styles.itemSubTitle}>{item.saleSubtitle}</div>
-                    <div className={styles.itemTitle}>{item.saleTitle}</div>
+                    <div className={styles.itemSubTitle}>{item.sale.subtitle}</div>
+                    <div className={styles.itemTitle}>{item.sale.title}</div>
                     <div className={styles.itemText}>{item.title}</div>
                     <div className={styles.itemPriceWrap}>
                       <span className={styles.itemPrice}>${item.price}</span>
-                      <span className={styles.itemSalePrice}>${item.price - Math.floor((item.price / 100) * item.discountPercent)}</span>
+                      <span
+                        className={styles.itemSalePrice}>${item.price - Math.floor((item.price / 100) * item.sale.discountPercent)}</span>
                     </div>
                     <Button className='c-button' as={Link} to={`${PRODUCT_ROUTE}/${item.slug}`}>Shop Now!</Button>
                   </Col>

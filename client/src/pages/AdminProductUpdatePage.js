@@ -25,10 +25,10 @@ const AdminProductUpdatePage = ({loadProduct, updateProduct, products, loading, 
     price: products[id].price,
     brand: products[id].brand.id,
     subcategoryId: products[id].subcategoryId,
-    discountPercent: products[id].discountPercent,
-    saleTitle: products[id].saleTitle,
-    saleSubtitle: products[id].saleSubtitle,
-    saleBgColor: products[id].saleBgColor
+    discountPercent: products[id].sale.discountPercent,
+    saleTitle: products[id].sale.title,
+    saleSubtitle: products[id].sale.subtitle,
+    saleBgColor: products[id].sale.bgColor
   };
 
   const initSpecification = products[id].specification.map(( {title, description}, i) => {
@@ -46,6 +46,7 @@ const AdminProductUpdatePage = ({loadProduct, updateProduct, products, loading, 
         initValues={initValues}
         initSpecification={initSpecification}
         initImages={products[id].images}
+        initSaleImages={products[id].sale.images}
         buttonTitle='Update Product'
         handleSetProduct={updateProduct}
       />

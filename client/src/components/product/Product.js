@@ -20,7 +20,20 @@ import {BASKET_ROUTE_SHOPPING, LOGIN_ROUTE} from "../../utils/consts";
 import {push} from "connected-react-router";
 import Rate from "../rate/Rate";
 
-const Product = ({products, id, product, order, token, increaseCart, push, loadProduct, loading, errors, reviews, rating}) => {
+const Product = ({
+                   products,
+                   id,
+                   product,
+                   order,
+                   token,
+                   increaseCart,
+                   push,
+                   loadProduct,
+                   loading,
+                   errors,
+                   reviews,
+                   rating
+                 }) => {
   useEffect(() => {
     loadProduct();
   }, [loadProduct]);
@@ -53,11 +66,14 @@ const Product = ({products, id, product, order, token, increaseCart, push, loadP
               </div>
               <div className={styles.spec}>
                 {
-                  [...Array(3)].map((_, i) =>
-                    <div className={styles.specItem} key={i}>
-                      <span className={styles.specItemTitle}>{product.specification[i].title}: </span>
-                      <span className={styles.specItemDesc}>{product.specification[i].description}</span>
-                    </div>)
+                  [...Array(3)].map((_, i) => {
+                      if (!product.specification[i]) return;
+                      return <div className={styles.specItem} key={i}>
+                        <span className={styles.specItemTitle}>{product.specification[i].title}: </span>
+                        <span className={styles.specItemDesc}>{product.specification[i].description}</span>
+                      </div>
+                    }
+                  )
                 }
               </div>
               <div className={styles.price}>${product.price}</div>

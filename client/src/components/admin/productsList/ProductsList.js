@@ -13,7 +13,7 @@ import {
   productsSortSelector,
   subcategoriesListSelector
 } from "../../../redux/selectors";
-import {deleteProduct, loadProductsList} from "../../../redux/actions";
+import {loadProductsList} from "../../../redux/actions";
 import Loader from "../../loader";
 import {ADMIN_PRODUCT_ROUTE} from "../../../utils/consts";
 import {Link} from "react-router-dom";
@@ -97,4 +97,4 @@ const mapStateToProps = (state, props) => ({
   subcategories: subcategoriesListSelector(state)
 });
 
-export default connect(mapStateToProps, {loadProductsList, deleteProduct})(ProductsList);
+export default connect(mapStateToProps, {loadProductsList})(ProductsList);

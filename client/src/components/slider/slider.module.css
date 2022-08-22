@@ -61,7 +61,8 @@
 
 .section :global(.swiper-button-prev),
 .section :global(.swiper-button-next) {
-    color: var(--bs-gray-700);
+    /*color: var(--bs-gray-700);*/
+    color: var(--c-color3);
     width: 44px;
     height: 44px;
     border-radius: 50%;
@@ -70,7 +71,8 @@
 
 .section :global(.swiper-button-prev):hover,
 .section :global(.swiper-button-next):hover {
-    color: var(--bs-gray-600);
+    /*color: var(--bs-gray-600);*/
+    color: var(--bs-gray-400);
 }
 
 .section :global(.swiper-button-prev.swiper-button-disabled),
@@ -108,7 +110,8 @@
 
 .section :global(.swiper-pagination-bullet) {
     width: 80px;
-    background-color: var(--bs-gray-700);
+    /*background-color: var(--bs-gray-700);*/
+    background-color: var(--c-color3);
     border-radius: unset;
     height: 5px;
 }

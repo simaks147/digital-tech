@@ -26,7 +26,7 @@ const HomePage = ({
   useEffect(() => {
     loadRecommendations();
     loadSale();
-  }, []);
+  });
 
   return (
     <Layout>

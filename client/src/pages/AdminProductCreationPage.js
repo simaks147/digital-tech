@@ -19,7 +19,10 @@ const AdminProductCreationPage = ({createProduct}) => {
 
   return (
     <AdminLayout>
-      <ProductUpdate initValues={initValues} buttonTitle='Create Product' handleSetProduct={createProduct}/>
+      <ProductUpdate
+        initValues={initValues}
+        buttonTitle='Create Product'
+        handleSetProduct={createProduct}/>
     </AdminLayout>
   );
 }

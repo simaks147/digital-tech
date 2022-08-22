@@ -348,28 +348,30 @@ export const closeNav = () => ({
 });
 
 
-const _createProduct = (values, id, images, specification) => ({
+const _createProduct = (values, id, images, specification, saleImages) => ({
   type: CREATE_PRODUCT,
   CallApi: '/api/product',
-  values: {...values, slug: id, images, specification},
+  values: {...values, slug: id, images, specification, saleImages},
   id
 });
 
-export const createProduct = (values, id, images, specification) => async (dispatch) => {
-  await dispatch(_createProduct(values, id, images, specification));
+export const createProduct = (values, id, images, specification, saleImages) => async (dispatch) => {
+  await dispatch(_createProduct(values, id, images, specification, saleImages));
   dispatch(push(ADMIN_ROUTE));
 };
 
 
-const _updateProduct = (values, id, images, specification) => ({
+const _updateProduct = (values, id, images, specification, saleImages) => ({
   type: UPDATE_PRODUCT,
   CallApi: `/api/product/${id}`,
-  values: {...values, slug: id, images, specification},
+  values: {...values, slug: id, images, specification, saleImages},
   id,
   method: 'PUT'
 });
 
-export const updateProduct = (values, id, images, specification) => async (dispatch) => {
-  await dispatch(_updateProduct(values, id, images, specification));
-  dispatch(push(ADMIN_ROUTE));
+export const updateProduct = (values, id, images, specification, saleImages) => async (dispatch) => {
+  await dispatch(_updateProduct(values, id, images, specification, saleImages));
+  await dispatch(push(ADMIN_ROUTE));
+
+  window.location.reload();
 };

@@ -98,12 +98,22 @@ module.exports.productBySlug = async (ctx) => {
 };
 
 module.exports.createProduct = async (ctx) => {
-  const {
-    brand, description, price, slug, subcategoryId, title, images, specification, discountPercent, saleTitle, saleSubtitle, saleBgColor
-  } = ctx.request.body;
+  const body = ctx.request.body;
 
   const product = await Product.create({
-    brand, description, price, slug, subcategoryId, title, images, specification, discountPercent, saleTitle, saleSubtitle, saleBgColor
+    brand: body.brand,
+    description: body.description,
+    price: body.price,
+    slug: body.slug,
+    subcategoryId: body.subcategoryId,
+    title: body.title,
+    images: body.images,
+    specification: body.specification,
+    'sale.discountPercent': Number(body.discountPercent),
+    'sale.title': body.saleTitle,
+    'sale.subtitle': body.saleSubtitle,
+    'sale.bgColor': body.saleBgColor,
+    'sale.images': body.saleImages
   });
 
   await product.populate('brand');
@@ -116,12 +126,22 @@ module.exports.createProduct = async (ctx) => {
 };
 
 module.exports.updateProduct = async (ctx) => {
-  const {
-    brand, description, price, slug, subcategoryId, title, images, specification, discountPercent, saleTitle, saleSubtitle, saleBgColor
-  } = ctx.request.body;
+  const body = ctx.request.body;
 
-  const product = await Product.findOneAndUpdate({slug}, {
-    brand, description, price, subcategoryId, title, images, specification, discountPercent, saleTitle, saleSubtitle, saleBgColor
+  const product = await Product.findOneAndUpdate({slug: body.slug},{
+    brand: body.brand,
+    description: body.description,
+    price: body.price,
+    slug: body.slug,
+    subcategoryId: body.subcategoryId,
+    title: body.title,
+    images: body.images,
+    specification: body.specification,
+    'sale.discountPercent': Number(body.discountPercent),
+    'sale.title': body.saleTitle,
+    'sale.subtitle': body.saleSubtitle,
+    'sale.bgColor': body.saleBgColor,
+    'sale.images': body.saleImages
   });
 
   await product.populate('brand');
@@ -161,7 +181,7 @@ module.exports.relations = async (ctx) => {
 
 module.exports.sale = async (ctx) => {
   const sale = await Product.aggregate([
-    {$match: {discountPercent: {$ne: 0}}},
+    {$match: {'sale.discountPercent': {$ne: 0}}},
     {$sample: {size: 3}}
   ]);
 
