@@ -52,7 +52,12 @@ const Product = ({
       </Container>
     </div>
 
-  if (loading || !products[id]) return <Loader/>;
+  if (loading || !products[id])
+    return <div className={styles.section}>
+      <Container>
+        <Loader/>
+      </Container>
+    </div>
 
   return (
     <div className={styles.section}>

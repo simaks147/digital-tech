@@ -21,6 +21,7 @@ const ProductCarousel = ({product}) => {
               {/*<img src={process.env.PUBLIC_URL + picture} alt=""/>*/}
               <ErrorBoundary>
                 <IKImage
+                  lqip={{active: true}}
                   urlEndpoint={images.urlEndpoint}
                   path={img}
                   transformation={[{
@@ -44,6 +45,7 @@ const ProductCarousel = ({product}) => {
               {/*<img src={process.env.PUBLIC_URL + picture} alt=""/>*/}
               <ErrorBoundary>
                 <IKImage
+                  lqip={{active: true}}
                   urlEndpoint={images.urlEndpoint}
                   path={img}
                   transformation={[{

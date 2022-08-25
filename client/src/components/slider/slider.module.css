@@ -1,5 +1,6 @@
-.carousel {
-    color: white;
+.section {
+    min-height: 500px;
+    position: relative;
 }
 
 .item {
@@ -117,6 +118,10 @@
 }
 
 @media (min-width: 576px) {
+    .section {
+        min-height: 280px;
+    }
+
     .section :global(.figure) {
         position: relative;
         width: 100%;
@@ -165,6 +170,10 @@
 }
 
 @media (min-width: 992px) {
+    .section {
+        min-height: 480px;
+    }
+
     .item {
         padding-top: 110px;
         padding-bottom: 110px;

@@ -40,6 +40,8 @@ const ProductSecondList = ({title, products, loading, errors}) => (
                     <Figure className={styles.itemPicture}>
                       <ErrorBoundary>
                         <IKImage
+                          lqip={{active: true}}
+                          loading="lazy"
                           urlEndpoint={images.urlEndpoint}
                           path={item.images[0]}
                           transformation={[{

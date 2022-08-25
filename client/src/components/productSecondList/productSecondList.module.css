@@ -21,7 +21,7 @@
 
 .slider {
     position: relative;
-    min-height: 100px;
+    min-height: 220px;
 }
 
 .section :global(.swiper-slide) {
@@ -116,6 +116,10 @@
 }
 
 @media (min-width: 576px) {
+    .slider {
+        min-height: 300px;
+    }
+
     .section :global(.c-button-prev),
     .section :global(.c-button-next) {
         border: 3px solid;
