@@ -79,7 +79,6 @@ const Product = ({
                   )
                 }
               </div>
-              <div className={styles.price}>${product.price}</div>
 
               <div className={styles.priceWrap}>
                 {
@@ -89,7 +88,7 @@ const Product = ({
                   !!product.sale.discountPercent &&
                   <>
                     <span className={styles.oldPrice}>${product.price}</span>
-                    <span className={styles.salePrice}>${productSalePrice}</span>
+                    <span className={styles.price}>${productSalePrice}</span>
                   </>
                 }
               </div>

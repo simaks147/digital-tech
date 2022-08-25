@@ -4,7 +4,11 @@ import {Row, Col} from "react-bootstrap";
 import Figure from 'react-bootstrap/Figure';
 import Button from 'react-bootstrap/Button';
 import styles from './productItem.module.css';
-import {orderSelector, productSalePriceSelector, productSelector, tokenSelector} from "../../../redux/selectors";
+import {
+  orderSelector,
+  productSalePriceSelector,
+  tokenSelector
+} from "../../../redux/selectors";
 import {Link} from "react-router-dom";
 import {increaseCart} from "../../../redux/actions";
 import {PRODUCT_ROUTE, BASKET_ROUTE_SHOPPING, LOGIN_ROUTE} from "../../../utils/consts";
@@ -46,7 +50,6 @@ const ProductItem = ({product, order, token, increaseCart, push, view, productSa
                     view === 'list' &&
                     <div className={styles.description}>{product.description.slice(0, 130)}...</div>
                   }
-                  {/*<div className={styles.price}>${product.price}</div>*/}
                   <div className={styles.priceWrap}>
                     {
                       !product.sale.discountPercent && <span className={styles.price}>${product.price}</span>

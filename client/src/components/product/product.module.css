@@ -46,14 +46,26 @@
     font-weight: 700;
 }
 
-.price {
-    font-size: 26px;
-    color: black;
+.priceWrap {
     border-top: 1px solid var(--bs-gray-300);
     border-bottom: 1px solid var(--bs-gray-300);
     margin: 20px 0;
     padding: 10px 0;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.price {
+    font-size: 26px;
+    color: black;
+}
+
+.oldPrice {
+    font-size: 16px;
+    text-decoration: line-through;
+    color: var(--bs-gray-500);
+    margin-right: 12px;
 }
 
 .content :global(.btn) {
@@ -89,8 +101,15 @@
         margin: 24px 0;
     }
 
+    .priceWrap {
+        margin: 40px 0;
+    }
+
     .price {
         font-size: 35px;
-        margin: 40px 0;
+    }
+
+    .oldPrice {
+        font-size: 20px;
     }
 }
