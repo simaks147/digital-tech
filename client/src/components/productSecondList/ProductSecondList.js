@@ -5,13 +5,8 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation} from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import {PRODUCT_ROUTE} from "../../utils/consts";
-import Figure from "react-bootstrap/Figure";
-import ErrorBoundary from "../ErrorBoundary";
-import {IKImage} from "imagekitio-react";
-import {images} from "../../config";
-import {Link} from "react-router-dom";
 import Loader from "../loader";
+import ProductSecondListItem from "./productSecondListItem";
 
 const ProductSecondList = ({title, products, loading, errors}) => (
   <div className={styles.section}>
@@ -34,25 +29,9 @@ const ProductSecondList = ({title, products, loading, errors}) => (
             breakpoints={{768: {slidesPerView: 3}, 992: {slidesPerView: 4},}}
           >
             {
-              products.map((item) => (
-                <SwiperSlide key={item.slug}>
-                  <Link to={`${PRODUCT_ROUTE}/${item.slug}`} className={styles.item}>
-                    <Figure className={styles.itemPicture}>
-                      <ErrorBoundary>
-                        <IKImage
-                          lqip={{active: true}}
-                          loading="lazy"
-                          urlEndpoint={images.urlEndpoint}
-                          path={item.images[0]}
-                          transformation={[{
-                            height: 220,
-                            width: 220
-                          }]}/>
-                      </ErrorBoundary>
-                    </Figure>
-                    <div className={styles.itemTitle}>{item.title}</div>
-                    <div className={styles.itemPrice}>${item.price}</div>
-                  </Link>
+              products.map((product) => (
+                <SwiperSlide key={product.slug}>
+                  <ProductSecondListItem id={product.slug} product={product}/>
                 </SwiperSlide>
               ))
             }

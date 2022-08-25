@@ -111,7 +111,16 @@
 }
 
 .itemPrice {
-    color: var(--c-color1);
+    color: var(--bs-gray-700);
+    font-weight: 500;
+    font-size: 15px;
+
+}
+
+.itemOldPrice {
+    text-decoration: line-through;
+    color: var(--bs-gray-500);
+    margin-right: 8px;
     font-size: 14px;
 }
 
@@ -138,10 +147,6 @@
 
     .itemTitle {
         font-size: 16px;
-    }
-
-    .itemPrice {
-        font-size: 18px;
     }
 }
 

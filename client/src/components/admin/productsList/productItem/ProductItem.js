@@ -21,7 +21,7 @@ const ProductItem = ({product, deleteProduct}) => {
             <ErrorBoundary>
               <IKImage
                 urlEndpoint={imagesConfig.urlEndpoint}
-                path={images[0]}
+                path={images[0] || imagesConfig.defaultImage}
                 transformation={[{
                   height: 60,
                   width: 60

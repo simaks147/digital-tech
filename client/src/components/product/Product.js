@@ -21,6 +21,9 @@ import Loader from "../loader";
 import {BASKET_ROUTE_SHOPPING, LOGIN_ROUTE} from "../../utils/consts";
 import {push} from "connected-react-router";
 import Rate from "../rate/Rate";
+import {IKImage} from "imagekitio-react";
+import {images} from "../../config";
+import ErrorBoundary from "../ErrorBoundary";
 
 const Product = ({
                    products,
@@ -107,7 +110,25 @@ const Product = ({
             </div>
           </Col>
           <Col className='d-flex align-items-center flex-column-reverse flex-md-row' md={7}>
-            <ProductCarousel product={product}/>
+            {
+              product.images.length > 0
+                ?
+                <ProductCarousel product={product}/>
+                :
+                <div className={styles.defaultImage}>
+                  <ErrorBoundary>
+                    <IKImage
+                      lqip={{active: true}}
+                      urlEndpoint={images.urlEndpoint}
+                      path={images.defaultImage}
+                      transformation={[{
+                        height: 500,
+                        width: 500
+                      }]}
+                    />
+                  </ErrorBoundary>
+                </div>
+            }
           </Col>
         </Row>
         <ProductTabs product={product}/>
@@ -126,7 +147,7 @@ const mapStateToProps = (state, props) => ({
   rating: ratingSelector(state, props.id),
   reviews: reviewsByProductSelector(state, props.id),
   productSalePrice: productSalePriceSelector(state, props)
-})
+});
 
 const mapDispatchToProps = (dispatch, props) => ({
   increaseCart: () => dispatch(increaseCart(props.id)),

@@ -32,7 +32,7 @@ const ProductItem = ({product, order, token, increaseCart, push, view, productSa
                 <IKImage
                   lqip={{active: true}}
                   urlEndpoint={images.urlEndpoint}
-                  path={product.images[0]}
+                  path={product.images[0] || images.defaultImage}
                   transformation={[{
                     height: 260,
                     width: 260

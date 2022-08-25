@@ -96,6 +96,7 @@ const ProductList = ({
 
 const mapStateToProps = (state, props) => ({
   products: productsListSelector(state, props),
+  loading: loadingProductsSelector(state, props),
   errors: errorProductsSelector(state, props),
   brands: brandsListSelector(state, props),
   limit: productsLimitSelector(state, props),

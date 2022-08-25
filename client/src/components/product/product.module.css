@@ -8,6 +8,10 @@
     margin-bottom: 20px;
 }
 
+.defaultImage img {
+    max-width: 100%;
+}
+
 .title {
     font-weight: 600;
     color: black;

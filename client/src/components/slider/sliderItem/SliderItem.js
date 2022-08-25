@@ -18,7 +18,7 @@ const SliderItem = ({product, productSalePrice}) => (
           <ErrorBoundary>
             <IKImage
               urlEndpoint={images.urlEndpoint}
-              path={product.sale.images[0]}
+              path={product.sale.images[0] || images.defaultImage}
               transformation={[{
                 // height: 200,
                 width: 460

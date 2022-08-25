@@ -1,5 +1,6 @@
 import React from 'react';
 import Figure from "react-bootstrap/Figure";
+import {images} from "../config";
 
 export default class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ export default class ErrorBoundary extends React.Component {
       // You can render any custom fallback UI
       return <Figure.Image
         width={512}
-        src={process.env.PUBLIC_URL + "/img/default-image.png"}
+        src={`${process.env.PUBLIC_URL}/img/${images.defaultImage}`}
       />;
     }
 
