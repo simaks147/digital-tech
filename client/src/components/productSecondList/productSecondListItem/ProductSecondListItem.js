@@ -1,6 +1,4 @@
 import React from 'react';
-import {productSalePriceSelector} from "../../../redux/selectors";
-import {connect} from "react-redux";
 import {PRODUCT_ROUTE} from "../../../utils/consts";
 import styles from "../productSecondList.module.css";
 import Figure from "react-bootstrap/Figure";
@@ -9,7 +7,7 @@ import {IKImage} from "imagekitio-react";
 import {images} from "../../../config";
 import {Link} from "react-router-dom";
 
-const ProductSecondListItem = ({product, productSalePrice}) => (
+const ProductSecondListItem = ({product}) => (
   <Link to={`${PRODUCT_ROUTE}/${product.slug}`} className={styles.item}>
     <Figure className={styles.itemPicture}>
       <ErrorBoundary>
@@ -34,15 +32,11 @@ const ProductSecondListItem = ({product, productSalePrice}) => (
         !!product.sale.discountPercent &&
         <>
           <span className={styles.itemOldPrice}>${product.price}</span>
-          <span className={styles.itemPrice}>${productSalePrice}</span>
+          <span className={styles.itemPrice}>${product.sale.price}</span>
         </>
       }
     </div>
   </Link>
 );
 
-const mapStateToProps = (state, props) => ({
-  productSalePrice: productSalePriceSelector(state, props)
-});
-
-export default connect(mapStateToProps)(ProductSecondListItem);
+export default ProductSecondListItem;

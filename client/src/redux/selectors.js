@@ -46,9 +46,6 @@ export const processingOrderSelector = (state) => state.order.processing;
 export const errorOrderSelector = (state) => state.order.error;
 
 export const productSelector = (state, {id}) => productsSelector(state)[id];
-export const saleProductSelector = (state, {id}) => saleSelector(state)[id];
-export const recommendationsProductSelector = (state, {id}) => recommendationsSelector(state)[id];
-export const relationsProductSelector = (state, {id}) => relationsSelector(state)[id];
 
 export const activeCategorySelector = (state) => state.categories.active;
 export const activeSubcategorySelector = (state) => state.categories.activeSubcategory;
@@ -100,14 +97,6 @@ export const saleListSelector = createSelector(
 export const orderListSelector = createSelector(
   orderSelector,
   Object.entries
-);
-
-export const productsIdsByCategorySelector = createSelector(
-  productsListSelector,
-  (state, props) => props.subcategoryId,
-  (products, subcategoryId) => products
-    .filter(prod => prod.subcategoryId === subcategoryId)
-    .map(prod => prod.slug)
 );
 
 export const orderCountSelector = createSelector(
@@ -215,17 +204,6 @@ export const productsFiltersSelector = createSelector(
     return filtersEntries.reduce((acc, [key, values]) => {
       return {...acc, [key]: values?.split('|')};
     }, {});
-  }
-);
-
-export const productSalePriceSelector = createSelector(
-  productSelector,
-  saleProductSelector,
-  recommendationsProductSelector,
-  relationsProductSelector,
-  (product, saleProduct, recommendationsProduct, relationsProduct) => {
-    const currentProduct = product || saleProduct || recommendationsProduct || relationsProduct;
-    return currentProduct?.price - Math.floor((currentProduct?.price / 100) * currentProduct?.sale.discountPercent)
   }
 );
 

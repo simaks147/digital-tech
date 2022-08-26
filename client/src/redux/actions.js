@@ -357,7 +357,9 @@ const _createProduct = (values, id, images, specification, saleImages) => ({
 
 export const createProduct = (values, id, images, specification, saleImages) => async (dispatch) => {
   await dispatch(_createProduct(values, id, images, specification, saleImages));
-  dispatch(push(ADMIN_ROUTE));
+  await dispatch(push(ADMIN_ROUTE));
+
+  window.location.reload();
 };
 
 

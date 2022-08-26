@@ -4,11 +4,7 @@ import {Row, Col} from "react-bootstrap";
 import Figure from 'react-bootstrap/Figure';
 import Button from 'react-bootstrap/Button';
 import styles from './productItem.module.css';
-import {
-  orderSelector,
-  productSalePriceSelector,
-  tokenSelector
-} from "../../../redux/selectors";
+import {orderSelector, tokenSelector} from "../../../redux/selectors";
 import {Link} from "react-router-dom";
 import {increaseCart} from "../../../redux/actions";
 import {PRODUCT_ROUTE, BASKET_ROUTE_SHOPPING, LOGIN_ROUTE} from "../../../utils/consts";
@@ -19,7 +15,7 @@ import ErrorBoundary from "../../ErrorBoundary";
 import cn from "classnames";
 import useWindowSize from "../../../hooks/use-window-size";
 
-const ProductItem = ({product, order, token, increaseCart, push, view, productSalePrice}) => {
+const ProductItem = ({product, order, token, increaseCart, push, view}) => {
   const {width} = useWindowSize();
 
   return (
@@ -59,7 +55,7 @@ const ProductItem = ({product, order, token, increaseCart, push, view, productSa
                       !!product.sale.discountPercent &&
                       <>
                         <span className={styles.oldPrice}>${product.price}</span>
-                        <span className={styles.salePrice}>${productSalePrice}</span>
+                        <span className={styles.salePrice}>${product.sale.price}</span>
                       </>
                     }
                   </div>
@@ -82,10 +78,8 @@ const ProductItem = ({product, order, token, increaseCart, push, view, productSa
 }
 
 const mapStateToProps = (state, props) => ({
-  // product: productSelector(state, props),
   order: orderSelector(state, props),
-  token: tokenSelector(state, props),
-  productSalePrice: productSalePriceSelector(state, props)
+  token: tokenSelector(state, props)
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

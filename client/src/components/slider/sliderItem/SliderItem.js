@@ -7,10 +7,8 @@ import {IKImage} from "imagekitio-react";
 import {images} from "../../../config";
 import {Link} from "react-router-dom";
 import {PRODUCT_ROUTE} from "../../../utils/consts";
-import {productSalePriceSelector} from "../../../redux/selectors";
-import {connect} from "react-redux";
 
-const SliderItem = ({product, productSalePrice}) => (
+const SliderItem = ({product}) => (
   <div className={styles.item}>
     <Row xs={1} sm={2}>
       <Col sm={{order: 2}}>
@@ -32,8 +30,7 @@ const SliderItem = ({product, productSalePrice}) => (
         <div className={styles.itemText}>{product.title}</div>
         <div className={styles.itemPriceWrap}>
           <span className={styles.itemPrice}>${product.price}</span>
-          <span
-            className={styles.itemSalePrice}>${productSalePrice}</span>
+          <span className={styles.itemSalePrice}>${product.sale.price}</span>
         </div>
         <Button className='c-button' as={Link} to={`${PRODUCT_ROUTE}/${product.slug}`}>Shop Now!</Button>
       </Col>
@@ -41,8 +38,4 @@ const SliderItem = ({product, productSalePrice}) => (
   </div>
 );
 
-const mapStateToProps = (state, props) => ({
-  productSalePrice: productSalePriceSelector(state, props)
-});
-
-export default connect(mapStateToProps)(SliderItem);
+export default SliderItem;

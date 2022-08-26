@@ -9,8 +9,7 @@ import {
   tokenSelector,
   productsSelector,
   ratingSelector,
-  reviewsByProductSelector,
-  productSalePriceSelector
+  reviewsByProductSelector
 } from "../../redux/selectors";
 import {Alert, Col, Container, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -37,8 +36,7 @@ const Product = ({
                    loading,
                    errors,
                    reviews,
-                   rating,
-                   productSalePrice
+                   rating
                  }) => {
   useEffect(() => {
     loadProduct();
@@ -96,7 +94,7 @@ const Product = ({
                   !!product.sale.discountPercent &&
                   <>
                     <span className={styles.oldPrice}>${product.price}</span>
-                    <span className={styles.price}>${productSalePrice}</span>
+                    <span className={styles.price}>${product.sale.price}</span>
                   </>
                 }
               </div>
@@ -145,8 +143,7 @@ const mapStateToProps = (state, props) => ({
   order: orderSelector(state, props),
   token: tokenSelector(state, props),
   rating: ratingSelector(state, props.id),
-  reviews: reviewsByProductSelector(state, props.id),
-  productSalePrice: productSalePriceSelector(state, props)
+  reviews: reviewsByProductSelector(state, props.id)
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
