@@ -46,6 +46,7 @@ export const processingOrderSelector = (state) => state.order.processing;
 export const errorOrderSelector = (state) => state.order.error;
 
 export const productSelector = (state, {id}) => productsSelector(state)[id];
+export const orderItemSelector = (state, {id}) => orderSelector(state)[id];
 
 export const activeCategorySelector = (state) => state.categories.active;
 export const activeSubcategorySelector = (state) => state.categories.activeSubcategory;
@@ -104,14 +105,14 @@ export const orderCountSelector = createSelector(
   order => order.reduce((acc, item) => acc + item.count, 0)
 );
 
-export const orderProductsSelector = createSelector(
-  orderListSelector,
-  order => order.map(item => ({...item, count: item.count, subtotal: item.price * item.count}))
+export const orderSubtotalSelector = createSelector(
+  orderItemSelector,
+  orderItem => orderItem.sale.price * orderItem.count
 );
 
 export const orderTotalSelector = createSelector(
-  orderProductsSelector,
-  products => products.reduce((acc, {subtotal}) => acc + subtotal, 0)
+  orderListSelector,
+  order => order.reduce((acc, orderItem) => acc + orderItem.sale.price * orderItem.count, 0)
 );
 
 export const activeCategoryBySubcategorySelector = createSelector(

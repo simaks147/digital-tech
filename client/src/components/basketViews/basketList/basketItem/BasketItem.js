@@ -10,18 +10,23 @@ import {Link} from "react-router-dom";
 import {PRODUCT_ROUTE} from "../../../../utils/consts";
 import {images} from "../../../../config";
 import {IKImage} from 'imagekitio-react';
+import ErrorBoundary from "../../../ErrorBoundary";
+import {orderSubtotalSelector} from "../../../../redux/selectors";
 
-const BasketItem = ({item, increaseCart, decreaseCart, removeFromCart}) => (
+const BasketItem = ({item, increaseCart, decreaseCart, removeFromCart, subtotal}) => (
   <tr>
     <td className={styles.picture}>
       <Link to={`${PRODUCT_ROUTE}/${item.slug}`}>
-        <IKImage
-          urlEndpoint={images.urlEndpoint}
-          path={item.images[0]}
-          transformation={[{
-            height: 88,
-            width: 88
-          }]}/>
+        <ErrorBoundary>
+          <IKImage
+            lqip={{active: true}}
+            urlEndpoint={images.urlEndpoint}
+            path={item.images[0] || images.defaultImage}
+            transformation={[{
+              height: 88,
+              width: 88
+            }]}/>
+        </ErrorBoundary>
       </Link>
     </td>
     <td className={styles.title}>
@@ -34,13 +39,28 @@ const BasketItem = ({item, increaseCart, decreaseCart, removeFromCart}) => (
         <span onClick={increaseCart}>+</span>
       </div>
     </td>
-    <td className={styles.price}>${item.price}</td>
-    <td className={styles.total}>${item.subtotal}</td>
+    <td className={styles.priceWrap}>
+      {
+        !item.sale.discountPercent && <div className={styles.price}>${item.price}</div>
+      }
+      {
+        !!item.sale.discountPercent &&
+        <>
+          <div className={styles.oldPrice}>${item.price}</div>
+          <div className={styles.price}>${item.sale.price}</div>
+        </>
+      }
+    </td>
+    <td className={styles.total}>${subtotal}</td>
     <td className={styles.del}>
       <div onClick={removeFromCart}>+</div>
     </td>
   </tr>
 );
+
+const mapStateToProps = (state, props) => ({
+  subtotal: orderSubtotalSelector(state, props)
+});
 
 const mapDispatchToProps = (dispatch, props) => ({
   increaseCart: () => dispatch(increaseCart(props.item)),
@@ -48,4 +68,4 @@ const mapDispatchToProps = (dispatch, props) => ({
   removeFromCart: () => dispatch(removeFromCart(props.item.slug))
 });
 
-export default connect(null, mapDispatchToProps)(BasketItem);
+export default connect(mapStateToProps, mapDispatchToProps)(BasketItem);

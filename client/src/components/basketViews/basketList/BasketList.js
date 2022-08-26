@@ -5,7 +5,7 @@ import {Container, Row, Col, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {orderProductsSelector, orderTotalSelector} from "../../../redux/selectors";
+import {orderListSelector, orderTotalSelector} from "../../../redux/selectors";
 import {processCheckout} from "../../../redux/actions";
 import {HOME_ROUTE} from "../../../utils/consts";
 import cn from "classnames";
@@ -31,7 +31,7 @@ const BasketList = ({order, total, processCheckout}) => {
               <tbody>
               {
                 order.map(item => (
-                  <BasketItem key={item.slug} item={item}/>
+                  <BasketItem key={item.slug} id={item.slug} item={item}/>
                 ))
               }
               </tbody>
@@ -60,7 +60,7 @@ const BasketList = ({order, total, processCheckout}) => {
 }
 
 const mapStateToProps = (state, props) => ({
-  order: orderProductsSelector(state, props),
+  order: orderListSelector(state, props),
   total: orderTotalSelector(state, props)
 });
 
