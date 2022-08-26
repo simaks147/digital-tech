@@ -50,14 +50,14 @@ module.exports.productsList = async (ctx) => {
   }
 
   if (minPrice || maxPrice) {
-    params.price = {};
+    params['sale.price'] = {};
 
     if (minPrice && !isNaN(minPrice)) {
-      params.price.$gte = Math.floor(minPrice);
+      params['sale.price'].$gte = Math.floor(minPrice);
     }
 
     if (maxPrice && !isNaN(maxPrice)) {
-      params.price.$lte = Math.floor(maxPrice);
+      params['sale.price'].$lte = Math.floor(maxPrice);
     }
   }
 
@@ -73,8 +73,8 @@ module.exports.productsList = async (ctx) => {
   const totalCount = await Product.countDocuments(params);
 
   const minMaxPrice = await Product.aggregate([
-    {$match: {}},
-    {$group: {_id: null, min: {$min: '$price'}, max: {$max: '$price'}}},
+    {$match: subcategoryId && totalCount ? {subcategoryId} : {}},
+    {$group: {_id: null, min: {$min: '$sale.price'}, max: {$max: '$sale.price'}}},
   ]);
 
   ctx.body = {
