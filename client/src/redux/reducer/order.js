@@ -19,16 +19,20 @@ const initialState = {
 
 export default (state = initialState, action) =>
   produce(state, draft => {
-    const {type, id, error} = action;
+    const {type, id, product, error} = action;
 
     switch (type) {
       case INCREASE_CART:
-        draft.entities[id] = (draft.entities[id] || 0) + 1;
+        if (draft.entities[product.slug]) {
+          draft.entities[product.slug].count = draft.entities[product.slug].count + 1;
+        } else {
+          draft.entities[product.slug] = {...product, count: 1};
+        }
         break;
 
       case DECREASE_CART:
-        if (draft.entities[id] > 1) {
-          draft.entities[id] = draft.entities[id] - 1;
+        if (draft.entities[id].count > 1) {
+          draft.entities[id].count = draft.entities[id].count - 1;
         } else {
           delete draft.entities[id];
         }

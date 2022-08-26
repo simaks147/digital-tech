@@ -43,7 +43,7 @@ const BasketItem = ({item, increaseCart, decreaseCart, removeFromCart}) => (
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
-  increaseCart: () => dispatch(increaseCart(props.item.slug)),
+  increaseCart: () => dispatch(increaseCart(props.item)),
   decreaseCart: () => dispatch(decreaseCart(props.item.slug)),
   removeFromCart: () => dispatch(removeFromCart(props.item.slug))
 });

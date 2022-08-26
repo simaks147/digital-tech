@@ -65,7 +65,7 @@ const ProductItem = ({product, order, token, increaseCart, push, view}) => {
                 {
                   order[product.slug]
                     ? <Button className='c-button2' onClick={() => push(BASKET_ROUTE_SHOPPING)}>In cart</Button>
-                    : <Button className='c-button' onClick={token ? increaseCart : () => push(LOGIN_ROUTE)}>Add to
+                    : <Button className='c-button' onClick={token ? () => increaseCart(product) : () => push(LOGIN_ROUTE)}>Add to
                       cart</Button>
                 }
               </Col>
@@ -83,7 +83,7 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-  increaseCart: () => dispatch(increaseCart(props.id)),
+  increaseCart: (product) => dispatch(increaseCart(product)),
   push: (route) => dispatch(push(route))
 });
 

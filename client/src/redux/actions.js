@@ -53,9 +53,9 @@ import {
   loadedSaleSelector
 } from "./selectors";
 
-export const increaseCart = (id) => ({
+export const increaseCart = (product) => ({
   type: INCREASE_CART,
-  id
+  product
 });
 
 export const decreaseCart = (id) => ({

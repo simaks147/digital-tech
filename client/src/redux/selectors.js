@@ -96,20 +96,17 @@ export const saleListSelector = createSelector(
 
 export const orderListSelector = createSelector(
   orderSelector,
-  Object.entries
+  Object.values
 );
 
 export const orderCountSelector = createSelector(
   orderListSelector,
-  order => order.reduce((acc, item) => acc + item[1], 0)
+  order => order.reduce((acc, item) => acc + item.count, 0)
 );
 
 export const orderProductsSelector = createSelector(
   orderListSelector,
-  productsSelector,
-  (order, products) => order.map(([id, count]) => {
-    return {...products[id], count, subtotal: products[id].price * count};
-  })
+  order => order.map(item => ({...item, count: item.count, subtotal: item.price * item.count}))
 );
 
 export const orderTotalSelector = createSelector(
