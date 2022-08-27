@@ -72,7 +72,7 @@ export const PRODUCT_CREATION_FIELDS = (brands, categories) => ([
   {id: 'title', label: 'Title', type: 'text', name: 'title', placeholder: 'Title', maxLength: 200, required: true},
   {id: 'description', label: 'Description', as: 'textarea', name: 'description', placeholder: 'Description', maxLength: 500, required: true},
   {id: 'price', label: 'Price', type: 'number', name: 'price', placeholder: 'Price', min: 1, max: 1000000, required: true,
-    message: 'Price must be number between 1 and 1000000.',
+    message: 'Price must be integer number between 1 and 1000000.'
   },
   {id: 'brand', label: 'Brand', as: 'select', name: 'brand', placeholder: 'Brand', required: true, className: 'form-select',
     children: [{title: 'Choose...', id: 0}, ...brands].map(({title, id}, i) => <option key={id} value={i === 0 ? '' : id}>{title}</option>)
@@ -81,7 +81,9 @@ export const PRODUCT_CREATION_FIELDS = (brands, categories) => ([
     children: [{title: 'Choose...', slug: ''}, ...categories].map(({title, slug}, i) => <option key={slug} value={i === 0 ? '' : slug}>{title}</option>)
   },
   {id: 'saleHeader', header: 'Sale'},
-  {id: 'discountPercent', label: 'Discount Percent', type: 'number', name: 'discountPercent', placeholder: 'Discount Percent', min: 0, max: 99},
+  {id: 'discountPercent', label: 'Discount Percent', type: 'number', name: 'discountPercent', placeholder: 'Discount Percent', min: 0, max: 99,
+    message: 'Price must be integer number between 0 and 99.'
+  },
   {id: 'saleTitle', label: 'Title', type: 'text', name: 'saleTitle', placeholder: 'Title', maxLength: 200},
   {id: 'saleSubtitle', label: 'Subtitle', type: 'text', name: 'saleSubtitle', placeholder: 'Subtitle', maxLength: 200},
   {id: 'saleBgColor', label: 'Background Color', type: 'text', name: 'saleBgColor', placeholder: 'Background Color', maxLength: 20}

@@ -21,9 +21,9 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
     brand: filters.brand || [],
     subcategoryId: filters.subcategoryId || [],
     rating: Math.floor(filters.rating) || null,
-    minPrice: Math.floor(filters.minPrice) || minPrice,
-    maxPrice: Math.floor(filters.maxPrice) || maxPrice
-  });
+    minPrice: filters.minPrice > minPrice && filters.minPrice < maxPrice ? Math.floor(filters.minPrice) : minPrice,
+    maxPrice: filters.maxPrice > minPrice && filters.maxPrice < maxPrice ? Math.floor(filters.maxPrice) : maxPrice
+});
 
   return (
     <div className={styles.main}>
@@ -39,6 +39,7 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
                   minValue={minPrice}
                   maxValue={maxPrice}
                   allowSameValues={true}
+                  disabled={minPrice === maxPrice}
                   formatLabel={value => `$${value}`}
                   value={{min: currentFilters.minPrice, max: currentFilters.maxPrice}}
                   onChange={value => changePrice(value)}
