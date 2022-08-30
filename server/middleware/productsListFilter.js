@@ -12,7 +12,7 @@ module.exports = (ctx, next) => {
 
   switch (sort) {
     case 'title':
-      sort = 'slug';
+      sort = 'title';
       break;
     case 'newest':
       order = 'desc';

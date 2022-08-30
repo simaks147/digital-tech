@@ -6,6 +6,7 @@ module.exports.productsList = async (ctx) => {
 
   const products = await Product
     .find(filters)
+    .collation({locale:'en', strength: 2})
     .sort({[sort]: order})
     .skip(skip)
     .limit(limit)
