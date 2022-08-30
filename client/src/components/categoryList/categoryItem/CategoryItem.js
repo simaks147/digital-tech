@@ -8,13 +8,13 @@ import {CATEGORY_ROUTE} from "../../../utils/consts";
 import cn from "classnames";
 import {activeSubcategorySelector, activeCategorySelector} from "../../../redux/selectors";
 import {connect} from "react-redux";
-
+import capitalizeFirstLetter from "../../../utils/capitalizeFirstLetter";
 
 const CategoryItem = ({item, activeSubcategory, activeCategory}) => (
   <Dropdown className={cn({active: item.slug === activeCategory}, styles.item)}>
     <Dropdown.Toggle as={Nav.Link}>
       <SVG src={process.env.PUBLIC_URL + item.img}/>
-      <div className={styles.itemTitle}>{item.title}</div>
+      <div className={styles.itemTitle}>{capitalizeFirstLetter(item.title)}</div>
     </Dropdown.Toggle>
     <Dropdown.Menu>
       {
@@ -22,7 +22,7 @@ const CategoryItem = ({item, activeSubcategory, activeCategory}) => (
           <Dropdown.Item as={Link}
                          className={cn({active: subc.slug === activeSubcategory}, styles.subcategory)}
                          key={subc.slug}
-                         to={`${CATEGORY_ROUTE}/${subc.slug}`}>{subc.title}
+                         to={`${CATEGORY_ROUTE}/${subc.slug}`}>{capitalizeFirstLetter(subc.title)}
           </Dropdown.Item>)
       }
     </Dropdown.Menu>

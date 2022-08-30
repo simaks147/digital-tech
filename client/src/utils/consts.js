@@ -1,3 +1,5 @@
+import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
+
 export const LOGIN_ROUTE = '/login';
 export const OAUTH_CALLBACK_ROUTE = '/oauth/:provider';
 export const REGISTER_ROUTE = '/register';
@@ -75,10 +77,10 @@ export const PRODUCT_CREATION_FIELDS = (brands, categories) => ([
     message: 'Price must be integer number between 1 and 1000000.'
   },
   {id: 'brand', label: 'Brand', as: 'select', name: 'brand', placeholder: 'Brand', required: true, className: 'form-select',
-    children: [{title: 'Choose...', id: 0}, ...brands].map(({title, id}, i) => <option key={id} value={i === 0 ? '' : id}>{title}</option>)
+    children: [{title: 'Choose...', id: 0}, ...brands].map(({title, id}, i) => <option key={id} value={i === 0 ? '' : id}>{capitalizeFirstLetter(title)}</option>)
   },
   {id: 'subcategoryId', label: 'Category', as: 'select', name: 'subcategoryId', placeholder: 'Category', required: true, className: 'form-select',
-    children: [{title: 'Choose...', slug: ''}, ...categories].map(({title, slug}, i) => <option key={slug} value={i === 0 ? '' : slug}>{title}</option>)
+    children: [{title: 'Choose...', slug: ''}, ...categories].map(({title, slug}, i) => <option key={slug} value={i === 0 ? '' : slug}>{capitalizeFirstLetter(title)}</option>)
   },
   {id: 'saleHeader', header: 'Sale'},
   {id: 'discountPercent', label: 'Discount Percent', type: 'number', name: 'discountPercent', placeholder: 'Discount Percent', min: 0, max: 99,

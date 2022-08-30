@@ -151,7 +151,16 @@ export const ratingSelector = createSelector(
 
 export const subcategoriesListSelector = createSelector(
   categoriesListSelector,
-  categories => categories.flatMap(category => category.subcategory)
+  categories => categories
+    .flatMap(category => category.subcategory)
+    .sort((a, b) => {
+      const titleA = a.title.toLowerCase();
+      const titleB = b.title.toLowerCase();
+
+      if (titleA < titleB) return -1;
+      if (titleA > titleB) return 1;
+      return 0;
+    })
 );
 
 export const subcategoriesSelector = createSelector(

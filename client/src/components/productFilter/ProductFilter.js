@@ -15,6 +15,7 @@ import InputRange from "react-input-range";
 import 'react-input-range/lib/css/index.css';
 import useProductFilters from "../../hooks/use-product-filters";
 import {PRODUCTS_RATING_VARIANTS} from "../../utils/consts";
+import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 
 const ProductFilter = ({brands, subcategories, changeProductPageLocation, filters, minPrice, maxPrice}) => {
   const {currentFilters, changeBrand, changeCategory, changeRating, changePrice} = useProductFilters({
@@ -63,7 +64,7 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
                       id={slug}
                       active={active}
                       disabled={false}
-                      handleChange={() => changeCategory(slug, active)}>{title}</Checkbox>
+                      handleChange={() => changeCategory(slug, active)}>{capitalizeFirstLetter(title)}</Checkbox>
                   })
                 }
               </Accordion.Body>
@@ -85,7 +86,7 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
                       id={id}
                       active={active}
                       disabled={false}
-                      handleChange={() => changeBrand(id, active)}>{title}</Checkbox>
+                      handleChange={() => changeBrand(id, active)}>{capitalizeFirstLetter(title)}</Checkbox>
                   })
                 }
               </Accordion.Body>
