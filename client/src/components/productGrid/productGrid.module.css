@@ -1,0 +1,26 @@
+.section {
+    /*margin: 30px 0;*/
+    width: initial;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.item {
+    display: flex;
+    outline: 1px solid gray;
+}
+
+.item_1 {
+    grid-column: 1/3;
+}
+
+.item :global(.figure) img {
+    width: 200px;
+}
+
+/*@media (min-width: 768px) {*/
+
+/*}*/

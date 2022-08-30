@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
-import Slider from "../components/slider";
 import Layout from "../components/Layout";
+import Slider from "../components/slider";
 import ProductSecondList from "../components/productSecondList";
+import ProductGrid from "../components/productGrid";
 import {connect} from "react-redux";
 import {loadRecommendations, loadSale} from "../redux/actions";
 import {
@@ -30,11 +31,14 @@ const HomePage = ({
 
   return (
     <Layout>
+      <ProductGrid/>
+
       <Slider
         products={sale}
         loading={loadingSale}
         errors={errorsSale}
       />
+
       <ProductSecondList
         title='Featured Products'
         products={recommendations}
