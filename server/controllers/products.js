@@ -1,76 +1,17 @@
 const Product = require('../models/Product');
 const {mapProduct} = require('../utils/mappers');
-const mongoose = require("mongoose");
-
-// module.exports.productsBySubcategory = async (ctx, next) => {
-//   const {subcategoryId} = ctx.query;
-//
-//   if (!subcategoryId) return next();
-//
-//   const products = await Product.find({subcategoryId}).populate('brand');
-//
-//   if (products.length === 0) ctx.throw(404, `No products in category '${subcategoryId}'`);
-//
-//   ctx.body = {products: products.map(mapProduct)};
-// };
 
 module.exports.productsList = async (ctx) => {
-  let {page, limit, sort, subcategoryId, brand, rating, minPrice, maxPrice} = ctx.query;
-
-  page = Number(page) || 1;
-  limit = limit || 3;
-  if (limit === 'all') limit = null;
-  const skip = page * limit - limit;
-
-  let order = 'asc';
-
-  switch (sort) {
-    case 'title':
-      sort = 'slug';
-      break;
-    case 'newest':
-      order = 'desc';
-      sort = 'createdAt';
-      break;
-    case 'rating':
-      order = 'desc';
-      sort = 'rating.overall';
-      break;
-  }
-
-  const params = {};
-
-  if (brand) params.brand = {$in: brand.split(',').map(item => mongoose.Types.ObjectId(item))};
-
-  if (subcategoryId) params.subcategoryId = {$in: subcategoryId.split(',')};
-
-  if ( rating && !isNaN( rating) ) {
-    const intRating = Math.floor(rating);
-    params['rating.overall'] = {$gte: intRating, $lt: intRating + 1};
-  }
-
-  if (minPrice || maxPrice) {
-    params['sale.price'] = {};
-
-    if (minPrice && !isNaN(minPrice)) {
-      params['sale.price'].$gte = Math.floor(minPrice);
-    }
-
-    if (maxPrice && !isNaN(maxPrice)) {
-      params['sale.price'].$lte = Math.floor(maxPrice);
-    }
-  }
+  const {filters, sort, order, skip, limit, subcategoryId} = ctx.queryParams;
 
   const products = await Product
-    .find(params)
+    .find(filters)
     .sort({[sort]: order})
     .skip(skip)
     .limit(limit)
     .populate('brand');
 
-  // if (!products.length) ctx.throw(404, 'No products for to the specified parameters');
-
-  const totalCount = await Product.countDocuments(params);
+  const totalCount = await Product.countDocuments(filters);
 
   const minMaxPrice = await Product.aggregate([
     {$match: subcategoryId && totalCount ? {subcategoryId} : {}},
