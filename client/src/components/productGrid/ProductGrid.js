@@ -25,60 +25,60 @@ const ProductGrid = () => (
           {/*  </Figure>*/}
           {/*</div>*/}
 
-          <div className={cn(styles.item, styles.item_1)}>
+          <a href={'/'} className={cn(styles.item, styles.item_1)}>
             <Figure>
               <img src={process.env.PUBLIC_URL + 'img/slider/1.png'} alt=""/>
             </Figure>
             <div className={styles.content}>
-              <div className={styles.category}>category</div>
-              <div className={styles.subcategory}>subcategory</div>
-              <div className={styles.text}>Lorem ipsum odor amet, consectetuer adipiscing elit. Primis eros nunc fringilla id rutrum nibh.</div>
+              <div className={styles.title}>TVs & Entertainment</div>
+              <div className={styles.subtitle}>Desktops & Workstations</div>
+              <div className={styles.text}>Lorem ipsum odor amet, consectetuer adipiscing elit. Primis eros nunc.</div>
             </div>
-          </div>
+          </a>
 
-          <div className={cn(styles.item, styles.item_2)}>
+          <a href={'/'} className={cn(styles.item, styles.item_2)}>
             <Figure>
               <img src={process.env.PUBLIC_URL + 'img/slider/2.png'} alt=""/>
             </Figure>
             <div className={styles.content}>
-              <div className={styles.category}>category</div>
-              <div className={styles.subcategory}>subcategory</div>
-              <div className={styles.text}>Lorem ipsum odor amet, consectetuer adipiscing elit. Primis eros nunc fringilla id rutrum nibh.</div>
+              <div className={styles.title}>TVs & Entertainment</div>
+              <div className={styles.subtitle}>Desktops & Workstations</div>
+              <div className={styles.text}>Lorem ipsum odor amet, consectetuer adipiscing elit. Primis eros nunc.</div>
             </div>
-          </div>
+          </a>
 
-          <div className={cn(styles.item, styles.item_3)}>
+          <a href={'/'} className={cn(styles.item, styles.item_3)}>
             <Figure>
               <img src={process.env.PUBLIC_URL + 'img/slider/3.png'} alt=""/>
             </Figure>
             <div className={styles.content}>
-              <div className={styles.category}>category</div>
-              <div className={styles.subcategory}>subcategory</div>
+              <div className={styles.title}>TVs & Entertainment</div>
+              <div className={styles.subtitle}>Desktops & Workstations</div>
               <div className={styles.text}>Lorem ipsum odor amet, consectetuer adipiscing elit. Primis eros nunc fringilla id rutrum nibh.</div>
             </div>
-          </div>
+          </a>
 
-          <div className={cn(styles.item, styles.item_4)}>
+          <a href={'/'} className={cn(styles.item, styles.item_4)}>
             <Figure>
               <img src={process.env.PUBLIC_URL + 'img/slider/4.png'} alt=""/>
             </Figure>
             <div className={styles.content}>
-              <div className={styles.category}>category</div>
-              <div className={styles.subcategory}>subcategory</div>
+              <div className={styles.title}>TVs & Entertainment</div>
+              <div className={styles.subtitle}>Desktops & Workstations</div>
               <div className={styles.text}>Lorem ipsum odor amet, consectetuer adipiscing elit. Primis eros nunc fringilla id rutrum nibh.</div>
             </div>
-          </div>
+          </a>
 
-          <div className={cn(styles.item, styles.item_5)}>
+          <a href={'/'} className={cn(styles.item, styles.item_5)}>
             <Figure>
               <img src={process.env.PUBLIC_URL + 'img/slider/5.png'} alt=""/>
             </Figure>
             <div className={styles.content}>
-              <div className={styles.category}>category</div>
-              <div className={styles.subcategory}>subcategory</div>
+              <div className={styles.title}>TVs & Entertainment</div>
+              <div className={styles.subtitle}>Desktops & Workstations</div>
               <div className={styles.text}>Lorem ipsum odor amet, consectetuer adipiscing elit. Primis eros nunc fringilla id rutrum nibh.</div>
             </div>
-          </div>
+          </a>
 
         </div>
       </Container>
