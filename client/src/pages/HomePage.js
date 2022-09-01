@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Layout from "../components/Layout";
 import Slider from "../components/slider";
 import ProductSecondList from "../components/productSecondList";
-import ProductGrid from "../components/productGrid";
+import SubcategoriesGrid from "../components/subcategoriesGrid";
 import {connect} from "react-redux";
 import {loadRecommendations, loadSale} from "../redux/actions";
 import {
@@ -25,20 +25,18 @@ const HomePage = ({
                     errorsSale
                   }) => {
   useEffect(() => {
-    loadRecommendations();
     loadSale();
+    loadRecommendations();
   });
 
   return (
     <Layout>
-      <ProductGrid/>
-
       <Slider
         products={sale}
         loading={loadingSale}
         errors={errorsSale}
       />
-
+      <SubcategoriesGrid/>
       <ProductSecondList
         title='Featured Products'
         products={recommendations}

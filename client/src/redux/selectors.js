@@ -6,6 +6,7 @@ export const productsSelector = (state) => state.products.common.entities;
 export const recommendationsSelector = (state) => state.products.byRecommendations.entities;
 export const relationsSelector = (state) => state.products.byRelations.entities;
 export const saleSelector = (state) => state.products.bySale.entities;
+export const randomProductsSelector = (state) => state.products.byRandom.entities;
 export const reviewsSelector = (state) => state.reviews;
 export const orderSelector = (state) => state.order.entities;
 export const routerSelector = (state) => state.router;
@@ -37,6 +38,10 @@ export const errorRelationsSelector = (state) => state.products.byRelations.erro
 export const loadingSaleSelector = (state) => state.products.bySale.loading;
 export const loadedSaleSelector = (state) => state.products.bySale.loaded;
 export const errorSaleSelector = (state) => state.products.bySale.error;
+
+export const loadingRandomProductsSelector = (state) => state.products.byRandom.loading;
+export const loadedRandomProductsSelector = (state) => state.products.byRandom.loaded;
+export const errorRandomProductsSelector = (state) => state.products.byRandom.error;
 
 export const loadingReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.loading;
 export const loadedReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.loaded;
@@ -92,6 +97,11 @@ export const relationsListSelector = createSelector(
 
 export const saleListSelector = createSelector(
   saleSelector,
+  Object.values
+);
+
+export const randomProductsListSelector = createSelector(
+  randomProductsSelector,
   Object.values
 );
 
@@ -212,6 +222,17 @@ export const productsFiltersSelector = createSelector(
       return {...acc, [key]: values?.split('|')};
     }, {});
   }
+);
+
+// five (5) random subcategories
+export const randomSubcategoriesSelector = createSelector(
+  categoriesListSelector,
+  categories => categories
+    .flatMap(parent => parent.subcategory.map(child => ({...child, parentTitle: parent.title})))
+    .map(child => ({child, sort: Math.random()}))
+    .sort((childA, childB) => childA.sort - childB.sort)
+    .map(({child}) => child)
+    .filter((_, i) => i < 5)
 );
 
 
