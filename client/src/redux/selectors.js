@@ -6,9 +6,9 @@ export const productsSelector = (state) => state.products.common.entities;
 export const recommendationsSelector = (state) => state.products.byRecommendations.entities;
 export const relationsSelector = (state) => state.products.byRelations.entities;
 export const saleSelector = (state) => state.products.bySale.entities;
-export const randomProductsSelector = (state) => state.products.byRandom.entities;
 export const reviewsSelector = (state) => state.reviews;
 export const orderSelector = (state) => state.order.entities;
+export const currenciesSelector = (state) => state.currencies.entities;
 export const routerSelector = (state) => state.router;
 export const queryParamsSelector = (state) => state.router.location.query;
 
@@ -39,10 +39,6 @@ export const loadingSaleSelector = (state) => state.products.bySale.loading;
 export const loadedSaleSelector = (state) => state.products.bySale.loaded;
 export const errorSaleSelector = (state) => state.products.bySale.error;
 
-export const loadingRandomProductsSelector = (state) => state.products.byRandom.loading;
-export const loadedRandomProductsSelector = (state) => state.products.byRandom.loaded;
-export const errorRandomProductsSelector = (state) => state.products.byRandom.error;
-
 export const loadingReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.loading;
 export const loadedReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.loaded;
 export const errorReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.error;
@@ -68,7 +64,9 @@ export const profileSelector = (state) => state.auth.profile;
 export const fetchingProfileSelector = (state) => profileSelector(state).fetching;
 export const errorProfileSelector = (state) => profileSelector(state).error;
 
-export const activeNavSelector = (state) => state.nav.active
+export const activeNavSelector = (state) => state.nav.active;
+
+export const checkedCurrencySelector = (state) => state.currencies.checkedCurrency;
 
 export const categoriesListSelector = createSelector(
   categoriesSelector,
@@ -100,13 +98,13 @@ export const saleListSelector = createSelector(
   Object.values
 );
 
-export const randomProductsListSelector = createSelector(
-  randomProductsSelector,
+export const orderListSelector = createSelector(
+  orderSelector,
   Object.values
 );
 
-export const orderListSelector = createSelector(
-  orderSelector,
+export const currenciesListSelector = createSelector(
+  currenciesSelector,
   Object.values
 );
 

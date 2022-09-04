@@ -14,6 +14,7 @@ import {push} from 'connected-react-router';
 import ErrorBoundary from "../../ErrorBoundary";
 import cn from "classnames";
 import useWindowSize from "../../../hooks/use-window-size";
+import FormattedPrice from "../../formattedPrice";
 
 const ProductItem = ({product, order, token, increaseCart, push, view}) => {
   const {width} = useWindowSize();
@@ -49,13 +50,20 @@ const ProductItem = ({product, order, token, increaseCart, push, view}) => {
                   }
                   <div className={styles.priceWrap}>
                     {
-                      !product.sale.discountPercent && <span className={styles.price}>${product.price}</span>
+                      !product.sale.discountPercent &&
+                      <span className={styles.price}>
+                        <FormattedPrice value={product.price}/>
+                      </span>
                     }
                     {
                       !!product.sale.discountPercent &&
                       <>
-                        <span className={styles.oldPrice}>${product.price}</span>
-                        <span className={styles.salePrice}>${product.sale.price}</span>
+                        <span className={styles.oldPrice}>
+                          <FormattedPrice value={product.price}/>
+                        </span>
+                        <span className={styles.salePrice}>
+                          <FormattedPrice value={product.sale.price}/>
+                        </span>
                       </>
                     }
                   </div>
@@ -65,7 +73,8 @@ const ProductItem = ({product, order, token, increaseCart, push, view}) => {
                 {
                   order[product.slug]
                     ? <Button className='c-button2' onClick={() => push(BASKET_ROUTE_SHOPPING)}>In cart</Button>
-                    : <Button className='c-button' onClick={token ? () => increaseCart(product) : () => push(LOGIN_ROUTE)}>Add to
+                    : <Button className='c-button'
+                              onClick={token ? () => increaseCart(product) : () => push(LOGIN_ROUTE)}>Add to
                       cart</Button>
                 }
               </Col>

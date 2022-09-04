@@ -7,6 +7,7 @@ import order from "./order";
 import reviews from "./reviews";
 import auth from "./auth";
 import nav from "./nav";
+import currencies from "./currencies";
 
 const createRootReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -16,7 +17,8 @@ const createRootReducer = (history) => combineReducers({
   order,
   reviews,
   auth,
-  nav
+  nav,
+  currencies,
 });
 
 export default createRootReducer;

@@ -6,6 +6,7 @@ import ErrorBoundary from "../../ErrorBoundary";
 import {IKImage} from "imagekitio-react";
 import {images} from "../../../config";
 import {Link} from "react-router-dom";
+import FormattedPrice from "../../formattedPrice";
 
 const ProductSecondListItem = ({product}) => (
   <Link to={`${PRODUCT_ROUTE}/${product.slug}`} className={styles.item}>
@@ -26,13 +27,19 @@ const ProductSecondListItem = ({product}) => (
 
     <div className={styles.itemPriceWrap}>
       {
-        !product.sale.discountPercent && <span className={styles.itemPrice}>${product.price}</span>
+        !product.sale.discountPercent && <span className={styles.itemPrice}>
+          <FormattedPrice value={product.price}/>
+        </span>
       }
       {
         !!product.sale.discountPercent &&
         <>
-          <span className={styles.itemOldPrice}>${product.price}</span>
-          <span className={styles.itemPrice}>${product.sale.price}</span>
+          <span className={styles.itemOldPrice}>
+            <FormattedPrice value={product.price}/>
+          </span>
+          <span className={styles.itemPrice}>
+            <FormattedPrice value={product.sale.price}/>
+          </span>
         </>
       }
     </div>

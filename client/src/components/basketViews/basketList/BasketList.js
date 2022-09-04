@@ -9,6 +9,7 @@ import {orderListSelector, orderTotalSelector} from "../../../redux/selectors";
 import {processCheckout} from "../../../redux/actions";
 import {HOME_ROUTE} from "../../../utils/consts";
 import cn from "classnames";
+import FormattedPrice from "../../formattedPrice";
 
 const BasketList = ({order, total, processCheckout}) => {
   return (
@@ -42,7 +43,9 @@ const BasketList = ({order, total, processCheckout}) => {
                 <Col>
                   <div className={styles.totalInner}>
                     <div className={styles.totalCaption}>Total</div>
-                    <div className={styles.totalPrice}>${total}</div>
+                    <div className={styles.totalPrice}>
+                      <FormattedPrice value={total}/>
+                    </div>
                   </div>
                 </Col>
               </Row>

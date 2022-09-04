@@ -12,6 +12,7 @@ import {images} from "../../../../config";
 import {IKImage} from 'imagekitio-react';
 import ErrorBoundary from "../../../ErrorBoundary";
 import {orderSubtotalSelector} from "../../../../redux/selectors";
+import FormattedPrice from "../../../formattedPrice";
 
 const BasketItem = ({item, increaseCart, decreaseCart, removeFromCart, subtotal}) => (
   <tr>
@@ -41,17 +42,25 @@ const BasketItem = ({item, increaseCart, decreaseCart, removeFromCart, subtotal}
     </td>
     <td className={styles.priceWrap}>
       {
-        !item.sale.discountPercent && <div className={styles.price}>${item.price}</div>
+        !item.sale.discountPercent && <div className={styles.price}>
+          <FormattedPrice value={item.price}/>
+        </div>
       }
       {
         !!item.sale.discountPercent &&
         <>
-          <div className={styles.oldPrice}>${item.price}</div>
-          <div className={styles.price}>${item.sale.price}</div>
+          <div className={styles.oldPrice}>
+            <FormattedPrice value={item.price}/>
+          </div>
+          <div className={styles.price}>
+            <FormattedPrice value={item.sale.price}/>
+          </div>
         </>
       }
     </td>
-    <td className={styles.total}>${subtotal}</td>
+    <td className={styles.total}>
+      <FormattedPrice value={subtotal}/>
+    </td>
     <td className={styles.del}>
       <div onClick={removeFromCart}>+</div>
     </td>

@@ -1,20 +1,28 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Dropdown} from "react-bootstrap";
 import styles from './currency.module.css';
+import {connect} from "react-redux";
+import {setCurrency} from '../../redux/actions'
+import {checkedCurrencySelector, currenciesListSelector} from "../../redux/selectors";
 
-const Currency = () => {
-  const [currency, setCurrency] = useState('usd');
+const Currency = ({currencies, setCurrency, checkedCurrency}) => {
+  // const [currency, setCurrency] = useState('usd');
 
   return (
     <Dropdown onSelect={(eventKey) => setCurrency(eventKey)}>
-      <Dropdown.Toggle className={styles.toggle}>{currency.toUpperCase()}</Dropdown.Toggle>
+      <Dropdown.Toggle className={styles.toggle}>{checkedCurrency}</Dropdown.Toggle>
       <Dropdown.Menu className={styles.menu}>
         {
-          ['usd', 'eur', 'rub'].map((cur) => <Dropdown.Item className={styles.item} key={cur} eventKey={cur} active={cur === currency}>{cur.toUpperCase()}</Dropdown.Item>)
+          currencies.map((cur) => <Dropdown.Item className={styles.item} key={cur.label} eventKey={cur.label} active={cur.label === checkedCurrency}>{cur.label}</Dropdown.Item>)
         }
       </Dropdown.Menu>
     </Dropdown>
   );
 };
 
-export default Currency;
+const mapStateToProps = (state) => ({
+  currencies: currenciesListSelector(state),
+  checkedCurrency: checkedCurrencySelector(state)
+});
+
+export default connect(mapStateToProps, {setCurrency})(Currency);

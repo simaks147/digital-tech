@@ -127,7 +127,9 @@ td {
     .count div {
         padding: 6px 12px;
     }
+}
 
+@media (min-width: 992px) {
     .priceWrap {
         display: table-cell;
     }

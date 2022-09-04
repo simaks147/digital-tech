@@ -68,6 +68,10 @@
     margin-left: -4px;
 }
 
+.main :global(.input-range__label) {
+    font-size: 11px;
+}
+
 .main :global(.input-range__label--min),
 .main :global(.input-range__label--max) {
     opacity: 0;

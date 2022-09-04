@@ -7,6 +7,7 @@ import {IKImage} from "imagekitio-react";
 import {images} from "../../../config";
 import {Link} from "react-router-dom";
 import {PRODUCT_ROUTE} from "../../../utils/consts";
+import FormattedPrice from "../../formattedPrice";
 
 const SliderItem = ({product}) => (
   <div className={styles.item}>
@@ -29,8 +30,12 @@ const SliderItem = ({product}) => (
         <div className={styles.itemTitle}>{product.sale.title}</div>
         <div className={styles.itemText}>{product.title}</div>
         <div className={styles.itemPriceWrap}>
-          <span className={styles.itemPrice}>${product.price}</span>
-          <span className={styles.itemSalePrice}>${product.sale.price}</span>
+          <span className={styles.itemPrice}>
+            <FormattedPrice value={product.price}/>
+          </span>
+          <span className={styles.itemSalePrice}>
+            <FormattedPrice value={product.sale.price}/>
+          </span>
         </div>
         <Button className='c-button' as={Link} to={`${PRODUCT_ROUTE}/${product.slug}`}>Shop Now!</Button>
       </Col>

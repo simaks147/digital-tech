@@ -42,11 +42,13 @@
 .title {
     font-size: 12px;
     width: 65px;
+    margin-left: auto;
 }
 
 .total {
     font-size: 18px;
     font-weight: 700;
+    text-align: center;
 }
 
 @media (min-width: 768px) {

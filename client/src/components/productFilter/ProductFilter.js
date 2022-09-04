@@ -16,6 +16,7 @@ import 'react-input-range/lib/css/index.css';
 import useProductFilters from "../../hooks/use-product-filters";
 import {PRODUCTS_RATING_VARIANTS} from "../../utils/consts";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
+import FormattedPrice from "../formattedPrice";
 
 const ProductFilter = ({brands, subcategories, changeProductPageLocation, filters, minPrice, maxPrice}) => {
   const {currentFilters, changeBrand, changeCategory, changeRating, changePrice} = useProductFilters({
@@ -41,7 +42,7 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
                   maxValue={maxPrice}
                   allowSameValues={true}
                   disabled={minPrice === maxPrice}
-                  formatLabel={value => `$${value}`}
+                  formatLabel={value => <FormattedPrice value={value}/>}
                   value={{min: currentFilters.minPrice, max: currentFilters.maxPrice}}
                   onChange={value => changePrice(value)}
                 />

@@ -27,7 +27,8 @@ import {
   CREATE_REVIEW,
   LOAD_PRODUCTS_BY_RECOMMENDATIONS,
   LOAD_PRODUCTS_BY_RELATIONS,
-  LOAD_PRODUCTS_BY_SALE
+  LOAD_PRODUCTS_BY_SALE,
+  SET_CURRENCY
 } from "./consts";
 
 import {
@@ -377,3 +378,8 @@ export const updateProduct = (values, id, images, specification, saleImages) => 
 
   window.location.reload();
 };
+
+export const setCurrency = (currency) => ({
+  type: SET_CURRENCY,
+  currency
+});

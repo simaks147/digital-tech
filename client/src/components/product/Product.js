@@ -23,6 +23,7 @@ import Rate from "../rate/Rate";
 import {IKImage} from "imagekitio-react";
 import {images} from "../../config";
 import ErrorBoundary from "../ErrorBoundary";
+import FormattedPrice from "../formattedPrice";
 
 const Product = ({
                    products,
@@ -88,13 +89,20 @@ const Product = ({
 
               <div className={styles.priceWrap}>
                 {
-                  !product.sale.discountPercent && <span className={styles.price}>${product.price}</span>
+                  !product.sale.discountPercent &&
+                  <span className={styles.price}>
+                    <FormattedPrice value={product.price}/>
+                  </span>
                 }
                 {
                   !!product.sale.discountPercent &&
                   <>
-                    <span className={styles.oldPrice}>${product.price}</span>
-                    <span className={styles.price}>${product.sale.price}</span>
+                    <span className={styles.oldPrice}>
+                      <FormattedPrice value={product.price}/>
+                    </span>
+                    <span className={styles.price}>
+                      <FormattedPrice value={product.sale.price}/>
+                    </span>
                   </>
                 }
               </div>
@@ -102,7 +110,8 @@ const Product = ({
               {
                 order[product.slug]
                   ? <Button className='c-button2' onClick={() => push(BASKET_ROUTE_SHOPPING)}>In cart</Button>
-                  : <Button className='c-button' onClick={token ? () => increaseCart(product) : () => push(LOGIN_ROUTE)}>Buy
+                  :
+                  <Button className='c-button' onClick={token ? () => increaseCart(product) : () => push(LOGIN_ROUTE)}>Buy
                     now!</Button>
               }
             </div>
