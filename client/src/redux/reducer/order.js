@@ -14,12 +14,13 @@ import {objToArr} from "../utils";
 const initialState = {
   entities: {},
   processing: false,
-  error: null
+  error: null,
+  message: null
 };
 
 export default (state = initialState, action) =>
   produce(state, draft => {
-    const {type, id, product, error} = action;
+    const {type, id, product, error, data} = action;
 
     switch (type) {
       case INCREASE_CART:
@@ -54,6 +55,7 @@ export default (state = initialState, action) =>
         draft.entities = {};
         draft.processing = false;
         draft.error = null;
+        draft.message = data.order.message
         break;
 
       case MAKE_ORDER + FAILURE:

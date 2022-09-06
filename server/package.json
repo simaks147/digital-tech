@@ -2,9 +2,7 @@
   "name": "server",
   "version": "0.0.1",
   "description": "core",
-  "scripts": {
-    "start": "supervisor index.js"
-  },
+  "main": "index.js",
   "dependencies": {
     "@koa/cors": "^3.3.0",
     "@mongoosejs/double": "^0.2.0",

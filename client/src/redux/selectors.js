@@ -45,6 +45,7 @@ export const errorReviewsByProductSelector = (state, {productId}) => reviewsSele
 
 export const processingOrderSelector = (state) => state.order.processing;
 export const errorOrderSelector = (state) => state.order.error;
+export const messageOrderSelector = (state) => state.order.message;
 
 export const productSelector = (state, {id}) => productsSelector(state)[id];
 export const orderItemSelector = (state, {id}) => orderSelector(state)[id];

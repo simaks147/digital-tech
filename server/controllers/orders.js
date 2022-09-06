@@ -2,6 +2,8 @@ const Order = require('../models/Order');
 const sendMail = require('../libs/sendMail');
 
 module.exports.checkout = async (ctx, next) => {
+  let message = '';
+
   const order = await Order.create({
     user: ctx.user,
     products: ctx.request.body.products,
@@ -21,13 +23,16 @@ module.exports.checkout = async (ctx, next) => {
       html: `Your order №${order.id.slice(-6)} has been placed`
     });
   }
-  catch (err) {
-    ctx.throw(403, 'An error occurred while sending mail');
+  catch {
+    message = 'An error occurred when sending mail to your mailbox, but your order has been successfully placed';
   }
 
   ctx.body = await new Promise(resolve => {
     setTimeout(() => {
-      resolve({order: order.id});
+      resolve({order: {
+          id: order.id,
+          message
+        }});
     }, 3000);
   });
 };

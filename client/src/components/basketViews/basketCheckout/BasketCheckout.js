@@ -5,14 +5,14 @@ import Button from "react-bootstrap/Button";
 import {makeOrder} from "../../../redux/actions";
 import {connect} from "react-redux";
 import useForm from "../../../hooks/use-form";
-import {processingOrderSelector, errorOrderSelector, orderListSelector} from "../../../redux/selectors";
+import {processingOrderSelector, orderListSelector} from "../../../redux/selectors";
 import Loader from "../../loader";
 import {Redirect} from "react-router-dom";
 import {HOME_ROUTE} from "../../../utils/consts";
 
 import {CHECKOUT_FIELDS} from "../../../utils/consts";
 
-const BasketCheckout = ({order, processing, errors, makeOrder}) => {
+const BasketCheckout = ({order, processing, makeOrder}) => {
   const initialValues = useMemo(
     () => CHECKOUT_FIELDS.reduce((acc, field) => ({...acc, [field.name]: ''}), {}),
     [CHECKOUT_FIELDS]
@@ -54,11 +54,6 @@ const BasketCheckout = ({order, processing, errors, makeOrder}) => {
               })
             }
           </Row>
-          {
-            errors?.map((err, i) => (
-              <Alert variant="danger" key={i}>{err}</Alert>
-            ))
-          }
           <div className={styles.buttons}>
             <Button className='c-button' disabled={processing} type='submit'>
               {processing && <Loader/>}
@@ -73,8 +68,7 @@ const BasketCheckout = ({order, processing, errors, makeOrder}) => {
 
 const mapStateToProps = (state, props) => ({
   order: orderListSelector(state, props),
-  processing: processingOrderSelector(state, props),
-  errors: errorOrderSelector(state, props)
+  processing: processingOrderSelector(state, props)
 });
 
 export default connect(mapStateToProps, {makeOrder})(BasketCheckout);
