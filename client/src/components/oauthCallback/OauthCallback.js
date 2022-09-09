@@ -27,7 +27,7 @@ const OauthCallback = ({token, oauthCallback, oauthCallbackAction}) => {
           (params.get('error') || oauthCallback.error || !params.get('code'))
             ?
             <>
-              <Alert variant="danger">An error occurred while performing the operation</Alert>
+              {/*<Alert variant="danger">An error occurred while performing the operation</Alert>*/}
               {
                 oauthCallback.error &&
                 oauthCallback.error.map((err) => (
