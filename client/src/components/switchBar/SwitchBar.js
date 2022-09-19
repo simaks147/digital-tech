@@ -12,9 +12,12 @@ import {openNav} from "../../redux/actions";
 
 const SwitchBar = ({token, profile, openNav}) => (
   <div className={styles.section}>
-    <div className={styles.admin}>
-      <Link to={ADMIN_ROUTE}>Admin</Link>
-    </div>
+    {
+      !!profile.isAdmin &&
+      <div className={styles.admin}>
+        <Link to={ADMIN_ROUTE}>Admin</Link>
+      </div>
+    }
     <Container>
       <Row className="justify-content-between align-items-center">
         <Col xs={6} lg={1} className="d-flex align-items-center">

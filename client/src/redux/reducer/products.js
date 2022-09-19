@@ -157,7 +157,7 @@ export default (state = initialState, action) =>
       case DELETE_PRODUCT + SUCCESS:
         // draft.common.entities = Object.keys(draft.common.entities).reduce((acc, slug) => (slug !== id) ? {...acc, [slug]: draft.common.entities[slug]} : acc, {});
         // draft.common.totalCount = draft.totalCount - 1;
-        window.location.reload();
+        // window.location.reload();
         break;
 
       case DELETE_PRODUCT + FAILURE:

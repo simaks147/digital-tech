@@ -6,10 +6,8 @@ module.exports.mustBeAuthenticated = async (ctx, next) => {
   return next();
 };
 
-// module.exports.alreadyAuthenticated = async (ctx, next) => {
-//   const session = await Session.findOne({ip: ctx.request.ip});
-//
-//   if (session) ctx.throw(400, 'The user is already logged in');
-//
-//   return next();
-// };
+module.exports.mustBeAdmin = async (ctx, next) => {
+  if (!ctx.user?.isAdmin) ctx.throw(403, 'User has no rights');
+
+  return next();
+};

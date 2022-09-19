@@ -1,6 +1,6 @@
 const Router = require('koa-router');
 const session = require('./middleware/session');
-const {mustBeAuthenticated} = require('./middleware/authentication');
+const {mustBeAuthenticated, mustBeAdmin} = require('./middleware/authentication');
 const validationErrors = require('./middleware/validationErrors');
 const productsListFilter = require('./middleware/productsListFilter');
 const categoryList = require('./controllers/categories');
@@ -35,9 +35,9 @@ router.get('/brands', brandList);
 router.get('/products', productsListFilter, productsList);
 
 router.get('/product/:slug', productBySlug);
-router.post('/product', validationErrors, createProduct);
-router.del('/product/:slug', deleteProduct);
-router.put('/product/:slug', validationErrors, updateProduct);
+router.post('/product', mustBeAdmin, validationErrors, createProduct);
+router.del('/product/:slug', mustBeAdmin, deleteProduct);
+router.put('/product/:slug', mustBeAdmin, validationErrors, updateProduct);
 
 router.get('/recommendations', recommendations);
 router.get('/relations', relations);

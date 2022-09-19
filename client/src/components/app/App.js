@@ -40,7 +40,7 @@ const App = ({
     loadBrands();
   }, []);
 
-  if (loadingCategories || loadingBrands || fetchingProfile) return <Loader/>;
+  if (loadingCategories || loadingBrands) return <Loader/>;
 
   if (errorsCategories || errorsBrands || errorsProfile) return (
     <>

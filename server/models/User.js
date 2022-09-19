@@ -29,6 +29,9 @@ const userSchema = new mongoose.Schema({
   passwordHash: {
     type: String
   },
+  isAdmin: {
+    type: Boolean
+  },
   verificationToken: {
     type: String,
     index: true

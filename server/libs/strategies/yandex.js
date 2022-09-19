@@ -8,6 +8,5 @@ module.exports = new Strategy({
   callbackURL: config.providers.yandex.callback_uri,
   session: false,
 }, (accessToken, refreshToken, profile, done) => {
-  console.log(profile);
   authenticate(profile.emails[0].value, profile.username, done);
 });

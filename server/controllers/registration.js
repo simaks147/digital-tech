@@ -31,7 +31,7 @@ module.exports.register = async (ctx, next) => {
   }
   catch (err) {
     await User.deleteOne({email: user.email});
-    ctx.throw(403, 'An error occurred while sending mail');
+    ctx.throw(403, 'An error occurred while sending mail, account has not been created.');
   }
 
   ctx.body = {status: 'ok'};

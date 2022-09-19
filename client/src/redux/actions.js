@@ -108,13 +108,6 @@ export const loadBrands = () => ({
   CallApi: '/api/brands'
 });
 
-export const deleteProduct = (id) => ({
-  type: DELETE_PRODUCT,
-  CallApi: `/api/product/${id}`,
-  method: 'DELETE',
-  id
-});
-
 
 export const changeProductPageLocation = (attr, param) => async (dispatch, getState) => {
   const state = getState();
@@ -349,35 +342,62 @@ export const closeNav = () => ({
 });
 
 
-const _createProduct = (values, id, images, specification, saleImages) => ({
+const _createProduct = (values, id, images, specification, saleImages, token) => ({
   type: CREATE_PRODUCT,
   CallApi: '/api/product',
   values: {...values, slug: id, images, specification, saleImages},
-  id
+  id,
+  token
 });
 
-export const createProduct = (values, id, images, specification, saleImages) => async (dispatch) => {
-  await dispatch(_createProduct(values, id, images, specification, saleImages));
+export const createProduct = (values, id, images, specification, saleImages) => async (dispatch, getState) => {
+  const state = getState();
+  const token = tokenSelector(state);
+
+  await dispatch(_createProduct(values, id, images, specification, saleImages, token));
   await dispatch(push(ADMIN_ROUTE));
 
   window.location.reload();
 };
 
 
-const _updateProduct = (values, id, images, specification, saleImages) => ({
+const _updateProduct = (values, id, images, specification, saleImages, token) => ({
   type: UPDATE_PRODUCT,
   CallApi: `/api/product/${id}`,
   values: {...values, slug: id, images, specification, saleImages},
   id,
-  method: 'PUT'
+  method: 'PUT',
+  token
 });
 
-export const updateProduct = (values, id, images, specification, saleImages) => async (dispatch) => {
-  await dispatch(_updateProduct(values, id, images, specification, saleImages));
+export const updateProduct = (values, id, images, specification, saleImages) => async (dispatch, getState) => {
+  const state = getState();
+  const token = tokenSelector(state);
+
+  await dispatch(_updateProduct(values, id, images, specification, saleImages, token));
   await dispatch(push(ADMIN_ROUTE));
 
   window.location.reload();
 };
+
+
+const _deleteProduct = (id, token) => ({
+  type: DELETE_PRODUCT,
+  CallApi: `/api/product/${id}`,
+  method: 'DELETE',
+  id,
+  token
+});
+
+export const deleteProduct = (id) => async (dispatch, getState) => {
+  const state = getState();
+  const token = tokenSelector(state);
+
+  await dispatch(_deleteProduct(id, token));
+
+  window.location.reload();
+};
+
 
 export const setCurrency = (currency) => ({
   type: SET_CURRENCY,

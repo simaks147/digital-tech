@@ -27,7 +27,32 @@ import AdminProductCreationPage from "./pages/AdminProductCreationPage";
 import AdminProductUpdatePage from "./pages/AdminProductUpdatePage";
 import AdminProductsListPage from "./pages/AdminProductsListPage";
 
-const routes = [
+export const adminRoutes = [
+  {
+    path: ADMIN_ROUTE,
+    Component: AdminProductsListPage
+  },
+  {
+    path: ADMIN_PRODUCT_ROUTE,
+    Component: AdminProductCreationPage
+  },
+  {
+    path: ADMIN_PRODUCT_ROUTE + '/:slug',
+    Component: AdminProductUpdatePage
+  }
+];
+
+export const privateRoutes = [
+  {
+    path: [
+      BASKET_ROUTE_CHECKOUT,
+      BASKET_ROUTE_COMPLETED
+    ],
+    Component: BasketPage
+  }
+];
+
+export const publicRoutes = [
   {
     path: HOME_ROUTE,
     Component: HomePage
@@ -69,25 +94,9 @@ const routes = [
   {
     path: [
       BASKET_ROUTE,
-      BASKET_ROUTE_SHOPPING,
-      BASKET_ROUTE_CHECKOUT,
-      BASKET_ROUTE_COMPLETED
+      BASKET_ROUTE_SHOPPING
     ],
     Component: BasketPage
-  },
-  {
-    path: ADMIN_ROUTE,
-    Component: AdminProductsListPage
-  },
-  {
-    path: ADMIN_PRODUCT_ROUTE,
-    Component: AdminProductCreationPage
-  },
-  {
-    path: ADMIN_PRODUCT_ROUTE + '/:slug',
-    Component: AdminProductUpdatePage
   }
 ];
-
-export default routes;
 
