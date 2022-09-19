@@ -34,6 +34,12 @@ module.exports = {
       options: {
         scope: ['user:email'],
       }
+    },
+    yandex: {
+      app_id: process.env.YANDEX_APP_ID || 'yandex_app_id',
+      app_secret: process.env.YANDEX_APP_SECRET || 'yandex_app_secret',
+      callback_uri: 'http://localhost:3000/oauth/yandex',
+      options: {}
     }
   },
   mailer: {
