@@ -4,6 +4,7 @@ import Footer from "./footer";
 import SwitchBar from "./switchBar/SwitchBar";
 import MainBar from "./mainBar";
 import CategoryList from "./categoryList/CategoryList";
+import Chat from "./chat";
 
 const Layout = ({children}) => (
   <>
@@ -13,6 +14,7 @@ const Layout = ({children}) => (
     <div className='flex-grow-1'>
       {children}
     </div>
+    <Chat/>
     <Footer/>
   </>
 );
