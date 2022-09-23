@@ -42,6 +42,10 @@ export const LOAD_PRODUCTS_BY_SALE = 'LOAD_PRODUCTS_BY_SALE';
 
 export const SET_CURRENCY = 'SET_CURRENCY';
 
+export const CHAT_MESSAGE = 'CHAT_MESSAGE';
+export const CHAT_CONNECT = 'CHAT_CONNECT';
+export const CHAT_DISCONNECT = 'CHAT_DISCONNECT';
+
 
 
 

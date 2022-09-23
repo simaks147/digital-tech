@@ -28,7 +28,10 @@ import {
   LOAD_PRODUCTS_BY_RECOMMENDATIONS,
   LOAD_PRODUCTS_BY_RELATIONS,
   LOAD_PRODUCTS_BY_SALE,
-  SET_CURRENCY
+  SET_CURRENCY,
+  CHAT_MESSAGE,
+  CHAT_CONNECT,
+  CHAT_DISCONNECT
 } from "./consts";
 
 import {
@@ -402,4 +405,18 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
 export const setCurrency = (currency) => ({
   type: SET_CURRENCY,
   currency
+});
+
+
+export const chatMessage = (msg) => ({
+  type: CHAT_MESSAGE,
+  msg
+});
+
+export const chatConnect = () => ({
+  type: CHAT_CONNECT
+});
+
+export const chatDisconnect = () => ({
+  type: CHAT_DISCONNECT
 });

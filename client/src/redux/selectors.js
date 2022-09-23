@@ -9,6 +9,7 @@ export const saleSelector = (state) => state.products.bySale.entities;
 export const reviewsSelector = (state) => state.reviews;
 export const orderSelector = (state) => state.order.entities;
 export const currenciesSelector = (state) => state.currencies.entities;
+export const chatSelector = (state) => state.chat.entities;
 export const routerSelector = (state) => state.router;
 export const queryParamsSelector = (state) => state.router.location.query;
 
@@ -69,6 +70,9 @@ export const errorProfileSelector = (state) => profileSelector(state).error;
 export const activeNavSelector = (state) => state.nav.active;
 
 export const checkedCurrencySelector = (state) => state.currencies.checkedCurrency;
+
+export const connectedChatSelector = (state) => state.chat.connected;
+
 
 export const categoriesListSelector = createSelector(
   categoriesSelector,

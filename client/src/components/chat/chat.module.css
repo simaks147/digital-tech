@@ -31,6 +31,9 @@
     height: 160px;
     background-color: var(--bs-gray-100);
     padding: 10px;
+    overflow: auto;
+    display: flex;
+    flex-flow: column-reverse;
 }
 
 .main :global(.form-control) {
