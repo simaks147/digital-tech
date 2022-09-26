@@ -57,6 +57,7 @@ export default (state = initialState, action) =>
 
       case LOGIN + SUCCESS:
         localStorage.setItem('token', data.token);
+        localStorage.removeItem('messages');
         draft.token = data.token;
         draft.login.processing = false;
         draft.login.error = null;
@@ -88,6 +89,7 @@ export default (state = initialState, action) =>
 
       case OAUTH_CALLBACK + SUCCESS:
         localStorage.setItem('token', data.token);
+        localStorage.removeItem('messages');
         draft.token = data.token;
         draft.oauthCallback.processing = false;
         draft.oauthCallback.error = null;
@@ -119,6 +121,7 @@ export default (state = initialState, action) =>
 
       case CONFIRM + SUCCESS:
         localStorage.setItem('token', data.token);
+        localStorage.removeItem('messages');
         draft.token = data.token;
         draft.confirmation.processing = false;
         draft.confirmation.error = null;

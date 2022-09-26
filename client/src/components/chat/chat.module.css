@@ -1,6 +1,6 @@
 .main {
     position: fixed;
-    width: 300px;
+    width: 400px;
     bottom: 0;
     right: 0;
     z-index: 2;
@@ -28,7 +28,8 @@
 }
 
 .messages {
-    height: 160px;
+    /*height: 160px;*/
+    height: 400px;
     background-color: var(--bs-gray-100);
     padding: 10px;
     overflow: auto;

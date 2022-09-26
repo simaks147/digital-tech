@@ -1,7 +1,11 @@
 import {
   CHAT_MESSAGE,
   CHAT_CONNECT,
-  CHAT_DISCONNECT
+  CHAT_DISCONNECT,
+  OAUTH_CALLBACK,
+  SUCCESS,
+  CONFIRM,
+  LOGIN
 } from "../consts";
 
 const storageMessages = JSON.parse(localStorage.getItem('messages')) || [];
@@ -23,6 +27,10 @@ export default (state = initialState, action) => {
       return {...state, connected: true};
     case CHAT_DISCONNECT:
       return {...state, connected: false};
+    case OAUTH_CALLBACK + SUCCESS:
+    case CONFIRM + SUCCESS:
+    case LOGIN + SUCCESS:
+      return {...state, entities: []};
     default:
       return state;
   }
