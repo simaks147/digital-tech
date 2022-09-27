@@ -22,6 +22,7 @@ import ProductFilter from "../../productFilter/ProductFilter";
 import ProductSort from "../../productSort/ProductSort";
 import Pagination from "../../pagination";
 import ProductItem from "./productItem";
+import {PropTypes as Types} from "prop-types";
 
 const ProductsList = ({
                         products,
@@ -83,6 +84,22 @@ const ProductsList = ({
       </Container>
     </div>
   );
+};
+
+ProductsList.propTypes = {
+  products: Types.arrayOf(Types.shape({
+    slug: Types.String
+  }.isRequired)).isRequired,
+  brands: Types.arrayOf(Types.object),
+  errors: Types.arrayOf(Types.String),
+  limit: Types.string.isRequired,
+  sort: Types.string.isRequired,
+  page: Types.number.isRequired,
+  filters: Types.object.isRequired,
+  subcategories: Types.arrayOf(Types.object),
+  loadProductsList: Types.func.isRequired,
+  limitVariants: Types.arrayOf(Types.string),
+  sortVariants: Types.arrayOf(Types.string)
 };
 
 const mapStateToProps = (state, props) => ({

@@ -8,6 +8,7 @@ import {isAdminProfileSelector} from "../../redux/selectors";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {HOME_ROUTE} from "../../utils/consts";
+import {PropTypes as Types} from "prop-types";
 
 const AdminLayout = ({children, isAdmin, fetchProfile}) => {
   useEffect(() => {
@@ -27,6 +28,12 @@ const AdminLayout = ({children, isAdmin, fetchProfile}) => {
     <Footer/>
   </>
 }
+
+AdminLayout.propTypes = {
+  children: Types.node,
+  isAdmin: Types.bool.isRequired,
+  fetchProfile: Types.func.isRequired
+};
 
 const mapStateToProps = (state) => ({
   isAdmin: isAdminProfileSelector(state)

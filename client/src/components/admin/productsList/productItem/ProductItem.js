@@ -10,6 +10,7 @@ import {ReactComponent as EditIcon} from "../../../../icons/edit-icon.svg";
 import {ReactComponent as DeleteIcon} from "../../../../icons/delete-icon.svg";
 import {connect} from "react-redux";
 import {deleteProduct} from "../../../../redux/actions";
+import {PropTypes as Types} from "prop-types";
 
 const ProductItem = ({product, deleteProduct}) => {
   const {title, slug, images, price, rating} = product;
@@ -48,5 +49,17 @@ const ProductItem = ({product, deleteProduct}) => {
     </div>
   );
 }
+
+ProductItem.propTypes = {
+  product: Types.shape({
+    title: Types.string,
+    slug: Types.string.isRequired,
+    images: Types.arrayOf(Types.string).isRequired,
+    price: Types.number,
+    rating: Types.shape({
+      overall: Types.number
+    })
+  }).isRequired,
+};
 
 export default connect(null, {deleteProduct})(ProductItem);
