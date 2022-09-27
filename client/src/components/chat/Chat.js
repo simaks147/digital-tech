@@ -8,7 +8,6 @@ import {connect} from "react-redux";
 import {chatSelector, connectedChatSelector, profileSelector, tokenSelector} from "../../redux/selectors";
 import {chatMessage, chatConnect, chatDisconnect} from "../../redux/actions";
 import Message from "./message";
-import cn from "classnames";
 
 let socket = null;
 
@@ -56,10 +55,7 @@ const Chat = ({messages, connected, chatMessage, chatConnect, chatDisconnect, to
         <div className={styles.body}>
           <div className={styles.messages}>
             {
-              messages.map(msg => {
-                const isAdminMessage = msg.user === 'admin';
-                <Message key={msg.date} msg={msg} className={cn(styles.msg, {out: isAdminMessage, in: !isAdminMessage})}/>
-              })
+              messages.map(msg => <Message key={msg.date} msg={msg}/>)
             }
           </div>
           <Form.Control placeholder="Submit message..." value={message} onChange={(e) => setMessage(e.target.value)}
