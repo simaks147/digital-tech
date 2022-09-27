@@ -65,7 +65,7 @@
 
 .main :global(.form-control) {
     border: 0;
-    border-top: 1px solid var(--bs-gray-400);
+    box-shadow: 1px 0 0 1px var(--bs-gray-400);
     border-radius: 0;
     font-size: 14px;
     padding-left: 10px;

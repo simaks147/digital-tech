@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import {chatSelector, connectedChatSelector, profileSelector, tokenSelector} from "../../redux/selectors";
 import {chatMessage, chatConnect, chatDisconnect} from "../../redux/actions";
 import Message from "./message";
+import {PropTypes as Types} from "prop-types";
 
 let socket = null;
 
@@ -66,7 +67,25 @@ const Chat = ({messages, connected, chatMessage, chatConnect, chatDisconnect, to
   );
 };
 
-const mapStateToProps = (state,) => ({
+Chat.propTypes = {
+  messages: Types.arrayOf(Types.shape({
+    date: Types.number.isRequired
+  }).isRequired).isRequired,
+  connected: Types.bool.isRequired,
+  token: Types.string,
+  profile: Types.shape({
+    displayName: Types.string
+  }).isRequired,
+  chatMessage: Types.func.isRequired,
+  chatConnect: Types.func.isRequired,
+  chatDisconnect: Types.func.isRequired,
+};
+
+Chat.defaultProps = {
+  token: null,
+};
+
+const mapStateToProps = (state) => ({
   messages: chatSelector(state),
   connected: connectedChatSelector(state),
   token: tokenSelector(state),
