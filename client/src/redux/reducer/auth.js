@@ -41,7 +41,11 @@ const initialState = {
   },
   profile: {
     fetching: false,
-    data: null,
+    data: {
+      email: null,
+      displayName: null,
+      isAdmin: false
+    },
     error: null
   }
 };
@@ -137,7 +141,7 @@ export default (state = initialState, action) =>
         break;
 
       case FETCH_PROFILE + SUCCESS:
-        draft.profile = data;
+        draft.profile.data = data;
         draft.profile.fetching = false;
         break;
 

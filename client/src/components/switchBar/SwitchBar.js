@@ -3,17 +3,17 @@ import {Container, Row, Col} from "react-bootstrap";
 import styles from './switchBar.module.css';
 import {Link} from "react-router-dom";
 import {ADMIN_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE} from "../../utils/consts";
-import {profileSelector, tokenSelector} from "../../redux/selectors";
+import {dataProfileSelector, tokenSelector} from "../../redux/selectors";
 import {connect} from "react-redux";
 import logout from "../../utils/logout";
 import Currency from "../currency";
 import {ReactComponent as MenuIcon} from "../../icons/menu-icon.svg";
 import {openNav} from "../../redux/actions";
 
-const SwitchBar = ({token, profile, openNav}) => (
+const SwitchBar = ({token, dataProfile, openNav}) => (
   <div className={styles.section}>
     {
-      !!profile.isAdmin &&
+      !!dataProfile.isAdmin &&
       <div className={styles.admin}>
         <Link to={ADMIN_ROUTE}>Admin</Link>
       </div>
@@ -37,7 +37,7 @@ const SwitchBar = ({token, profile, openNav}) => (
               </>
               :
               <>
-                <div className={styles.hello}>Hello,&nbsp;<span>{profile.displayName?.split(' ')[0]}</span></div>
+                <div className={styles.hello}>Hello,&nbsp;<span>{dataProfile.displayName?.split(' ')[0]}</span></div>
                 <a onClick={logout} className={styles.link}>Log&nbsp;Out</a>
               </>
           }
@@ -49,7 +49,7 @@ const SwitchBar = ({token, profile, openNav}) => (
 
 const mapStateToProps = (state, props) => ({
   token: tokenSelector(state, props),
-  profile: profileSelector(state)
+  dataProfile: dataProfileSelector(state)
 });
 
 export default connect(mapStateToProps, {openNav})(SwitchBar);

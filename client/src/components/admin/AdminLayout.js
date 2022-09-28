@@ -4,18 +4,18 @@ import SwitchBar from "../switchBar/SwitchBar";
 import {Container} from "react-bootstrap";
 import Logo from "../logo";
 import {fetchProfile} from "../../redux/actions";
-import {isAdminProfileSelector} from "../../redux/selectors";
+import {dataProfileSelector} from "../../redux/selectors";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {HOME_ROUTE} from "../../utils/consts";
 import {PropTypes as Types} from "prop-types";
 
-const AdminLayout = ({children, isAdmin, fetchProfile}) => {
+const AdminLayout = ({children, dataProfile, fetchProfile}) => {
   useEffect(() => {
-    if (isAdmin) fetchProfile();
-  }, [isAdmin, fetchProfile]);
+    if (dataProfile.isAdmin) fetchProfile();
+  }, [dataProfile.isAdmin, fetchProfile]);
 
-  if (!isAdmin) return <Redirect to={HOME_ROUTE}/>;
+  if (!dataProfile.isAdmin) return <Redirect to={HOME_ROUTE}/>;
 
   return <>
     <SwitchBar/>
@@ -31,12 +31,14 @@ const AdminLayout = ({children, isAdmin, fetchProfile}) => {
 
 AdminLayout.propTypes = {
   children: Types.node,
-  isAdmin: Types.bool.isRequired,
+  dataProfile: Types.shape({
+    isAdmin: Types.bool
+  }).isRequired,
   fetchProfile: Types.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  isAdmin: isAdminProfileSelector(state)
+  dataProfile: dataProfileSelector(state)
 });
 
 export default connect(mapStateToProps, {fetchProfile})(AdminLayout);

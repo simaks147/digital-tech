@@ -46,7 +46,7 @@ import {
   activeSubCategoryByProductSelector,
   loginSelector,
   registrationSelector,
-  profileSelector,
+  fetchingProfileSelector,
   tokenSelector,
   orderSelector,
   productsSelector,
@@ -326,9 +326,8 @@ const _fetchProfile = (token) => ({
 
 export const fetchProfile = () => async (dispatch, getState) => {
   const state = getState();
-  const profile = profileSelector(state);
+  const fetching = fetchingProfileSelector(state);
   const token = tokenSelector(state);
-  const fetching = profile.fetching;
 
   if (!fetching) {
     await dispatch(_fetchProfile(token));

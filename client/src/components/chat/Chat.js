@@ -5,14 +5,19 @@ import {Form} from "react-bootstrap";
 import Collapse from "react-bootstrap/Collapse";
 import {io} from "socket.io-client";
 import {connect} from "react-redux";
-import {chatSelector, connectedChatSelector, profileSelector, tokenSelector} from "../../redux/selectors";
+import {
+  chatSelector,
+  connectedChatSelector,
+  dataProfileSelector,
+  tokenSelector
+} from "../../redux/selectors";
 import {chatMessage, chatConnect, chatDisconnect} from "../../redux/actions";
 import Message from "./message";
 import {PropTypes as Types} from "prop-types";
 
 let socket = null;
 
-const Chat = ({messages, connected, chatMessage, chatConnect, chatDisconnect, token, profile}) => {
+const Chat = ({messages, connected, chatMessage, chatConnect, chatDisconnect, token, dataProfile}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -34,7 +39,7 @@ const Chat = ({messages, connected, chatMessage, chatConnect, chatDisconnect, to
 
       const msg = {
         date,
-        user: profile.displayName,
+        user: dataProfile.displayName,
         text: message,
       };
 
@@ -73,7 +78,7 @@ Chat.propTypes = {
   }).isRequired).isRequired,
   connected: Types.bool.isRequired,
   token: Types.string,
-  profile: Types.shape({
+  dataProfile: Types.shape({
     displayName: Types.string
   }).isRequired,
   chatMessage: Types.func.isRequired,
@@ -89,7 +94,7 @@ const mapStateToProps = (state) => ({
   messages: chatSelector(state),
   connected: connectedChatSelector(state),
   token: tokenSelector(state),
-  profile: profileSelector(state)
+  dataProfile: dataProfileSelector(state)
 });
 
 export default connect(mapStateToProps, {chatMessage, chatConnect, chatDisconnect})(Chat);

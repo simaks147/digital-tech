@@ -63,6 +63,7 @@ export const registrationSelector = (state) => state.auth.registration;
 export const confirmationSelector = (state) => state.auth.confirmation;
 
 export const profileSelector = (state) => state.auth.profile;
+export const dataProfileSelector = (state) => profileSelector(state).data;
 export const fetchingProfileSelector = (state) => profileSelector(state).fetching;
 export const isAdminProfileSelector = (state) => profileSelector(state).isAdmin;
 export const errorProfileSelector = (state) => profileSelector(state).error;
