@@ -6,10 +6,9 @@ import {
 } from "../../redux/selectors";
 import {connect} from "react-redux";
 import {changeProductPageLocation} from "../../redux/actions";
+import {PropTypes as Types} from "prop-types";
 
 const CustomPagination = ({changeProductPageLocation, productsAllPagesSelector, page}) => {
-  // const page = Number(queryParams.page) || 1;
-
   if (productsAllPagesSelector.length === 1) return null;
 
   return (
@@ -31,6 +30,12 @@ const CustomPagination = ({changeProductPageLocation, productsAllPagesSelector, 
   );
 }
 
+CustomPagination.propTypes = {
+  changeProductPageLocation: Types.func.isRequired,
+  limitVariants: Types.arrayOf(Types.string.isRequired).isRequired,
+  productsAllPagesSelector: Types.arrayOf(Types.number.isRequired).isRequired,
+  page: Types.number.isRequired
+};
 
 const mapStateToProps = (state, props) => ({
   productsAllPagesSelector: productsAllPagesSelector(state, props),

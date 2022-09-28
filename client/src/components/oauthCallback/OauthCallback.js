@@ -7,6 +7,7 @@ import styles from './oauthCallback.module.css';
 import {Alert, Container} from "react-bootstrap";
 import {HOME_ROUTE, LOGIN_ROUTE} from "../../utils/consts";
 import Loader from "../loader";
+import {PropTypes as Types} from "prop-types";
 
 const OauthCallback = ({token, oauthCallback, oauthCallbackAction}) => {
   const provider = useParams().provider;
@@ -27,7 +28,6 @@ const OauthCallback = ({token, oauthCallback, oauthCallbackAction}) => {
           (params.get('error') || oauthCallback.error || !params.get('code'))
             ?
             <>
-              {/*<Alert variant="danger">An error occurred while performing the operation</Alert>*/}
               {
                 oauthCallback.error &&
                 oauthCallback.error.map((err) => (
@@ -42,6 +42,14 @@ const OauthCallback = ({token, oauthCallback, oauthCallbackAction}) => {
       </Container>
     </div>
   );
+};
+
+OauthCallback.propTypes = {
+  token: Types.string,
+  oauthCallback: Types.shape({
+    error: Types.arrayOf(Types.string)
+  }).isRequired,
+  oauthCallbackAction: Types.func.isRequired
 };
 
 const mapStateToProps = (state, props) => ({

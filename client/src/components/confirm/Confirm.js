@@ -7,6 +7,7 @@ import styles from './confirm.module.css';
 import {Alert, Container} from "react-bootstrap";
 import {HOME_ROUTE, REGISTER_ROUTE} from "../../utils/consts";
 import Loader from "../loader";
+import {PropTypes as Types} from "prop-types";
 
 const Confirm = ({token, confirmation, confirmAction}) => {
   const verificationToken = useParams().verificationToken;
@@ -38,6 +39,14 @@ const Confirm = ({token, confirmation, confirmAction}) => {
       </Container>
     </div>
   );
+};
+
+Confirm.propTypes = {
+  confirmation: Types.shape({
+    error: Types.arrayOf(Types.string)
+  }).isRequired,
+  token: Types.string,
+  confirmAction: Types.func
 };
 
 const mapStateToProps = (state, props) => ({
