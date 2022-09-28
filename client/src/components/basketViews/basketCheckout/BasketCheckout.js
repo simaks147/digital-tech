@@ -9,6 +9,7 @@ import {processingOrderSelector, orderListSelector} from "../../../redux/selecto
 import Loader from "../../loader";
 import {Redirect} from "react-router-dom";
 import {HOME_ROUTE} from "../../../utils/consts";
+import {PropTypes as Types} from "prop-types";
 
 import {CHECKOUT_FIELDS} from "../../../utils/consts";
 
@@ -65,6 +66,12 @@ const BasketCheckout = ({order, processing, makeOrder}) => {
     </div>
   );
 }
+
+BasketCheckout.propTypes = {
+  order: Types.arrayOf(Types.shape({})).isRequired,
+  processing: Types.bool.isRequired,
+  makeOrder: Types.func.isRequired
+};
 
 const mapStateToProps = (state, props) => ({
   order: orderListSelector(state, props),

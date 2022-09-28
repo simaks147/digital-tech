@@ -10,6 +10,7 @@ import {processCheckout} from "../../../redux/actions";
 import {HOME_ROUTE} from "../../../utils/consts";
 import cn from "classnames";
 import FormattedPrice from "../../formattedPrice";
+import {PropTypes as Types} from "prop-types";
 
 const BasketList = ({order, total, processCheckout}) => {
   return (
@@ -54,13 +55,22 @@ const BasketList = ({order, total, processCheckout}) => {
         }
 
         <div className={cn(styles.buttons, 'd-flex justify-content-end')}>
-          { !!total && <Button className='c-button' onClick={processCheckout}>Process Checkout</Button> }
+          {!!total && <Button className='c-button' onClick={processCheckout}>Process Checkout</Button>}
           <Button className='c-button2' as={Link} to={HOME_ROUTE}>Continue Shopping</Button>
         </div>
       </Container>
     </div>
   )
 }
+
+BasketList.propTypes = {
+  order: Types.arrayOf(Types.shape({
+      slug: Types.string.isRequired
+    }
+  ).isRequired).isRequired,
+  total: Types.number,
+  processCheckout: Types.func.isRequired
+};
 
 const mapStateToProps = (state, props) => ({
   order: orderListSelector(state, props),

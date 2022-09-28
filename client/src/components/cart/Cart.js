@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import {orderCountSelector, orderTotalSelector} from "../../redux/selectors";
 import {BASKET_ROUTE_SHOPPING} from "../../utils/consts";
 import FormattedPrice from "../formattedPrice";
+import {PropTypes as Types} from "prop-types";
 
 const Cart = ({count, total}) => (
   <Link to={BASKET_ROUTE_SHOPPING} className={styles.main}>
@@ -28,6 +29,11 @@ const Cart = ({count, total}) => (
     </Container>
   </Link>
 );
+
+Cart.propTypes = {
+  count: Types.number,
+  total: Types.number
+};
 
 const mapStateToProps = (state, props) => ({
   count: orderCountSelector(state, props),

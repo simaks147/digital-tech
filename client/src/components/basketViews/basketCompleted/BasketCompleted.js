@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import {HOME_ROUTE} from "../../../utils/consts";
 import {connect} from "react-redux";
 import {messageOrderSelector} from "../../../redux/selectors";
+import {PropTypes as Types} from "prop-types";
 
 const BasketCompleted = ({message}) => (
   <div className={styles.section}>
@@ -23,6 +24,10 @@ const BasketCompleted = ({message}) => (
     </Container>
   </div>
 );
+
+BasketCompleted.propTypes = {
+  message: Types.string
+};
 
 const mapStateToProps = (state, props) => ({
   message: messageOrderSelector(state, props)

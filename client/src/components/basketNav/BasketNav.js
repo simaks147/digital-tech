@@ -8,6 +8,7 @@ import {activeBasketViewSelector, orderListSelector} from "../../redux/selectors
 import {connect} from "react-redux";
 import {BASKET_ROUTE_SHOPPING, BASKET_VIEWS} from "../../utils/consts";
 import {useRouteMatch} from "react-router-dom";
+import {PropTypes as Types} from "prop-types";
 
 const BasketNav = ({order, activeBasketView}) => {
   const shoppingPage = useRouteMatch(BASKET_ROUTE_SHOPPING);
@@ -44,6 +45,11 @@ const BasketNav = ({order, activeBasketView}) => {
     </div>
   );
 }
+
+BasketNav.propTypes = {
+  order: Types.array.isRequired,
+  activeBasketView: Types.string
+};
 
 const mapStateToProps = (state, props) => ({
   order: orderListSelector(state, props),

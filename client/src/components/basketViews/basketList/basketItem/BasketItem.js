@@ -13,6 +13,7 @@ import {IKImage} from 'imagekitio-react';
 import ErrorBoundary from "../../../ErrorBoundary";
 import {orderSubtotalSelector} from "../../../../redux/selectors";
 import FormattedPrice from "../../../formattedPrice";
+import {PropTypes as Types} from "prop-types";
 
 const BasketItem = ({item, increaseCart, decreaseCart, removeFromCart, subtotal}) => (
   <tr>
@@ -66,6 +67,24 @@ const BasketItem = ({item, increaseCart, decreaseCart, removeFromCart, subtotal}
     </td>
   </tr>
 );
+
+BasketItem.propTypes = {
+  item: Types.shape({
+    title: Types.string,
+    slug: Types.string,
+    images: Types.arrayOf(Types.string).isRequired,
+    count: Types.number,
+    price: Types.number,
+    sale: Types.shape({
+      discountPercent: Types.number,
+      price: Types.number
+    }).isRequired
+  }).isRequired,
+  subtotal: Types.number,
+  increaseCart: Types.func.isRequired,
+  decreaseCart: Types.func.isRequired,
+  removeFromCart: Types.func.isRequired
+};
 
 const mapStateToProps = (state, props) => ({
   subtotal: orderSubtotalSelector(state, props)

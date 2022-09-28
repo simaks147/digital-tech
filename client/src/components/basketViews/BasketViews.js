@@ -11,7 +11,7 @@ import {
 } from "../../utils/consts";
 import {tokenSelector} from "../../redux/selectors";
 import {connect} from "react-redux";
-
+import {PropTypes as Types} from "prop-types";
 
 export const BasketViews = ({token}) => {
   if (!token) return <Redirect to={LOGIN_ROUTE}/>;
@@ -25,6 +25,10 @@ export const BasketViews = ({token}) => {
     </Switch>
   );
 }
+
+BasketViews.propTypes = {
+  token: Types.string
+};
 
 const mapStateToProps = (state, props) => ({
   token: tokenSelector(state, props)
