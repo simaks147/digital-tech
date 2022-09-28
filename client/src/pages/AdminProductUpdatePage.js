@@ -8,6 +8,7 @@ import {
 import {connect} from "react-redux";
 import {loadProduct, updateProduct} from "../redux/actions";
 import Loader from "../components/loader";
+const uuid = require('uuid').v4;
 
 const AdminProductUpdatePage = ({loadProduct, updateProduct, products, loading, match}) => {
   const id = match.params.slug;
@@ -31,11 +32,11 @@ const AdminProductUpdatePage = ({loadProduct, updateProduct, products, loading, 
     saleBgColor: products[id].sale.bgColor
   };
 
-  const initSpecification = products[id].specification.map(( {title, description}, i) => {
+  const initSpecification = products[id].specification.map(({title, description}) => {
     return {
       title,
       desc: description,
-      num: Date.now() + i
+      num: uuid()
     };
   });
 

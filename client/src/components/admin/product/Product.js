@@ -20,14 +20,15 @@ import styles from "./product.module.css";
 import cn from "classnames";
 import {images as imagesConfig} from "../../../config";
 import {PRODUCT_CREATION_FIELDS, ADMIN_ROUTE} from "../../../utils/consts";
+import {PropTypes as Types, shape} from "prop-types";
 
 const Product = (
   {
-    id = undefined,
-    initValues = {},
-    initSpecification = [],
-    initImages = [],
-    initSaleImages = [],
+    id,
+    initValues,
+    initSpecification,
+    initImages,
+    initSaleImages,
     buttonTitle,
     brands,
     subcategories,
@@ -89,9 +90,6 @@ const Product = (
             }
 
 
-
-
-
             <Col className="mb-4">
               {/*<p className={styles.header}>Sale image upload:</p>*/}
               {
@@ -133,10 +131,6 @@ const Product = (
                 </IKContext>
               </Button>
             </Col>
-
-
-
-
 
 
             <Col className="mb-4">
@@ -240,6 +234,57 @@ const Product = (
       </Container>
     </div>
   );
+};
+
+Product.propTypes = {
+  id: Types.string,
+  initValues: Types.shape({
+    title: Types.string,
+    description: Types.string,
+    price: Types.number,
+    brand: Types.string,
+    subcategoryId: Types.string,
+    discountPercent: Types.number,
+    saleTitle: Types.string,
+    saleSubtitle: Types.string,
+    saleBgColor: Types.string,
+  }).isRequired,
+  initSpecification: Types.arrayOf(shape({
+    title: Types.string,
+    desc: Types.string,
+    num: Types.string
+  })),
+  initImages: Types.arrayOf(Types.string),
+  initSaleImages: Types.arrayOf(Types.string),
+  buttonTitle: Types.string,
+  brands: Types.arrayOf(shape({
+    id: Types.string.isRequired,
+    title: Types.string.isRequired,
+  })).isRequired,
+  subcategories: Types.arrayOf(shape({
+    slug: Types.string.isRequired,
+    title: Types.string.isRequired,
+  })).isRequired,
+  handleSetProduct: Types.func.isRequired,
+  processing: Types.bool.isRequired,
+  errors: Types.arrayOf(Types.String)
+};
+
+Product.defaultProps = {
+  initValues: {
+    title: '',
+    description: '',
+    price: 0,
+    brand: '',
+    subcategoryId: '',
+    discountPercent: 0,
+    saleTitle: 'Sale!',
+    saleSubtitle: 'At the best price',
+    saleBgColor: 'black'
+  },
+  initSpecification: [],
+  initImages: [],
+  initSaleImages: [],
 };
 
 const mapStateToProps = (state) => ({
