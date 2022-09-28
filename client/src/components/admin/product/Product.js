@@ -20,7 +20,7 @@ import styles from "./product.module.css";
 import cn from "classnames";
 import {images as imagesConfig} from "../../../config";
 import {PRODUCT_CREATION_FIELDS, ADMIN_ROUTE} from "../../../utils/consts";
-import {PropTypes as Types, shape} from "prop-types";
+import {PropTypes as Types} from "prop-types";
 
 const Product = (
   {
@@ -249,7 +249,7 @@ Product.propTypes = {
     saleSubtitle: Types.string,
     saleBgColor: Types.string,
   }).isRequired,
-  initSpecification: Types.arrayOf(shape({
+  initSpecification: Types.arrayOf(Types.shape({
     title: Types.string,
     desc: Types.string,
     num: Types.string
@@ -257,17 +257,17 @@ Product.propTypes = {
   initImages: Types.arrayOf(Types.string),
   initSaleImages: Types.arrayOf(Types.string),
   buttonTitle: Types.string,
-  brands: Types.arrayOf(shape({
+  brands: Types.arrayOf(Types.shape({
     id: Types.string.isRequired,
     title: Types.string.isRequired,
   })).isRequired,
-  subcategories: Types.arrayOf(shape({
+  subcategories: Types.arrayOf(Types.shape({
     slug: Types.string.isRequired,
     title: Types.string.isRequired,
   })).isRequired,
   handleSetProduct: Types.func.isRequired,
   processing: Types.bool.isRequired,
-  errors: Types.arrayOf(Types.String)
+  errors: Types.arrayOf(Types.string)
 };
 
 Product.defaultProps = {

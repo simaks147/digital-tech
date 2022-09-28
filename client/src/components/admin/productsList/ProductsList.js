@@ -91,7 +91,7 @@ ProductsList.propTypes = {
     slug: Types.String
   }.isRequired)).isRequired,
   brands: Types.arrayOf(Types.object),
-  errors: Types.arrayOf(Types.String),
+  errors: Types.arrayOf(Types.string),
   limit: Types.string.isRequired,
   sort: Types.string.isRequired,
   page: Types.number.isRequired,

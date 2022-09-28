@@ -8,14 +8,13 @@ import {
   tokenSelector,
   errorCategoriesSelector,
   errorBrandsSelector,
-  errorProfileSelector,
-  fetchingProfileSelector
+  errorProfileSelector
 } from "../../redux/selectors";
 import {connect} from "react-redux";
 import {loadCategories, loadBrands, fetchProfile} from "../../redux/actions";
 import Loader from "../loader";
 import {Alert} from "react-bootstrap";
-
+import {PropTypes as Types} from "prop-types";
 
 const App = ({
                loadCategories,
@@ -24,7 +23,6 @@ const App = ({
                loadedCategories,
                loadingBrands,
                loadedBrands,
-               fetchingProfile,
                fetchProfile,
                errorsCategories,
                errorsBrands,
@@ -72,11 +70,24 @@ const mapStateToProps = (state) => ({
   loadedCategories: loadedCategoriesSelector(state),
   loadingBrands: loadingBrandsSelector(state),
   loadedBrands: loadedBrandsSelector(state),
-  fetchingProfile: fetchingProfileSelector(state),
   errorsCategories: errorCategoriesSelector(state),
   errorsBrands: errorBrandsSelector(state),
   errorsProfile: errorProfileSelector(state),
   token: tokenSelector(state)
 });
+
+App.propTypes = {
+  loadingCategories: Types.bool.isRequired,
+  loadedCategories: Types.bool.isRequired,
+  loadingBrands: Types.bool.isRequired,
+  loadedBrands: Types.bool.isRequired,
+  errorsCategories: Types.arrayOf(Types.string),
+  errorsBrands: Types.arrayOf(Types.string),
+  errorsProfile: Types.arrayOf(Types.string),
+  token: Types.string,
+  loadCategories: Types.func.isRequired,
+  loadBrands: Types.func.isRequired,
+  fetchProfile: Types.func.isRequired
+};
 
 export default connect(mapStateToProps, {loadCategories, loadBrands, fetchProfile})(App);
