@@ -9,6 +9,7 @@ import {closeNav} from "../../redux/actions";
 import useWindowSize from "../../hooks/use-window-size";
 import {windowWidth} from "../../config";
 import {CSSTransition} from "react-transition-group";
+import {PropTypes as Types} from "prop-types";
 
 const CategoryList = ({categories, activeNav, closeNav}) => {
   const {width} = useWindowSize();
@@ -51,6 +52,14 @@ const CategoryList = ({categories, activeNav, closeNav}) => {
       </div>
   );
 }
+
+CategoryList.propTypes = {
+  categories: Types.arrayOf(Types.shape({
+    slug: Types.string.isRequired
+  })).isRequired,
+  activeNav: Types.bool.isRequired,
+  closeNav: Types.func.isRequired
+};
 
 const mapStateToProps = (state) => ({
   categories: categoriesListSelector(state),

@@ -9,6 +9,7 @@ import cn from "classnames";
 import {activeSubcategorySelector, activeCategorySelector} from "../../../redux/selectors";
 import {connect} from "react-redux";
 import capitalizeFirstLetter from "../../../utils/capitalizeFirstLetter";
+import {PropTypes as Types} from "prop-types";
 
 const CategoryItem = ({item, activeSubcategory, activeCategory}) => (
   <Dropdown className={cn({active: item.slug === activeCategory}, styles.item)}>
@@ -28,6 +29,20 @@ const CategoryItem = ({item, activeSubcategory, activeCategory}) => (
     </Dropdown.Menu>
   </Dropdown>
 );
+
+CategoryItem.propTypes = {
+  item: Types.shape({
+    slug: Types.string,
+    title: Types.string,
+    img: Types.string,
+    subcategory: Types.arrayOf(Types.shape({
+      slug: Types.string,
+      title: Types.string
+    }).isRequired).isRequired,
+  }).isRequired,
+  activeCategory: Types.string,
+  activeSubcategory: Types.string
+};
 
 const mapStateToProps = (state, props) => ({
   activeSubcategory: activeSubcategorySelector(state, props),
