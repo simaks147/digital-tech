@@ -9,6 +9,7 @@ import logout from "../../utils/logout";
 import Currency from "../currency";
 import {ReactComponent as MenuIcon} from "../../icons/menu-icon.svg";
 import {openNav} from "../../redux/actions";
+import {PropTypes as Types} from "prop-types";
 
 const SwitchBar = ({token, dataProfile, openNav}) => (
   <div className={styles.section}>
@@ -46,6 +47,14 @@ const SwitchBar = ({token, dataProfile, openNav}) => (
     </Container>
   </div>
 );
+
+SwitchBar.propTypes = {
+  token: Types.string,
+  dataProfile: Types.shape({
+    isAdmin: Types.bool.isRequired
+  }).isRequired,
+  openNav: Types.func.isRequired
+};
 
 const mapStateToProps = (state, props) => ({
   token: tokenSelector(state, props),

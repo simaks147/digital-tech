@@ -1,6 +1,7 @@
 import React from 'react';
 import Figure from "react-bootstrap/Figure";
 import {images} from "../config";
+import {PropTypes as Types} from "prop-types";
 
 export default class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -11,6 +12,10 @@ export default class ErrorBoundary extends React.Component {
   static getDerivedStateFromError(error) {
     // Update state so the next render will show the fallback UI.
     return {hasError: true};
+  }
+
+  static propTypes = {
+    children: Types.node
   }
 
   // componentDidCatch(error, errorInfo) {

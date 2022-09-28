@@ -1,10 +1,10 @@
 import React from 'react';
-// import Header from "./header";
 import Footer from "./footer";
 import SwitchBar from "./switchBar/SwitchBar";
 import MainBar from "./mainBar";
 import CategoryList from "./categoryList/CategoryList";
 import Chat from "./chat";
+import {PropTypes as Types} from "prop-types";
 
 const Layout = ({children}) => (
   <>
@@ -18,5 +18,9 @@ const Layout = ({children}) => (
     <Footer/>
   </>
 );
+
+Layout.propTypes = {
+  children: Types.node
+};
 
 export default Layout;

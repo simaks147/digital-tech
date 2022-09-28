@@ -23,9 +23,9 @@ const AppRouter = ({dataProfile, token}) => (
 
 AppRouter.propTypes = {
   token: Types.string,
-  // dataProfile: Types.shape({
-  //   isAdmin: Types.bool
-  // }).isRequired
+  dataProfile: Types.shape({
+    isAdmin: Types.bool.isRequired
+  }).isRequired
 };
 
 const mapStateToProps = (state, props) => ({

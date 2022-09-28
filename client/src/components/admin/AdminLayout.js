@@ -32,7 +32,7 @@ const AdminLayout = ({children, dataProfile, fetchProfile}) => {
 AdminLayout.propTypes = {
   children: Types.node,
   dataProfile: Types.shape({
-    isAdmin: Types.bool
+    isAdmin: Types.bool.isRequired
   }).isRequired,
   fetchProfile: Types.func.isRequired
 };
