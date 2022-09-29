@@ -1,6 +1,7 @@
 import React from 'react';
 import {ReactComponent as StarFullIcon} from "../../icons/star-full-icon.svg";
 import {ReactComponent as StarEmptyIcon} from "../../icons/star-empty-icon.svg";
+import {PropTypes as Types} from "prop-types";
 
 const Rate = ({value, onChange, disabled}) => (
   <>
@@ -21,5 +22,11 @@ const Rate = ({value, onChange, disabled}) => (
     }
   </>
 );
+
+Rate.propTypes = {
+  value: Types.number.isRequired,
+  onChange: Types.func,
+  disabled: Types.bool
+};
 
 export default Rate;

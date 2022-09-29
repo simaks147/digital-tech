@@ -10,9 +10,10 @@ import {changeProductPageLocation} from "../../redux/actions";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 import {windowWidth} from "../../config";
 import useWindowSize from "../../hooks/use-window-size";
+import {PropTypes as Types} from "prop-types";
 
 const ProductSort = ({
-                       showGridSwitcher = true,
+                       showGridSwitcher,
                        sortVariants,
                        limitVariants,
                        changeProductPageLocation,
@@ -63,6 +64,21 @@ const ProductSort = ({
     </div>
   );
 }
+
+ProductSort.propTypes = {
+  showGridSwitcher: Types.bool,
+  sortVariants: Types.arrayOf(Types.string.isRequired).isRequired,
+  limitVariants: Types.arrayOf(Types.string.isRequired).isRequired,
+  changeProductPageLocation: Types.func.isRequired,
+  limit: Types.string.isRequired,
+  sort: Types.string.isRequired,
+  productView: Types.string,
+  changeProductView: Types.func
+};
+
+ProductSort.defaultProps = {
+  showGridSwitcher: true
+};
 
 const mapStateToProps = (state, props) => ({
   limit: productsLimitSelector(state, props),
