@@ -7,6 +7,7 @@ import {IKImage} from "imagekitio-react";
 import {images} from "../../../config";
 import {Link} from "react-router-dom";
 import FormattedPrice from "../../formattedPrice";
+import {PropTypes as Types} from "prop-types";
 
 const ProductSecondListItem = ({product}) => (
   <Link to={`${PRODUCT_ROUTE}/${product.slug}`} className={styles.item}>
@@ -45,5 +46,18 @@ const ProductSecondListItem = ({product}) => (
     </div>
   </Link>
 );
+
+ProductSecondListItem.propTypes = {
+  product: Types.shape({
+    slug: Types.string.isRequired,
+    images: Types.arrayOf(Types.string).isRequired,
+    price: Types.number,
+    sale: Types.shape({
+      discountPercent: Types.number,
+      price: Types.number
+    }).isRequired,
+    title: Types.string
+  }).isRequired
+};
 
 export default ProductSecondListItem;

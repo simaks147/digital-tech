@@ -17,6 +17,7 @@ import useProductFilters from "../../hooks/use-product-filters";
 import {PRODUCTS_RATING_VARIANTS} from "../../utils/consts";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 import FormattedPrice from "../formattedPrice";
+import {PropTypes as Types} from "prop-types";
 
 const ProductFilter = ({brands, subcategories, changeProductPageLocation, filters, minPrice, maxPrice}) => {
   const {currentFilters, changeBrand, changeCategory, changeRating, changePrice} = useProductFilters({
@@ -25,7 +26,7 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
     rating: Math.floor(filters.rating) || null,
     minPrice: filters.minPrice > minPrice && filters.minPrice < maxPrice ? Math.floor(filters.minPrice) : minPrice,
     maxPrice: filters.maxPrice > minPrice && filters.maxPrice < maxPrice ? Math.floor(filters.maxPrice) : maxPrice
-});
+  });
 
   return (
     <div className={styles.main}>
@@ -129,6 +130,21 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
     </div>
   );
 }
+
+ProductFilter.propTypes = {
+  filters: Types.object.isRequired,
+  minPrice: Types.number.isRequired,
+  maxPrice: Types.number.isRequired,
+  brands: Types.arrayOf(Types.shape({
+    id: Types.string.isRequired,
+    title: Types.string.isRequired
+  })).isRequired,
+  changeProductPageLocation: Types.func.isRequired,
+  subcategories: Types.arrayOf(Types.shape({
+    slug: Types.string.isRequired,
+    title: Types.string.isRequired
+  }))
+};
 
 const mapStateToProps = (state, props) => ({
   filters: productsFiltersSelector(state, props),

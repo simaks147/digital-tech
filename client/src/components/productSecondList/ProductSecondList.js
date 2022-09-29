@@ -7,6 +7,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import Loader from "../loader";
 import ProductSecondListItem from "./productSecondListItem";
+import {PropTypes as Types} from "prop-types";
 
 const ProductSecondList = ({title, products, loading, errors}) => (
   <div className={styles.section}>
@@ -43,4 +44,14 @@ const ProductSecondList = ({title, products, loading, errors}) => (
     </Container>
   </div>
 );
+
+ProductSecondList.propTypes = {
+  title: Types.string,
+  products: Types.arrayOf(Types.shape({
+    slug: Types.string.isRequired
+  }).isRequired).isRequired,
+  loading: Types.bool.isRequired,
+  errors: Types.arrayOf(Types.string),
+};
+
 export default ProductSecondList;
