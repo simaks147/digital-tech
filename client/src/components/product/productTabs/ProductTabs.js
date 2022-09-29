@@ -7,7 +7,7 @@ import {ReactComponent as SpecIcon} from '../../../icons/like-icon.svg';
 import {ReactComponent as ReviewIcon} from '../../../icons/star-icon.svg';
 import ProductSpec from "../productSpec";
 import ProductReviews from "../productReviews";
-
+import {PropTypes as Types} from "prop-types";
 
 const ProductTabs = ({product}) => {
   const TABS = useMemo(() => ([
@@ -49,6 +49,12 @@ const ProductTabs = ({product}) => {
       </Tab.Container>
     </div>
   );
+};
+
+ProductTabs.propTypes = {
+  description: Types.string,
+  specification: Types.array,
+  slug: Types.string
 };
 
 export default ProductTabs;

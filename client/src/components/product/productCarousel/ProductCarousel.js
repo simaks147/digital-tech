@@ -5,6 +5,7 @@ import {Carousel} from "react-bootstrap";
 import {IKImage} from 'imagekitio-react';
 import {images} from "../../../config";
 import ErrorBoundary from "../../ErrorBoundary";
+import {PropTypes as Types} from "prop-types";
 
 const ProductCarousel = ({product}) => {
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -60,6 +61,12 @@ const ProductCarousel = ({product}) => {
       </Carousel>
     </>
   );
+};
+
+ProductCarousel.propTypes = {
+  product: Types.shape({
+    images: Types.arrayOf(Types.string)
+  }).isRequired
 };
 
 export default ProductCarousel;

@@ -156,8 +156,12 @@ export const activeBasketViewSelector = createSelector(
 export const ratingSelector = createSelector(
   reviewsByProductSelector,
   reviews => ({
-    overall: Math.round((reviews?.reduce((acc, review) => acc + review.rating, 0) / reviews?.length) * 100) / 100,
-    recommendedLength: reviews?.filter(review => review.recommended === true).length,
+    overall: reviews?.length > 0
+      ? Math.round((reviews.reduce((acc, review) => acc + review.rating, 0) / reviews?.length) * 100) / 100
+      : 0,
+    recommendedLength: reviews?.length > 0
+      ? reviews.filter(review => review.recommended === true).length
+      : 0,
     recommendedShare: function () {
       return Math.round(this.recommendedLength / reviews.length * 100 * 100) / 100
     }

@@ -15,6 +15,7 @@ import ErrorBoundary from "../../ErrorBoundary";
 import cn from "classnames";
 import useWindowSize from "../../../hooks/use-window-size";
 import FormattedPrice from "../../formattedPrice";
+import {PropTypes as Types} from "prop-types";
 
 const ProductItem = ({product, order, token, increaseCart, push, view}) => {
   const {width} = useWindowSize();
@@ -85,6 +86,24 @@ const ProductItem = ({product, order, token, increaseCart, push, view}) => {
     </div>
   );
 }
+
+ProductItem.propTypes = {
+  product: Types.shape({
+    images: Types.arrayOf(Types.string).isRequired,
+    price: Types.number,
+    sale: Types.shape({
+      discountPercent: Types.number,
+      price: Types.number
+    }).isRequired,
+    slug: Types.string.isRequired,
+    title: Types.string,
+  }).isRequired,
+  order: Types.object.isRequired,
+  token: Types.string,
+  increaseCart: Types.func.isRequired,
+  push: Types.func.isRequired,
+  view: Types.string.isRequired
+};
 
 const mapStateToProps = (state, props) => ({
   order: orderSelector(state, props),

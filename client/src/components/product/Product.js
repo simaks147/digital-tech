@@ -24,6 +24,7 @@ import {IKImage} from "imagekitio-react";
 import {images} from "../../config";
 import ErrorBoundary from "../ErrorBoundary";
 import FormattedPrice from "../formattedPrice";
+import {PropTypes as Types} from "prop-types";
 
 const Product = ({
                    products,
@@ -142,6 +143,40 @@ const Product = ({
       </Container>
     </div>
   )
+};
+
+Product.propTypes = {
+  products: Types.object.isRequired,
+  id: Types.string.isRequired,
+  product: Types.shape({
+    images: Types.arrayOf(Types.string).isRequired,
+    price: Types.number,
+    rating: Types.shape({
+      overall: Types.number,
+      reviewsCount: Types.number
+    }).isRequired,
+    sale: Types.shape({
+      discountPercent: Types.number,
+      price: Types.number
+    }).isRequired,
+    slug: Types.string,
+    title: Types.string,
+    specification: Types.arrayOf(Types.shape({
+      title: Types.string,
+      description: Types.string
+    })).isRequired
+  }),
+  order: Types.object.isRequired,
+  token: Types.string,
+  increaseCart: Types.func.isRequired,
+  push: Types.func.isRequired,
+  loadProduct: Types.func.isRequired,
+  loading: Types.bool.isRequired,
+  errors: Types.arrayOf(Types.string),
+  reviews: Types.array,
+  rating: Types.shape({
+    overall: Types.number.isRequired
+  }).isRequired
 };
 
 const mapStateToProps = (state, props) => ({

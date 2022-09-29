@@ -18,6 +18,7 @@ import {createReview} from "../../../redux/actions";
 import {REVIEW_FIELDS} from "../../../utils/consts";
 import Loader from "../../loader";
 import Checkbox from "../../checkbox";
+import {PropTypes as Types} from "prop-types";
 
 const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, rating, createReview, errors}) => {
   useEffect(() => {
@@ -191,6 +192,21 @@ const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, ratin
     </div>
   );
 }
+
+ProductReviews.propTypes = {
+  productId: Types.string.isRequired,
+  loadReviews: Types.func.isRequired,
+  loading: Types.bool,
+  loaded: Types.bool,
+  reviews: Types.array,
+  rating: Types.shape({
+    overall: Types.number,
+    recommendedLength: Types.number,
+    recommendedShare: Types.func.isRequired
+  }).isRequired,
+  createReview: Types.func.isRequired,
+  errors: Types.arrayOf(Types.string)
+};
 
 const mapStateToProps = (state, props) => ({
   reviews: reviewsByProductSelector(state, props.productId),

@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from "./productSpec.module.css";
+import {PropTypes as Types} from "prop-types";
 
 const ProductSpec = ({specification}) => (
   <div className={styles.main}>
@@ -13,5 +14,12 @@ const ProductSpec = ({specification}) => (
     }
   </div>
 );
+
+ProductSpec.propTypes = {
+  specification: Types.arrayOf(Types.shape({
+    title: Types.string,
+    description: Types.string
+  })).isRequired
+};
 
 export default ProductSpec;

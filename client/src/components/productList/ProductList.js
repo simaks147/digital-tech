@@ -20,6 +20,7 @@ import ProductSort from "../productSort";
 import Pagination from "../pagination/Pagination";
 import useWindowSize from "../../hooks/use-window-size";
 import {windowWidth} from "../../config";
+import {PropTypes as Types} from "prop-types";
 
 const ProductList = ({
                        subcategoryId,
@@ -92,6 +93,23 @@ const ProductList = ({
       </Container>
     </div>
   );
+};
+
+ProductList.propTypes = {
+  subcategoryId: Types.string.isRequired,
+  brands: Types.array,
+  products: Types.arrayOf(Types.shape({
+    slug: Types.string.isRequired
+  }).isRequired).isRequired,
+  loadProductsByCategory: Types.func.isRequired,
+  loading: Types.bool.isRequired,
+  errors: Types.arrayOf(Types.string),
+  limit: Types.string.isRequired,
+  limitVariants: Types.arrayOf(Types.string).isRequired,
+  sort: Types.string.isRequired,
+  sortVariants: Types.arrayOf(Types.string).isRequired,
+  page: Types.number.isRequired,
+  filters: Types.object.isRequired
 };
 
 const mapStateToProps = (state, props) => ({
