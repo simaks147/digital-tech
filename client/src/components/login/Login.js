@@ -6,6 +6,7 @@ import {Link, Redirect} from "react-router-dom";
 import {HOME_ROUTE, REGISTER_ROUTE, LOGIN_FIELDS} from "../../utils/consts";
 import styles from "../form/form.module.css";
 import {tokenSelector, loginSelector} from "../../redux/selectors";
+import {PropTypes as Types} from "prop-types";
 
 const formSubtitle = <>
   <span>Didn't have an account yet? </span>
@@ -26,6 +27,15 @@ const Login = ({token, login, loginAction}) => {
       errors={login.error}
     />
   );
+};
+
+Login.propTypes = {
+  token: Types.string,
+  loginAction: Types.func.isRequired,
+  login: Types.shape({
+    processing: Types.bool.isRequired,
+    error: Types.arrayOf(Types.string)
+  }).isRequired
 };
 
 const mapStateToProps = (state, props) => ({

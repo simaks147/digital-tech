@@ -7,6 +7,7 @@ import {HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_FIELDS} from "../../utils/consts";
 import {registrationSelector, tokenSelector} from "../../redux/selectors";
 import styles from "./register.module.css";
 import {Container} from "react-bootstrap";
+import {PropTypes as Types} from "prop-types";
 
 const formSubtitle = <>
   <span>Already have an account? </span>
@@ -39,6 +40,16 @@ const Register = ({token, registration, registerAction}) => {
       errors={registration.error}
     />
   );
+};
+
+Register.propTypes = {
+  token: Types.string,
+  registerAction: Types.func.isRequired,
+  registration: Types.shape({
+    processing: Types.bool.isRequired,
+    error: Types.arrayOf(Types.string),
+    complete:  Types.bool.isRequired
+  }).isRequired
 };
 
 const mapStateToProps = (state, props) => ({

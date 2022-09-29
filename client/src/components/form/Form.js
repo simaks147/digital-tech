@@ -9,6 +9,7 @@ import {ReactComponent as VKIcon} from "../../icons/vk.svg";
 import {connect} from "react-redux";
 import {oauth} from "../../redux/actions";
 import Loader from "../loader";
+import {PropTypes as Types} from "prop-types";
 
 const social = [
   {provider: 'github', className: 'social-github', Icon: GitHubIcon},
@@ -78,6 +79,33 @@ const CustomForm = ({disabled, title, subtitle, fields, onSubmit, submitButton, 
       </Container>
     </div>
   );
+};
+
+CustomForm.propTypes = {
+  disabled: Types.bool.isRequired,
+  title: Types.oneOfType([
+    Types.string,
+    Types.element,
+  ]),
+  subtitle: Types.oneOfType([
+    Types.string,
+    Types.element,
+  ]),
+  fields: Types.arrayOf(Types.shape({
+    id: Types.string.isRequired,
+    name: Types.string.isRequired,
+    label: Types.string,
+    type: Types.string,
+    placeholder: Types.string,
+    maxLength: Types.number,
+    required: Types.bool,
+    message: Types.string,
+    pattern:Types.string
+  }).isRequired).isRequired,
+  onSubmit: Types.func.isRequired,
+  submitButton: Types.string,
+  errors: Types.arrayOf(Types.string),
+  oauthAction: Types.func.isRequired
 };
 
 export default connect(null, {oauthAction: oauth})(CustomForm);
