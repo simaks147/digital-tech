@@ -8,6 +8,7 @@ import {Navigation, Pagination} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
 import Loader from "../loader";
 import SliderItem from "./sliderItem";
+import {PropTypes as Types} from "prop-types";
 
 const Slider = ({products, loading, errors}) => (
   <div className={styles.section}>
@@ -36,5 +37,16 @@ const Slider = ({products, loading, errors}) => (
     </Container>
   </div>
 );
+
+Slider.propTypes = {
+  products: Types.arrayOf(Types.shape({
+    slug: Types.string.isRequired,
+    sale: Types.shape({
+      bgColor: Types.string
+    }).isRequired
+  }).isRequired).isRequired,
+  loading: Types.bool.isRequired,
+  errors: Types.arrayOf(Types.string)
+};
 
 export default Slider;

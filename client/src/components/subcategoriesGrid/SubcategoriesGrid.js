@@ -10,6 +10,7 @@ import {connect} from "react-redux";
 import {randomSubcategoriesSelector} from "../../redux/selectors";
 import {CATEGORY_ROUTE} from "../../utils/consts";
 import {Link} from "react-router-dom";
+import {PropTypes as Types} from "prop-types";
 
 const SubcategoriesGrid = ({subcategories}) => (
   <div className={styles.section}>
@@ -43,6 +44,15 @@ const SubcategoriesGrid = ({subcategories}) => (
     </Container>
   </div>
 );
+
+SubcategoriesGrid.propTypes = {
+  subcategories: Types.arrayOf(Types.shape({
+    slug: Types.string.isRequired,
+    title: Types.string,
+    parentTitle: Types.string,
+    img: Types.string
+  }).isRequired).isRequired,
+};
 
 const mapStateToProps = (state) => ({
   subcategories: randomSubcategoriesSelector(state)

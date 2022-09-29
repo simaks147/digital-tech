@@ -8,6 +8,7 @@ import {images} from "../../../config";
 import {Link} from "react-router-dom";
 import {PRODUCT_ROUTE} from "../../../utils/consts";
 import FormattedPrice from "../../formattedPrice";
+import {PropTypes as Types} from "prop-types";
 
 const SliderItem = ({product}) => (
   <div className={styles.item}>
@@ -42,5 +43,19 @@ const SliderItem = ({product}) => (
     </Row>
   </div>
 );
+
+SliderItem.propTypes = {
+  product: Types.shape({
+    sale: Types.shape({
+      price: Types.number,
+      title: Types.string,
+      subTitle: Types.string,
+      images: Types.arrayOf(Types.string).isRequired,
+    }).isRequired,
+    slug: Types.string.isRequired,
+    title: Types.string,
+    price: Types.number,
+  }).isRequired
+};
 
 export default SliderItem;
