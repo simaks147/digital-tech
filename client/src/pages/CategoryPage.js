@@ -6,9 +6,10 @@ import {categoriesListSelector, subcategoriesSelector} from "../redux/selectors"
 import {CATEGORY_ROUTE, ERROR_ROUTE} from "../utils/consts";
 import Layout from "../components/Layout";
 import {PRODUCTS_LIMIT_VARIANTS, PRODUCTS_SORT_VARIANTS} from "../utils/consts";
+import {PropTypes as Types} from "prop-types";
 
-const CategoryPage = ({match, subcategories}) => {
-  if (!match.params.slug) return <Redirect to={`${CATEGORY_ROUTE}/${subcategories[0].slug}`}/>
+const CategoryPage = ({match, subcategories, categories}) => {
+  if (!match.params.slug) return <Redirect to={`${CATEGORY_ROUTE}/${categories[0].subcategory[0].slug}`}/>
   if (!subcategories[match.params.slug]) return <Redirect to={ERROR_ROUTE}/>
 
   return (
@@ -20,6 +21,15 @@ const CategoryPage = ({match, subcategories}) => {
       />
     </Layout>
   );
+};
+
+CategoryPage.propTypes = {
+  categories: Types.arrayOf(Types.shape({
+    subcategory: Types.arrayOf(Types.shape({
+      slug: Types.string.isRequired
+    }).isRequired).isRequired
+  }).isRequired).isRequired,
+  subcategories: Types.objectOf(Types.object).isRequired
 };
 
 const mapStateToProps = (state) => ({

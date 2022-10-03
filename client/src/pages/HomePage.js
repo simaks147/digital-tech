@@ -13,6 +13,7 @@ import {
   errorSaleSelector,
   loadingSaleSelector,
 } from "../redux/selectors";
+import {PropTypes as Types} from "prop-types";
 
 const HomePage = ({
                     recommendations,
@@ -46,6 +47,17 @@ const HomePage = ({
     </Layout>
   );
 }
+
+HomePage.ptopTypes = {
+  recommendations: Types.arrayOf(Types.object),
+  loadRecommendations: Types.func.isRequired,
+  loadingRecommendations: Types.bool,
+  errorsRecommendations: Types.arrayOf(Types.string),
+  sale: Types.arrayOf(Types.object),
+  loadSale: Types.func.isRequired,
+  loadingSale: Types.bool,
+  errorsSale: Types.arrayOf(Types.string)
+};
 
 const mapStateToProps = (state) => ({
   recommendations: recommendationsListSelector(state),

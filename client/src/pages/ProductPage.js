@@ -13,9 +13,18 @@ import {CATEGORY_ROUTE} from "../utils/consts";
 import Layout from "../components/Layout";
 import ProductSecondList from "../components/productSecondList";
 import {loadRelations} from "../redux/actions";
+import {PropTypes as Types} from "prop-types";
 
-const ProductPage = ({match, categories, relations, loadRelations, loadingRelations, errorsRelations, subcategoryId}) => {
-  useEffect(() =>  {
+const ProductPage = ({
+                       match,
+                       categories,
+                       relations,
+                       loadRelations,
+                       loadingRelations,
+                       errorsRelations,
+                       subcategoryId
+                     }) => {
+  useEffect(() => {
     if (subcategoryId) loadRelations(subcategoryId)
   }, [subcategoryId, match.params.slug]);
 
@@ -32,6 +41,19 @@ const ProductPage = ({match, categories, relations, loadRelations, loadingRelati
       />
     </Layout>
   );
+};
+
+ProductPage.ptopTypes = {
+  categories: Types.arrayOf(Types.shape({
+    subcategory: Types.arrayOf(Types.shape({
+      slug: Types.string.isRequired
+    }).isRequired).isRequired
+  }).isRequired).isRequired,
+  relations: Types.arrayOf(Types.object),
+  loadRelations: Types.func.isRequired,
+  loadingRelations: Types.bool,
+  errorsRelations: Types.arrayOf(Types.string),
+  subcategoryId: Types.string.isRequired
 };
 
 const mapStateToProps = (state, props) => ({
