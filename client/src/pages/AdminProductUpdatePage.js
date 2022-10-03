@@ -8,7 +8,8 @@ import {
 import {connect} from "react-redux";
 import {loadProduct, updateProduct} from "../redux/actions";
 import Loader from "../components/loader";
-const uuid = require('uuid').v4;
+import { v4 as uuid } from 'uuid';
+import {PropTypes as Types} from "prop-types";
 
 const AdminProductUpdatePage = ({loadProduct, updateProduct, products, loading, match}) => {
   const id = match.params.slug;
@@ -54,6 +55,13 @@ const AdminProductUpdatePage = ({loadProduct, updateProduct, products, loading, 
     </AdminLayout>
   );
 }
+
+AdminProductUpdatePage.propTypes = {
+  loadProduct: Types.func.isRequired,
+  updateProduct: Types.func.isRequired,
+  products: Types.objectOf(Types.object).isRequired,
+  loading: Types.bool.isRequired
+};
 
 const mapStateToProps = (state, props) => ({
   products: productsSelector(state, props),
