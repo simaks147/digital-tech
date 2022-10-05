@@ -11,7 +11,7 @@ module.exports = {
   host: HOST,
   domain: DOMAIN,
   mongodb: {
-    uri: process.env.MONGODB_URI
+    uri: process.env.MONGODB_URI || 'mongodb://localhost/digital-tech'
   },
   crypto: {
     iterations: process.env.NODE_ENV !== 'production' ? 1 : 10000,
@@ -22,7 +22,7 @@ module.exports = {
     vkontakte: {
       app_id: process.env.VKONTAKTE_APP_ID || 'vkontakte_app_id',
       app_secret: process.env.VKONTAKTE_APP_SECRET || 'vkontakte_app_secret',
-      callback_uri: 'http://localhost:3000/oauth/vkontakte',
+      callback_uri: `${DOMAIN}/oauth/vkontakte`,
       options: {
         scope: ['email'],
       }
@@ -30,7 +30,7 @@ module.exports = {
     github: {
       app_id: process.env.GITHUB_APP_ID || 'github_app_id',
       app_secret: process.env.GITHUB_APP_SECRET || 'github_app_secret',
-      callback_uri: 'http://localhost:3000/oauth/github',
+      callback_uri: `${DOMAIN}/oauth/github`,
       options: {
         scope: ['user:email'],
       }
@@ -38,7 +38,7 @@ module.exports = {
     yandex: {
       app_id: process.env.YANDEX_APP_ID || 'yandex_app_id',
       app_secret: process.env.YANDEX_APP_SECRET || 'yandex_app_secret',
-      callback_uri: 'http://localhost:3000/oauth/yandex',
+      callback_uri: `${DOMAIN}/oauth/yandex`,
       options: {}
     }
   },

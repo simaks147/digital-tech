@@ -1,4 +1,4 @@
-const ImageKit = require('imagekit').default;
+const ImageKit = require('imagekit');
 const config = require('../config');
 
 module.exports = new ImageKit({
