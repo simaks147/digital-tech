@@ -6,7 +6,8 @@
     "yarn": "1.22.17"
   },
   "scripts": {
-    "start": "cd ./server && node index.js"
+    "start": "cd ./server && node index.js",
+    "build": "react-scripts build"
   },
   "dependencies": {
     "@koa/cors": "^3.3.0",
