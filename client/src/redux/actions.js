@@ -287,19 +287,19 @@ export const login = (values) => async (dispatch, getState) => {
 
 export const oauth = (provider) => ({
   type: OAUTH,
-  CallApi: `/api/oauth/${provider}`
+  CallApi: `${api_url}api/oauth/${provider}`
 });
 
 export const oauthCallback = (provider, code) => ({
   type: OAUTH_CALLBACK,
-  CallApi: `/api/oauth_callback/?code=${code}`,
+  CallApi: `${api_url}api/oauth_callback/?code=${code}`,
   values: {provider}
 });
 
 
 const _register = (values) => ({
   type: REGISTER,
-  CallApi: '/api/register',
+  CallApi: `${api_url}api/register`,
   values
 });
 
@@ -316,7 +316,7 @@ export const register = (values) => async (dispatch, getState) => {
 
 export const confirm = (verificationToken) => ({
   type: CONFIRM,
-  CallApi: '/api/confirm',
+  CallApi: `${api_url}api/confirm`,
   values: {verificationToken}
 });
 
