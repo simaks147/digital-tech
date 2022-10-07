@@ -19,20 +19,20 @@ module.exports.register = async (ctx, next) => {
   await user.setPassword(ctx.request.body.password);
   await user.save();
 
-  try {
-    await sendMail({
-      to: {
-        name: user.displayName,
-        address: user.email
-      },
-      subject: 'Verify your email',
-      html: `To complete registration, please click on the link <a href="${config.domain}/api/confirm/${user.verificationToken}">Confirm registration</a>`
-    });
-  }
-  catch (err) {
-    await User.deleteOne({email: user.email});
-    ctx.throw(403, 'An error occurred while sending mail, account has not been created.');
-  }
+  // try {
+  //   await sendMail({
+  //     to: {
+  //       name: user.displayName,
+  //       address: user.email
+  //     },
+  //     subject: 'Verify your email',
+  //     html: `To complete registration, please click on the link <a href="${config.domain}/api/confirm/${user.verificationToken}">Confirm registration</a>`
+  //   });
+  // }
+  // catch (err) {
+  //   await User.deleteOne({email: user.email});
+  //   ctx.throw(403, 'An error occurred while sending mail, account has not been created.');
+  // }
 
   ctx.body = {status: 'ok'};
 };
