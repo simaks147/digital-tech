@@ -1,3 +1,5 @@
+export const api_url = process.env.REACT_APP_API_URL
+
 export const images = {
   urlEndpoint: process.env.REACT_APP_IMAGEKIT_URL_ENDPOINT,
   authEndpoint: process.env.REACT_APP_IMAGEKIT_AUTH_ENDPOINT,

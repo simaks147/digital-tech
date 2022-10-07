@@ -56,6 +56,9 @@ import {
   loadingSaleSelector,
   loadedSaleSelector
 } from "./selectors";
+import {api_url} from "../config";
+
+export {api_url} from '../config'
 
 export const increaseCart = (product) => ({
   type: INCREASE_CART,
@@ -267,7 +270,7 @@ export const createReview = (values, productId) => async (dispatch) => {
 
 const _login = (values) => ({
   type: LOGIN,
-  CallApi: '/api/login',
+  CallApi: `${api_url}api/login`,
   values
 });
 
