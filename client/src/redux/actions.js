@@ -56,9 +56,8 @@ import {
   loadingSaleSelector,
   loadedSaleSelector
 } from "./selectors";
-import {api_url} from "../config";
 
-export {api_url} from '../config'
+import {api_url} from "../config";
 
 export const increaseCart = (product) => ({
   type: INCREASE_CART,
@@ -83,7 +82,7 @@ export const processCheckout = () => async (dispatch) => {
 
 const _makeOrder = (values, products, token) => ({
   type: MAKE_ORDER,
-  CallApi: '/api/order',
+  CallApi: `${api_url}api/order`,
   values: {...values, products},
   token
 });
@@ -106,12 +105,12 @@ export const _setActiveCategory = (subcategoryId, categoryId) => ({
 
 export const loadCategories = () => ({
   type: LOAD_CATEGORIES,
-  CallApi: '/api/categories'
+  CallApi: `${api_url}api/categories`
 });
 
 export const loadBrands = () => ({
   type: LOAD_BRANDS,
-  CallApi: '/api/brands'
+  CallApi: `${api_url}api/brands`
 });
 
 
@@ -133,14 +132,14 @@ export const loadProductsList = (page, limit, sort, filters) => {
 
   return {
     type: LOAD_PRODUCTS,
-    CallApi: `/api/products?${new URLSearchParams({...searchParams, ...filters})}`,
+    CallApi: `${api_url}api/products?${new URLSearchParams({...searchParams, ...filters})}`,
   };
 };
 
 
 const _loadProductsByCategory = (searchParams, subcategoryId) => ({
   type: LOAD_PRODUCTS,
-  CallApi: `/api/products?${new URLSearchParams({...searchParams, subcategoryId})}`,
+  CallApi: `${api_url}api/products?${new URLSearchParams({...searchParams, subcategoryId})}`,
   subcategoryId
 });
 
@@ -166,7 +165,7 @@ export const loadProductsByCategory = (page, limit, sort, filters, subcategoryId
 
 const _loadRecommendations = () => ({
   type: LOAD_PRODUCTS_BY_RECOMMENDATIONS,
-  CallApi: '/api/recommendations'
+  CallApi: `${api_url}api/recommendations`
 });
 
 export const loadRecommendations = () => async (dispatch, getState) => {
@@ -180,13 +179,13 @@ export const loadRecommendations = () => async (dispatch, getState) => {
 
 export const loadRelations = (subcategoryId) => ({
   type: LOAD_PRODUCTS_BY_RELATIONS,
-  CallApi: `/api/relations?subcategoryId=${subcategoryId}`
+  CallApi: `${api_url}api/relations?subcategoryId=${subcategoryId}`
 });
 
 
 const _loadSale = () => ({
   type: LOAD_PRODUCTS_BY_SALE,
-  CallApi: '/api/sale'
+  CallApi: `${api_url}api/sale`
 });
 
 export const loadSale = () => async (dispatch, getState) => {
@@ -200,7 +199,7 @@ export const loadSale = () => async (dispatch, getState) => {
 
 const _loadProduct = (id) => ({
   type: LOAD_PRODUCT,
-  CallApi: `/api/product/${id}`,
+  CallApi: `${api_url}api/product/${id}`,
   id
 });
 
@@ -227,7 +226,7 @@ export const loadProduct = (id) => async (dispatch, getState) => {
 
 const _loadReviews = (productId) => ({
   type: LOAD_REVIEWS,
-  CallApi: `/api/reviews?id=${productId}`,
+  CallApi: `${api_url}api/reviews?id=${productId}`,
   productId
 });
 
@@ -323,7 +322,7 @@ export const confirm = (verificationToken) => ({
 
 const _fetchProfile = (token) => ({
   type: FETCH_PROFILE,
-  CallApi: '/api/me',
+  CallApi: `${api_url}api/me`,
   token
 });
 
@@ -349,7 +348,7 @@ export const closeNav = () => ({
 
 const _createProduct = (values, id, images, specification, saleImages, token) => ({
   type: CREATE_PRODUCT,
-  CallApi: '/api/product',
+  CallApi: `${api_url}api/product`,
   values: {...values, slug: id, images, specification, saleImages},
   id,
   token
@@ -368,7 +367,7 @@ export const createProduct = (values, id, images, specification, saleImages) => 
 
 const _updateProduct = (values, id, images, specification, saleImages, token) => ({
   type: UPDATE_PRODUCT,
-  CallApi: `/api/product/${id}`,
+  CallApi: `${api_url}api/product/${id}`,
   values: {...values, slug: id, images, specification, saleImages},
   id,
   method: 'PUT',
@@ -388,7 +387,7 @@ export const updateProduct = (values, id, images, specification, saleImages) => 
 
 const _deleteProduct = (id, token) => ({
   type: DELETE_PRODUCT,
-  CallApi: `/api/product/${id}`,
+  CallApi: `${api_url}api/product/${id}`,
   method: 'DELETE',
   id,
   token
