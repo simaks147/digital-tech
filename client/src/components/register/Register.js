@@ -15,19 +15,19 @@ const formSubtitle = <>
 </>;
 
 const Register = ({token, registration, registerAction}) => {
-  if (token) return <Redirect to={HOME_ROUTE}/>;
-
   if (registration.complete) {
     return (
       <div className={styles.section}>
         <Container>
           <h6>Congratulations, you are registered!</h6>
-          <div>An email has been sent to the email address you provided.</div>
-          <div>To complete your registration, please follow the link in this email.</div>
+          {/*<div>An email has been sent to the email address you provided.</div>*/}
+          {/*<div>To complete your registration, please follow the link in this email.</div>*/}
         </Container>
       </div>
     );
   }
+
+  if (token) return <Redirect to={HOME_ROUTE}/>;
 
   return (
     <Form

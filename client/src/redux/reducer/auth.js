@@ -109,6 +109,9 @@ export default (state = initialState, action) =>
         break;
 
       case REGISTER + SUCCESS:
+        localStorage.setItem('token', data.token);
+        localStorage.removeItem('messages');
+        draft.token = data.token;
         draft.registration.complete = true;
         draft.registration.processing = false;
         draft.registration.error = null;
