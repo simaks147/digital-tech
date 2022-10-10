@@ -2,7 +2,7 @@ const User = require("../../models/User");
 
 module.exports = async (email, displayName, done) => {
   if (!email) {
-    return done(null, false, 'Email not specified');
+    return done(null, false, 'Email not specified, use common authorization method or try another social network');
   }
 
   try {

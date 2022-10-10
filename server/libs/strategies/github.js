@@ -8,5 +8,5 @@ module.exports = new Strategy({
   callbackURL: config.providers.github.callback_uri,
   session: false,
 }, (accessToken, refreshToken, profile, done) => {
-  authenticate(profile.emails[0].value, profile.username, done);
+  authenticate(profile.emails?.[0].value, profile.username, done);
 });

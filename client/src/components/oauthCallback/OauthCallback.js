@@ -30,8 +30,8 @@ const OauthCallback = ({token, oauthCallback, oauthCallbackAction}) => {
             <>
               {
                 oauthCallback.error &&
-                oauthCallback.error.map((err) => (
-                  <Alert variant="danger">{err}</Alert>
+                oauthCallback.error.map((err, i) => (
+                  <Alert variant="danger" key={i}>{err}</Alert>
                 ))
               }
               <Link to={LOGIN_ROUTE}>Log&nbsp;In</Link>
