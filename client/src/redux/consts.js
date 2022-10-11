@@ -26,6 +26,7 @@ export const OAUTH_CALLBACK = 'OAUTH_CALLBACK';
 export const REGISTER = 'REGISTER';
 export const CONFIRM = 'CONFIRM';
 export const FETCH_PROFILE = 'FETCH_PROFILE';
+export const CHECK_PROFILE = 'CHECK_PROFILE';
 
 export const OPEN_NAV = 'OPEN_NAV';
 export const CLOSE_NAV = 'CLOSE_NAV';

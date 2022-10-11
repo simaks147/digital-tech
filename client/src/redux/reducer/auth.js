@@ -11,6 +11,7 @@ import {
   REGISTER,
   CONFIRM,
   FETCH_PROFILE,
+  CHECK_PROFILE,
   ROUTER_LOCATION_CHANGE
 } from "../consts";
 
@@ -41,6 +42,7 @@ const initialState = {
   },
   profile: {
     fetching: false,
+    checked: false,
     data: {
       email: null,
       displayName: null,
@@ -151,6 +153,10 @@ export default (state = initialState, action) =>
       case FETCH_PROFILE + FAILURE:
         draft.profile.fetching = false;
         draft.profile.error = objToArr(error.error);
+        break;
+
+      case CHECK_PROFILE:
+        draft.profile.checked = true;
         break;
 
       case ROUTER_LOCATION_CHANGE:

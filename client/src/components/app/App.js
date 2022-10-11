@@ -8,7 +8,8 @@ import {
   tokenSelector,
   errorCategoriesSelector,
   errorBrandsSelector,
-  errorProfileSelector
+  errorProfileSelector,
+  checkedProfileSelector
 } from "../../redux/selectors";
 import {connect} from "react-redux";
 import {loadCategories, loadBrands, fetchProfile} from "../../redux/actions";
@@ -27,15 +28,16 @@ const App = ({
                errorsCategories,
                errorsBrands,
                errorsProfile,
-               token,
+               checkedProfile
              }) => {
-  useEffect(() => {
-    if (token) fetchProfile();
-  }, [token, fetchProfile]);
+  // useEffect(() => {
+  //   if (token) fetchProfile();
+  // }, [token, fetchProfile]);
 
   useEffect(() => {
     loadCategories();
     loadBrands();
+    fetchProfile();
   }, []);
 
   if (loadingCategories || loadingBrands) return <Loader/>;
@@ -60,7 +62,7 @@ const App = ({
     </>
   );
 
-  if (!loadedCategories || !loadedBrands) return null;
+  if (!loadedCategories || !loadedBrands || !checkedProfile) return null;
 
   return <AppRouter/>;
 }
@@ -73,7 +75,8 @@ const mapStateToProps = (state) => ({
   errorsCategories: errorCategoriesSelector(state),
   errorsBrands: errorBrandsSelector(state),
   errorsProfile: errorProfileSelector(state),
-  token: tokenSelector(state)
+  token: tokenSelector(state),
+  checkedProfile: checkedProfileSelector(state)
 });
 
 App.propTypes = {

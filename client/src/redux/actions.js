@@ -19,6 +19,7 @@ import {
   REGISTER,
   CONFIRM,
   FETCH_PROFILE,
+  CHECK_PROFILE,
   OPEN_NAV,
   CLOSE_NAV,
   CREATE_PRODUCT,
@@ -320,6 +321,10 @@ export const confirm = (verificationToken) => ({
 });
 
 
+const _checkProfile = () => ({
+  type: CHECK_PROFILE
+});
+
 const _fetchProfile = (token) => ({
   type: FETCH_PROFILE,
   CallApi: `${api_url}api/me`,
@@ -331,9 +336,11 @@ export const fetchProfile = () => async (dispatch, getState) => {
   const fetching = fetchingProfileSelector(state);
   const token = tokenSelector(state);
 
-  if (!fetching) {
+  if (!fetching && token) {
     await dispatch(_fetchProfile(token));
   }
+
+  dispatch(_checkProfile())
 };
 
 
