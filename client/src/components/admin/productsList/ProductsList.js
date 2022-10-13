@@ -95,7 +95,7 @@ ProductsList.propTypes = {
   limit: Types.string.isRequired,
   sort: Types.string.isRequired,
   page: Types.number.isRequired,
-  filters: Types.object.isRequired,
+  filters: Types.object,
   subcategories: Types.arrayOf(Types.object),
   loadProductsList: Types.func.isRequired,
   limitVariants: Types.arrayOf(Types.string),
