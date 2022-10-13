@@ -21,11 +21,11 @@ import {PropTypes as Types} from "prop-types";
 
 const ProductFilter = ({brands, subcategories, changeProductPageLocation, filters, minPrice, maxPrice}) => {
   const {currentFilters, changeBrand, changeCategory, changeRating, changePrice} = useProductFilters({
-    brand: filters.brand || [],
-    subcategoryId: filters.subcategoryId || [],
-    rating: Math.floor(filters.rating) || null,
-    minPrice: filters.minPrice > minPrice && filters.minPrice < maxPrice ? Math.floor(filters.minPrice) : minPrice,
-    maxPrice: filters.maxPrice > minPrice && filters.maxPrice < maxPrice ? Math.floor(filters.maxPrice) : maxPrice
+    brand: filters?.brand || [],
+    subcategoryId: filters?.subcategoryId || [],
+    rating: Math.floor(filters?.rating) || null,
+    minPrice: filters?.minPrice > minPrice && filters?.minPrice < maxPrice ? Math.floor(filters?.minPrice) : minPrice,
+    maxPrice: filters?.maxPrice > minPrice && filters?.maxPrice < maxPrice ? Math.floor(filters?.maxPrice) : maxPrice
   });
 
   return (
@@ -132,7 +132,7 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
 }
 
 ProductFilter.propTypes = {
-  filters: Types.object.isRequired,
+  filters: Types.object,
   minPrice: Types.number.isRequired,
   maxPrice: Types.number.isRequired,
   brands: Types.arrayOf(Types.shape({

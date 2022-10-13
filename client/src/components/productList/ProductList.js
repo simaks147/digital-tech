@@ -109,7 +109,7 @@ ProductList.propTypes = {
   sort: Types.string.isRequired,
   sortVariants: Types.arrayOf(Types.string).isRequired,
   page: Types.number.isRequired,
-  filters: Types.object.isRequired
+  filters: Types.object
 };
 
 const mapStateToProps = (state, props) => ({

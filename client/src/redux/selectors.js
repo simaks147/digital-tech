@@ -224,7 +224,7 @@ export const productsPageSelector = createSelector(
 export const productsFiltersSelector = createSelector(
   queryParamsSelector,
   queryParams => {
-    if (!queryParams.filters) return {};
+    if (!queryParams.filters) return;
 
     const filtersEntries = decodeURIComponent(queryParams.filters).split(',').map(filter => filter.split(':'));
 
