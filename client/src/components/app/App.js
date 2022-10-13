@@ -28,19 +28,19 @@ const App = ({
                errorsCategories,
                errorsBrands,
                errorsProfile,
+               token,
                checkedProfile
              }) => {
-  // useEffect(() => {
-  //   if (token) fetchProfile();
-  // }, [token, fetchProfile]);
+  useEffect(() => {
+    fetchProfile();
+  }, [token]);
 
   useEffect(() => {
     loadCategories();
     loadBrands();
-    fetchProfile();
   }, []);
 
-  if (loadingCategories || loadingBrands) return <Loader/>;
+  if (loadingCategories || loadingBrands || !checkedProfile) return <Loader/>;
 
   if (errorsCategories || errorsBrands || errorsProfile) return (
     <>
@@ -62,7 +62,7 @@ const App = ({
     </>
   );
 
-  if (!loadedCategories || !loadedBrands || !checkedProfile) return null;
+  if (!loadedCategories || !loadedBrands) return null;
 
   return <AppRouter/>;
 }
@@ -76,7 +76,7 @@ const mapStateToProps = (state) => ({
   errorsBrands: errorBrandsSelector(state),
   errorsProfile: errorProfileSelector(state),
   token: tokenSelector(state),
-  checkedProfile: checkedProfileSelector(state)
+  checkedProfile: checkedProfileSelector(state),
 });
 
 App.propTypes = {

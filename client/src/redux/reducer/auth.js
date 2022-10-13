@@ -58,6 +58,7 @@ export default (state = initialState, action) =>
 
     switch (type) {
       case LOGIN + REQUEST:
+        draft.profile.checked = false;
         draft.login.processing = true;
         break;
 
@@ -70,6 +71,7 @@ export default (state = initialState, action) =>
         break;
 
       case LOGIN + FAILURE:
+        draft.profile.checked = true;
         draft.login.processing = false;
         draft.login.error = objToArr(error.error);
         break;
@@ -107,10 +109,12 @@ export default (state = initialState, action) =>
         break;
 
       case REGISTER + REQUEST:
+        draft.profile.checked = false;
         draft.registration.processing = true;
         break;
 
       case REGISTER + SUCCESS:
+        draft.profile.checked = true;
         localStorage.setItem('token', data.token);
         localStorage.removeItem('messages');
         draft.token = data.token;
@@ -120,6 +124,7 @@ export default (state = initialState, action) =>
         break;
 
       case REGISTER + FAILURE:
+        draft.profile.checked = true;
         draft.registration.processing = false;
         draft.registration.error = objToArr(error.error);
         break;
