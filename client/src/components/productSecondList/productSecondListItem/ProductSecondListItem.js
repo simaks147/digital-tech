@@ -26,7 +26,7 @@ const ProductSecondListItem = ({product}) => (
     </Figure>
     <div className={styles.itemTitle}>{product.title}</div>
 
-    <div className={styles.itemPriceWrap}>
+    <div className={styles.itemPricesWrap}>
       {
         !product.sale.discountPercent && <span className={styles.itemPrice}>
           <FormattedPrice value={product.price}/>
@@ -34,14 +34,14 @@ const ProductSecondListItem = ({product}) => (
       }
       {
         !!product.sale.discountPercent &&
-        <>
+        <div className={styles.itemPricesWrap}>
           <span className={styles.itemOldPrice}>
             <FormattedPrice value={product.price}/>
           </span>
           <span className={styles.itemPrice}>
             <FormattedPrice value={product.sale.price}/>
           </span>
-        </>
+        </div>
       }
     </div>
   </Link>

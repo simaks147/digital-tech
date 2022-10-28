@@ -92,9 +92,15 @@
 
 .item {
     display: block;
-    padding: 30px;
+    padding: 10px;
     text-align: center;
     text-decoration: none;
+}
+
+.itemPricesWrap {
+    display: flex;
+    flex-flow: column;
+    line-height: 1;
 }
 
 .itemPicture img {
@@ -114,13 +120,11 @@
     color: var(--bs-gray-700);
     font-weight: 500;
     font-size: 15px;
-
 }
 
 .itemOldPrice {
     text-decoration: line-through;
     color: var(--bs-gray-500);
-    margin-right: 8px;
     font-size: 14px;
 }
 
@@ -153,5 +157,17 @@
 @media (min-width: 768px) {
     .section {
         margin: 60px 0;
+    }
+
+    .item {
+        padding: 30px;
+    }
+
+    .itemPricesWrap {
+        display: block;
+    }
+
+    .itemOldPrice {
+        margin-right: 8px;
     }
 }

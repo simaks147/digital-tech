@@ -39,6 +39,7 @@ const ProductCarousel = ({product}) => {
                 indicators={false}
                 controls={false}
                 activeIndex={carouselIndex}
+                interval={null}
                 onSelect={handleSelectCarouselItem}>
         {
           product?.images.map((img, i) => (

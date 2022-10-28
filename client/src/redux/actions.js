@@ -248,23 +248,21 @@ const _addReview = (values, productId) => ({
   values: {...values, productId}
 });
 
-/// FOR REAL REVIEW CREATION IN DB!
-
-const _createReview = (values, productId) => ({
-  type: CREATE_REVIEW,
-  CallApi: '/api/reviews',
-  productId,
-  values: {...values, productId}
-});
+//// FOR REAL REVIEW CREATION IN DB!
+// const _createReview = (values, productId) => ({
+//   type: CREATE_REVIEW,
+//   CallApi: '/api/reviews',
+//   productId,
+//   values: {...values, productId}
+// });
 
 
 export const createReview = (values, productId) => async (dispatch) => {
   await dispatch(_addReview(values, productId));
-  /// FOR REAL REVIEW CREATION IN DB!
-
-  const {id, date, ...rest} = values;
-
-  dispatch(_createReview(rest, productId,));
+  //// FOR REAL REVIEW CREATION IN DB!
+  // const {id, date, ...rest} = values;
+  //
+  // dispatch(_createReview(rest, productId,));
 };
 
 

@@ -13,7 +13,7 @@ import {deleteProduct} from "../../../../redux/actions";
 import {PropTypes as Types} from "prop-types";
 
 const ProductItem = ({product, deleteProduct}) => {
-  const {title, slug, images, price, rating} = product;
+  const {title, slug, images} = product;
   return (
     <div className={styles.main}>
       <Row className='align-items-center'>
@@ -33,12 +33,6 @@ const ProductItem = ({product, deleteProduct}) => {
         <Col className={styles.title}>
           <Link to={`${PRODUCT_ROUTE}/${slug}`}>{title}</Link>
         </Col>
-        <Col>
-          <div>{price}</div>
-        </Col>
-        <Col>
-          <div>{rating.overall}</div>
-        </Col>
         <Col xs='auto' className={styles.icons}>
           <Link to={`${ADMIN_PRODUCT_ROUTE}/${slug}`}>
             <EditIcon/>
@@ -54,11 +48,7 @@ ProductItem.propTypes = {
   product: Types.shape({
     title: Types.string,
     slug: Types.string.isRequired,
-    images: Types.arrayOf(Types.string).isRequired,
-    price: Types.number,
-    rating: Types.shape({
-      overall: Types.number
-    })
+    images: Types.arrayOf(Types.string).isRequired
   }).isRequired,
 };
 

@@ -4,7 +4,7 @@ import styles from './slider.module.css'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import {Navigation, Pagination} from "swiper";
+import {Navigation, Pagination, Autoplay} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
 import Loader from "../loader";
 import SliderItem from "./sliderItem";
@@ -22,9 +22,14 @@ const Slider = ({products, loading, errors}) => (
         ))
       }
       <Swiper
-        modules={[Navigation, Pagination]}
+        modules={[Navigation, Pagination, Autoplay]}
         navigation
         pagination={{clickable: true}}
+        autoplay={{
+          delay: 7000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
+        }}
       >
         {
           products.map(product =>
