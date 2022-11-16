@@ -32,7 +32,7 @@ import {
   SET_CURRENCY,
   CHAT_MESSAGE,
   CHAT_CONNECT,
-  CHAT_DISCONNECT
+  CHAT_DISCONNECT, LOAD_PRODUCTS_BY_SEARCH
 } from "./consts";
 
 import {
@@ -55,7 +55,8 @@ import {
   loadedRecommendationsSelector,
   loadingRecommendationsSelector,
   loadingSaleSelector,
-  loadedSaleSelector
+  loadedSaleSelector,
+  searchSelector, loadingSearchSelector
 } from "./selectors";
 
 import {api_url} from "../config";
@@ -161,6 +162,20 @@ export const loadProductsByCategory = (page, limit, sort, filters, subcategoryId
   } catch (e) {
     dispatch(replace(ERROR_ROUTE));
   }
+};
+
+
+const _loadProductsBySearch = (query) => ({
+  type: LOAD_PRODUCTS_BY_SEARCH,
+  CallApi: `${api_url}api/search?query=${query}`,
+});
+
+export const loadProductsBySearch = () => async (dispatch, getState) => {
+  const state = getState();
+  const loading = loadingSearchSelector(state);
+  const query = queryParamsSelector(state).query;
+
+  if (!loading) dispatch(_loadProductsBySearch(query));
 };
 
 

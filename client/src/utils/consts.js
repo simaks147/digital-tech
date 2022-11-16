@@ -6,6 +6,7 @@ export const REGISTER_ROUTE = '/register';
 export const CONFIRM_ROUTE = '/confirm/:verificationToken';
 export const HOME_ROUTE = '/';
 export const ERROR_ROUTE = '/error';
+export const SEARCH_ROUTE = '/search';
 export const BASKET_ROUTE = '/basket';
 export const BASKET_ROUTE_SHOPPING = '/basket/shopping';
 export const BASKET_ROUTE_CHECKOUT = '/basket/checkout';

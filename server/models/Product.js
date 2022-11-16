@@ -86,6 +86,8 @@ const productSchema = new mongoose.Schema({
   timestamps: true
 });
 
+productSchema.index({title: 'text'});
+
 productSchema.plugin(uniqueValidator, {message: 'Product with this {PATH} already exists'});
 
 module.exports = connection.model('Product', productSchema);

@@ -5,6 +5,7 @@ import {
   BASKET_ROUTE_COMPLETED,
   HOME_ROUTE,
   ERROR_ROUTE,
+  SEARCH_ROUTE,
   LOGIN_ROUTE,
   REGISTER_ROUTE,
   CONFIRM_ROUTE,
@@ -23,6 +24,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ConfirmPage from "./pages/ConfirmPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
+import SearchPage from "./pages/SearchPage";
 import AdminProductCreationPage from "./pages/AdminProductCreationPage";
 import AdminProductUpdatePage from "./pages/AdminProductUpdatePage";
 import AdminProductsListPage from "./pages/AdminProductsListPage";
@@ -76,6 +78,10 @@ export const publicRoutes = [
   {
     path: CONFIRM_ROUTE,
     Component: ConfirmPage
+  },
+  {
+    path: SEARCH_ROUTE,
+    Component: SearchPage
   },
   {
     path: [

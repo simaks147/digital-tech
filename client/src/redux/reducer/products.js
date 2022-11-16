@@ -11,7 +11,8 @@ import {
   FAILURE,
   LOAD_PRODUCTS_BY_RECOMMENDATIONS,
   LOAD_PRODUCTS_BY_RELATIONS,
-  LOAD_PRODUCTS_BY_SALE
+  LOAD_PRODUCTS_BY_SALE,
+  LOAD_PRODUCTS_BY_SEARCH
 } from "../consts";
 
 const initialState = {
@@ -40,6 +41,12 @@ const initialState = {
     entities: {},
     loading: false,
     loaded: false,
+    error: null
+  },
+  bySearch: {
+    entities: {},
+    loading: false,
+    // loaded: false,
     error: null
   }
 }
@@ -126,6 +133,24 @@ export default (state = initialState, action) =>
       case LOAD_PRODUCTS_BY_SALE + FAILURE:
         draft.bySale.loading = false;
         draft.bySale.error = objToArr(error.error);
+        break;
+
+
+
+      case LOAD_PRODUCTS_BY_SEARCH + REQUEST:
+        draft.bySearch.loading = true;
+        draft.bySearch.error = null;
+        break;
+
+      case LOAD_PRODUCTS_BY_SEARCH + SUCCESS:
+        draft.bySearch.loading = false;
+        // draft.bySearch.loaded = true;
+        draft.bySearch.entities = {...arrToMap(data.search)};
+        break;
+
+      case LOAD_PRODUCTS_BY_SEARCH + FAILURE:
+        draft.bySearch.loading = false;
+        draft.bySearch.error = objToArr(error.error);
         break;
 
 

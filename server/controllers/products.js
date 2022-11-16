@@ -6,7 +6,7 @@ module.exports.productsList = async (ctx) => {
 
   const products = await Product
     .find(filters)
-    .collation({locale:'en', strength: 2})
+    .collation({locale: 'en', strength: 2})
     .sort({[sort]: order})
     .skip(skip)
     .limit(limit)
@@ -71,7 +71,7 @@ module.exports.createProduct = async (ctx) => {
 module.exports.updateProduct = async (ctx) => {
   const body = ctx.request.body;
 
-  const product = await Product.findOneAndUpdate({slug: body.slug},{
+  const product = await Product.findOneAndUpdate({slug: body.slug}, {
     brand: body.brand,
     description: body.description,
     price: body.price,
@@ -130,6 +130,21 @@ module.exports.sale = async (ctx) => {
   ]);
 
   ctx.body = {sale: sale.map(mapProduct)};
+};
+
+module.exports.search = async (ctx) => {
+  const {query} = ctx.query;
+
+  const search = await Product
+    .find({
+      $text: {
+        $search: query
+      }
+    }, {score: {$meta: 'textScore'}})
+    .sort({score: {$meta: 'textScore'}})
+    .limit(20);
+
+  ctx.body = {search: search.map(mapProduct)};
 };
 
 

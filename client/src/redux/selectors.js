@@ -6,6 +6,7 @@ export const productsSelector = (state) => state.products.common.entities;
 export const recommendationsSelector = (state) => state.products.byRecommendations.entities;
 export const relationsSelector = (state) => state.products.byRelations.entities;
 export const saleSelector = (state) => state.products.bySale.entities;
+export const searchSelector = (state) => state.products.bySearch.entities;
 export const reviewsSelector = (state) => state.reviews;
 export const orderSelector = (state) => state.order.entities;
 export const currenciesSelector = (state) => state.currencies.entities;
@@ -39,6 +40,9 @@ export const errorRelationsSelector = (state) => state.products.byRelations.erro
 export const loadingSaleSelector = (state) => state.products.bySale.loading;
 export const loadedSaleSelector = (state) => state.products.bySale.loaded;
 export const errorSaleSelector = (state) => state.products.bySale.error;
+
+export const loadingSearchSelector = (state) => state.products.bySearch.loading;
+export const errorSearchSelector = (state) => state.products.bySearch.error;
 
 export const loadingReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.loading;
 export const loadedReviewsByProductSelector = (state, {productId}) => reviewsSelector(state)[productId]?.loaded;
@@ -103,6 +107,11 @@ export const relationsListSelector = createSelector(
 
 export const saleListSelector = createSelector(
   saleSelector,
+  Object.values
+);
+
+export const searchListSelector = createSelector(
+  searchSelector,
   Object.values
 );
 
