@@ -10,8 +10,10 @@
 }
 
 .subtitle {
+    margin: auto;
     margin-bottom: 20px;
     font-size: 16px;
+    max-width: 470px;
 }
 
 .subtitle a {

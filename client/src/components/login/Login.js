@@ -7,10 +7,12 @@ import {HOME_ROUTE, REGISTER_ROUTE, LOGIN_FIELDS} from "../../utils/consts";
 import styles from "../form/form.module.css";
 import {tokenSelector, loginSelector} from "../../redux/selectors";
 import {PropTypes as Types} from "prop-types";
+import {Alert} from "react-bootstrap";
 
 const formSubtitle = <>
   <span>Didn't have an account yet? </span>
   <Link to={REGISTER_ROUTE} className={styles.link}>Register&nbsp;Here</Link>
+  <Alert variant="warning" className='mt-3'>Demo: user@mail.com / User123</Alert>
 </>;
 
 const Login = ({token, login, loginAction}) => {
