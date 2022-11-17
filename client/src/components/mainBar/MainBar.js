@@ -11,7 +11,7 @@ const MainBar = ({dispatch}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(push(`/search?query=${encodeURIComponent(searchValue)}`));
+    dispatch(push(`/search?query=${encodeURIComponent(searchValue.trim())}`));
     setSearchValue('');
   };
 
@@ -31,7 +31,7 @@ const MainBar = ({dispatch}) => {
           </Col>
           <Col xs={12} md>
             <Form onSubmit={handleSubmit}>
-              <Form.Control className={styles.search} type="text" placeholder="Search by keyword and press Enter" value={searchValue} onChange={handleChange}/>
+              <Form.Control className={styles.search} type="text" placeholder="Search by keyword and press Enter" maxLength={100} value={searchValue} onChange={handleChange}/>
             </Form>
           </Col>
         </Row>

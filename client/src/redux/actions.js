@@ -39,7 +39,8 @@ import {
   ADMIN_ROUTE,
   BASKET_ROUTE_CHECKOUT,
   BASKET_ROUTE_COMPLETED,
-  ERROR_ROUTE
+  ERROR_ROUTE,
+  HOME_ROUTE
 } from "../utils/consts";
 
 import {
@@ -56,7 +57,7 @@ import {
   loadingRecommendationsSelector,
   loadingSaleSelector,
   loadedSaleSelector,
-  searchSelector, loadingSearchSelector
+  loadingSearchSelector
 } from "./selectors";
 
 import {api_url} from "../config";
@@ -175,6 +176,7 @@ export const loadProductsBySearch = () => async (dispatch, getState) => {
   const loading = loadingSearchSelector(state);
   const query = queryParamsSelector(state).query;
 
+  if (!query) return dispatch(replace(HOME_ROUTE));
   if (!loading) dispatch(_loadProductsBySearch(query));
 };
 

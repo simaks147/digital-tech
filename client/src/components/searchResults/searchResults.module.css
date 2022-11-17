@@ -3,6 +3,16 @@
     position: relative;
 }
 
+.header {
+    font-family: var(--c-font-family-second);
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.header span {
+    font-weight: 700;
+}
+
 @media (min-width: 768px) {
     .section {
         margin: 60px 0;

@@ -8,7 +8,7 @@ const Footer = () => {
     <div className={styles.section}>
       <Container className='d-flex flex-column align-items-center'>
         <Logo/>
-        <div className={styles.address}>77 Freestone, Largepoint, London, 777777</div>
+        <div className={styles.address}>77 Freestone, Largepoint, Milan, 777777</div>
         <div>
           <a className={styles.phone} href='tel:(777) 777-7777'>(777) 777-7777</a>
           <a className={styles.email} href="mailto:mail@digitaltech.com">mail@digitaltech.com</a>

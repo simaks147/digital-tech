@@ -86,7 +86,10 @@ const productSchema = new mongoose.Schema({
   timestamps: true
 });
 
-productSchema.index({title: 'text'});
+productSchema.index(
+  {title: 'text', description: 'text'},
+  {weights: {title: 10, description: 5}}
+);
 
 productSchema.plugin(uniqueValidator, {message: 'Product with this {PATH} already exists'});
 

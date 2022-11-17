@@ -11,11 +11,14 @@ import Loader from "../loader";
 import styles from "./searchResults.module.css";
 import {Alert, Container} from "react-bootstrap";
 import SearchItem from "./searchItem";
+import {PropTypes as Types} from "prop-types";
 
 const SearchResults = ({products, loading, errors, router, loadProductsBySearch}) => {
+  const query = decodeURIComponent(router.location.query.query);
+
   useEffect(() => {
     loadProductsBySearch();
-  }, [router.location.query]);
+  }, [query]);
 
   if (errors)
     return <div className={styles.section}>
@@ -34,16 +37,32 @@ const SearchResults = ({products, loading, errors, router, loadProductsBySearch}
     <div className={styles.section}>
       <Container>
         {
-          products.map(item => <SearchItem key={item.slug} product={item}/>)
+          products.length !== 0 &&
+          <>
+            <div className={styles.header}>Results for search "<span>{query}</span>"</div>
+            <div className={styles.list}>
+              {
+                products.map(item => <SearchItem key={item.slug} product={item}/>)
+              }
+            </div>
+          </>
+        }
+        {
+          products.length === 0 && <div className={styles.header}>No results for search "<span>{query}</span>"</div>
         }
       </Container>
     </div>
   );
 };
 
-// SearchResults.propTypes = {
-//
-// };
+SearchResults.propTypes = {
+  products: Types.arrayOf(Types.shape({
+    slug: Types.string.isRequired
+  }).isRequired).isRequired,
+  loading: Types.bool.isRequired,
+  errors: Types.arrayOf(Types.string),
+  loadProductsBySearch: Types.func.isRequired
+};
 
 const mapStateToProps = (state) => ({
   products: searchListSelector(state),
