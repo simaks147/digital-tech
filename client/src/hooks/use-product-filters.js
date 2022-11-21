@@ -13,6 +13,15 @@ export default function useProductFilters(initFilters) {
         return {...state, subcategoryId: active ? state.subcategoryId.filter((item) => item !== value) : [...state.subcategoryId, value]};
       case 'changeRating':
         return {...state, rating: active ? null : value};
+      case 'reset':
+        return {
+          ...state,
+          brand: [],
+          subcategoryId: [],
+          rating: null,
+          // minPrice: filters?.minPrice > minPrice && filters?.minPrice < maxPrice ? Math.floor(filters?.minPrice) : minPrice,
+          // maxPrice: filters?.maxPrice > minPrice && filters?.maxPrice < maxPrice ? Math.floor(filters?.maxPrice) : maxPrice
+        }
       default:
         return state;
     }
@@ -38,6 +47,9 @@ export default function useProductFilters(initFilters) {
       type: 'changeRating',
       value,
       active
+    }),
+    reset: () => setCurrentFilters({
+      type: 'reset'
     })
   };
 };

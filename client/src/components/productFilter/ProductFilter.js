@@ -20,13 +20,18 @@ import FormattedPrice from "../formattedPrice";
 import {PropTypes as Types} from "prop-types";
 
 const ProductFilter = ({brands, subcategories, changeProductPageLocation, filters, minPrice, maxPrice}) => {
-  const {currentFilters, changeBrand, changeCategory, changeRating, changePrice} = useProductFilters({
+  const {currentFilters, changeBrand, changeCategory, changeRating, changePrice, reset} = useProductFilters({
     brand: filters?.brand || [],
     subcategoryId: filters?.subcategoryId || [],
     rating: Math.floor(filters?.rating) || null,
     minPrice: filters?.minPrice > minPrice && filters?.minPrice < maxPrice ? Math.floor(filters?.minPrice) : minPrice,
     maxPrice: filters?.maxPrice > minPrice && filters?.maxPrice < maxPrice ? Math.floor(filters?.maxPrice) : maxPrice
   });
+
+  const resetFilters = () => {
+    reset();
+    changeProductPageLocation('filters', filtersToString());
+  }
 
   return (
     <div className={styles.main}>
@@ -123,9 +128,7 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
         <Button className='c-button'
                 onClick={() => changeProductPageLocation('filters', filtersToString(currentFilters))}>Refine
           Search</Button>
-        <div className={styles.resetButton}
-             onClick={() => changeProductPageLocation('filters', filtersToString())}>Reset Setting
-        </div>
+        <div className={styles.resetButton} onClick={resetFilters}>Reset Setting</div>
       </div>
     </div>
   );
