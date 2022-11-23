@@ -5,9 +5,14 @@ import MainBar from "./mainBar";
 import CategoryList from "./categoryList/CategoryList";
 import Chat from "./chat";
 import {PropTypes as Types} from "prop-types";
+import {Helmet} from "react-helmet";
 
-const Layout = ({children}) => (
+const Layout = ({children, pageTitle, pageDescription}) => (
   <>
+    <Helmet>
+      <title>{pageTitle || 'Store DigitalTech'}</title>
+      <meta name="description" content={pageDescription || 'Store DigitalTech'} />
+    </Helmet>
     <SwitchBar />
     <MainBar />
     <CategoryList/>

@@ -6,6 +6,7 @@ import {
   categoriesListSelector,
   errorRelationsSelector,
   loadingRelationsSelector,
+  productsSelector,
   relationsListSelector
 } from "../redux/selectors";
 import {connect} from "react-redux";
@@ -17,6 +18,7 @@ import {PropTypes as Types} from "prop-types";
 
 const ProductPage = ({
                        match,
+                       products,
                        categories,
                        relations,
                        loadRelations,
@@ -31,7 +33,7 @@ const ProductPage = ({
   if (!match.params.slug) return <Redirect to={`${CATEGORY_ROUTE}/${categories[0].subcategory[0].slug}`}/>
 
   return (
-    <Layout>
+    <Layout pageTitle={products[match.params.slug].title} pageDescription={products[match.params.slug].title}>
       <Product id={match.params.slug}/>
       <ProductSecondList
         title='Related Products'
@@ -44,6 +46,7 @@ const ProductPage = ({
 };
 
 ProductPage.ptopTypes = {
+  products: Types.objectOf(Types.object).isRequired,
   categories: Types.arrayOf(Types.shape({
     subcategory: Types.arrayOf(Types.shape({
       slug: Types.string.isRequired
@@ -57,6 +60,7 @@ ProductPage.ptopTypes = {
 };
 
 const mapStateToProps = (state, props) => ({
+  products: productsSelector(state),
   relations: relationsListSelector(state),
   categories: categoriesListSelector(state),
   loadingRelations: loadingRelationsSelector(state),

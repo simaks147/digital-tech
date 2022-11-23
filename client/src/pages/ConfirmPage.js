@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import Confirm from "../components/confirm";
 
 const ConfirmPage = () => (
-  <Layout>
+  <Layout pageTitle="Confirm" pageDescription="Confirm">
     <Confirm/>
   </Layout>
 );

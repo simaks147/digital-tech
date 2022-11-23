@@ -4,7 +4,7 @@ import BasketViews from "../components/basketViews";
 import Layout from "../components/Layout";
 
 const BasketPage = () => (
-  <Layout>
+  <Layout pageTitle="Basket" pageDescription="Basket">
     <BasketNav/>
     <BasketViews/>
   </Layout>

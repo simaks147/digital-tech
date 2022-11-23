@@ -7,7 +7,7 @@ import {PropTypes as Types} from "prop-types";
 
 const AdminProductCreationPage = ({createProduct}) => {
   return (
-    <AdminLayout>
+    <AdminLayout pageTitle="Admin | Create Product" pageDescription="Admin | Create Product">
       <ProductUpdate
         buttonTitle='Create Product'
         handleSetProduct={createProduct}/>

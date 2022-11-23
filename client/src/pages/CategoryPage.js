@@ -13,7 +13,7 @@ const CategoryPage = ({match, subcategories, categories}) => {
   if (!subcategories[match.params.slug]) return <Redirect to={ERROR_ROUTE}/>
 
   return (
-    <Layout>
+    <Layout pageTitle={subcategories[match.params.slug].title} pageDescription={subcategories[match.params.slug].title}>
       <ProductList
         subcategoryId={match.params.slug}
         limitVariants={PRODUCTS_LIMIT_VARIANTS}

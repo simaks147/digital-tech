@@ -42,7 +42,7 @@ const AdminProductUpdatePage = ({loadProduct, updateProduct, products, loading, 
   });
 
   return (
-    <AdminLayout>
+    <AdminLayout pageTitle="Admin | Update Product" pageDescription="Admin | Update Product">
       <Product
         id={id}
         initValues={initValues}

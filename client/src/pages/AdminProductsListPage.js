@@ -4,7 +4,7 @@ import ProductsList from "../components/admin/productsList";
 import {PRODUCTS_LIMIT_VARIANTS, PRODUCTS_SORT_VARIANTS} from "../utils/consts";
 
 const AdminProductPage = () => (
-  <AdminLayout>
+  <AdminLayout pageTitle="Admin | Products List" pageDescription="Admin | Products List">
     <ProductsList
       limitVariants={PRODUCTS_LIMIT_VARIANTS}
       sortVariants={PRODUCTS_SORT_VARIANTS}

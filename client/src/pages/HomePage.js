@@ -31,7 +31,7 @@ const HomePage = ({
   });
 
   return (
-    <Layout>
+    <Layout pageTitle="Home" pageDescription="Home">
       <Slider
         products={sale}
         loading={loadingSale}

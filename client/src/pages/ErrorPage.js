@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import SimpleContent from "../components/simpleContent";
 
 const ErrorPage = () => (
-  <Layout>
+  <Layout pageTitle="Error" pageDescription="Error">
     <SimpleContent/>
   </Layout>
 );

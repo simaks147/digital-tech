@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import Register from "../components/register";
 
 const RegisterPage = () => (
-  <Layout>
+  <Layout pageTitle="Register" pageDescription="Register">
     <Register/>
   </Layout>
 );

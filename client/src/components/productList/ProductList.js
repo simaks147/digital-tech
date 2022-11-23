@@ -21,6 +21,7 @@ import Pagination from "../pagination/Pagination";
 import useWindowSize from "../../hooks/use-window-size";
 import {windowWidth} from "../../config";
 import {PropTypes as Types} from "prop-types";
+import {Helmet} from "react-helmet";
 
 const ProductList = ({
                        subcategoryId,
@@ -59,6 +60,10 @@ const ProductList = ({
 
   return (
     <div className={styles.main}>
+      {/*<Helmet>*/}
+      {/*  <title>{}</title>*/}
+      {/*  <meta name="description" content={} />*/}
+      {/*</Helmet>*/}
       <Container>
         <Row className="align-items-start">
           <Col lg={3}>
