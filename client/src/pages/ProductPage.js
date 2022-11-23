@@ -33,7 +33,7 @@ const ProductPage = ({
   if (!match.params.slug) return <Redirect to={`${CATEGORY_ROUTE}/${categories[0].subcategory[0].slug}`}/>
 
   return (
-    <Layout pageTitle={products[match.params.slug].title} pageDescription={products[match.params.slug].title}>
+    <Layout pageTitle={products[match.params.slug]?.title} pageDescription={products[match.params.slug]?.title}>
       <Product id={match.params.slug}/>
       <ProductSecondList
         title='Related Products'
