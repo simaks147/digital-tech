@@ -68,6 +68,10 @@
     margin-left: -4px;
 }
 
+.main :global(.input-range__slider-container:last-of-type .input-range__label) {
+    top: .5rem;
+}
+
 .main :global(.input-range__label) {
     font-size: 11px;
 }
