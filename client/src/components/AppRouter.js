@@ -5,9 +5,10 @@ import {ERROR_ROUTE} from "../utils/consts";
 import {dataProfileSelector, tokenSelector} from "../redux/selectors";
 import {connect} from "react-redux";
 import {PropTypes as Types} from "prop-types";
+import {getLocation} from "connected-react-router";
 
-const AppRouter = ({dataProfile, token}) => (
-  <Switch>
+const AppRouter = ({dataProfile, token, location}) => (
+  <Switch location={location}>
     {!!dataProfile.isAdmin && adminRoutes.map(({path, Component}) =>
       <Route key={path} path={path} component={Component} exact/>
     )}
@@ -30,7 +31,8 @@ AppRouter.propTypes = {
 
 const mapStateToProps = (state, props) => ({
   token: tokenSelector(state, props),
-  dataProfile: dataProfileSelector(state)
+  dataProfile: dataProfileSelector(state),
+  location: getLocation(state)
 });
 
 export default connect(mapStateToProps)(AppRouter);
