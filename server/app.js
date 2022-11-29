@@ -1,4 +1,5 @@
 const Koa = require('koa');
+const compress = require('koa-compress');
 const cors = require('@koa/cors');
 const bodyparser = require('koa-bodyparser');
 const path = require('path');
@@ -10,6 +11,12 @@ const router = require('./router');
 
 const app = new Koa();
 
+app.use(compress({
+  filter (content_type) {
+    return /text/i.test(content_type)
+  },
+  threshold: 2048
+}));
 app.use(cors());
 app.use(bodyparser());
 app.use(serve(path.join(__dirname, '../client/build')));
