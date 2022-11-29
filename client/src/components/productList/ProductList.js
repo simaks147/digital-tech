@@ -38,7 +38,7 @@ const ProductList = ({
                        filters
                      }) => {
   useEffect(() => {
-    loadProductsByCategory(page, limit, sort, filters, subcategoryId);
+    loadProductsByCategory(page, limit, sort, filters, subcategoryId, limitVariants);
   }, [loadProductsByCategory, page, limit, sort, filters, subcategoryId]);
 
   const {width} = useWindowSize();

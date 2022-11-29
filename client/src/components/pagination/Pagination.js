@@ -9,7 +9,7 @@ import {changeProductPageLocation} from "../../redux/actions";
 import {PropTypes as Types} from "prop-types";
 
 const CustomPagination = ({changeProductPageLocation, productsAllPagesSelector, page}) => {
-  if (productsAllPagesSelector.length === 1) return null;
+  if (productsAllPagesSelector.length <= 1) return null;
 
   return (
     <Pagination>

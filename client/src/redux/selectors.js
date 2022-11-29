@@ -226,7 +226,8 @@ export const productsAllPagesSelector = createSelector(
 
 export const productsPageSelector = createSelector(
   queryParamsSelector,
-  (queryParams) => Number(queryParams.page) || 1
+  productsAllPagesSelector,
+  (queryParams, productsAllPages) => productsAllPages.includes(Number(queryParams.page)) ? Number(queryParams.page) : 1
 );
 
 export const productsFiltersSelector = createSelector(

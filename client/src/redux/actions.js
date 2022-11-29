@@ -57,7 +57,7 @@ import {
   loadingRecommendationsSelector,
   loadingSaleSelector,
   loadedSaleSelector,
-  loadingSearchSelector
+  loadingSearchSelector, productsAllPagesSelector
 } from "./selectors";
 
 import {api_url} from "../config";
@@ -146,7 +146,7 @@ const _loadProductsByCategory = (searchParams, subcategoryId) => ({
   subcategoryId
 });
 
-export const loadProductsByCategory = (page, limit, sort, filters, subcategoryId) => async (dispatch, getState) => {
+export const loadProductsByCategory = (page, limit, sort, filters, subcategoryId, limitVariants) => async (dispatch, getState) => {
   let state = getState();
   const categoryId = activeCategoryBySubcategorySelector(state, {subcategoryId});
 
