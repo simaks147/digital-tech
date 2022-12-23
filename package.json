@@ -1,6 +1,7 @@
 {
   "name": "DigitalTech",
   "version": "0.0.1",
+  "main": "./server/index.js",
   "scripts": {
     "start": "cd ./server && node index.js",
     "build": "cd ./client && react-scripts build"
