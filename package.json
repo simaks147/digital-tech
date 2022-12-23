@@ -2,8 +2,8 @@
   "name": "DigitalTech",
   "version": "0.0.1",
   "engines": {
-    "node": "18.7.0",
-    "yarn": "1.22.17"
+    "node": "18.12.1",
+    "yarn": "1.22.19"
   },
   "scripts": {
     "start": "cd ./server && node index.js",
