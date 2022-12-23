@@ -4,7 +4,7 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "scripts": {
-    "server": "cd ../server && nodemon --no-experimental-fetch --inspect index.js",
+    "server": "cd ../ && nodemon --no-experimental-fetch --inspect index.js",
     "client": "react-scripts start",
     "start": "concurrently \"yarn server\" \"yarn client\"",
     "build": "react-scripts build",
