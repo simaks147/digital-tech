@@ -1,6 +1,10 @@
 {
   "name": "DigitalTech",
   "version": "0.0.1",
+  "scripts": {
+    "start": "cd ./server && node index.js",
+    "build": "cd ./client && react-scripts build"
+  },
   "dependencies": {
     "@koa/cors": "^3.3.0",
     "@mongoosejs/double": "^0.2.0",
