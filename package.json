@@ -1,6 +1,10 @@
 {
   "name": "DigitalTech",
   "version": "0.0.1",
+  "engines": {
+    "node": "18.12.1",
+    "yarn": "1.22.17"
+  },
   "scripts": {
     "start": "cd ./server && node index.js",
     "build": "cd ./client && react-scripts build"
