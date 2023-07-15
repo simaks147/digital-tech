@@ -1,7 +1,7 @@
 import { arrToMap, objToArr } from "../utils";
-import { categoriesState, categoriesAction, categoriesActionTypes } from "../../types/categories";
+import { ICategoriesStateType, categoriesActionType, categoriesActions } from "../../types/categories";
 
-const initialState: categoriesState = {
+const initialState: ICategoriesStateType = {
   entities: {},
   loading: false,
   loaded: false,
@@ -10,35 +10,35 @@ const initialState: categoriesState = {
   activeSubcategory: null
 }
 
-export default (state = initialState, action: categoriesAction): categoriesState => {
+export default (state = initialState, action: categoriesActionType): ICategoriesStateType => {
   switch (action.type) {
-    case categoriesActionTypes.LOAD_CATEGORIES_REQUEST:
+    case categoriesActions.LOAD_CATEGORIES_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       }
-    case categoriesActionTypes.LOAD_CATEGORIES_SUCCESS:
+    case categoriesActions.LOAD_CATEGORIES_SUCCESS:
       return {
         ...state,
         entities: arrToMap(action.data.categories),
         loading: false,
         loaded: true
       }
-    case categoriesActionTypes.LOAD_CATEGORIES_FAILURE:
+    case categoriesActions.LOAD_CATEGORIES_FAILURE:
       return {
         ...state,
         loading: false,
         loaded: false,
         error: objToArr(action.error.error)
       }
-    case categoriesActionTypes.SET_ACTIVE_CATEGORIES:
+    case categoriesActions.SET_ACTIVE_CATEGORIES:
       return {
         ...state,
         active: action.categoryId,
         activeSubcategory: action.subcategoryId
       }
-    case categoriesActionTypes.ROUTER_LOCATION_CHANGE:
+    case categoriesActions.ROUTER_LOCATION_CHANGE:
       return {
         ...state,
         active: null,
