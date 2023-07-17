@@ -45,7 +45,7 @@ interface ILoadCategoriesRequestActionType {
 
 interface ILoadCategoriesSuccesstActionType {
   type: categoriesActions.LOAD_CATEGORIES_SUCCESS,
-  data: { categories: object[] },
+  data: { categories: ICategoryType[] },
 }
 
 interface ILoadCategoriesFailuretActionType {
