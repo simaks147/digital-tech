@@ -4,7 +4,7 @@ import { IReviewsStateType, reviewsActionType, reviewsActions } from "../../type
 
 const storageReviews = JSON.parse(localStorage.getItem('addedReviews') || '{}');
 
-export default (state: IReviewsStateType = {}, action: reviewsActionType) =>
+export default (state: IReviewsStateType = {}, action: reviewsActionType): IReviewsStateType =>
   produce(state, draft => {
     switch (action.type) {
       case reviewsActions.LOAD_REVIEWS_REQUEST:

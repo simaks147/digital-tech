@@ -8,7 +8,7 @@ const initialState: IBrandsStateType = {
   error: null
 }
 
-export default (state = initialState, action: brandsActionType) => {
+export default (state = initialState, action: brandsActionType): IBrandsStateType => {
   switch (action.type) {
     case brandsActions.LOAD_BRANDS_REQUEST:
       return {
@@ -21,7 +21,7 @@ export default (state = initialState, action: brandsActionType) => {
         ...state,
         entities: arrToMap(action.data.brands),
         loading: false,
-        loaded: true
+        loaded: true,
       }
     case brandsActions.LOAD_BRANDS_FAILURE:
       return {
