@@ -1,10 +1,10 @@
 import produce from "immer";
 import { objToArr } from "../utils";
-import { IReviewsStateType, reviewsActionType, reviewsActions } from "../../types/reviews";
+import { IReviewsState, reviewsActionType, reviewsActions } from "../../types/reviews";
 
 const storageReviews = JSON.parse(localStorage.getItem('addedReviews') || '{}');
 
-export default (state: IReviewsStateType = {}, action: reviewsActionType): IReviewsStateType =>
+export default (state: IReviewsState = {}, action: reviewsActionType): IReviewsState =>
   produce(state, draft => {
     switch (action.type) {
       case reviewsActions.LOAD_REVIEWS_REQUEST:

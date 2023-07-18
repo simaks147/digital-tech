@@ -1,14 +1,14 @@
 import { arrToMap, objToArr } from "../utils";
-import { IBrandType, IBrandsStateType, brandsActions, brandsActionType } from '../../types/brands'
+import { IBrandsState, brandsActions, brandsActionType } from '../../types/brands'
 
-const initialState: IBrandsStateType = {
+const initialState: IBrandsState = {
   entities: {},
   loading: false,
   loaded: false,
   error: null
 }
 
-export default (state = initialState, action: brandsActionType): IBrandsStateType => {
+export default (state = initialState, action: brandsActionType): IBrandsState => {
   switch (action.type) {
     case brandsActions.LOAD_BRANDS_REQUEST:
       return {

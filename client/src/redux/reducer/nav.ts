@@ -4,20 +4,20 @@ import {
   ROUTER_LOCATION_CHANGE
 } from "../consts";
 
-interface INavStateType {
+interface INavState {
   active: boolean
 }
 
-interface INavActionType {
+interface INavAction {
   type: typeof OPEN_NAV | typeof CLOSE_NAV | typeof ROUTER_LOCATION_CHANGE,
   active: boolean
 }
 
-const initialState: INavStateType = {
+const initialState: INavState = {
   active: false
 }
 
-export default (state = initialState, action: INavActionType): INavStateType => {
+export default (state = initialState, action: INavAction): INavState => {
   switch (action.type) {
     case OPEN_NAV:
       return { ...state, active: true }

@@ -5,13 +5,13 @@ import {
   FAILURE
 } from "../redux/consts";
 
-export interface IBrandType {
+export interface IBrand {
   id: string,
   title: string
 }
 
-export interface IBrandsStateType {
-  entities: { [key: string]: IBrandType },
+export interface IBrandsState {
+  entities: { [key: string]: IBrand },
   loading: boolean,
   loaded: boolean,
   error: null | string[]
@@ -29,7 +29,7 @@ interface ILoadBrandsRequestActionType {
 
 interface ILoadBrandsSuccesstActionType {
   type: brandsActions.LOAD_BRANDS_SUCCESS,
-  data: { brands: IBrandType[] },
+  data: { brands: IBrand[] },
 }
 
 interface ILoadBrandsFailuretActionType {

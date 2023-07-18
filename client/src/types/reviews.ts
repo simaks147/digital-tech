@@ -6,7 +6,7 @@ import {
     ADD_REVIEW as ADD
 } from "../redux/consts";
 
-interface IReviewType {
+interface IReview {
     id: string,
     productId: string,
     title: string,
@@ -17,9 +17,9 @@ interface IReviewType {
     date: string,
 }
 
-export interface IReviewsStateType {
+export interface IReviewsState {
     [key: string]: {
-        entities: IReviewType[],
+        entities: IReview[],
         loading: boolean,
         loaded: boolean,
         error: null | string[]
@@ -33,30 +33,30 @@ export enum reviewsActions {
     ADD_REVIEW = ADD
 }
 
-interface ILoadReviewsRequestActionType {
+interface ILoadReviewsRequestAction {
     type: reviewsActions.LOAD_REVIEWS_REQUEST
     productId: string,
 }
 
-interface ILoadReviewsSuccesstActionType {
+interface ILoadReviewsSuccesstAction {
     type: reviewsActions.LOAD_REVIEWS_SUCCESS,
     productId: string,
-    data: { reviews: IReviewType[] },
+    data: { reviews: IReview[] },
 }
 
-interface ILoadReviewsFailuretActionType {
+interface ILoadReviewsFailuretAction {
     type: reviewsActions.LOAD_REVIEWS_FAILURE,
     productId: string,
     error: { error: { [key: string]: string } }
 }
 
-interface IAddReviewActionType {
+interface IAddReviewAction {
     type: reviewsActions.ADD_REVIEW,
     productId: string,
-    values: IReviewType
+    values: IReview
 }
 
-export type reviewsActionType = ILoadReviewsRequestActionType
-    | ILoadReviewsSuccesstActionType
-    | ILoadReviewsFailuretActionType
-    | IAddReviewActionType
+export type reviewsActionType = ILoadReviewsRequestAction
+    | ILoadReviewsSuccesstAction
+    | ILoadReviewsFailuretAction
+    | IAddReviewAction

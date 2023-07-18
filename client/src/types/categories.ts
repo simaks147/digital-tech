@@ -7,23 +7,23 @@ import {
   ROUTER_LOCATION_CHANGE as ROUTER_LOCATION
 } from "../redux/consts";
 
-interface ISubcategoryType {
+interface ISubcategory {
   img: string,
   title: string,
   slug: string,
 }
 
-export interface ICategoryType {
+export interface ICategory {
   _id: string,
   description: string,
   img: string,
   title: string,
   slug: string,
-  subcategory: ISubcategoryType
+  subcategory: ISubcategory
 }
 
-export interface ICategoriesStateType {
-  entities: { [key: string]: ICategoryType },
+export interface ICategoriesState {
+  entities: { [key: string]: ICategory },
   loading: boolean,
   loaded: boolean,
   error: null | string[],
@@ -39,34 +39,34 @@ export enum categoriesActions {
   ROUTER_LOCATION_CHANGE = ROUTER_LOCATION
 }
 
-interface ILoadCategoriesRequestActionType {
+interface ILoadCategoriesRequestAction {
   type: categoriesActions.LOAD_CATEGORIES_REQUEST
 }
 
-interface ILoadCategoriesSuccesstActionType {
+interface ILoadCategoriesSuccesstAction {
   type: categoriesActions.LOAD_CATEGORIES_SUCCESS,
-  data: { categories: ICategoryType[] },
+  data: { categories: ICategory[] },
 }
 
-interface ILoadCategoriesFailuretActionType {
+interface ILoadCategoriesFailuretAction {
   type: categoriesActions.LOAD_CATEGORIES_FAILURE,
   error: { error: { [key: string]: string } }
 }
 
-interface ISetActiveCategoriesActionType {
+interface ISetActiveCategoriesAction {
   type: categoriesActions.SET_ACTIVE_CATEGORIES,
   categoryId: string,
   subcategoryId: string
 }
 
-interface IRouterLocationChangeActionType {
+interface IRouterLocationChangeAction {
   type: categoriesActions.ROUTER_LOCATION_CHANGE,
   categoryId: null,
   subcategoryId: null
 }
 
-export type categoriesActionType = ILoadCategoriesRequestActionType
-  | ILoadCategoriesSuccesstActionType
-  | ILoadCategoriesFailuretActionType
-  | ISetActiveCategoriesActionType
-  | IRouterLocationChangeActionType
+export type categoriesActionType = ILoadCategoriesRequestAction
+  | ILoadCategoriesSuccesstAction
+  | ILoadCategoriesFailuretAction
+  | ISetActiveCategoriesAction
+  | IRouterLocationChangeAction

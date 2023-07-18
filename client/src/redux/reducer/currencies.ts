@@ -1,18 +1,18 @@
 import { SET_CURRENCY } from "../consts";
 
-interface ICurrencyType {
+interface ICurrency {
   label: string,
   rate: number,
   sign: string,
   fractionDigits: number
 }
 
-interface ICurrencyStateType {
-  entities: { [key: string]: ICurrencyType },
+interface ICurrencyState {
+  entities: { [key: string]: ICurrency },
   checkedCurrency: string
 }
 
-interface ICurrencyActionType {
+interface ICurrencyAction {
   type: typeof SET_CURRENCY,
   currency: string
 }
@@ -26,7 +26,7 @@ const initialState = {
   checkedCurrency: 'USD'
 };
 
-export default (state = initialState, action: ICurrencyActionType): ICurrencyStateType => {
+export default (state = initialState, action: ICurrencyAction): ICurrencyState => {
   const { type, currency } = action;
 
   switch (type) {

@@ -1,7 +1,7 @@
 import { arrToMap, objToArr } from "../utils";
-import { ICategoriesStateType, categoriesActionType, categoriesActions } from "../../types/categories";
+import { ICategoriesState, categoriesActionType, categoriesActions } from "../../types/categories";
 
-const initialState: ICategoriesStateType = {
+const initialState: ICategoriesState = {
   entities: {},
   loading: false,
   loaded: false,
@@ -10,7 +10,7 @@ const initialState: ICategoriesStateType = {
   activeSubcategory: null
 }
 
-export default (state = initialState, action: categoriesActionType): ICategoriesStateType => {
+export default (state = initialState, action: categoriesActionType): ICategoriesState => {
   switch (action.type) {
     case categoriesActions.LOAD_CATEGORIES_REQUEST:
       return {
