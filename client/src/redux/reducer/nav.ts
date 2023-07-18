@@ -9,8 +9,7 @@ interface INavState {
 }
 
 interface INavAction {
-  type: typeof OPEN_NAV | typeof CLOSE_NAV | typeof ROUTER_LOCATION_CHANGE,
-  active: boolean
+  type: typeof OPEN_NAV | typeof CLOSE_NAV | typeof ROUTER_LOCATION_CHANGE
 }
 
 const initialState: INavState = {

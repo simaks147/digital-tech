@@ -37,6 +37,7 @@ interface ILoadBrandsFailuretActionType {
   error: { error: { [key: string]: string } }
 }
 
-export type brandsActionType = ILoadBrandsRequestActionType
+export type brandsActionType =
+  ILoadBrandsRequestActionType
   | ILoadBrandsSuccesstActionType
   | ILoadBrandsFailuretActionType

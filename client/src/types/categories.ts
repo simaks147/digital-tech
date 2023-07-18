@@ -60,12 +60,11 @@ interface ISetActiveCategoriesAction {
 }
 
 interface IRouterLocationChangeAction {
-  type: categoriesActions.ROUTER_LOCATION_CHANGE,
-  categoryId: null,
-  subcategoryId: null
+  type: categoriesActions.ROUTER_LOCATION_CHANGE
 }
 
-export type categoriesActionType = ILoadCategoriesRequestAction
+export type categoriesActionType =
+  ILoadCategoriesRequestAction
   | ILoadCategoriesSuccesstAction
   | ILoadCategoriesFailuretAction
   | ISetActiveCategoriesAction
