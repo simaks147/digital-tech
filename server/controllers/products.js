@@ -1,13 +1,47 @@
 const Product = require('../models/Product');
-const {mapProduct} = require('../utils/mappers');
+const { mapProduct } = require('../utils/mappers');
+
+const parseProductBody = body => ({
+  brand: body.brand,
+  description: body.description,
+  price: body.price,
+  slug: body.slug,
+  subcategoryId: body.subcategoryId,
+  title: body.title,
+  images: body.images,
+  specification: body.specification,
+  'sale.discountPercent': Number(body.discountPercent),
+  'sale.price': body.price - Math.floor((body.price / 100) * body.discountPercent),
+  'sale.title': body.saleTitle,
+  'sale.subtitle': body.saleSubtitle,
+  'sale.bgColor': body.saleBgColor,
+  'sale.images': body.saleImages
+});
+
+const brandPopulatePipeline = [
+  {
+    $lookup: {
+      from: 'brands',
+      localField: 'brand',
+      foreignField: '_id',
+      as: 'brand'
+    }
+  },
+  {
+    $unwind: {
+      path: "$brand",
+      preserveNullAndEmptyArrays: true
+    }
+  }
+];
 
 module.exports.productsList = async (ctx) => {
-  const {filters, sort, order, skip, limit, subcategoryId} = ctx.queryParams;
+  const { filters, sort, order, skip, limit, subcategoryId } = ctx.queryParams;
 
   const products = await Product
     .find(filters)
-    .collation({locale: 'en', strength: 2})
-    .sort({[sort]: order})
+    .collation({ locale: 'en', strength: 2 })
+    .sort({ [sort]: order })
     .skip(skip)
     .limit(limit)
     .populate('brand');
@@ -15,8 +49,8 @@ module.exports.productsList = async (ctx) => {
   const totalCount = await Product.countDocuments(filters);
 
   const minMaxPrice = await Product.aggregate([
-    {$match: subcategoryId && totalCount ? {subcategoryId} : {}},
-    {$group: {_id: null, min: {$min: '$sale.price'}, max: {$max: '$sale.price'}}},
+    { $match: subcategoryId && totalCount ? { subcategoryId } : {} },
+    { $group: { _id: null, min: { $min: '$sale.price' }, max: { $max: '$sale.price' } } },
   ]);
 
   ctx.body = {
@@ -32,38 +66,23 @@ module.exports.productsList = async (ctx) => {
 module.exports.productBySlug = async (ctx) => {
   const slug = ctx.params.slug;
 
-  const product = await Product.findOne({slug}).populate('brand');
+  const product = await Product.findOne({ slug }).populate('brand');
 
   if (!product) ctx.throw(404, `No such product: '${slug}'`);
 
-  ctx.body = {product: mapProduct(product)};
+  ctx.body = { product: mapProduct(product) };
 };
 
 module.exports.createProduct = async (ctx) => {
   const body = ctx.request.body;
 
-  const product = await Product.create({
-    brand: body.brand,
-    description: body.description,
-    price: body.price,
-    slug: body.slug,
-    subcategoryId: body.subcategoryId,
-    title: body.title,
-    images: body.images,
-    specification: body.specification,
-    'sale.discountPercent': Number(body.discountPercent),
-    'sale.price': body.price - Math.floor((body.price / 100) * body.discountPercent),
-    'sale.title': body.saleTitle,
-    'sale.subtitle': body.saleSubtitle,
-    'sale.bgColor': body.saleBgColor,
-    'sale.images': body.saleImages
-  });
+  const product = await Product.create(parseProductBody(body));
 
   await product.populate('brand');
 
   ctx.body = await new Promise(resolve => {
     setTimeout(() => {
-      resolve({product: mapProduct(product)});
+      resolve({ product: mapProduct(product) });
     }, 3000);
   });
 };
@@ -71,80 +90,67 @@ module.exports.createProduct = async (ctx) => {
 module.exports.updateProduct = async (ctx) => {
   const body = ctx.request.body;
 
-  const product = await Product.findOneAndUpdate({slug: body.slug}, {
-    brand: body.brand,
-    description: body.description,
-    price: body.price,
-    slug: body.slug,
-    subcategoryId: body.subcategoryId,
-    title: body.title,
-    images: body.images,
-    specification: body.specification,
-    'sale.discountPercent': Number(body.discountPercent),
-    'sale.price': body.price - Math.floor((body.price / 100) * body.discountPercent),
-    'sale.title': body.saleTitle,
-    'sale.subtitle': body.saleSubtitle,
-    'sale.bgColor': body.saleBgColor,
-    'sale.images': body.saleImages
-  });
+  const product = await Product.findOneAndUpdate({ slug: body.slug }, parseProductBody(body));
 
   await product.populate('brand');
 
   ctx.body = await new Promise(resolve => {
     setTimeout(() => {
-      resolve({product: mapProduct(product)});
+      resolve({ product: mapProduct(product) });
     }, 3000);
   });
 };
 
 module.exports.deleteProduct = async (ctx) => {
-  await Product.deleteOne({slug: ctx.params.slug});
+  await Product.deleteOne({ slug: ctx.params.slug });
 
-  ctx.body = {status: 'ok'};
+  ctx.body = { status: 'ok' };
 };
 
 module.exports.recommendations = async (ctx) => {
   const recommendations = await Product.aggregate([
-    {$match: {'rating.overall': {$gte: 4, $lt: 5}}},
-    {$sample: {size: 6}}
+    { $match: { 'rating.overall': { $gte: 4, $lt: 5 } } },
+    { $sample: { size: 6 } },
+    ...brandPopulatePipeline
   ]);
 
-  ctx.body = {recommendations: recommendations.map(mapProduct)};
+  ctx.body = { recommendations: recommendations.map(mapProduct) };
 };
 
 module.exports.relations = async (ctx) => {
-  let {subcategoryId} = ctx.query;
+  let { subcategoryId } = ctx.query;
 
   const relations = await Product.aggregate([
-    {$match: {subcategoryId}},
-    {$sample: {size: 6}}
+    { $match: { subcategoryId } },
+    { $sample: { size: 6 } },
+    ...brandPopulatePipeline
   ]);
 
-  ctx.body = {relations: relations.map(mapProduct)};
+  ctx.body = { relations: relations.map(mapProduct) };
 }
 
 module.exports.sale = async (ctx) => {
   const sale = await Product.aggregate([
-    {$match: {'sale.discountPercent': {$ne: 0}}},
-    {$sample: {size: 3}}
+    { $match: { 'sale.discountPercent': { $ne: 0 } } },
+    { $sample: { size: 3 } },
+    ...brandPopulatePipeline
   ]);
 
-  ctx.body = {sale: sale.map(mapProduct)};
+  ctx.body = { sale: sale.map(mapProduct) };
 };
 
 module.exports.search = async (ctx) => {
-  const {query} = ctx.query;
+  const { query } = ctx.query;
 
   const search = await Product
     .find({
       $text: {
         $search: query
       }
-    }, {score: {$meta: 'textScore'}})
-    .sort({score: {$meta: 'textScore'}})
-    .limit(20);
+    }, { score: { $meta: 'textScore' } })
+    .sort({ score: { $meta: 'textScore' } })
+    .limit(20)
+    .populate('brand');
 
-  ctx.body = {search: search.map(mapProduct)};
+  ctx.body = { search: search.map(mapProduct) };
 };
-
-
