@@ -1,28 +1,16 @@
-import {
-  OPEN_NAV,
-  CLOSE_NAV,
-  ROUTER_LOCATION_CHANGE
-} from "../consts";
-
-interface INavState {
-  active: boolean
-}
-
-interface INavAction {
-  type: typeof OPEN_NAV | typeof CLOSE_NAV | typeof ROUTER_LOCATION_CHANGE
-}
+import { INavState, navActions, navActionType } from "../types/nav"
 
 const initialState: INavState = {
   active: false
 }
 
-export default (state = initialState, action: INavAction): INavState => {
+export default (state = initialState, action: navActionType): INavState => {
   switch (action.type) {
-    case OPEN_NAV:
+    case navActions.OPEN_NAV:
       return { ...state, active: true }
-    case CLOSE_NAV:
+    case navActions.CLOSE_NAV:
       return { ...state, active: false }
-    case ROUTER_LOCATION_CHANGE:
+    case navActions.ROUTER_LOCATION_CHANGE:
       return { ...state, active: false }
     default:
       return state;
