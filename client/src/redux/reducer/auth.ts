@@ -1,23 +1,10 @@
 import produce from "immer";
-import {objToArr} from "../utils";
-
-import {
-  LOGIN,
-  OAUTH,
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-  OAUTH_CALLBACK,
-  REGISTER,
-  CONFIRM,
-  FETCH_PROFILE,
-  CHECK_PROFILE,
-  ROUTER_LOCATION_CHANGE
-} from "../consts";
+import { objToArr } from "../utils";
+import { IAuthState, authActions, authActionType } from "../../types/auth";
 
 const token = localStorage.getItem('token') || null;
 
-const initialState = {
+const initialState: IAuthState = {
   token,
   login: {
     processing: false,
@@ -52,119 +39,129 @@ const initialState = {
   }
 };
 
-export default (state = initialState, action) =>
+export default (state = initialState, action: authActionType): IAuthState =>
   produce(state, draft => {
-    const {type, data, error} = action;
-
-    switch (type) {
-      case LOGIN + REQUEST:
+    switch (action.type) {
+      case authActions.LOGIN_REQUEST:
         draft.profile.checked = false;
         draft.login.processing = true;
         break;
 
-      case LOGIN + SUCCESS:
-        localStorage.setItem('token', data.token);
+      case authActions.LOGIN_SUCCESS:
+        localStorage.setItem('token', action.data.token);
         localStorage.removeItem('messages');
-        draft.token = data.token;
+        draft.token = action.data.token;
         draft.login.processing = false;
         draft.login.error = null;
         break;
 
-      case LOGIN + FAILURE:
+      case authActions.LOGIN_FAILURE:
         draft.profile.checked = true;
         draft.login.processing = false;
-        draft.login.error = objToArr(error.error);
+        draft.login.error = objToArr(action.error);
         break;
 
-      case OAUTH + REQUEST:
+
+
+      case authActions.OAUTH_REQUEST:
         draft.oauth.processing = true;
         break;
 
-      case OAUTH + SUCCESS:
+      case authActions.OAUTH_SUCCESS:
         draft.oauth.processing = false;
         draft.oauth.error = null;
-        window.location.href = data.location
+        window.location.href = action.data.location
         break;
 
-      case OAUTH + FAILURE:
+      case authActions.OAUTH_FAILURE:
         draft.oauth.processing = false;
-        draft.oauth.error = error;
+        draft.oauth.error = objToArr(action.error.error);
         break;
 
-      case OAUTH_CALLBACK + REQUEST:
+
+
+      case authActions.OAUTH_CALLBACK_REQUEST:
         draft.oauthCallback.processing = true;
         break;
 
-      case OAUTH_CALLBACK + SUCCESS:
-        localStorage.setItem('token', data.token);
+      case authActions.OAUTH_CALLBACK_SUCCESS:
+        localStorage.setItem('token', action.data.token);
         localStorage.removeItem('messages');
-        draft.token = data.token;
+        draft.token = action.data.token;
         draft.oauthCallback.processing = false;
         draft.oauthCallback.error = null;
         break;
 
-      case OAUTH_CALLBACK + FAILURE:
+      case authActions.OAUTH_CALLBACK_FAILURE:
         draft.oauthCallback.processing = false;
-        draft.oauthCallback.error = objToArr(error.error);
+        draft.oauthCallback.error = objToArr(action.error.error);
         break;
 
-      case REGISTER + REQUEST:
+
+
+      case authActions.REGISTER_REQUEST:
         draft.profile.checked = false;
         draft.registration.processing = true;
         break;
 
-      case REGISTER + SUCCESS:
+      case authActions.REGISTER_SUCCESS:
         draft.profile.checked = true;
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('token', action.data.token);
         localStorage.removeItem('messages');
-        draft.token = data.token;
+        draft.token = action.data.token;
         draft.registration.complete = true;
         draft.registration.processing = false;
         draft.registration.error = null;
         break;
 
-      case REGISTER + FAILURE:
+      case authActions.REGISTER_FAILURE:
         draft.profile.checked = true;
         draft.registration.processing = false;
-        draft.registration.error = objToArr(error.error);
+        draft.registration.error = objToArr(action.error.error);
         break;
 
-      case CONFIRM + REQUEST:
+
+
+      case authActions.CONFIRM_REQUEST:
         draft.confirmation.processing = true;
         break;
 
-      case CONFIRM + SUCCESS:
-        localStorage.setItem('token', data.token);
+      case authActions.CONFIRM_SUCCESS:
+        localStorage.setItem('token', action.data.token);
         localStorage.removeItem('messages');
-        draft.token = data.token;
+        draft.token = action.data.token;
         draft.confirmation.processing = false;
         draft.confirmation.error = null;
         break;
 
-      case CONFIRM + FAILURE:
+      case authActions.CONFIRM_FAILURE:
         draft.confirmation.processing = false;
-        draft.confirmation.error = objToArr(error.error);
+        draft.confirmation.error = objToArr(action.error.error);
         break;
 
-      case FETCH_PROFILE + REQUEST:
+
+
+      case authActions.FETCH_PROFILE_REQUEST:
         draft.profile.fetching = true;
         break;
 
-      case FETCH_PROFILE + SUCCESS:
-        draft.profile.data = data;
+      case authActions.FETCH_PROFILE_SUCCESS:
+        draft.profile.data = action.data;
         draft.profile.fetching = false;
         break;
 
-      case FETCH_PROFILE + FAILURE:
+      case authActions.FETCH_PROFILE_FAILURE:
         draft.profile.fetching = false;
-        draft.profile.error = objToArr(error.error);
+        draft.profile.error = objToArr(action.error.error);
         break;
 
-      case CHECK_PROFILE:
+
+
+      case authActions.CHECK_PROFILE:
         draft.profile.checked = true;
         break;
 
-      case ROUTER_LOCATION_CHANGE:
+      case authActions.ROUTER_LOCATION_CHANGE:
         draft.login.error = null;
         draft.oauth.error = null;
         draft.oauthCallback.error = null;
