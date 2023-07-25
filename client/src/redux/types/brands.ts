@@ -3,7 +3,7 @@ import {
   REQUEST,
   SUCCESS,
   FAILURE
-} from "../redux/consts";
+} from "../consts";
 
 export interface IBrand {
   id: string,

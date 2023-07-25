@@ -5,7 +5,7 @@ import {
   FAILURE,
   SET_ACTIVE_CATEGORIES as SET_ACTIVE,
   ROUTER_LOCATION_CHANGE as ROUTER_LOCATION
-} from "../redux/consts";
+} from "../consts";
 
 interface ISubcategory {
   img: string,

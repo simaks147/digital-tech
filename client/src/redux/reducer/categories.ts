@@ -1,5 +1,5 @@
 import { arrToMap, objToArr } from "../utils";
-import { ICategoriesState, categoriesActionType, categoriesActions } from "../../types/categories";
+import { ICategoriesState, categoriesActionType, categoriesActions } from "../types/categories";
 
 const initialState: ICategoriesState = {
   entities: {},

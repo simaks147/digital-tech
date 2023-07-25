@@ -8,7 +8,7 @@ import {
   SUCCESS,
   FAILURE,
   ROUTER_LOCATION_CHANGE as ROUTER_LOCATION
-} from "../redux/consts";
+} from "../consts";
 
 interface IOrder {
   id: string,

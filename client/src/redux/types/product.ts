@@ -11,7 +11,7 @@ import {
   REQUEST,
   SUCCESS,
   FAILURE
-} from "../redux/consts";
+} from "../consts";
 
 interface IProduct {
   title: string,

@@ -1,5 +1,5 @@
-import { authActions } from "../../types/auth";
-import { IChatState, chatActionType, chatActions } from "../../types/chat";
+import { authActions } from "../types/auth";
+import { IChatState, chatActionType, chatActions } from "../types/chat";
 
 const storageMessages = JSON.parse(localStorage.getItem('messages') || '[]');
 

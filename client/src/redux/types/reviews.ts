@@ -4,7 +4,7 @@ import {
   SUCCESS,
   FAILURE,
   ADD_REVIEW as ADD
-} from "../redux/consts";
+} from "../consts";
 
 interface IReview {
   id: string,

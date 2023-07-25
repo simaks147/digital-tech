@@ -1,5 +1,5 @@
 import { arrToMap, objToArr } from "../utils";
-import { IBrandsState, brandsActions, brandsActionType } from '../../types/brands'
+import { IBrandsState, brandsActions, brandsActionType } from '../types/brands'
 
 const initialState: IBrandsState = {
   entities: {},

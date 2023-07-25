@@ -1,6 +1,6 @@
 import produce from "immer";
 import { arrToMap, objToArr } from "../utils";
-import { productsActions, IProductsState, productsActionType } from "../../types/product";
+import { productsActions, IProductsState, productsActionType } from "../types/product";
 
 const initialState: IProductsState = {
   common: {

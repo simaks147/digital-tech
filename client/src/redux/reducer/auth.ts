@@ -1,6 +1,6 @@
 import produce from "immer";
 import { objToArr } from "../utils";
-import { IAuthState, authActions, authActionType } from "../../types/auth";
+import { IAuthState, authActions, authActionType } from "../types/auth";
 
 const token = localStorage.getItem('token') || null;
 

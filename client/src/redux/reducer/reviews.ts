@@ -1,6 +1,6 @@
 import produce from "immer";
 import { objToArr } from "../utils";
-import { IReviewsState, reviewsActionType, reviewsActions } from "../../types/reviews";
+import { IReviewsState, reviewsActionType, reviewsActions } from "../types/reviews";
 
 const storageReviews = JSON.parse(localStorage.getItem('addedReviews') || '{}');
 

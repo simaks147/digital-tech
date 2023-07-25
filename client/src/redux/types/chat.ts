@@ -2,7 +2,7 @@ import {
   CHAT_MESSAGE as MESSAGE,
   CHAT_CONNECT as CONNECT,
   CHAT_DISCONNECT as DISCONNECT
-} from "../redux/consts";
+} from "../consts";
 import {
   IAuthConfirmSuccessAction,
   IAuthLoginSuccessAction,

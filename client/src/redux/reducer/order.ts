@@ -1,6 +1,6 @@
 import produce from "immer";
 import { objToArr } from "../utils";
-import { IOrdersState, ordersActions, orderActionType } from "../../types/orders";
+import { IOrdersState, ordersActions, orderActionType } from "../types/orders";
 
 const initialState: IOrdersState = {
   entities: {},

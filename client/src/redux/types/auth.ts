@@ -10,7 +10,7 @@ import {
   FAILURE,
   CHECK_PROFILE as CHECK,
   ROUTER_LOCATION_CHANGE as ROUTER_LOCATION
-} from "../redux/consts";
+} from "../consts";
 
 interface IAuthCommon {
   processing: boolean,
