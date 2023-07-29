@@ -26,5 +26,3 @@ const createRootReducer = (history: History) => combineReducers({
 
 export default createRootReducer;
 
-export type RootStateType = ReturnType<typeof createRootReducer>;
-
