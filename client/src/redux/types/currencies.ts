@@ -1,6 +1,6 @@
 import { SET_CURRENCY } from "../consts";
 
-interface ICurrency {
+export interface ICurrency {
   label: string,
   rate: number,
   sign: string,

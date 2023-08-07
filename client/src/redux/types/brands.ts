@@ -1,5 +1,5 @@
 import {
-  LOAD_BRANDS,
+  LOAD_BRANDS as LOAD,
   REQUEST,
   SUCCESS,
   FAILURE
@@ -18,9 +18,15 @@ export interface IBrandsState {
 }
 
 export enum brandsActions {
-  LOAD_BRANDS_REQUEST = LOAD_BRANDS + REQUEST,
-  LOAD_BRANDS_SUCCESS = LOAD_BRANDS + SUCCESS,
-  LOAD_BRANDS_FAILURE = LOAD_BRANDS + FAILURE
+  LOAD_BRANDS = LOAD,
+  LOAD_BRANDS_REQUEST = LOAD + REQUEST,
+  LOAD_BRANDS_SUCCESS = LOAD + SUCCESS,
+  LOAD_BRANDS_FAILURE = LOAD + FAILURE
+}
+
+interface ILoadBrandsAction {
+  type: brandsActions.LOAD_BRANDS,
+  CallApi: string
 }
 
 interface ILoadBrandsRequestActionType {
@@ -38,6 +44,7 @@ interface ILoadBrandsFailuretActionType {
 }
 
 export type brandsActionType =
-  ILoadBrandsRequestActionType
+  ILoadBrandsAction
+  | ILoadBrandsRequestActionType
   | ILoadBrandsSuccesstActionType
   | ILoadBrandsFailuretActionType

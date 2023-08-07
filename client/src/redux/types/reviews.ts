@@ -1,12 +1,12 @@
 import {
-  LOAD_REVIEWS,
+  LOAD_REVIEWS as LOAD,
   REQUEST,
   SUCCESS,
   FAILURE,
   ADD_REVIEW as ADD
 } from "../consts";
 
-interface IReview {
+export interface IReview {
   id: string,
   productId: string,
   title: string,
@@ -27,14 +27,21 @@ export interface IReviewsState {
 }
 
 export enum reviewsActions {
-  LOAD_REVIEWS_REQUEST = LOAD_REVIEWS + REQUEST,
-  LOAD_REVIEWS_SUCCESS = LOAD_REVIEWS + SUCCESS,
-  LOAD_REVIEWS_FAILURE = LOAD_REVIEWS + FAILURE,
+  LOAD_REVIEWS = LOAD,
+  LOAD_REVIEWS_REQUEST = LOAD + REQUEST,
+  LOAD_REVIEWS_SUCCESS = LOAD + SUCCESS,
+  LOAD_REVIEWS_FAILURE = LOAD + FAILURE,
   ADD_REVIEW = ADD
 }
 
+interface ILoadReviewsAction {
+  type: reviewsActions.LOAD_REVIEWS,
+  CallApi: string,
+  productId: string,
+}
+
 interface ILoadReviewsRequestAction {
-  type: reviewsActions.LOAD_REVIEWS_REQUEST
+  type: reviewsActions.LOAD_REVIEWS_REQUEST,
   productId: string,
 }
 
@@ -57,7 +64,8 @@ interface IAddReviewAction {
 }
 
 export type reviewsActionType =
-  ILoadReviewsRequestAction
+  ILoadReviewsAction
+  | ILoadReviewsRequestAction
   | ILoadReviewsSuccesstAction
   | ILoadReviewsFailuretAction
   | IAddReviewAction

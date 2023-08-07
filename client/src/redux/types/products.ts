@@ -1,19 +1,20 @@
 import {
-  LOAD_PRODUCTS,
-  LOAD_PRODUCT,
-  LOAD_PRODUCTS_BY_RECOMMENDATIONS,
-  LOAD_PRODUCTS_BY_RELATIONS,
-  LOAD_PRODUCTS_BY_SALE,
-  LOAD_PRODUCTS_BY_SEARCH,
-  CREATE_PRODUCT,
-  UPDATE_PRODUCT,
-  DELETE_PRODUCT,
+  LOAD_PRODUCTS as LOAD,
+  LOAD_PRODUCT as LOAD_ONE,
+  LOAD_PRODUCTS_BY_RECOMMENDATIONS as LOAD_BY_RECOMMENDATIONS,
+  LOAD_PRODUCTS_BY_RELATIONS as LOAD_BY_RELATIONS,
+  LOAD_PRODUCTS_BY_SALE as LOAD_BY_SALE,
+  LOAD_PRODUCTS_BY_SEARCH as LOAD_BY_SEARCH,
+  CREATE_PRODUCT as CREATE,
+  UPDATE_PRODUCT as UPDATE,
+  DELETE_PRODUCT as DELETE,
   REQUEST,
   SUCCESS,
   FAILURE
 } from "../consts";
+import { TokenType } from "./common";
 
-interface IProduct {
+export interface IProduct {
   title: string,
   slug: string,
   subcategoryId: string,
@@ -62,33 +63,48 @@ export interface IProductsState {
 }
 
 export enum productsActions {
-  LOAD_PRODUCTS_REQUEST = LOAD_PRODUCTS + REQUEST,
-  LOAD_PRODUCTS_SUCCESS = LOAD_PRODUCTS + SUCCESS,
-  LOAD_PRODUCTS_FAILURE = LOAD_PRODUCTS + FAILURE,
-  LOAD_PRODUCT_REQUEST = LOAD_PRODUCT + REQUEST,
-  LOAD_PRODUCT_SUCCESS = LOAD_PRODUCT + SUCCESS,
-  LOAD_PRODUCT_FAILURE = LOAD_PRODUCT + FAILURE,
-  LOAD_PRODUCTS_BY_RECOMMENDATIONS_REQUEST = LOAD_PRODUCTS_BY_RECOMMENDATIONS + REQUEST,
-  LOAD_PRODUCTS_BY_RECOMMENDATIONS_SUCCESS = LOAD_PRODUCTS_BY_RECOMMENDATIONS + SUCCESS,
-  LOAD_PRODUCTS_BY_RECOMMENDATIONS_FAILURE = LOAD_PRODUCTS_BY_RECOMMENDATIONS + FAILURE,
-  LOAD_PRODUCTS_BY_RELATIONS_REQUEST = LOAD_PRODUCTS_BY_RELATIONS + REQUEST,
-  LOAD_PRODUCTS_BY_RELATIONS_SUCCESS = LOAD_PRODUCTS_BY_RELATIONS + SUCCESS,
-  LOAD_PRODUCTS_BY_RELATIONS_FAILURE = LOAD_PRODUCTS_BY_RELATIONS + FAILURE,
-  LOAD_PRODUCTS_BY_SALE_REQUEST = LOAD_PRODUCTS_BY_SALE + REQUEST,
-  LOAD_PRODUCTS_BY_SALE_SUCCESS = LOAD_PRODUCTS_BY_SALE + SUCCESS,
-  LOAD_PRODUCTS_BY_SALE_FAILURE = LOAD_PRODUCTS_BY_SALE + FAILURE,
-  LOAD_PRODUCTS_BY_SEARCH_REQUEST = LOAD_PRODUCTS_BY_SEARCH + REQUEST,
-  LOAD_PRODUCTS_BY_SEARCH_SUCCESS = LOAD_PRODUCTS_BY_SEARCH + SUCCESS,
-  LOAD_PRODUCTS_BY_SEARCH_FAILURE = LOAD_PRODUCTS_BY_SEARCH + FAILURE,
-  CREATE_PRODUCT_REQUEST = CREATE_PRODUCT + REQUEST,
-  CREATE_PRODUCT_SUCCESS = CREATE_PRODUCT + SUCCESS,
-  CREATE_PRODUCT_FAILURE = CREATE_PRODUCT + FAILURE,
-  UPDATE_PRODUCT_REQUEST = UPDATE_PRODUCT + REQUEST,
-  UPDATE_PRODUCT_SUCCESS = UPDATE_PRODUCT + SUCCESS,
-  UPDATE_PRODUCT_FAILURE = UPDATE_PRODUCT + FAILURE,
-  DELETE_PRODUCT_REQUEST = DELETE_PRODUCT + REQUEST,
-  DELETE_PRODUCT_SUCCESS = DELETE_PRODUCT + SUCCESS,
-  DELETE_PRODUCT_FAILURE = DELETE_PRODUCT + FAILURE
+  LOAD_PRODUCTS = LOAD,
+  LOAD_PRODUCTS_REQUEST = LOAD + REQUEST,
+  LOAD_PRODUCTS_SUCCESS = LOAD + SUCCESS,
+  LOAD_PRODUCTS_FAILURE = LOAD + FAILURE,
+  LOAD_PRODUCT = LOAD_ONE,
+  LOAD_PRODUCT_REQUEST = LOAD_ONE + REQUEST,
+  LOAD_PRODUCT_SUCCESS = LOAD_ONE + SUCCESS,
+  LOAD_PRODUCT_FAILURE = LOAD_ONE + FAILURE,
+  LOAD_PRODUCTS_BY_RECOMMENDATIONS = LOAD_BY_RECOMMENDATIONS,
+  LOAD_PRODUCTS_BY_RECOMMENDATIONS_REQUEST = LOAD_BY_RECOMMENDATIONS + REQUEST,
+  LOAD_PRODUCTS_BY_RECOMMENDATIONS_SUCCESS = LOAD_BY_RECOMMENDATIONS + SUCCESS,
+  LOAD_PRODUCTS_BY_RECOMMENDATIONS_FAILURE = LOAD_BY_RECOMMENDATIONS + FAILURE,
+  LOAD_PRODUCTS_BY_RELATIONS = LOAD_BY_RELATIONS,
+  LOAD_PRODUCTS_BY_RELATIONS_REQUEST = LOAD_BY_RELATIONS + REQUEST,
+  LOAD_PRODUCTS_BY_RELATIONS_SUCCESS = LOAD_BY_RELATIONS + SUCCESS,
+  LOAD_PRODUCTS_BY_RELATIONS_FAILURE = LOAD_BY_RELATIONS + FAILURE,
+  LOAD_PRODUCTS_BY_SALE = LOAD_BY_SALE,
+  LOAD_PRODUCTS_BY_SALE_REQUEST = LOAD_BY_SALE + REQUEST,
+  LOAD_PRODUCTS_BY_SALE_SUCCESS = LOAD_BY_SALE + SUCCESS,
+  LOAD_PRODUCTS_BY_SALE_FAILURE = LOAD_BY_SALE + FAILURE,
+  LOAD_PRODUCTS_BY_SEARCH = LOAD_BY_SEARCH,
+  LOAD_PRODUCTS_BY_SEARCH_REQUEST = LOAD_BY_SEARCH + REQUEST,
+  LOAD_PRODUCTS_BY_SEARCH_SUCCESS = LOAD_BY_SEARCH + SUCCESS,
+  LOAD_PRODUCTS_BY_SEARCH_FAILURE = LOAD_BY_SEARCH + FAILURE,
+  CREATE_PRODUCT = CREATE,
+  CREATE_PRODUCT_REQUEST = CREATE + REQUEST,
+  CREATE_PRODUCT_SUCCESS = CREATE + SUCCESS,
+  CREATE_PRODUCT_FAILURE = CREATE + FAILURE,
+  UPDATE_PRODUCT = UPDATE,
+  UPDATE_PRODUCT_REQUEST = UPDATE + REQUEST,
+  UPDATE_PRODUCT_SUCCESS = UPDATE + SUCCESS,
+  UPDATE_PRODUCT_FAILURE = UPDATE + FAILURE,
+  DELETE_PRODUCT = DELETE,
+  DELETE_PRODUCT_REQUEST = DELETE + REQUEST,
+  DELETE_PRODUCT_SUCCESS = DELETE + SUCCESS,
+  DELETE_PRODUCT_FAILURE = DELETE + FAILURE
+}
+
+interface ILoadProductsAction {
+  type: productsActions.LOAD_PRODUCTS,
+  CallApi: string,
+  subcategoryId?: string
 }
 
 interface ILoadProductsRequestAction {
@@ -114,6 +130,12 @@ interface ILoadProductsFailureAction {
 
 
 
+interface ILoadProductAction {
+  type: productsActions.LOAD_PRODUCT,
+  CallApi: string,
+  id: string
+}
+
 interface ILoadProductRequestAction {
   type: productsActions.LOAD_PRODUCT_REQUEST
 }
@@ -131,6 +153,11 @@ interface ILoadProductFailureAction {
 
 
 
+interface ILoadProductsByRecommendationsAction {
+  type: productsActions.LOAD_PRODUCTS_BY_RECOMMENDATIONS,
+  CallApi: string
+}
+
 interface ILoadProductsByRecommendationsRequestAction {
   type: productsActions.LOAD_PRODUCTS_BY_RECOMMENDATIONS_REQUEST
 }
@@ -146,6 +173,11 @@ interface ILoadProductsByRecommendationsFailureAction {
 }
 
 
+
+interface ILoadProductsByRelationsAction {
+  type: productsActions.LOAD_PRODUCTS_BY_RELATIONS,
+  CallApi: string
+}
 
 interface ILoadProductsByRelationsRequestAction {
   type: productsActions.LOAD_PRODUCTS_BY_RELATIONS_REQUEST
@@ -163,6 +195,11 @@ interface ILoadProductsByRelationsFailureAction {
 
 
 
+interface ILoadProductsBySaleAction {
+  type: productsActions.LOAD_PRODUCTS_BY_SALE,
+  CallApi: string
+}
+
 interface ILoadProductsBySaleRequestAction {
   type: productsActions.LOAD_PRODUCTS_BY_SALE_REQUEST
 }
@@ -179,6 +216,11 @@ interface ILoadProductsBySaleFailureAction {
 
 
 
+interface ILoadProductsBySearchAction {
+  type: productsActions.LOAD_PRODUCTS_BY_SEARCH,
+  CallApi: string
+}
+
 interface ILoadProductsBySearchRequestAction {
   type: productsActions.LOAD_PRODUCTS_BY_SEARCH_REQUEST
 }
@@ -194,6 +236,14 @@ interface ILoadProductsBySearchFailureAction {
 }
 
 
+
+interface ICreateProductAction {
+  type: productsActions.CREATE_PRODUCT,
+  CallApi: string,
+  id: string,
+  values: object,
+  token: TokenType
+}
 
 interface ICreateProductRequestAction {
   type: productsActions.CREATE_PRODUCT_REQUEST
@@ -212,6 +262,15 @@ interface ICreateProductFailureAction {
 
 
 
+interface IUpdateProductAction {
+  type: productsActions.UPDATE_PRODUCT,
+  CallApi: string,
+  id: string,
+  values: object,
+  token: TokenType,
+  method: string
+}
+
 interface IUpdateProductRequestAction {
   type: productsActions.UPDATE_PRODUCT_REQUEST
 }
@@ -228,6 +287,14 @@ interface IUpdateProductFailureAction {
 }
 
 
+
+interface IDeleteProductAction {
+  type: productsActions.DELETE_PRODUCT,
+  CallApi: string,
+  id: string,
+  token: TokenType,
+  method: string
+}
 
 interface IDeleteProductRequestAction {
   type: productsActions.DELETE_PRODUCT_REQUEST
@@ -247,30 +314,39 @@ interface IDeleteProductFailureAction {
 
 
 export type productsActionType =
-  ILoadProductsRequestAction
+  ILoadProductsAction
+  | ILoadProductsRequestAction
   | ILoadProductsSuccessAction
   | ILoadProductsFailureAction
+  | ILoadProductAction
   | ILoadProductRequestAction
   | ILoadProductSuccessAction
   | ILoadProductFailureAction
+  | ILoadProductsByRecommendationsAction
   | ILoadProductsByRecommendationsRequestAction
   | ILoadProductsByRecommendationsSuccessAction
   | ILoadProductsByRecommendationsFailureAction
+  | ILoadProductsByRelationsAction
   | ILoadProductsByRelationsRequestAction
   | ILoadProductsByRelationsSuccessAction
   | ILoadProductsByRelationsFailureAction
+  | ILoadProductsBySaleAction
   | ILoadProductsBySaleRequestAction
   | ILoadProductsBySaleSuccessAction
   | ILoadProductsBySaleFailureAction
+  | ILoadProductsBySearchAction
   | ILoadProductsBySearchRequestAction
   | ILoadProductsBySearchSuccessAction
   | ILoadProductsBySearchFailureAction
+  | ICreateProductAction
   | ICreateProductRequestAction
   | ICreateProductSuccessAction
   | ICreateProductFailureAction
+  | IUpdateProductAction
   | IUpdateProductRequestAction
   | IUpdateProductSuccessAction
   | IUpdateProductFailureAction
+  | IDeleteProductAction
   | IDeleteProductRequestAction
   | IDeleteProductSuccessAction
   | IDeleteProductFailureAction

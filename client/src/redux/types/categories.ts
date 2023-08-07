@@ -1,16 +1,18 @@
 import {
-  LOAD_CATEGORIES,
+  LOAD_CATEGORIES as LOAD,
   REQUEST,
   SUCCESS,
   FAILURE,
   SET_ACTIVE_CATEGORIES as SET_ACTIVE,
   ROUTER_LOCATION_CHANGE as ROUTER_LOCATION
 } from "../consts";
+import { IRouterLocationChangeAction } from "./common";
 
 interface ISubcategory {
   img: string,
   title: string,
   slug: string,
+  description: string
 }
 
 export interface ICategory {
@@ -19,7 +21,7 @@ export interface ICategory {
   img: string,
   title: string,
   slug: string,
-  subcategory: ISubcategory
+  subcategory: ISubcategory[]
 }
 
 export interface ICategoriesState {
@@ -32,11 +34,16 @@ export interface ICategoriesState {
 }
 
 export enum categoriesActions {
-  LOAD_CATEGORIES_REQUEST = LOAD_CATEGORIES + REQUEST,
-  LOAD_CATEGORIES_SUCCESS = LOAD_CATEGORIES + SUCCESS,
-  LOAD_CATEGORIES_FAILURE = LOAD_CATEGORIES + FAILURE,
-  SET_ACTIVE_CATEGORIES = SET_ACTIVE,
-  ROUTER_LOCATION_CHANGE = ROUTER_LOCATION
+  LOAD_CATEGORIES = LOAD,
+  LOAD_CATEGORIES_REQUEST = LOAD + REQUEST,
+  LOAD_CATEGORIES_SUCCESS = LOAD + SUCCESS,
+  LOAD_CATEGORIES_FAILURE = LOAD + FAILURE,
+  SET_ACTIVE_CATEGORIES = SET_ACTIVE
+}
+
+interface ILoadCategoriesAction {
+  type: categoriesActions.LOAD_CATEGORIES,
+  CallApi: string
 }
 
 interface ILoadCategoriesRequestAction {
@@ -59,12 +66,9 @@ interface ISetActiveCategoriesAction {
   subcategoryId: string
 }
 
-interface IRouterLocationChangeAction {
-  type: categoriesActions.ROUTER_LOCATION_CHANGE
-}
-
 export type categoriesActionType =
-  ILoadCategoriesRequestAction
+  ILoadCategoriesAction
+  | ILoadCategoriesRequestAction
   | ILoadCategoriesSuccesstAction
   | ILoadCategoriesFailuretAction
   | ISetActiveCategoriesAction

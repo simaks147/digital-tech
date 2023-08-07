@@ -1,6 +1,7 @@
 import produce from "immer";
 import { objToArr } from "../utils";
-import { IOrdersState, ordersActions, orderActionType } from "../types/orders";
+import { IOrdersState, ordersActions, orderActionType } from "../types/order";
+import { ROUTER_LOCATION_CHANGE } from "../consts";
 
 const initialState: IOrdersState = {
   entities: {},
@@ -52,7 +53,7 @@ export default (state = initialState, action: orderActionType): IOrdersState =>
         draft.error = objToArr(action.error.error);
         break;
 
-      case ordersActions.ROUTER_LOCATION_CHANGE:
+      case ROUTER_LOCATION_CHANGE:
         draft.error = null;
         break;
 

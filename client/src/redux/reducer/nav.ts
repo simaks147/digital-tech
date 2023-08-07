@@ -1,3 +1,4 @@
+import { ROUTER_LOCATION_CHANGE } from "../consts"
 import { INavState, navActions, navActionType } from "../types/nav"
 
 const initialState: INavState = {
@@ -10,7 +11,7 @@ export default (state = initialState, action: navActionType): INavState => {
       return { ...state, active: true }
     case navActions.CLOSE_NAV:
       return { ...state, active: false }
-    case navActions.ROUTER_LOCATION_CHANGE:
+    case ROUTER_LOCATION_CHANGE:
       return { ...state, active: false }
     default:
       return state;

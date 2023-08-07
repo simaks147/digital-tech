@@ -1,6 +1,7 @@
 import produce from "immer";
 import { objToArr } from "../utils";
 import { IAuthState, authActions, authActionType } from "../types/auth";
+import { ROUTER_LOCATION_CHANGE } from "../consts";
 
 const token = localStorage.getItem('token') || null;
 
@@ -48,7 +49,7 @@ export default (state = initialState, action: authActionType): IAuthState =>
         break;
 
       case authActions.LOGIN_SUCCESS:
-        localStorage.setItem('token', action.data.token);
+        localStorage.setItem('token', JSON.stringify(action.data.token));
         localStorage.removeItem('messages');
         draft.token = action.data.token;
         draft.login.processing = false;
@@ -85,7 +86,7 @@ export default (state = initialState, action: authActionType): IAuthState =>
         break;
 
       case authActions.OAUTH_CALLBACK_SUCCESS:
-        localStorage.setItem('token', action.data.token);
+        localStorage.setItem('token', JSON.stringify(action.data.token));
         localStorage.removeItem('messages');
         draft.token = action.data.token;
         draft.oauthCallback.processing = false;
@@ -106,7 +107,7 @@ export default (state = initialState, action: authActionType): IAuthState =>
 
       case authActions.REGISTER_SUCCESS:
         draft.profile.checked = true;
-        localStorage.setItem('token', action.data.token);
+        localStorage.setItem('token', JSON.stringify(action.data.token));
         localStorage.removeItem('messages');
         draft.token = action.data.token;
         draft.registration.complete = true;
@@ -127,7 +128,7 @@ export default (state = initialState, action: authActionType): IAuthState =>
         break;
 
       case authActions.CONFIRM_SUCCESS:
-        localStorage.setItem('token', action.data.token);
+        localStorage.setItem('token', JSON.stringify(action.data.token));
         localStorage.removeItem('messages');
         draft.token = action.data.token;
         draft.confirmation.processing = false;
@@ -161,7 +162,7 @@ export default (state = initialState, action: authActionType): IAuthState =>
         draft.profile.checked = true;
         break;
 
-      case authActions.ROUTER_LOCATION_CHANGE:
+      case ROUTER_LOCATION_CHANGE:
         draft.login.error = null;
         draft.oauth.error = null;
         draft.oauthCallback.error = null;

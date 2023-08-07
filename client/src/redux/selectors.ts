@@ -151,13 +151,13 @@ export const activeCategoryBySubcategorySelector = createSelector(
   (categories, activeSubcategory) => categories
     .find(category => category.subcategory
       .map(subcat => subcat.slug)
-      .includes(activeSubcategory))?.slug
+      .includes(activeSubcategory))?.slug || ''
 );
 
 export const activeSubCategoryByProductSelector = createSelector(
   productsSelector,
   (state: RootStateType, { id }: { id: string }) => id,
-  (products, id) => (products[id])?.subcategoryId
+  (products, id) => (products[id])?.subcategoryId || ''
 );
 
 export const activeBasketViewSelector = createSelector(
