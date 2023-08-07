@@ -1,16 +1,18 @@
+import { Middleware } from "redux";
+import { RootStateType } from "../store";
 import {
   REQUEST,
   SUCCESS,
   FAILURE
 } from "../consts";
-import {createReqParams} from "../utils";
+import { createReqParams } from "../utils";
 
-export default (store) => (next) => async (action) => {
+const api: Middleware<{}, RootStateType> = (store) => (next) => async (action) => {
   if (!action.CallApi) return next(action);
 
-  const {CallApi, method, values, token, type, ...rest} = action;
+  const { CallApi, method, values, token, type, ...rest } = action;
 
-  next({...rest, type: type + REQUEST});
+  next({ ...rest, type: type + REQUEST });
 
   try {
     const params = createReqParams(values, token, method);
@@ -18,7 +20,7 @@ export default (store) => (next) => async (action) => {
 
     if (res.status === 404) {
       // throw {error: {message: `Invalid request for address ${res.url}`}};
-      throw {error: {message: 'An error occurred, please try again later'}};
+      throw { error: { message: 'An error occurred, please try again later' } };
     }
 
     if (res.status === 401) {
@@ -30,9 +32,11 @@ export default (store) => (next) => async (action) => {
 
     if (!res.ok) throw data;
 
-    next({...rest, type: type + SUCCESS, data});
+    next({ ...rest, type: type + SUCCESS, data });
   }
   catch (error) {
-    throw next({...rest, type: type + FAILURE, error});
+    throw next({ ...rest, type: type + FAILURE, error });
   }
 }
+
+export default api;

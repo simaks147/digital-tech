@@ -1,7 +1,7 @@
 import { push, replace } from "connected-react-router";
 import { api_url } from "../config";
 import { AsyncActionType, TokenType } from "./types/common";
-import { ordersActions, orderActionType, OrderProductType, IOrderProducts } from "./types/order";
+import { ordersActions, orderActionType, IOrderProducts } from "./types/order";
 import { IProduct, productsActionType, productsActions } from "./types/products";
 import { categoriesActionType, categoriesActions } from "./types/categories";
 import { brandsActionType, brandsActions } from "./types/brands";
@@ -12,38 +12,8 @@ import { chatActionType, chatActions } from "./types/chat";
 import { authActionType, authActions } from "./types/auth";
 
 import {
-  INCREASE_CART,
-  DECREASE_CART,
-  REMOVE_FROM_CART,
-  MAKE_ORDER,
-  LOAD_CATEGORIES,
-  LOAD_BRANDS,
-  LOAD_PRODUCTS,
-  LOAD_PRODUCT,
-  SET_ACTIVE_CATEGORIES,
   PROCESS_CHECKOUT,
-  LOAD_REVIEWS,
-  ADD_REVIEW,
-  LOGIN,
-  OAUTH,
-  OAUTH_CALLBACK,
-  REGISTER,
-  CONFIRM,
-  FETCH_PROFILE,
-  CHECK_PROFILE,
-  OPEN_NAV,
-  CLOSE_NAV,
-  CREATE_PRODUCT,
-  DELETE_PRODUCT,
-  UPDATE_PRODUCT,
-  CREATE_REVIEW,
-  LOAD_PRODUCTS_BY_RECOMMENDATIONS,
-  LOAD_PRODUCTS_BY_RELATIONS,
-  LOAD_PRODUCTS_BY_SALE,
-  SET_CURRENCY,
-  CHAT_MESSAGE,
-  CHAT_CONNECT,
-  CHAT_DISCONNECT, LOAD_PRODUCTS_BY_SEARCH
+  SET_CURRENCY
 } from "./consts";
 
 import {
@@ -68,8 +38,7 @@ import {
   loadingRecommendationsSelector,
   loadingSaleSelector,
   loadedSaleSelector,
-  loadingSearchSelector,
-  productsAllPagesSelector
+  loadingSearchSelector
 } from "./selectors";
 
 export const increaseCart = (product: IProduct): orderActionType => ({
