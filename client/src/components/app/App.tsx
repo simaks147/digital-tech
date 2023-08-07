@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { FC, useEffect } from 'react';
 import AppRouter from "../AppRouter";
 import {
   loadedCategoriesSelector,
@@ -11,26 +11,28 @@ import {
   errorProfileSelector,
   checkedProfileSelector
 } from "../../redux/selectors";
-import {connect} from "react-redux";
-import {loadCategories, loadBrands, fetchProfile} from "../../redux/actions";
+import { connect, ConnectedProps } from "react-redux";
+import { loadCategories, loadBrands, fetchProfile } from "../../redux/actions";
 import Loader from "../loader";
-import {Alert} from "react-bootstrap";
-import {PropTypes as Types} from "prop-types";
+import { Alert } from "react-bootstrap";
+import { RootStateType } from '../../redux/store';
 
-const App = ({
-               loadCategories,
-               loadBrands,
-               loadingCategories,
-               loadedCategories,
-               loadingBrands,
-               loadedBrands,
-               fetchProfile,
-               errorsCategories,
-               errorsBrands,
-               errorsProfile,
-               token,
-               checkedProfile
-             }) => {
+interface IProps extends PropsFromRedux { }
+
+const App: FC<IProps> = ({
+  loadCategories,
+  loadBrands,
+  loadingCategories,
+  loadedCategories,
+  loadingBrands,
+  loadedBrands,
+  fetchProfile,
+  errorsCategories,
+  errorsBrands,
+  errorsProfile,
+  token,
+  checkedProfile
+}) => {
   useEffect(() => {
     fetchProfile();
   }, [token]);
@@ -40,7 +42,7 @@ const App = ({
     loadBrands();
   }, []);
 
-  if (loadingCategories || loadingBrands || !checkedProfile) return <Loader/>;
+  if (loadingCategories || loadingBrands || !checkedProfile) return <Loader />;
 
   if (errorsCategories || errorsBrands || errorsProfile) return (
     <>
@@ -64,10 +66,10 @@ const App = ({
 
   if (!loadedCategories || !loadedBrands) return null;
 
-  return <AppRouter/>;
+  return <AppRouter />;
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootStateType) => ({
   loadingCategories: loadingCategoriesSelector(state),
   loadedCategories: loadedCategoriesSelector(state),
   loadingBrands: loadingBrandsSelector(state),
@@ -79,18 +81,8 @@ const mapStateToProps = (state) => ({
   checkedProfile: checkedProfileSelector(state),
 });
 
-App.propTypes = {
-  loadingCategories: Types.bool.isRequired,
-  loadedCategories: Types.bool.isRequired,
-  loadingBrands: Types.bool.isRequired,
-  loadedBrands: Types.bool.isRequired,
-  errorsCategories: Types.arrayOf(Types.string),
-  errorsBrands: Types.arrayOf(Types.string),
-  errorsProfile: Types.arrayOf(Types.string),
-  token: Types.string,
-  loadCategories: Types.func.isRequired,
-  loadBrands: Types.func.isRequired,
-  fetchProfile: Types.func.isRequired
-};
+const connector = connect(mapStateToProps, { loadCategories, loadBrands, fetchProfile });
 
-export default connect(mapStateToProps, {loadCategories, loadBrands, fetchProfile})(App);
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(App);
