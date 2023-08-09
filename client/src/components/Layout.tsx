@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import Footer from "./footer";
 import SwitchBar from "./switchBar/SwitchBar";
 import MainBar from "./mainBar";
 import CategoryList from "./categoryList/CategoryList";
 import Chat from "./chat";
-import {PropTypes as Types} from "prop-types";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
-const Layout = ({children, pageTitle, pageDescription}) => (
+interface IProps {
+  children: ReactNode,
+  pageTitle: string,
+  pageDescription: string
+}
+
+const Layout: FC<IProps> = ({ children, pageTitle, pageDescription }) => (
   <>
     <Helmet>
       <title>{pageTitle || 'Store DigitalTech'}</title>
@@ -15,17 +20,13 @@ const Layout = ({children, pageTitle, pageDescription}) => (
     </Helmet>
     <SwitchBar />
     <MainBar />
-    <CategoryList/>
+    <CategoryList />
     <div className='flex-grow-1'>
       {children}
     </div>
-    <Chat/>
-    <Footer/>
+    <Chat />
+    <Footer />
   </>
 );
-
-Layout.propTypes = {
-  children: Types.node
-};
 
 export default Layout;
