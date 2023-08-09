@@ -28,8 +28,14 @@ import SearchPage from "./pages/SearchPage";
 import AdminProductCreationPage from "./pages/AdminProductCreationPage";
 import AdminProductUpdatePage from "./pages/AdminProductUpdatePage";
 import AdminProductsListPage from "./pages/AdminProductsListPage";
+import { ComponentType } from "react";
 
-export const adminRoutes = [
+interface IRoute {
+  path: string | string[],
+  Component: ComponentType
+}
+
+export const adminRoutes: IRoute[] = [
   {
     path: ADMIN_ROUTE,
     Component: AdminProductsListPage
