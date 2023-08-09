@@ -38,7 +38,8 @@ export interface IProduct {
     price: number,
     title: string,
     subtitle: string,
-    bgColor: string
+    bgColor: string,
+    discountPercent: number
   }
 }
 

@@ -8,7 +8,7 @@ import {
 } from "../consts";
 import { IRouterLocationChangeAction } from "./common";
 
-interface ISubcategory {
+export interface ISubcategory {
   img: string,
   title: string,
   slug: string,

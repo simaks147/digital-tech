@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 import { RootStateType } from "./store";
-import { ICategory } from "./types/categories";
+import { ICategory, ISubcategory } from "./types/categories";
 import { IBrand } from "./types/brands";
 import { IProduct } from "./types/products";
 import { OrderProductType } from "./types/order";
@@ -199,7 +199,7 @@ export const subcategoriesListSelector = createSelector(
 
 export const subcategoriesSelector = createSelector(
   subcategoriesListSelector,
-  categories => categories.reduce((acc, category) => ({ ...acc, [category.slug]: category }), {})
+  categories => categories.reduce((acc, category) => ({ ...acc, [category.slug]: category }), {} as Record<string, ISubcategory>)
 );
 
 export const productsLimitSelector = createSelector(

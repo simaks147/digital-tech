@@ -32,7 +32,7 @@ import { ComponentType } from "react";
 
 interface IRoute {
   path: string | string[],
-  Component: ComponentType
+  Component: ComponentType<any>
 }
 
 export const adminRoutes: IRoute[] = [
@@ -50,7 +50,7 @@ export const adminRoutes: IRoute[] = [
   }
 ];
 
-export const privateRoutes = [
+export const privateRoutes: IRoute[] = [
   {
     path: [
       BASKET_ROUTE_CHECKOUT,
@@ -60,7 +60,7 @@ export const privateRoutes = [
   }
 ];
 
-export const publicRoutes = [
+export const publicRoutes: IRoute[] = [
   {
     path: HOME_ROUTE,
     Component: HomePage

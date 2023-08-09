@@ -11,7 +11,7 @@ interface IOwnProps { }
 
 type IProps = IOwnProps & PropsFromRedux
 
-const route = (path: string | string[], component: ComponentType) => {
+const route = (path: string | string[], component: ComponentType<any>) => {
   const id = Array.isArray(path) ? path[0] : path
   return <Route key={id} path={path} component={component} exact />
 }

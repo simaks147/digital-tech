@@ -1,17 +1,23 @@
-import React, {useEffect} from 'react';
+import React, { FC, useEffect } from 'react';
 import AdminLayout from "../components/admin/AdminLayout";
 import Product from "../components/admin/product";
-import {
-  loadingProductsSelector,
-  productsSelector,
-} from "../redux/selectors";
-import {connect} from "react-redux";
-import {loadProduct, updateProduct} from "../redux/actions";
+import { loadingProductsSelector, productsSelector } from "../redux/selectors";
+import { connect, ConnectedProps } from "react-redux";
+import { loadProduct, updateProduct } from "../redux/actions";
 import Loader from "../components/loader";
 import { v4 as uuid } from 'uuid';
-import {PropTypes as Types} from "prop-types";
+import { RootStateType } from '../redux/store';
+import { RouteComponentProps } from 'react-router-dom';
 
-const AdminProductUpdatePage = ({loadProduct, updateProduct, products, loading, match}) => {
+interface IOwnProps { }
+
+interface IRoutParams {
+  slug: string
+}
+
+type IProps = IOwnProps & PropsFromRedux & RouteComponentProps<IRoutParams>
+
+const AdminProductUpdatePage: FC<IProps> = ({ loadProduct, updateProduct, products, loading, match }) => {
   const id = match.params.slug;
 
   useEffect(() => {
@@ -19,7 +25,7 @@ const AdminProductUpdatePage = ({loadProduct, updateProduct, products, loading, 
   }, [loadProduct]);
 
 
-  if (loading || !products[id]) return <Loader/>;
+  if (loading || !products[id]) return <Loader />;
 
   const initValues = {
     title: products[id].title,
@@ -33,7 +39,7 @@ const AdminProductUpdatePage = ({loadProduct, updateProduct, products, loading, 
     saleBgColor: products[id].sale.bgColor
   };
 
-  const initSpecification = products[id].specification.map(({title, description}) => {
+  const initSpecification = products[id].specification.map(({ title, description }) => {
     return {
       title,
       desc: description,
@@ -56,16 +62,13 @@ const AdminProductUpdatePage = ({loadProduct, updateProduct, products, loading, 
   );
 }
 
-AdminProductUpdatePage.propTypes = {
-  loadProduct: Types.func.isRequired,
-  updateProduct: Types.func.isRequired,
-  products: Types.objectOf(Types.object).isRequired,
-  loading: Types.bool.isRequired
-};
-
-const mapStateToProps = (state, props) => ({
-  products: productsSelector(state, props),
+const mapStateToProps = (state: RootStateType) => ({
+  products: productsSelector(state),
   loading: loadingProductsSelector(state)
 });
 
-export default connect(mapStateToProps, {loadProduct, updateProduct})(AdminProductUpdatePage);
+const connector = connect(mapStateToProps, { loadProduct, updateProduct });
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(AdminProductUpdatePage);
