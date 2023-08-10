@@ -1,17 +1,19 @@
-import React from 'react';
-import {Container, Row, Col} from "react-bootstrap";
+import React, { FC } from 'react';
+import { Container, Row, Col } from "react-bootstrap";
 import styles from './switchBar.module.css';
-import {Link} from "react-router-dom";
-import {ADMIN_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE} from "../../utils/consts";
-import {dataProfileSelector, tokenSelector} from "../../redux/selectors";
-import {connect} from "react-redux";
+import { Link } from "react-router-dom";
+import { ADMIN_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE } from "../../utils/consts";
+import { dataProfileSelector, tokenSelector } from "../../redux/selectors";
+import { connect, ConnectedProps } from "react-redux";
 import logout from "../../utils/logout";
 import Currency from "../currency";
-import {ReactComponent as MenuIcon} from "../../icons/menu-icon.svg";
-import {openNav} from "../../redux/actions";
-import {PropTypes as Types} from "prop-types";
+import { ReactComponent as MenuIcon } from "../../icons/menu-icon.svg";
+import { openNav } from "../../redux/actions";
+import { RootStateType } from '../../redux/store';
 
-const SwitchBar = ({token, dataProfile, openNav}) => (
+interface IProps extends PropsFromRedux { }
+
+const SwitchBar: FC<IProps> = ({ token, dataProfile, openNav }) => (
   <div className={styles.section}>
     {
       !!dataProfile.isAdmin &&
@@ -23,11 +25,11 @@ const SwitchBar = ({token, dataProfile, openNav}) => (
       <Row className="justify-content-between align-items-center">
         <Col xs={6} lg={1} className="d-flex align-items-center">
           <div className={styles.menuIcon} onClick={openNav}>
-            <MenuIcon/>
+            <MenuIcon />
           </div>
-          <Currency/>
+          <Currency />
         </Col>
-        <Col xs={6} lg={3} style={{textAlign: "right"}}>
+        <Col xs={6} lg={3} style={{ textAlign: "right" }}>
           {
             !token
               ?
@@ -48,17 +50,13 @@ const SwitchBar = ({token, dataProfile, openNav}) => (
   </div>
 );
 
-SwitchBar.propTypes = {
-  token: Types.string,
-  dataProfile: Types.shape({
-    isAdmin: Types.bool.isRequired
-  }).isRequired,
-  openNav: Types.func.isRequired
-};
-
-const mapStateToProps = (state, props) => ({
-  token: tokenSelector(state, props),
+const mapStateToProps = (state: RootStateType) => ({
+  token: tokenSelector(state),
   dataProfile: dataProfileSelector(state)
 });
 
-export default connect(mapStateToProps, {openNav})(SwitchBar);
+const connector = connect(mapStateToProps, { openNav });
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(SwitchBar);
