@@ -61,7 +61,7 @@ const Chat: FC<IProps> = ({ messages, connected, chatMessage, chatConnect, chatD
         <ChatIcon />
       </div>
       <Collapse in={isOpen}>
-        <>
+        <div>
           <div className={styles.messages}>
             {
               messages.map(msg => <Message key={msg.date} msg={msg} />)
@@ -69,7 +69,7 @@ const Chat: FC<IProps> = ({ messages, connected, chatMessage, chatConnect, chatD
           </div>
           <Form.Control placeholder="Submit message..." value={message} onChange={(e) => setMessage(e.target.value)}
             onKeyPress={handleEnterPress} />
-        </>
+        </div>
       </Collapse>
     </div>
   );

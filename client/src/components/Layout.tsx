@@ -7,7 +7,7 @@ import Chat from "./chat";
 import { Helmet } from "react-helmet";
 
 interface IProps {
-  children: ReactNode,
+  children?: ReactNode,
   pageTitle: string,
   pageDescription: string
 }

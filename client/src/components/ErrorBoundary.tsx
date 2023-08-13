@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Figure from "react-bootstrap/Figure";
-import {images} from "../config";
-import {PropTypes as Types} from "prop-types";
+import { images } from "../config";
 
-export default class ErrorBoundary extends React.Component {
-  constructor(props) {
+interface IProps {
+  children?: ReactNode
+}
+
+interface IState {
+  hasError: boolean
+}
+
+export default class ErrorBoundary extends React.Component<IProps, IState> {
+  constructor(props: IProps) {
     super(props);
-    this.state = {hasError: false};
+    this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: Error): IState {
     // Update state so the next render will show the fallback UI.
-    return {hasError: true};
-  }
-
-  static propTypes = {
-    children: Types.node
+    return { hasError: true };
   }
 
   // componentDidCatch(error, errorInfo) {
