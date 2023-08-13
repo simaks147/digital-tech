@@ -43,7 +43,7 @@ const SliderItem: FC<IProps> = ({ product }) => (
             <FormattedPrice value={product.sale.price} />
           </span>
         </div>
-        <Link className='c-button' component={Link} to={`${PRODUCT_ROUTE}/${product.slug}`}>Shop Now!</Link>
+        <Link className='c-button' component={Button} to={`${PRODUCT_ROUTE}/${product.slug}`}>Shop Now!</Link>
       </Col>
     </Row>
   </div>
