@@ -8,7 +8,7 @@ import { brandsActionType, brandsActions } from "./types/brands";
 import { IReview, reviewsActionType, reviewsActions } from "./types/reviews";
 import { navActionType, navActions } from "./types/nav";
 import { ICurrencyAction } from "./types/currencies";
-import { chatActionType, chatActions } from "./types/chat";
+import { IMessage, chatActionType, chatActions } from "./types/chat";
 import { authActionType, authActions } from "./types/auth";
 
 import {
@@ -413,7 +413,7 @@ export const setCurrency = (currency: string): ICurrencyAction => ({
 });
 
 
-export const chatMessage = (msg: string): chatActionType => ({
+export const chatMessage = (msg: IMessage): chatActionType => ({
   type: chatActions.CHAT_MESSAGE,
   msg
 });

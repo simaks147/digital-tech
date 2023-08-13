@@ -9,8 +9,14 @@ import {
   IAuthOauthCallbackSuccessAction
 } from "./auth";
 
+export interface IMessage {
+  date: number,
+  user: string | null,
+  text: string
+}
+
 export interface IChatState {
-  entities: string[],
+  entities: IMessage[],
   connected: boolean
 }
 
@@ -22,7 +28,7 @@ export enum chatActions {
 
 interface IChatMessageAction {
   type: chatActions.CHAT_MESSAGE,
-  msg: string
+  msg: IMessage
 }
 
 interface IChatConnectAction {
