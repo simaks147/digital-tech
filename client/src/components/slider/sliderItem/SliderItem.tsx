@@ -20,7 +20,7 @@ const SliderItem: FC<IProps> = ({ product }) => (
       <Col sm={{ order: 2 }}>
         <Figure>
           <ErrorBoundary>
-            {/* @ts-expect-error Server Component */}
+            {/* @ts-expect-error IKImage */}
             <IKImage
               urlEndpoint={images.urlEndpoint}
               path={product.sale.images[0] || images.defaultImage}

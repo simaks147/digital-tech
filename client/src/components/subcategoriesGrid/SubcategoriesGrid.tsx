@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './subcategoriesGrid.module.css';
-import {Container} from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import cn from "classnames";
 import ErrorBoundary from "../ErrorBoundary";
-import {IKImage} from "imagekitio-react";
-import {images} from "../../config";
+import { IKImage } from "imagekitio-react";
+import { images } from "../../config";
 import Figure from "react-bootstrap/Figure";
-import {connect} from "react-redux";
-import {randomSubcategoriesSelector} from "../../redux/selectors";
-import {CATEGORY_ROUTE} from "../../utils/consts";
-import {Link} from "react-router-dom";
-import {PropTypes as Types} from "prop-types";
+import { connect, ConnectedProps } from "react-redux";
+import { randomSubcategoriesSelector } from "../../redux/selectors";
+import { CATEGORY_ROUTE } from "../../utils/consts";
+import { Link } from "react-router-dom";
+import { RootStateType } from '../../redux/store';
 
-const SubcategoriesGrid = ({subcategories}) => (
+interface IProps extends PropsFromRedux { }
+
+const SubcategoriesGrid: FC<IProps> = ({ subcategories }) => (
   <div className={styles.section}>
     <Container>
       <div className={styles.main}>
@@ -21,14 +23,15 @@ const SubcategoriesGrid = ({subcategories}) => (
             <Link to={`${CATEGORY_ROUTE}/${item.slug}`} key={item.slug} className={cn(styles.item, styles[`item_${i + 1}`])}>
               <Figure>
                 <ErrorBoundary>
+                  {/* @ts-expect-error IKImage */}
                   <IKImage
-                    lqip={{active: true}}
+                    lqip={{ active: true }}
                     urlEndpoint={images.urlEndpoint}
                     path={item.img || images.defaultImage}
                     transformation={[{
                       // height: 200,
-                      width: 316
-                    }]}/>
+                      width: '316'
+                    }]} />
                 </ErrorBoundary>
               </Figure>
               <div className={styles.content}>
@@ -45,17 +48,12 @@ const SubcategoriesGrid = ({subcategories}) => (
   </div>
 );
 
-SubcategoriesGrid.propTypes = {
-  subcategories: Types.arrayOf(Types.shape({
-    slug: Types.string.isRequired,
-    title: Types.string,
-    parentTitle: Types.string,
-    img: Types.string
-  }).isRequired).isRequired,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootStateType) => ({
   subcategories: randomSubcategoriesSelector(state)
 });
 
-export default connect(mapStateToProps)(SubcategoriesGrid);
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(SubcategoriesGrid);
