@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from "react-bootstrap/Button";
-import {Link} from "react-router-dom";
-import {HOME_ROUTE} from "../../utils/consts";
-import {Container} from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { HOME_ROUTE } from "../../utils/consts";
+import { Container } from "react-bootstrap";
 import styles from "./simpleContent.module.css";
 
 const SimpleContent = () => (
@@ -14,6 +14,7 @@ const SimpleContent = () => (
         euismod
         tincidunt ut laoreet dolore magna aliquam erat volutpat.
       </div>
+      {/* @ts-expect-error */}
       <Button as={Link} to={HOME_ROUTE} className='c-button'>Back to Home</Button>
     </Container>
   </div>

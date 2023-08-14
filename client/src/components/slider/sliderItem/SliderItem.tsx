@@ -43,7 +43,8 @@ const SliderItem: FC<IProps> = ({ product }) => (
             <FormattedPrice value={product.sale.price} />
           </span>
         </div>
-        <Link className='c-button' component={Button} to={`${PRODUCT_ROUTE}/${product.slug}`}>Shop Now!</Link>
+        {/* @ts-expect-error */}
+        <Button className='c-button' as={Link} to={`${PRODUCT_ROUTE}/${product.slug}`}>Shop Now!</Button>
       </Col>
     </Row>
   </div>
