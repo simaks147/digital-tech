@@ -123,16 +123,22 @@ export const loadProductsList = (page: string, limit: string, sort: string, filt
 };
 
 
-const _loadProductsByCategory = (searchParams: Record<string, string>, subcategoryId: string): productsActionType => ({
+const _loadProductsByCategory = (searchParams: Record<string, string | number>, subcategoryId: string): productsActionType => ({
   type: productsActions.LOAD_PRODUCTS,
   CallApi: `${api_url}api/products?${new URLSearchParams({ ...searchParams, subcategoryId })}`
 });
 
-export const loadProductsByCategory = (page: string, limit: string, sort: string, filters: Record<string, string>, subcategoryId: string): AsyncActionType => async (dispatch, getState) => {
+export const loadProductsByCategory = (
+  page: number,
+  limit: string,
+  sort: string,
+  filters: Record<string, any> | undefined,
+  subcategoryId: string
+): AsyncActionType => async (dispatch, getState) => {
   let state = getState();
   const categoryId = activeCategoryBySubcategorySelector(state, { subcategoryId });
 
-  const searchParams: Record<string, string> = {};
+  const searchParams: Record<string, string | number> = {};
   if (page) searchParams.page = page;
   if (limit) searchParams.limit = limit;
   if (sort) searchParams.sort = sort;

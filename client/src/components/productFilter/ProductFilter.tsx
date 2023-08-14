@@ -1,6 +1,7 @@
-import {connect} from "react-redux";
+import React, { FC } from "react";
+import { connect, ConnectedProps } from "react-redux";
 import styles from './productFilter.module.css';
-import {Accordion} from "react-bootstrap";
+import { Accordion } from "react-bootstrap";
 import Checkbox from "../checkbox";
 import {
   minPriceProductsSelector,
@@ -8,19 +9,26 @@ import {
   productsFiltersSelector
 } from "../../redux/selectors";
 import Button from "react-bootstrap/Button";
-import {changeProductPageLocation} from "../../redux/actions";
+import { changeProductPageLocation } from "../../redux/actions";
 import filtersToString from "../../utils/filtersToString";
-import {ReactComponent as StarFullIcon} from "../../icons/star-full-icon.svg";
-import InputRange from "react-input-range";
+import { ReactComponent as StarFullIcon } from "../../icons/star-full-icon.svg";
+import InputRange, { Range } from "react-input-range";
 import 'react-input-range/lib/css/index.css';
 import useProductFilters from "../../hooks/use-product-filters";
-import {PRODUCTS_RATING_VARIANTS} from "../../utils/consts";
+import { PRODUCTS_RATING_VARIANTS } from "../../utils/consts";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 import FormattedPrice from "../formattedPrice";
-import {PropTypes as Types} from "prop-types";
+import { RootStateType } from "../../redux/store";
+import { IBrand } from "../../redux/types/brands";
+import { ISubcategory } from "../../redux/types/categories";
 
-const ProductFilter = ({brands, subcategories, changeProductPageLocation, filters, minPrice, maxPrice}) => {
-  const {currentFilters, changeBrand, changeCategory, changeRating, changePrice, reset} = useProductFilters({
+interface IProps extends PropsFromRedux {
+  brands: IBrand[],
+  subcategories?: ISubcategory[]
+}
+
+const ProductFilter: FC<IProps> = ({ brands, subcategories, changeProductPageLocation, filters, minPrice, maxPrice }) => {
+  const { currentFilters, changeBrand, changeCategory, changeRating, changePrice, reset } = useProductFilters({
     brand: filters?.brand || [],
     subcategoryId: filters?.subcategoryId || [],
     rating: Math.floor(filters?.rating) || null,
@@ -37,9 +45,9 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
     <div className={styles.main}>
       <div className={styles.header}>Refind Your Results</div>
       <div className={styles.content}>
-        <Accordion flush alwaysOpen defaultActiveKey={[0, 3]}>
+        <Accordion flush alwaysOpen defaultActiveKey={['0', '3']}>
 
-          <Accordion.Item eventKey={0}>
+          <Accordion.Item eventKey='0'>
             <Accordion.Header>Filter by Price</Accordion.Header>
             <Accordion.Body>
               <form>
@@ -48,22 +56,23 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
                   maxValue={maxPrice}
                   allowSameValues={true}
                   disabled={minPrice === maxPrice}
-                  formatLabel={value => <FormattedPrice value={value}/>}
-                  value={{min: currentFilters.minPrice, max: currentFilters.maxPrice}}
-                  onChange={value => changePrice(value)}
+                  /* @ts-expect-error */
+                  formatLabel={value => <FormattedPrice value={value} />}
+                  value={{ min: currentFilters.minPrice, max: currentFilters.maxPrice }}
+                  onChange={value => changePrice(value as Range)}
                 />
               </form>
             </Accordion.Body>
           </Accordion.Item>
 
           {
-            subcategories?.length > 0 &&
-            <Accordion.Item eventKey={1}>
+            !!subcategories && subcategories.length > 0 &&
+            <Accordion.Item eventKey='1'>
               <Accordion.Header>Filter by Category</Accordion.Header>
               <Accordion.Body>
                 {
                   subcategories.map((category) => {
-                    const {slug, title} = category;
+                    const { slug, title } = category;
                     const active = currentFilters.subcategoryId?.includes(slug);
 
                     return <Checkbox
@@ -79,13 +88,13 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
           }
 
           {
-            brands?.length > 0 &&
-            <Accordion.Item eventKey={2}>
+            brands.length > 0 &&
+            <Accordion.Item eventKey='2'>
               <Accordion.Header>Filter by Brand</Accordion.Header>
               <Accordion.Body>
                 {
                   brands.map((brand) => {
-                    const {id, title} = brand;
+                    const { id, title } = brand;
                     const active = currentFilters.brand?.includes(id);
 
                     return <Checkbox
@@ -100,7 +109,7 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
             </Accordion.Item>
           }
 
-          <Accordion.Item eventKey={3}>
+          <Accordion.Item eventKey='3'>
             <Accordion.Header>Filter by Rating</Accordion.Header>
             <Accordion.Body>
               {
@@ -110,7 +119,7 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
                   const stars = [...Array(PRODUCTS_RATING_VARIANTS.length)].map((_, j) => {
                     if (j >= rating) return null;
 
-                    return <StarFullIcon key={j}/>;
+                    return <StarFullIcon key={j} />;
                   });
 
                   return <Checkbox
@@ -126,7 +135,7 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
 
         </Accordion>
         <Button className='c-button'
-                onClick={() => changeProductPageLocation('filters', filtersToString(currentFilters))}>Refine
+          onClick={() => changeProductPageLocation('filters', filtersToString(currentFilters))}>Refine
           Search</Button>
         <div className={styles.resetButton} onClick={resetFilters}>Reset Setting</div>
       </div>
@@ -134,25 +143,14 @@ const ProductFilter = ({brands, subcategories, changeProductPageLocation, filter
   );
 }
 
-ProductFilter.propTypes = {
-  filters: Types.object,
-  minPrice: Types.number.isRequired,
-  maxPrice: Types.number.isRequired,
-  brands: Types.arrayOf(Types.shape({
-    id: Types.string.isRequired,
-    title: Types.string.isRequired
-  })).isRequired,
-  changeProductPageLocation: Types.func.isRequired,
-  subcategories: Types.arrayOf(Types.shape({
-    slug: Types.string.isRequired,
-    title: Types.string.isRequired
-  }))
-};
-
-const mapStateToProps = (state, props) => ({
-  filters: productsFiltersSelector(state, props),
+const mapStateToProps = (state: RootStateType) => ({
+  filters: productsFiltersSelector(state),
   minPrice: minPriceProductsSelector(state),
   maxPrice: maxPriceProductsSelector(state)
 });
 
-export default connect(mapStateToProps, {changeProductPageLocation})(ProductFilter);
+const connector = connect(mapStateToProps, { changeProductPageLocation });
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(ProductFilter);

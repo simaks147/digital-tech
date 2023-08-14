@@ -1,40 +1,48 @@
-import React from 'react';
-import {connect} from "react-redux";
-import {Row, Col} from "react-bootstrap";
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from "react-redux";
+import { Row, Col } from "react-bootstrap";
 import Figure from 'react-bootstrap/Figure';
 import Button from 'react-bootstrap/Button';
 import styles from './productItem.module.css';
-import {orderSelector, tokenSelector} from "../../../redux/selectors";
-import {Link} from "react-router-dom";
-import {increaseCart} from "../../../redux/actions";
-import {PRODUCT_ROUTE, BASKET_ROUTE_SHOPPING, LOGIN_ROUTE} from "../../../utils/consts";
-import {images, windowWidth} from "../../../config";
-import {IKImage} from 'imagekitio-react';
-import {push} from 'connected-react-router';
+import { orderSelector, tokenSelector } from "../../../redux/selectors";
+import { Link } from "react-router-dom";
+import { increaseCart } from "../../../redux/actions";
+import { PRODUCT_ROUTE, BASKET_ROUTE_SHOPPING, LOGIN_ROUTE } from "../../../utils/consts";
+import { images, windowWidth } from "../../../config";
+import { IKImage } from 'imagekitio-react';
+import { push } from 'connected-react-router';
 import ErrorBoundary from "../../ErrorBoundary";
 import cn from "classnames";
 import useWindowSize from "../../../hooks/use-window-size";
 import FormattedPrice from "../../formattedPrice";
-import {PropTypes as Types} from "prop-types";
+import { RootStateType } from '../../../redux/store';
+import { Dispatch } from 'redux';
+import { IProduct } from '../../../redux/types/products';
 
-const ProductItem = ({product, order, token, increaseCart, push, view}) => {
-  const {width} = useWindowSize();
+interface IProps extends PropsFromRedux {
+  product: IProduct,
+  view: string
+}
+
+const ProductItem: FC<IProps> = ({ product, order, token, increaseCart, push, view }) => {
+  const { width } = useWindowSize();
 
   return (
-    <div className={cn(styles.main, {gridItem: view === 'grid' && width >= windowWidth.md})}>
+    <div className={cn(styles.main, { gridItem: view === 'grid' && width! >= windowWidth.md })}>
       <Row>
         <Col sm='auto'>
           <Link to={`${PRODUCT_ROUTE}/${product.slug}`} className={styles.picture}>
             <Figure>
               <ErrorBoundary>
+                {/* @ts-expect-error IKImage */}
                 <IKImage
-                  lqip={{active: true}}
+                  lqip={{ active: true }}
                   urlEndpoint={images.urlEndpoint}
                   path={product.images[0] || images.defaultImage}
                   transformation={[{
-                    height: 260,
-                    width: 260
-                  }]}/>
+                    height: '260',
+                    width: '260'
+                  }]} />
               </ErrorBoundary>
             </Figure>
           </Link>
@@ -53,17 +61,17 @@ const ProductItem = ({product, order, token, increaseCart, push, view}) => {
                     {
                       !product.sale.discountPercent &&
                       <span className={styles.price}>
-                        <FormattedPrice value={product.price}/>
+                        <FormattedPrice value={product.price} />
                       </span>
                     }
                     {
                       !!product.sale.discountPercent &&
                       <>
                         <span className={styles.oldPrice}>
-                          <FormattedPrice value={product.price}/>
+                          <FormattedPrice value={product.price} />
                         </span>
                         <span className={styles.salePrice}>
-                          <FormattedPrice value={product.sale.price}/>
+                          <FormattedPrice value={product.sale.price} />
                         </span>
                       </>
                     }
@@ -75,7 +83,7 @@ const ProductItem = ({product, order, token, increaseCart, push, view}) => {
                   order[product.slug]
                     ? <Button className='c-button2' onClick={() => push(BASKET_ROUTE_SHOPPING)}>In cart</Button>
                     : <Button className='c-button'
-                              onClick={token ? () => increaseCart(product) : () => push(LOGIN_ROUTE)}>Add to
+                      onClick={token ? () => increaseCart(product) : () => push(LOGIN_ROUTE)}>Add to
                       cart</Button>
                 }
               </Col>
@@ -87,32 +95,18 @@ const ProductItem = ({product, order, token, increaseCart, push, view}) => {
   );
 }
 
-ProductItem.propTypes = {
-  product: Types.shape({
-    images: Types.arrayOf(Types.string).isRequired,
-    price: Types.number,
-    sale: Types.shape({
-      discountPercent: Types.number,
-      price: Types.number
-    }).isRequired,
-    slug: Types.string.isRequired,
-    title: Types.string,
-  }).isRequired,
-  order: Types.object.isRequired,
-  token: Types.string,
-  increaseCart: Types.func.isRequired,
-  push: Types.func.isRequired,
-  view: Types.string.isRequired
-};
-
-const mapStateToProps = (state, props) => ({
-  order: orderSelector(state, props),
-  token: tokenSelector(state, props)
+const mapStateToProps = (state: RootStateType) => ({
+  order: orderSelector(state),
+  token: tokenSelector(state)
 });
 
-const mapDispatchToProps = (dispatch, props) => ({
-  increaseCart: (product) => dispatch(increaseCart(product)),
-  push: (route) => dispatch(push(route))
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  increaseCart: (product: IProduct) => dispatch(increaseCart(product)),
+  push: (route: string) => dispatch(push(route))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductItem);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(ProductItem);

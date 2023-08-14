@@ -235,7 +235,7 @@ export const productsPageSelector = createSelector(
   (queryParams, productsAllPages) => productsAllPages.includes(Number(queryParams.page)) ? Number(queryParams.page) : 1
 );
 
-export const productsFiltersSelector = createSelector(
+export const productsFiltersSelector: ((state: RootStateType) => Record<string, any> | undefined) = createSelector(
   queryParamsSelector,
   queryParams => {
     if (!queryParams.filters) return;
