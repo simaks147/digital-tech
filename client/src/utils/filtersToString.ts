@@ -1,5 +1,5 @@
 const filtersToString = (obj = {}) => {
-  const string = Object.entries(obj).reduce((acc, [key, values]) => {
+  const string = Object.entries(obj).reduce((acc, [key, values]: [key: string, value: any]) => {
     if (!values || values.length === 0) return acc;
 
     if (values.constructor === Object) values = Object.values(values);

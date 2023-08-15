@@ -1,30 +1,31 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import Footer from "../footer";
 import SwitchBar from "../switchBar/SwitchBar";
-import {Container} from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Logo from "../logo";
-import {PropTypes as Types} from "prop-types";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
-const AdminLayout = ({children, pageTitle, pageDescription}) => (
+interface IProps {
+  children?: ReactNode,
+  pageTitle: string,
+  pageDescription: string
+}
+
+const AdminLayout: FC<IProps> = ({ children, pageTitle, pageDescription }) => (
   <>
     <Helmet>
       <title>{pageTitle || 'Admin | Store DigitalTech'}</title>
       <meta name="description" content={pageDescription || 'Admin | Store DigitalTech'} />
     </Helmet>
-    <SwitchBar/>
+    <SwitchBar />
     <Container className='mt-4'>
-      <Logo/>
+      <Logo />
     </Container>
     <div className='flex-grow-1'>
       {children}
     </div>
-    <Footer/>
+    <Footer />
   </>
 );
-
-AdminLayout.propTypes = {
-  children: Types.node
-};
 
 export default AdminLayout;

@@ -100,18 +100,23 @@ export const loadBrands = (): brandsActionType => ({
 });
 
 
-export const changeProductPageLocation = (attr: string, param: string): AsyncActionType => async (dispatch, getState) => {
+export const changeProductPageLocation = (attr: string, param: string | number): AsyncActionType => async (dispatch, getState) => {
   const state = getState();
   const query = queryParamsSelector(state);
-  const searchParams = { ...query, [attr]: param };
+  const searchParams = { ...query, [attr]: param.toString() };
 
   if (searchParams.filters) searchParams.filters = decodeURIComponent(searchParams.filters);
 
   dispatch(push(`${window.location.pathname}?${new URLSearchParams({ ...searchParams })}`));
 };
 
-export const loadProductsList = (page: string, limit: string, sort: string, filters: Record<string, string>): productsActionType => {
-  const searchParams: Record<string, string> = {};
+export const loadProductsList = (
+  page: number,
+  limit: string,
+  sort: string,
+  filters: Record<string, any> | undefined
+): productsActionType => {
+  const searchParams: Record<string, string | number> = {};
   if (page) searchParams.page = page;
   if (limit) searchParams.limit = limit;
   if (sort) searchParams.sort = sort;
