@@ -3,7 +3,7 @@ import { objToArr } from "../utils";
 import { IAuthState, authActions, authActionType } from "../types/auth";
 import { ROUTER_LOCATION_CHANGE } from "../consts";
 
-const token = localStorage.getItem('token') || null;
+const token = JSON.parse(localStorage.getItem('token') || 'null');
 
 const initialState: IAuthState = {
   token,
