@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React, { FC, useEffect } from 'react';
 import styles from './product.module.css';
-import {connect} from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import {
   loadingProductsSelector,
   errorProductsSelector,
@@ -11,35 +11,43 @@ import {
   ratingSelector,
   reviewsByProductSelector
 } from "../../redux/selectors";
-import {Alert, Col, Container, Row} from "react-bootstrap";
+import { Alert, Col, Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import {loadProduct, increaseCart} from "../../redux/actions";
+import { loadProduct, increaseCart } from "../../redux/actions";
 import ProductCarousel from "./productCarousel";
 import ProductTabs from "./productTabs";
 import Loader from "../loader";
-import {BASKET_ROUTE_SHOPPING, LOGIN_ROUTE} from "../../utils/consts";
-import {push} from "connected-react-router";
+import { BASKET_ROUTE_SHOPPING, LOGIN_ROUTE } from "../../utils/consts";
+import { push } from "connected-react-router";
 import Rate from "../rate/Rate";
-import {IKImage} from "imagekitio-react";
-import {images} from "../../config";
+import { IKImage } from "imagekitio-react";
+import { images } from "../../config";
 import ErrorBoundary from "../ErrorBoundary";
 import FormattedPrice from "../formattedPrice";
-import {PropTypes as Types} from "prop-types";
+import { Dispatch } from 'redux';
+import { RootStateType } from '../../redux/store';
+import { IProduct } from '../../redux/types/products';
 
-const Product = ({
-                   products,
-                   id,
-                   product,
-                   order,
-                   token,
-                   increaseCart,
-                   push,
-                   loadProduct,
-                   loading,
-                   errors,
-                   reviews,
-                   rating
-                 }) => {
+interface IOwnProps {
+  id: string
+}
+
+type IProps = IOwnProps & PropsFromRedux
+
+const Product: FC<IProps> = ({
+  products,
+  id,
+  product,
+  order,
+  token,
+  increaseCart,
+  push,
+  loadProduct,
+  loading,
+  errors,
+  reviews,
+  rating
+}) => {
   useEffect(() => {
     loadProduct();
   }, [loadProduct]);
@@ -58,7 +66,7 @@ const Product = ({
   if (loading || !products[id])
     return <div className={styles.section}>
       <Container>
-        <Loader/>
+        <Loader />
       </Container>
     </div>
 
@@ -66,24 +74,24 @@ const Product = ({
     <div className={styles.section}>
       <Container>
         <Row className='align-items-center'>
-          <Col md={{span: 5, order: 'last'}}>
+          <Col md={{ span: 5, order: 'last' }}>
             <div className={styles.content}>
               <div className={styles.title}>{product.title}</div>
               <div className={styles.overallRating}>
                 <div className={styles.overallStars}>
-                  <Rate value={rating.overall || product.rating.overall}/>
+                  <Rate value={rating.overall || product.rating.overall} />
                 </div>
                 <div className={styles.overallSubtitle}>{reviews?.length || product.rating.reviewsCount} Reviews</div>
               </div>
               <div className={styles.spec}>
                 {
                   [...Array(3)].map((_, i) => {
-                      if (!product.specification[i]) return;
-                      return <div className={styles.specItem} key={i}>
-                        <span className={styles.specItemTitle}>{product.specification[i].title}: </span>
-                        <span className={styles.specItemDesc}>{product.specification[i].description}</span>
-                      </div>
-                    }
+                    if (!product.specification[i]) return;
+                    return <div className={styles.specItem} key={i}>
+                      <span className={styles.specItemTitle}>{product.specification[i].title}: </span>
+                      <span>{product.specification[i].description}</span>
+                    </div>
+                  }
                   )
                 }
               </div>
@@ -92,17 +100,17 @@ const Product = ({
                 {
                   !product.sale.discountPercent &&
                   <span className={styles.price}>
-                    <FormattedPrice value={product.price}/>
+                    <FormattedPrice value={product.price} />
                   </span>
                 }
                 {
                   !!product.sale.discountPercent &&
                   <>
                     <span className={styles.oldPrice}>
-                      <FormattedPrice value={product.price}/>
+                      <FormattedPrice value={product.price} />
                     </span>
                     <span className={styles.price}>
-                      <FormattedPrice value={product.sale.price}/>
+                      <FormattedPrice value={product.sale.price} />
                     </span>
                   </>
                 }
@@ -121,17 +129,18 @@ const Product = ({
             {
               product.images.length > 0
                 ?
-                <ProductCarousel product={product}/>
+                <ProductCarousel product={product} />
                 :
                 <div className={styles.defaultImage}>
                   <ErrorBoundary>
+                    {/* @ts-expect-error IKImage*/}
                     <IKImage
-                      lqip={{active: true}}
+                      lqip={{ active: true }}
                       urlEndpoint={images.urlEndpoint}
                       path={images.defaultImage}
                       transformation={[{
-                        height: 500,
-                        width: 500
+                        height: '500',
+                        width: '500'
                       }]}
                     />
                   </ErrorBoundary>
@@ -139,61 +148,32 @@ const Product = ({
             }
           </Col>
         </Row>
-        <ProductTabs product={product}/>
+        <ProductTabs product={product} />
       </Container>
     </div>
   )
 };
 
-Product.propTypes = {
-  products: Types.object.isRequired,
-  id: Types.string.isRequired,
-  product: Types.shape({
-    images: Types.arrayOf(Types.string).isRequired,
-    price: Types.number,
-    rating: Types.shape({
-      overall: Types.number,
-      reviewsCount: Types.number
-    }).isRequired,
-    sale: Types.shape({
-      discountPercent: Types.number,
-      price: Types.number
-    }).isRequired,
-    slug: Types.string,
-    title: Types.string,
-    specification: Types.arrayOf(Types.shape({
-      title: Types.string,
-      description: Types.string
-    })).isRequired
-  }),
-  order: Types.object.isRequired,
-  token: Types.string,
-  increaseCart: Types.func.isRequired,
-  push: Types.func.isRequired,
-  loadProduct: Types.func.isRequired,
-  loading: Types.bool.isRequired,
-  errors: Types.arrayOf(Types.string),
-  reviews: Types.array,
-  rating: Types.shape({
-    overall: Types.number.isRequired
-  }).isRequired
-};
-
-const mapStateToProps = (state, props) => ({
-  products: productsSelector(state, props),
+const mapStateToProps = (state: RootStateType, props: IOwnProps) => ({
+  products: productsSelector(state),
   product: productSelector(state, props),
-  loading: loadingProductsSelector(state, props),
-  errors: errorProductsSelector(state, props),
-  order: orderSelector(state, props),
-  token: tokenSelector(state, props),
+  loading: loadingProductsSelector(state),
+  errors: errorProductsSelector(state),
+  order: orderSelector(state),
+  token: tokenSelector(state),
   rating: ratingSelector(state, props.id),
   reviews: reviewsByProductSelector(state, props.id)
 });
 
-const mapDispatchToProps = (dispatch, props) => ({
-  increaseCart: (product) => dispatch(increaseCart(product)),
+const mapDispatchToProps = (dispatch: Dispatch, props: IOwnProps) => ({
+  increaseCart: (product: IProduct) => dispatch(increaseCart(product)),
+  /* @ts-expect-error */
   loadProduct: () => dispatch(loadProduct(props.id)),
-  push: (route) => dispatch(push(route))
+  push: (route: string) => dispatch(push(route))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Product);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(Product);

@@ -1,6 +1,6 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, { FC, FormEvent, useEffect, useMemo, useState } from 'react';
 import styles from "./productReviews.module.css";
-import {Row, Col, FloatingLabel, Form, Alert} from "react-bootstrap";
+import { Row, Col, FloatingLabel, Form, Alert } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import cn from "classnames";
 import {
@@ -10,53 +10,69 @@ import {
   ratingSelector,
   reviewsByProductSelector
 } from "../../../redux/selectors";
-import {loadReviews} from "../../../redux/actions";
-import {connect} from "react-redux";
+import { loadReviews } from "../../../redux/actions";
+import { connect, ConnectedProps } from "react-redux";
 import Rate from "../../rate/Rate";
 import useForm from "../../../hooks/use-form";
-import {createReview} from "../../../redux/actions";
-import {REVIEW_FIELDS} from "../../../utils/consts";
+import { createReview } from "../../../redux/actions";
+import { REVIEW_FIELDS } from "../../../utils/consts";
 import Loader from "../../loader";
 import Checkbox from "../../checkbox";
-import {PropTypes as Types} from "prop-types";
+import { RootStateType } from '../../../redux/store';
+import { Dispatch } from 'redux';
 
-const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, rating, createReview, errors}) => {
+interface IOwnProps {
+  productId: string
+}
+
+type IProps = IOwnProps & PropsFromRedux
+
+const ProductReviews: FC<IProps> = ({
+  productId,
+  loadReviews,
+  loading,
+  loaded,
+  reviews,
+  rating,
+  createReview,
+  errors
+}) => {
   useEffect(() => {
     loadReviews();
   }, [loadReviews]);
 
   const initialValues = useMemo(
-    () => REVIEW_FIELDS.reduce((acc, field) => ({...acc, [field.name]: ''}), {}),
+    () => REVIEW_FIELDS.reduce((acc, field) => ({ ...acc, [field.name]: '' }), {}),
     [REVIEW_FIELDS]
   );
   const [displayAll, setDisplayAll] = useState(false);
   const [recommended, setRecommended] = useState(false);
   const [validated, setValidated] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const {values, handlers, reset} = useForm({...initialValues, rating: 3});
+  const { values, handlers, reset } = useForm({ ...initialValues, rating: 3 });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (e.currentTarget.checkValidity()) {
       setUploading(true);
 
       await new Promise(resolve => {
-          setTimeout(() => {
-            createReview(
-              {
-                ...values,
-                recommended,
-                id: Date.now().toString(),
-                date: new Date().toLocaleDateString('en-US', {
-                  year: 'numeric', month: 'long', day: 'numeric'
-                }),
-              }
-            );
+        setTimeout(() => {
+          createReview(
+            {
+              ...values,
+              recommended,
+              id: Date.now().toString(),
+              date: new Date().toLocaleDateString('en-US', {
+                year: 'numeric', month: 'long', day: 'numeric'
+              }),
+            }
+          );
 
-            resolve();
-          }, 3000);
-        }
+          resolve(null);
+        }, 3000);
+      }
       );
 
       setUploading(false);
@@ -69,7 +85,7 @@ const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, ratin
     setValidated(true);
   };
 
-  if (loading) return <Loader/>;
+  if (loading) return <Loader />;
 
   if (errors) return (
     <>
@@ -83,7 +99,7 @@ const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, ratin
 
   if (!loaded) return null;
 
-  const storageReviews = JSON.parse(localStorage.getItem('addedReviews'));
+  const storageReviews = JSON.parse(localStorage.getItem('addedReviews') || '{}');
   const defaultDisplayCount = 3;
 
   return (
@@ -96,7 +112,7 @@ const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, ratin
               <div className={styles.overallTitle}>Overall Customer Rating:</div>
               <div className={styles.overallRating}>
                 <div className={styles.overallStars}>
-                  <Rate value={rating.overall}/>
+                  <Rate value={rating.overall} />
                 </div>
                 <div className={styles.overallCount}>{rating.overall}</div>
               </div>
@@ -118,18 +134,19 @@ const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, ratin
                   <div className={styles.formRating}>
                     <span className={styles.formRatingCaption}>Rating:</span>
                     <span className={styles.formStars}>
-                      <Rate {...handlers.rating} disabled={uploading}/>
+                      <Rate {...handlers.rating} disabled={uploading} />
                     </span>
                   </div>
                   <Form onSubmit={handleSubmit} noValidate validated={validated}>
                     {
                       REVIEW_FIELDS.map(field => {
-                        const {id, label, ...rest} = field;
+                        const { id, label, ...rest } = field;
                         return (
                           <FloatingLabel key={id} controlId={id} label={label}>
+                            {/* @ts-expect-error */}
                             <Form.Control disabled={uploading}
-                                          {...rest}
-                                          {...handlers[id]}
+                              {...rest}
+                              {...handlers[id]}
                             />
                             <Form.Control.Feedback type="invalid">
                               Field must not be empty
@@ -144,7 +161,7 @@ const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, ratin
                     <Button className={cn('c-button', styles.submitButton)} disabled={uploading} type='submit'>
                       {
                         uploading &&
-                        <Loader/>
+                        <Loader />
                       }
                       Submit Review
                     </Button>
@@ -158,10 +175,10 @@ const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, ratin
           {
             !!reviews.length
               ? <>
-                <div className={styles.list}>
+                <div>
                   {
                     reviews.slice(0, (displayAll ? reviews.length : defaultDisplayCount)).map(review => {
-                      const {id, rating, name, title, text} = review;
+                      const { id, rating, name, title, text } = review;
                       const date = new Date(review.date).toLocaleDateString('en-US', {
                         year: 'numeric', month: 'long', day: 'numeric'
                       });
@@ -169,7 +186,7 @@ const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, ratin
                       return (
                         <div className={styles.item} key={id}>
                           <div className={styles.itemStars}>
-                            <Rate value={rating}/>
+                            <Rate value={rating} />
                           </div>
                           <div className={styles.itemDate}>{date}</div>
                           <div className={styles.itemName}>{name}</div>
@@ -182,6 +199,7 @@ const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, ratin
                 </div>
                 {
                   !displayAll && reviews.length > defaultDisplayCount &&
+                  /* @ts-expect-error */
                   <Button className={cn('c-button', styles.moreButton)} onClick={setDisplayAll}>Load More Reviews</Button>
                 }
               </>
@@ -193,22 +211,7 @@ const ProductReviews = ({productId, loadReviews, loading, loaded, reviews, ratin
   );
 }
 
-ProductReviews.propTypes = {
-  productId: Types.string.isRequired,
-  loadReviews: Types.func.isRequired,
-  loading: Types.bool,
-  loaded: Types.bool,
-  reviews: Types.array,
-  rating: Types.shape({
-    overall: Types.number,
-    recommendedLength: Types.number,
-    recommendedShare: Types.func.isRequired
-  }).isRequired,
-  createReview: Types.func.isRequired,
-  errors: Types.arrayOf(Types.string)
-};
-
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state: RootStateType, props: IOwnProps) => ({
   reviews: reviewsByProductSelector(state, props.productId),
   loading: loadingReviewsByProductSelector(state, props),
   loaded: loadedReviewsByProductSelector(state, props),
@@ -216,9 +219,15 @@ const mapStateToProps = (state, props) => ({
   errors: errorReviewsByProductSelector(state, props)
 })
 
-const mapDispatchToProps = (dispatch, props) => ({
+const mapDispatchToProps = (dispatch: Dispatch, props: IOwnProps) => ({
+  /* @ts-expect-error */
   loadReviews: () => dispatch(loadReviews(props.productId)),
-  createReview: (values) => dispatch(createReview(values, props.productId))
+  /* @ts-expect-error */
+  createReview: (values: Record<string, any>) => dispatch(createReview(values, props.productId))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductReviews);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(ProductReviews);

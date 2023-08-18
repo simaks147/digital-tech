@@ -27,7 +27,7 @@ export interface IProduct {
   price: number,
   rating: {
     overall: number,
-    reviewsCounr: number
+    reviewsCount: number
   },
   specification: Array<{
     title: string,

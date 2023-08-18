@@ -1,19 +1,23 @@
-import React, {useMemo} from 'react';
+import React, { FC, useMemo } from 'react';
 import styles from "./productTabs.module.css";
-import {Col, Row, Tab} from "react-bootstrap";
+import { Col, Row, Tab } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
-import {ReactComponent as DescIcon} from '../../../icons/paper-icon.svg';
-import {ReactComponent as SpecIcon} from '../../../icons/like-icon.svg';
-import {ReactComponent as ReviewIcon} from '../../../icons/star-icon.svg';
+import { ReactComponent as DescIcon } from '../../../icons/paper-icon.svg';
+import { ReactComponent as SpecIcon } from '../../../icons/like-icon.svg';
+import { ReactComponent as ReviewIcon } from '../../../icons/star-icon.svg';
 import ProductSpec from "../productSpec";
 import ProductReviews from "../productReviews";
-import {PropTypes as Types} from "prop-types";
+import { IProduct } from '../../../redux/types/products';
 
-const ProductTabs = ({product}) => {
+interface IProps {
+  product: IProduct
+}
+
+const ProductTabs: FC<IProps> = ({ product }) => {
   const TABS = useMemo(() => ([
-    {title: 'Description', Icon: DescIcon, Pane: () => product.description},
-    {title: 'Specification', Icon: SpecIcon, Pane: () => <ProductSpec specification={product.specification}/>},
-    {title: 'Reviews', Icon: ReviewIcon, Pane: () => <ProductReviews productId={product.slug}/>}
+    { title: 'Description', Icon: DescIcon, Pane: () => product.description },
+    { title: 'Specification', Icon: SpecIcon, Pane: () => <ProductSpec specification={product.specification} /> },
+    { title: 'Reviews', Icon: ReviewIcon, Pane: () => <ProductReviews productId={product.slug} /> }
   ]), [product]);
 
   return (
@@ -23,10 +27,10 @@ const ProductTabs = ({product}) => {
           <Col className='p-0' md={4} lg={3}>
             <Nav className="flex-column">
               {
-                TABS.map(({title, Icon}) => (
+                TABS.map(({ title, Icon }) => (
                   <Nav.Item key={title}>
                     <Nav.Link eventKey={title}>
-                      <Icon/>
+                      <Icon />
                       <span className={styles.navText}>{title}</span>
                     </Nav.Link>
                   </Nav.Item>
@@ -37,9 +41,9 @@ const ProductTabs = ({product}) => {
           <Col className='p-0' md={8} lg={9}>
             <Tab.Content>
               {
-                TABS.map(({title, Pane}) => (
+                TABS.map(({ title, Pane }) => (
                   <Tab.Pane key={title} eventKey={title}>
-                    <Pane/>
+                    <Pane />
                   </Tab.Pane>
                 ))
               }
@@ -49,12 +53,6 @@ const ProductTabs = ({product}) => {
       </Tab.Container>
     </div>
   );
-};
-
-ProductTabs.propTypes = {
-  description: Types.string,
-  specification: Types.array,
-  slug: Types.string
 };
 
 export default ProductTabs;
