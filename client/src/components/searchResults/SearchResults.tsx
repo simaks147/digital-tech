@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import {connect} from "react-redux";
-import {loadProductsBySearch} from "../../redux/actions";
+import React, { FC, useEffect } from 'react';
+import { connect, ConnectedProps } from "react-redux";
+import { loadProductsBySearch } from "../../redux/actions";
 import {
   errorSearchSelector,
   loadingProductsSelector,
@@ -9,11 +9,13 @@ import {
 } from "../../redux/selectors";
 import Loader from "../loader";
 import styles from "./searchResults.module.css";
-import {Alert, Container} from "react-bootstrap";
+import { Alert, Container } from "react-bootstrap";
 import SearchItem from "./searchItem";
-import {PropTypes as Types} from "prop-types";
+import { RootStateType } from '../../redux/store';
 
-const SearchResults = ({products, loading, errors, router, loadProductsBySearch}) => {
+interface IProps extends PropsFromRedux { }
+
+const SearchResults: FC<IProps> = ({ products, loading, errors, router, loadProductsBySearch }) => {
   const query = decodeURIComponent(router.location.query.query);
 
   useEffect(() => {
@@ -31,7 +33,7 @@ const SearchResults = ({products, loading, errors, router, loadProductsBySearch}
       </Container>
     </div>
 
-  if (loading) return <Loader/>;
+  if (loading) return <Loader />;
 
   return (
     <div className={styles.section}>
@@ -40,9 +42,9 @@ const SearchResults = ({products, loading, errors, router, loadProductsBySearch}
           products.length !== 0 &&
           <>
             <div className={styles.header}>Results for search "<span>{query}</span>"</div>
-            <div className={styles.list}>
+            <div>
               {
-                products.map(item => <SearchItem key={item.slug} product={item}/>)
+                products.map(item => <SearchItem key={item.slug} product={item} />)
               }
             </div>
           </>
@@ -55,20 +57,15 @@ const SearchResults = ({products, loading, errors, router, loadProductsBySearch}
   );
 };
 
-SearchResults.propTypes = {
-  products: Types.arrayOf(Types.shape({
-    slug: Types.string.isRequired
-  }).isRequired).isRequired,
-  loading: Types.bool.isRequired,
-  errors: Types.arrayOf(Types.string),
-  loadProductsBySearch: Types.func.isRequired
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootStateType) => ({
   products: searchListSelector(state),
   loading: loadingProductsSelector(state),
   errors: errorSearchSelector(state),
   router: routerSelector(state)
 });
 
-export default connect(mapStateToProps, {loadProductsBySearch})(SearchResults);
+const connector = connect(mapStateToProps, { loadProductsBySearch });
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(SearchResults);

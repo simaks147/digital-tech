@@ -1,29 +1,34 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from "./searchItem.module.css";
-import {Col, Row} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {PRODUCT_ROUTE} from "../../../utils/consts";
+import { Col, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { PRODUCT_ROUTE } from "../../../utils/consts";
 import ErrorBoundary from "../../ErrorBoundary";
-import {IKImage} from "imagekitio-react";
-import {images as imagesConfig} from "../../../config";
-import {PropTypes as Types} from "prop-types";
+import { IKImage } from "imagekitio-react";
+import { images as imagesConfig } from "../../../config";
 import FormattedPrice from "../../formattedPrice";
+import { IProduct } from '../../../redux/types/products';
 
-const SearchItem = ({product}) => {
-  const {title, slug, images, price, sale} = product;
+interface IProps {
+  product: IProduct
+}
+
+const SearchItem: FC<IProps> = ({ product }) => {
+  const { title, slug, images, price, sale } = product;
   return (
     <div className={styles.main}>
       <Row className='align-items-center'>
-        <Col xs='auto' className={styles.image}>
+        <Col xs='auto'>
           <Link to={`${PRODUCT_ROUTE}/${slug}`}>
             <ErrorBoundary>
+              {/* @ts-expect-error IKImage */}
               <IKImage
                 urlEndpoint={imagesConfig.urlEndpoint}
                 path={images[0] || imagesConfig.defaultImage}
                 transformation={[{
-                  height: 60,
-                  width: 60
-                }]}/>
+                  height: '60',
+                  width: '60'
+                }]} />
             </ErrorBoundary>
           </Link>
         </Col>
@@ -33,17 +38,17 @@ const SearchItem = ({product}) => {
         <Col xs='auto' className={styles.price}>
           {
             !sale.discountPercent && <div className={styles.price}>
-              <FormattedPrice value={price}/>
+              <FormattedPrice value={price} />
             </div>
           }
           {
             !!sale.discountPercent &&
             <>
               <div className={styles.oldPrice}>
-                <FormattedPrice value={price}/>
+                <FormattedPrice value={price} />
               </div>
               <div className={styles.price}>
-                <FormattedPrice value={sale.price}/>
+                <FormattedPrice value={sale.price} />
               </div>
             </>
           }
@@ -52,14 +57,5 @@ const SearchItem = ({product}) => {
     </div>
   );
 }
-
-SearchItem.propTypes = {
-  product: Types.shape({
-    title: Types.string,
-    price: Types.number,
-    slug: Types.string.isRequired,
-    images: Types.arrayOf(Types.string).isRequired
-  }).isRequired,
-};
 
 export default SearchItem;
