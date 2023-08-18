@@ -124,7 +124,7 @@ const ProductFilter: FC<IProps> = ({ brands, subcategories, changeProductPageLoc
 
                   return <Checkbox
                     key={rating}
-                    id={rating}
+                    id={rating.toString()}
                     active={active}
                     disabled={false}
                     handleChange={() => changeRating(rating, active)}>{stars}</Checkbox>
