@@ -1,4 +1,4 @@
-import React, { FC, KeyboardEvent, useEffect, useState } from 'react';
+import React, { FC, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import styles from "./chat.module.css";
 import { ReactComponent as ChatIcon } from "../../icons/chat-icon.svg";
 import { Form } from "react-bootstrap";
@@ -23,6 +23,11 @@ interface IProps extends PropsFromRedux { }
 const Chat: FC<IProps> = ({ messages, connected, chatMessage, chatConnect, chatDisconnect, token, dataProfile }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
+  const chatWindow = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    document.addEventListener('click', handleChatWindowClick);
+    return () => document.removeEventListener('click', handleChatWindowClick);
+  });
 
   useEffect(() => {
     socket = io({
@@ -54,9 +59,14 @@ const Chat: FC<IProps> = ({ messages, connected, chatMessage, chatConnect, chatD
     }
   }
 
+  const handleChatWindowClick = (e: MouseEvent) => {
+    if (chatWindow.current && !chatWindow.current.contains(e.target as Node)) setIsOpen(false)
+    else setIsOpen(true)
+  }
+
   return (
-    <div className={styles.main}>
-      <div className={styles.header} onClick={() => setIsOpen(!isOpen)}>
+    <div className={styles.main} ref={chatWindow}>
+      <div className={styles.header}>
         <div>Have a question?</div>
         <ChatIcon />
       </div>
