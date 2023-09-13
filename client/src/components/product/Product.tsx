@@ -133,7 +133,7 @@ const Product: FC<IProps> = ({
                 :
                 <div className={styles.defaultImage}>
                   <ErrorBoundary>
-                    {/* @ts-expect-error IKImage*/}
+                    {/* @ts-ignore */}
                     <IKImage
                       lqip={{ active: true }}
                       urlEndpoint={images.urlEndpoint}
@@ -167,7 +167,7 @@ const mapStateToProps = (state: RootStateType, props: IOwnProps) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch, props: IOwnProps) => ({
   increaseCart: (product: IProduct) => dispatch(increaseCart(product)),
-  /* @ts-expect-error */
+  /* @ts-ignore */
   loadProduct: () => dispatch(loadProduct(props.id)),
   push: (route: string) => dispatch(push(route))
 });

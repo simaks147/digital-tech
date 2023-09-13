@@ -23,7 +23,7 @@ const SubcategoriesGrid: FC<IProps> = ({ subcategories }) => (
             <Link to={`${CATEGORY_ROUTE}/${item.slug}`} key={item.slug} className={cn(styles.item, styles[`item_${i + 1}`])}>
               <Figure>
                 <ErrorBoundary>
-                  {/* @ts-expect-error IKImage */}
+                  {/* @ts-ignore */}
                   <IKImage
                     lqip={{ active: true }}
                     urlEndpoint={images.urlEndpoint}

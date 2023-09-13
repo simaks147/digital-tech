@@ -25,7 +25,7 @@ const ProductCarousel: FC<IProps> = ({ product }) => {
               className={cn({ active: carouselIndex === i }, styles.indicatorsItem)}>
               {/*<img src={process.env.PUBLIC_URL + picture} alt=""/>*/}
               <ErrorBoundary>
-                {/* @ts-expect-error IKImage*/}
+                {/* @ts-ignore */}
                 <IKImage
                   lqip={{ active: true }}
                   urlEndpoint={images.urlEndpoint}
@@ -51,7 +51,7 @@ const ProductCarousel: FC<IProps> = ({ product }) => {
             <Carousel.Item key={i} className={styles.picture}>
               {/*<img src={process.env.PUBLIC_URL + picture} alt=""/>*/}
               <ErrorBoundary>
-                {/* @ts-expect-error IKImage*/}
+                {/* @ts-ignore */}
                 <IKImage
                   lqip={{ active: true }}
                   urlEndpoint={images.urlEndpoint}

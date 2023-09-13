@@ -30,7 +30,7 @@ const BasketItem: FC<IProps> = ({ item, increaseCart, decreaseCart, removeFromCa
     <td className={styles.picture}>
       <Link to={`${PRODUCT_ROUTE}/${item.slug}`}>
         <ErrorBoundary>
-          {/* @ts-expect-error */}
+          {/* @ts-ignore */}
           <IKImage
             lqip={{ active: true }}
             urlEndpoint={images.urlEndpoint}

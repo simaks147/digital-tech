@@ -24,7 +24,7 @@ const ProductItem: FC<IProps> = ({ product, deleteProduct }) => {
         <Col xs='auto'>
           <Link to={`${PRODUCT_ROUTE}/${slug}`}>
             <ErrorBoundary>
-              {/* @ts-expect-error IKImage */}
+              {/* @ts-ignore IKImage */}
               <IKImage
                 urlEndpoint={imagesConfig.urlEndpoint}
                 path={images[0] || imagesConfig.defaultImage}

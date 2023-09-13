@@ -14,7 +14,7 @@ const SimpleContent = () => (
         euismod
         tincidunt ut laoreet dolore magna aliquam erat volutpat.
       </div>
-      {/* @ts-expect-error */}
+      {/* @ts-ignore */}
       <Button as={Link} to={HOME_ROUTE} className='c-button'>Back to Home</Button>
     </Container>
   </div>

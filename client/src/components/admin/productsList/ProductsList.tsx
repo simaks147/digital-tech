@@ -67,7 +67,7 @@ const ProductsList: FC<IProps> = ({
   return (
     <div className={styles.section}>
       <Container>
-        {/* @ts-expect-error */}
+        {/* @ts-ignore */}
         <Button as={Link} to={ADMIN_PRODUCT_ROUTE} className='mb-4'>New Product</Button>
         <Row className="align-items-start">
           <Col lg={3}>

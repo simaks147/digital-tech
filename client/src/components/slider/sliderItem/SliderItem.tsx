@@ -20,7 +20,7 @@ const SliderItem: FC<IProps> = ({ product }) => (
       <Col sm={{ order: 2 }}>
         <Figure>
           <ErrorBoundary>
-            {/* @ts-expect-error IKImage */}
+            {/* @ts-ignore */}
             <IKImage
               urlEndpoint={images.urlEndpoint}
               path={product.sale.images[0] || images.defaultImage}
@@ -43,7 +43,7 @@ const SliderItem: FC<IProps> = ({ product }) => (
             <FormattedPrice value={product.sale.price} />
           </span>
         </div>
-        {/* @ts-expect-error */}
+        {/* @ts-ignore */}
         <Button className='c-button' as={Link} to={`${PRODUCT_ROUTE}/${product.slug}`}>Shop Now!</Button>
       </Col>
     </Row>

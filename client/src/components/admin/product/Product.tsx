@@ -105,7 +105,7 @@ const Product: FC<IProps> = (
       <Container>
         <Form onSubmit={handleSubmit} noValidate validated={validated}>
           <div className='d-flex justify-content-end mb-4'>
-            {/* @ts-expect-error */}
+            {/* @ts-ignore */}
             <Button as={Link} to={ADMIN_ROUTE}>All Products</Button>
           </div>
           <Row xs={1}>
@@ -118,7 +118,7 @@ const Product: FC<IProps> = (
                 return (
                   <Col className="mb-4" key={id}>
                     <FloatingLabel controlId={id} label={label}>
-                      {/* @ts-expect-error */}
+                      {/* @ts-ignore */}
                       <Form.Control
                         disabled={processing}
                         {...rest}
@@ -143,7 +143,7 @@ const Product: FC<IProps> = (
                     saleImages.map((image, i) => (
                       <Col key={i} className={cn(styles.image, 'mb-2')}>
                         <ErrorBoundary>
-                          {/* @ts-expect-error */}
+                          {/* @ts-ignore */}
                           <IKImage
                             urlEndpoint={imagesConfig.urlEndpoint}
                             path={image}
@@ -161,17 +161,17 @@ const Product: FC<IProps> = (
               }
               <Button className={styles.selectImgButton} disabled={processing}>
                 Select Sale Image
-                {/* @ts-expect-error */}
+                {/* @ts-ignore */}
                 <IKContext
                   publicKey={imagesConfig.publicKey}
                   urlEndpoint={imagesConfig.urlEndpoint}
                   authenticationEndpoint={imagesConfig.authEndpoint}
                 >
-                  {/* @ts-expect-error */}
+                  {/* @ts-ignore */}
                   <IKUpload
                     fileName={saleFile}
                     onInput={ev => {
-                      {/* @ts-expect-error */ }
+                      {/* @ts-ignore */ }
                       setSaleFile(ev.target.files[0].name);
                     }}
                     onSuccess={res => addSaleImg(res.name)}
@@ -235,7 +235,7 @@ const Product: FC<IProps> = (
                     images.map((image, i) => (
                       <Col key={i} className={cn(styles.image, 'mb-2')}>
                         <ErrorBoundary>
-                          {/* @ts-expect-error */}
+                          {/* @ts-ignore */}
                           <IKImage
                             urlEndpoint={imagesConfig.urlEndpoint}
                             path={image}
@@ -253,17 +253,17 @@ const Product: FC<IProps> = (
               }
               <Button className={styles.selectImgButton} disabled={processing}>
                 Select Images
-                {/* @ts-expect-error */}
+                {/* @ts-ignore */}
                 <IKContext
                   publicKey={imagesConfig.publicKey}
                   urlEndpoint={imagesConfig.urlEndpoint}
                   authenticationEndpoint={imagesConfig.authEndpoint}
                 >
-                  {/* @ts-expect-error */}
+                  {/* @ts-ignore */}
                   <IKUpload
                     fileName={file}
                     onInput={ev => {
-                      {/* @ts-expect-error */ }
+                      {/* @ts-ignore */ }
                       setFile(ev.target.files[0].name);
                     }}
                     onSuccess={res => addImg(res.name)}

@@ -17,7 +17,7 @@ const ProductSecondListItem: FC<IProps> = ({ product }) => (
   <Link to={`${PRODUCT_ROUTE}/${product.slug}`} className={styles.item}>
     <Figure className={styles.itemPicture}>
       <ErrorBoundary>
-        {/* @ts-expect-error IKImage */}
+        {/* @ts-ignore */}
         <IKImage
           lqip={{ active: true }}
           loading="lazy"

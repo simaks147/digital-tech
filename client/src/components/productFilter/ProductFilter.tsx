@@ -56,7 +56,7 @@ const ProductFilter: FC<IProps> = ({ brands, subcategories, changeProductPageLoc
                   maxValue={maxPrice}
                   allowSameValues={true}
                   disabled={minPrice === maxPrice}
-                  /* @ts-expect-error */
+                  /* @ts-ignore */
                   formatLabel={value => <FormattedPrice value={value} />}
                   value={{ min: currentFilters.minPrice, max: currentFilters.maxPrice }}
                   onChange={value => changePrice(value as Range)}

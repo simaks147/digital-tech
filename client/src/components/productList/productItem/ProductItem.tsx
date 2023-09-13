@@ -34,7 +34,7 @@ const ProductItem: FC<IProps> = ({ product, order, token, increaseCart, push, vi
           <Link to={`${PRODUCT_ROUTE}/${product.slug}`} className={styles.picture}>
             <Figure>
               <ErrorBoundary>
-                {/* @ts-expect-error IKImage */}
+                {/* @ts-ignore */}
                 <IKImage
                   lqip={{ active: true }}
                   urlEndpoint={images.urlEndpoint}

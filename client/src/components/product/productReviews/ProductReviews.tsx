@@ -143,7 +143,7 @@ const ProductReviews: FC<IProps> = ({
                         const { id, label, ...rest } = field;
                         return (
                           <FloatingLabel key={id} controlId={id} label={label}>
-                            {/* @ts-expect-error */}
+                            {/* @ts-ignore */}
                             <Form.Control disabled={uploading}
                               {...rest}
                               {...handlers[id]}
@@ -199,7 +199,7 @@ const ProductReviews: FC<IProps> = ({
                 </div>
                 {
                   !displayAll && reviews.length > defaultDisplayCount &&
-                  /* @ts-expect-error */
+                  /* @ts-ignore */
                   <Button className={cn('c-button', styles.moreButton)} onClick={setDisplayAll}>Load More Reviews</Button>
                 }
               </>
@@ -220,9 +220,9 @@ const mapStateToProps = (state: RootStateType, props: IOwnProps) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch, props: IOwnProps) => ({
-  /* @ts-expect-error */
+  /* @ts-ignore */
   loadReviews: () => dispatch(loadReviews(props.productId)),
-  /* @ts-expect-error */
+  /* @ts-ignore */
   createReview: (values: Record<string, any>) => dispatch(createReview(values, props.productId))
 });
 

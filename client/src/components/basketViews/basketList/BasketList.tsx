@@ -58,7 +58,7 @@ const BasketList: FC<IProps> = ({ order, total, processCheckout }) => {
 
         <div className={cn(styles.buttons, 'd-flex justify-content-end')}>
           {!!total && <Button className='c-button' onClick={processCheckout}>Process Checkout</Button>}
-          {/* @ts-expect-error */}
+          {/* @ts-ignore */}
           <Button className='c-button2' as={Link} to={HOME_ROUTE}>Continue Shopping</Button>
         </div>
       </Container>

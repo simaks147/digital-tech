@@ -22,7 +22,7 @@ const BasketCompleted: FC<IProps> = ({ message }) => (
           <div className={styles.text}>You will receive e-mail confirmation. <br></br> Let's looks our recommended items
           </div>
       }
-      {/* @ts-expect-error */}
+      {/* @ts-ignore */}
       <Button className='c-button' as={Link} to={HOME_ROUTE}>Continue Shopping</Button>
     </Container>
   </div>

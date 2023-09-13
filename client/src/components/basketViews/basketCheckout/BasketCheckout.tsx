@@ -43,7 +43,7 @@ const BasketCheckout: FC<IProps> = ({ order, processing, makeOrder }) => {
                 return (
                   <Col className="mb-4" key={id}>
                     <FloatingLabel controlId={id} label={label}>
-                      {/* @ts-expect-error */}
+                      {/* @ts-ignore */}
                       <Form.Control disabled={processing}
                         {...rest}
                         {...handlers[id]}
