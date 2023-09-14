@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.84584afb.css",
+    "main.js": "/static/js/main.0fbad239.js",
+    "static/media/star-icon.svg": "/static/media/star-icon.f264fcddd94995551cda5270e70553cd.svg",
+    "static/media/vk.svg": "/static/media/vk.c457bba94287383f06a15d45a4508ae2.svg",
+    "static/media/chat-icon.svg": "/static/media/chat-icon.7b982fe5f9a215c05e010fd709041226.svg",
+    "static/media/grid-icon.svg": "/static/media/grid-icon.d8de86fab40ad2f429121e0f40f477ed.svg",
+    "static/media/paper-icon.svg": "/static/media/paper-icon.83d379529b4edf3824c41edad5cf07b2.svg",
+    "static/media/cart-icon2.svg": "/static/media/cart-icon2.a098129d36260f4683642643f4915f52.svg",
+    "static/media/like-icon.svg": "/static/media/like-icon.338e119fe5193572f7dbfa311de3b83d.svg",
+    "static/media/star-empty-icon.svg": "/static/media/star-empty-icon.cd6f1f50fdb8ac10ad4dea9f50631d4f.svg",
+    "static/media/cart-icon-succes.svg": "/static/media/cart-icon-succes.4d98b9a6dddb5542b735588a7cd83d47.svg",
+    "index.html": "/index.html",
+    "static/media/cart-icon.svg": "/static/media/cart-icon.290f636e78433868aa39ad085892499b.svg",
+    "static/media/list-icon.svg": "/static/media/list-icon.8e457f85e5cd0a8e8c0324258980e67d.svg",
+    "static/media/delete-icon.svg": "/static/media/delete-icon.cf6a2973254e07a62912cc2aa8ecfc50.svg",
+    "static/media/edit-icon.svg": "/static/media/edit-icon.a1670b0f84b64c8005768504e3baf6e7.svg",
+    "static/media/github.svg": "/static/media/github.cc0bd839a8c05e6d9f545b913a6662cd.svg",
+    "static/media/star-full-icon.svg": "/static/media/star-full-icon.543be003c2ad5a6b528b1df99505b5ca.svg",
+    "static/media/yandex.svg": "/static/media/yandex.c37c679ada14b9df5d77afd3016c45b5.svg",
+    "static/media/close-icon.svg": "/static/media/close-icon.1c9f768790ebfeb172406eeaa7b12883.svg",
+    "static/media/arrow.svg": "/static/media/arrow.8cb5481fa91a46b3679effe4bbb5cce9.svg",
+    "static/media/menu-icon.svg": "/static/media/menu-icon.129eefb089ea3d5ea8f794a5b4284d5b.svg",
+    "main.84584afb.css.map": "/static/css/main.84584afb.css.map",
+    "main.0fbad239.js.map": "/static/js/main.0fbad239.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.84584afb.css",
+    "static/js/main.0fbad239.js"
+  ]
+}
