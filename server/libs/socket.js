@@ -1,8 +1,17 @@
-const {Server} = require("socket.io");
+const { Server } = require("socket.io");
 const Session = require("../models/Session");
+const config = require('../config');
 
 module.exports = (server) => {
-  const io = new Server(server);
+  const io = new Server(server, {
+    cors: {
+      origin: config.domain,
+      methods: ['GET', 'POST'],
+      credentials: true,
+      transports: ['websocket', 'polling'],
+    },
+    allowEIO3: true
+  });
 
   io.use(async (socket, next) => {
     const header = socket.handshake.headers['authorization'];
@@ -11,7 +20,7 @@ module.exports = (server) => {
     const token = header.split(' ')[1];
     if (!token) return next();
 
-    const session = await Session.findOne({token}).populate('user');
+    const session = await Session.findOne({ token }).populate('user');
     if (!session) return next();
 
     socket.user = session.user;
