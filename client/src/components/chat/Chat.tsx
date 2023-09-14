@@ -15,6 +15,7 @@ import { chatMessage, chatConnect, chatDisconnect } from "../../redux/actions";
 import Message from "./message";
 import { RootStateType } from '../../redux/store';
 import { IMessage } from '../../redux/types/chat';
+import { api_url } from '../../config';
 
 let socket: Socket = null!;
 
@@ -30,7 +31,7 @@ const Chat: FC<IProps> = ({ messages, connected, chatMessage, chatConnect, chatD
   });
 
   useEffect(() => {
-    socket = io({
+    socket = io(api_url, {
       extraHeaders: {
         'Authorization': `Bearer ${token}`
       }
