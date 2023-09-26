@@ -59,7 +59,7 @@ export default (state = initialState, action: authActionType): IAuthState =>
       case authActions.LOGIN_FAILURE:
         draft.profile.checked = true;
         draft.login.processing = false;
-        draft.login.error = objToArr(action.error);
+        draft.login.error = objToArr(action.error.error);
         break;
 
 
