@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import AppRouter from "../AppRouter";
+import styles from './app.module.css';
 import {
   loadedCategoriesSelector,
   loadingCategoriesSelector,
@@ -16,6 +17,7 @@ import { loadCategories, loadBrands, fetchProfile } from "../../redux/actions";
 import Loader from "../loader";
 import { Alert } from "react-bootstrap";
 import { RootStateType } from '../../redux/store';
+import useDelay from '../../hooks/use-delay';
 
 interface IProps extends PropsFromRedux { }
 
@@ -42,7 +44,16 @@ const App: FC<IProps> = ({
     loadBrands();
   }, []);
 
-  if (loadingCategories || loadingBrands || !checkedProfile) return <Loader />;
+  const showMessage = useDelay(5000);
+
+  if (loadingCategories || loadingBrands || !checkedProfile || true) return (
+    <>
+      {
+        showMessage && <div className={styles.message}>The hosting has a <span>free</span> plan and if did not respond to requests for more than 15 minutes, then it stop. It will take time to resume service, which will <span>delay</span> first page loading. Please <span>wait...</span></div>
+      }
+      <Loader />
+    </>
+  );
 
   if (errorsCategories || errorsBrands || errorsProfile) return (
     <>
