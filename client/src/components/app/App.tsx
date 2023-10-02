@@ -46,10 +46,10 @@ const App: FC<IProps> = ({
 
   const showMessage = useDelay(5000);
 
-  if (loadingCategories || loadingBrands || !checkedProfile || true) return (
+  if (loadingCategories || loadingBrands || !checkedProfile) return (
     <>
       {
-        showMessage && <div className={styles.message}>The hosting has a <span>free</span> plan and if did not respond to requests for more than 15 minutes, then it stop. It will take time to resume service, which will <span>delay</span> first page loading. Please <span>wait...</span></div>
+        showMessage && <div className={styles.message}>The hosting has a <span>free</span> plan and if did not respond to requests for more than 15 minutes, then service stop. It will take time to resume service, which will <span>delay</span> first page loading. Please <span>wait...</span></div>
       }
       <Loader />
     </>
