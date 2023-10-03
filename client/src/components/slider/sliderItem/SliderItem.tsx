@@ -31,7 +31,7 @@ const SliderItem: FC<IProps> = ({ product }) => (
           </ErrorBoundary>
         </Figure>
       </Col>
-      <Col style={{ position: 'relative' }}>
+      <Col style={{ position: 'relative', zIndex: '1' }}>
         <div className={styles.itemSubTitle}>{product.sale.subtitle}</div>
         <div className={styles.itemTitle}>{product.sale.title}</div>
         <div className={styles.itemText}>{product.title}</div>
