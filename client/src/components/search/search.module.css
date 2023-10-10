@@ -1,0 +1,12 @@
+.search {
+  margin: 20px 0;
+}
+
+.search:focus {
+  box-shadow: none;
+}
+
+.search::placeholder {
+  font-size: 12px;
+  text-align: right;
+}
