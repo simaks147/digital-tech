@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Col, Container, Row } from "react-bootstrap";
 import Cart from "../cart";
 import styles from './mainBar.module.css';
@@ -25,4 +25,4 @@ const MainBar = () => {
   );
 }
 
-export default MainBar;
+export default memo(MainBar);
