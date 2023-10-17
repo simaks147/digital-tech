@@ -215,18 +215,18 @@ const _loadProduct = (id: string): productsActionType => ({
 
 export const loadProduct = (id: string): AsyncActionType => async (dispatch, getState) => {
   //// LOAD PRODUCT IT ABSENT IN REDUX STORE (BUG)
-  // let state = getState();
-  // const products = productsSelector(state);
+  let state = getState();
+  const products = productsSelector(state);
 
-  // if (!products[id]) {
-  try {
-    await dispatch(_loadProduct(id));
-  } catch {
-    dispatch(replace(ERROR_ROUTE));
+  if (!products[id]) {
+    try {
+      await dispatch(_loadProduct(id));
+    } catch {
+      dispatch(replace(ERROR_ROUTE));
+    }
   }
-  // }
 
-  const state = getState();
+  state = getState();
 
   const subcategoryId = activeSubCategoryByProductSelector(state, { id });
   const categoryId = activeCategoryBySubcategorySelector(state, { subcategoryId });
