@@ -1,6 +1,7 @@
 import { arrToMap, objToArr } from "../utils";
 import { ICategoriesState, categoriesActionType, categoriesActions } from "../types/categories";
 import { ROUTER_LOCATION_CHANGE } from "../consts";
+import { CATEGORY_ROUTE } from "../../utils/consts";
 
 const initialState: ICategoriesState = {
   entities: {},
@@ -40,11 +41,14 @@ export default (state = initialState, action: categoriesActionType): ICategories
         activeSubcategory: action.subcategoryId
       }
     case ROUTER_LOCATION_CHANGE:
-      return {
-        ...state,
-        active: null,
-        activeSubcategory: null
+      if (!action.payload.location.pathname.startsWith(CATEGORY_ROUTE)) {
+        return {
+          ...state,
+          active: null,
+          activeSubcategory: null
+        }
       }
+      return state;
     default:
       return state;
   }

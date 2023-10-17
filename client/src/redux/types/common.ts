@@ -10,7 +10,8 @@ export interface IError {
 }
 
 export interface IRouterLocationChangeAction {
-  type: typeof ROUTER_LOCATION_CHANGE
+  type: typeof ROUTER_LOCATION_CHANGE,
+  payload: any
 }
 
 export type AsyncActionType = ThunkAction<void, RootStateType, unknown, AnyAction>
