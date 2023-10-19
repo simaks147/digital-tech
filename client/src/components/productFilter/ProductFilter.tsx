@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import styles from './productFilter.module.css';
 import { Accordion } from "react-bootstrap";
@@ -6,7 +6,8 @@ import Checkbox from "../checkbox";
 import {
   minPriceProductsSelector,
   maxPriceProductsSelector,
-  productsFiltersSelector
+  productsFiltersSelector,
+  brandsListSelector
 } from "../../redux/selectors";
 import Button from "react-bootstrap/Button";
 import { changeProductPageLocation } from "../../redux/actions";
@@ -19,21 +20,32 @@ import { PRODUCTS_RATING_VARIANTS } from "../../utils/consts";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 import FormattedPrice from "../formattedPrice";
 import { RootStateType } from "../../redux/store";
-import { IBrand } from "../../redux/types/brands";
 import { ISubcategory } from "../../redux/types/categories";
+import { useHistory } from "react-router-dom";
 
 interface IProps extends PropsFromRedux {
-  brands: IBrand[],
   subcategories?: ISubcategory[]
 }
 
 const ProductFilter: FC<IProps> = ({ brands, subcategories, changeProductPageLocation, filters, minPrice, maxPrice }) => {
+  const history = useHistory()
+  const pathname = useRef(history.location.pathname)
+
+  useEffect(() => {
+    history.listen((location) => {
+      if (pathname.current !== location.pathname) {
+        reset()
+        pathname.current = location.pathname
+      }
+    });
+  }, [history])
+
   const { currentFilters, changeBrand, changeCategory, changeRating, changePrice, reset } = useProductFilters({
     brand: filters?.brand || [],
     subcategoryId: filters?.subcategoryId || [],
     rating: Math.floor(filters?.rating) || null,
-    minPrice: filters?.minPrice > minPrice && filters?.minPrice < maxPrice ? Math.floor(filters?.minPrice) : minPrice,
-    maxPrice: filters?.maxPrice > minPrice && filters?.maxPrice < maxPrice ? Math.floor(filters?.maxPrice) : maxPrice
+    minPrice: Math.floor(filters?.minPrice) | 0,
+    maxPrice: Math.floor(filters?.maxPrice) | 0
   });
 
   const resetFilters = () => {
@@ -58,7 +70,7 @@ const ProductFilter: FC<IProps> = ({ brands, subcategories, changeProductPageLoc
                   disabled={minPrice === maxPrice}
                   /* @ts-ignore */
                   formatLabel={value => <FormattedPrice value={value} />}
-                  value={{ min: currentFilters.minPrice, max: currentFilters.maxPrice }}
+                  value={{ min: currentFilters.minPrice || minPrice, max: currentFilters.maxPrice || maxPrice }}
                   onChange={value => changePrice(value as Range)}
                 />
               </form>
@@ -146,7 +158,8 @@ const ProductFilter: FC<IProps> = ({ brands, subcategories, changeProductPageLoc
 const mapStateToProps = (state: RootStateType) => ({
   filters: productsFiltersSelector(state),
   minPrice: minPriceProductsSelector(state),
-  maxPrice: maxPriceProductsSelector(state)
+  maxPrice: maxPriceProductsSelector(state),
+  brands: brandsListSelector(state)
 });
 
 const connector = connect(mapStateToProps, { changeProductPageLocation });

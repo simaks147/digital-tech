@@ -4,20 +4,20 @@ import { Row, Col } from "react-bootstrap";
 import Figure from 'react-bootstrap/Figure';
 import Button from 'react-bootstrap/Button';
 import styles from './productItem.module.css';
-import { orderSelector, tokenSelector } from "../../../redux/selectors";
+import { orderSelector, tokenSelector } from "../../../../redux/selectors";
 import { Link } from "react-router-dom";
-import { increaseCart } from "../../../redux/actions";
-import { PRODUCT_ROUTE, BASKET_ROUTE_SHOPPING, LOGIN_ROUTE } from "../../../utils/consts";
-import { images, windowWidth } from "../../../config";
+import { increaseCart } from "../../../../redux/actions";
+import { PRODUCT_ROUTE, BASKET_ROUTE_SHOPPING, LOGIN_ROUTE } from "../../../../utils/consts";
+import { images, windowWidth } from "../../../../config";
 import { IKImage } from 'imagekitio-react';
 import { push } from 'connected-react-router';
-import ErrorBoundary from "../../ErrorBoundary";
+import ErrorBoundary from "../../../ErrorBoundary";
 import cn from "classnames";
-import useWindowSize from "../../../hooks/use-window-size";
-import FormattedPrice from "../../formattedPrice";
-import { RootStateType } from '../../../redux/store';
+import useWindowSize from "../../../../hooks/use-window-size";
+import FormattedPrice from "../../../formattedPrice";
+import { RootStateType } from '../../../../redux/store';
 import { Dispatch } from 'redux';
-import { IProduct } from '../../../redux/types/products';
+import { IProduct } from '../../../../redux/types/products';
 
 interface IProps extends PropsFromRedux {
   product: IProduct,

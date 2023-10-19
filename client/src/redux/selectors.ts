@@ -5,6 +5,7 @@ import { IBrand } from "./types/brands";
 import { IProduct } from "./types/products";
 import { OrderProductType } from "./types/order";
 import { ICurrency } from "./types/currencies";
+import { PRODUCTS_LIMIT_VARIANTS, PRODUCTS_SORT_VARIANTS } from "../utils/consts";
 
 export const categoriesSelector = (state: RootStateType) => state.categories.entities;
 export const brandsSelector = (state: RootStateType) => state.brands.entities;
@@ -204,14 +205,12 @@ export const subcategoriesSelector = createSelector(
 
 export const productsLimitSelector = createSelector(
   queryParamsSelector,
-  (state: RootStateType, { limitVariants }: { limitVariants: string[] }) => limitVariants,
-  (queryParams, limitVariants) => limitVariants.includes(queryParams.limit) ? queryParams.limit : limitVariants[0]
+  (queryParams) => PRODUCTS_LIMIT_VARIANTS.includes(queryParams.limit) ? queryParams.limit : PRODUCTS_LIMIT_VARIANTS[0]
 );
 
 export const productsSortSelector = createSelector(
   queryParamsSelector,
-  (state: RootStateType, { sortVariants }: { sortVariants: string[] }) => sortVariants,
-  (queryParams, sortVariants) => sortVariants.includes(queryParams.sort) ? queryParams.sort : sortVariants[0]
+  (queryParams) => PRODUCTS_SORT_VARIANTS.includes(queryParams.sort) ? queryParams.sort : PRODUCTS_SORT_VARIANTS[0]
 );
 
 export const productsAllPagesSelector = createSelector(

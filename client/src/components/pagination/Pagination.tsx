@@ -8,9 +8,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { changeProductPageLocation } from "../../redux/actions";
 import { RootStateType } from '../../redux/store';
 
-interface IOwnProps {
-  limitVariants: string[]
-}
+interface IOwnProps { }
 
 
 type IProps = IOwnProps & PropsFromRedux
@@ -38,8 +36,8 @@ const CustomPagination: FC<IProps> = ({ changeProductPageLocation, productsAllPa
 }
 
 const mapStateToProps = (state: RootStateType, props: IOwnProps) => ({
-  productsAllPagesSelector: productsAllPagesSelector(state, props),
-  page: productsPageSelector(state, props)
+  productsAllPagesSelector: productsAllPagesSelector(state),
+  page: productsPageSelector(state)
 });
 
 const connector = connect(mapStateToProps, { changeProductPageLocation });

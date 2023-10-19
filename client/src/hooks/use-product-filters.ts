@@ -67,8 +67,8 @@ export default function useProductFilters(initFilters: IFilters) {
           brand: [],
           subcategoryId: [],
           rating: null,
-          minPrice: initFilters.minPrice,
-          maxPrice: initFilters.maxPrice
+          minPrice: 0,
+          maxPrice: 0
         }
       default:
         return state;

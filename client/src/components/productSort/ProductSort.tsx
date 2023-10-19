@@ -11,11 +11,11 @@ import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 import { windowWidth } from "../../config";
 import useWindowSize from "../../hooks/use-window-size";
 import { RootStateType } from '../../redux/store';
+import { PRODUCTS_LIMIT_VARIANTS, PRODUCTS_SORT_VARIANTS } from "../../utils/consts";
+
 
 interface IOwnProps {
   showGridSwitcher?: boolean,
-  sortVariants: string[],
-  limitVariants: string[],
   productView?: string,
   changeProductView?: Dispatch<any>
 }
@@ -25,8 +25,6 @@ type IProps = IOwnProps & PropsFromRedux
 
 const ProductSort: FC<IProps> = ({
   showGridSwitcher,
-  sortVariants,
-  limitVariants,
   changeProductPageLocation,
   limit,
   sort,
@@ -43,7 +41,7 @@ const ProductSort: FC<IProps> = ({
           <Dropdown.Toggle className={styles.toggle}>{capitalizeFirstLetter(sort)}</Dropdown.Toggle>
           <Dropdown.Menu className={styles.menu}>
             {
-              sortVariants.map((srt) => <Dropdown.Item key={srt} eventKey={srt}
+              PRODUCTS_SORT_VARIANTS.map((srt) => <Dropdown.Item key={srt} eventKey={srt}
                 active={srt === sort}>{capitalizeFirstLetter(srt)}</Dropdown.Item>)
             }
           </Dropdown.Menu>
@@ -55,7 +53,7 @@ const ProductSort: FC<IProps> = ({
           <Dropdown.Toggle className={styles.toggle}>{capitalizeFirstLetter(limit)}</Dropdown.Toggle>
           <Dropdown.Menu className={styles.menu}>
             {
-              limitVariants.map((lim) => <Dropdown.Item key={lim} eventKey={lim}
+              PRODUCTS_LIMIT_VARIANTS.map((lim) => <Dropdown.Item key={lim} eventKey={lim}
                 active={lim === limit}>{capitalizeFirstLetter(lim)}</Dropdown.Item>)
             }
           </Dropdown.Menu>
@@ -81,8 +79,8 @@ ProductSort.defaultProps = {
 };
 
 const mapStateToProps = (state: RootStateType, props: IOwnProps) => ({
-  limit: productsLimitSelector(state, props),
-  sort: productsSortSelector(state, props)
+  limit: productsLimitSelector(state),
+  sort: productsSortSelector(state)
 });
 
 const connector = connect(mapStateToProps, { changeProductPageLocation });

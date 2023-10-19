@@ -5,7 +5,6 @@ import { connect, ConnectedProps } from "react-redux";
 import { categoriesListSelector, subcategoriesSelector } from "../redux/selectors";
 import { CATEGORY_ROUTE, ERROR_ROUTE } from "../utils/consts";
 import Layout from "../components/Layout";
-import { PRODUCTS_LIMIT_VARIANTS, PRODUCTS_SORT_VARIANTS } from "../utils/consts";
 import { RootStateType } from '../redux/store';
 
 interface IRoutParams {
@@ -20,11 +19,7 @@ const CategoryPage: FC<IProps> = ({ match, subcategories, categories }) => {
 
   return (
     <Layout pageTitle={subcategories[match.params.slug].title} pageDescription={subcategories[match.params.slug].title}>
-      <ProductList
-        subcategoryId={match.params.slug}
-        limitVariants={PRODUCTS_LIMIT_VARIANTS}
-        sortVariants={PRODUCTS_SORT_VARIANTS}
-      />
+      <ProductList />
     </Layout>
   );
 };

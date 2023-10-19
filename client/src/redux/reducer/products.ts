@@ -7,7 +7,7 @@ const initialState: IProductsState = {
     entities: {},
     totalCount: 0,
     minPrice: 0,
-    maxPrice: 100000,
+    maxPrice: 0,
     loading: false,
     processing: false,
     error: null
@@ -51,8 +51,11 @@ export default (state = initialState, action: productsActionType): IProductsStat
         draft.common.loading = false;
         draft.common.entities = { ...arrToMap(action.data.products.entities) };
         draft.common.totalCount = action.data.products.totalCount
-        draft.common.minPrice = action.data.products.minPrice
-        draft.common.maxPrice = action.data.products.maxPrice
+        if (action.data.products.totalCount > 0) {
+          draft.common.minPrice = action.data.products.minPrice
+          draft.common.maxPrice = action.data.products.maxPrice
+        }
+
         break;
 
       case productsActions.LOAD_PRODUCT_SUCCESS:

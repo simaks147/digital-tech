@@ -2,15 +2,15 @@ import React, { FC } from 'react';
 import styles from "./productItem.module.css";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { ADMIN_PRODUCT_ROUTE, PRODUCT_ROUTE } from "../../../../utils/consts";
-import ErrorBoundary from "../../../ErrorBoundary";
+import { ADMIN_PRODUCT_ROUTE, PRODUCT_ROUTE } from "../../../../../utils/consts";
+import ErrorBoundary from "../../../../ErrorBoundary";
 import { IKImage } from "imagekitio-react";
-import { images as imagesConfig } from "../../../../config";
-import { ReactComponent as EditIcon } from "../../../../icons/edit-icon.svg";
-import { ReactComponent as DeleteIcon } from "../../../../icons/delete-icon.svg";
+import { images as imagesConfig } from "../../../../../config";
+import { ReactComponent as EditIcon } from "../../../../../icons/edit-icon.svg";
+import { ReactComponent as DeleteIcon } from "../../../../../icons/delete-icon.svg";
 import { connect, ConnectedProps } from "react-redux";
-import { deleteProduct } from "../../../../redux/actions";
-import { IProduct } from '../../../../redux/types/products';
+import { deleteProduct } from "../../../../../redux/actions";
+import { IProduct } from '../../../../../redux/types/products';
 
 interface IProps extends PropsFromRedux {
   product: IProduct
