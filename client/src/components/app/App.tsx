@@ -18,6 +18,9 @@ import Loader from "../loader";
 import { Alert } from "react-bootstrap";
 import { RootStateType } from '../../redux/store';
 import useDelay from '../../hooks/use-delay';
+import Chat from '../chat/Chat';
+import SwitchBar from '../switchBar';
+import Footer from '../footer';
 
 interface IProps extends PropsFromRedux { }
 
@@ -77,7 +80,12 @@ const App: FC<IProps> = ({
 
   if (!loadedCategories || !loadedBrands) return null;
 
-  return <AppRouter />;
+  return <>
+    <SwitchBar />
+    <AppRouter />
+    <Chat />
+    <Footer />
+  </>;
 }
 
 const mapStateToProps = (state: RootStateType) => ({
